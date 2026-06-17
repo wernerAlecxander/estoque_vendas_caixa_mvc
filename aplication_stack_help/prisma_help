@@ -1,0 +1,40 @@
+#  ler a conexão do seu banco de dados e atualizar o seu arquivo schema.prisma
+pnpm exec prisma db pull
+
+# 
+pnpm prisma db pull
+
+#
+prisma db pull
+
+# abre uma interface gráfica no seu navegador
+pnpm prisma studio
+
+# Este comando vai entrar no container que já está ativo, ler o seu arquivo schema.prisma e injetar todas as tabelas imediatamente dentro do banco de dados
+docker compose exec next-app pnpm prisma:push
+
+#Se você criar uma tabela nova ou mudar uma coluna diretamente no seu arquivo ./script/schema.sql, o processo correto para atualizar seu código TypeScript sem quebrar nada é:
+# 1. Recrie o banco no docker para aplicar o novo SQL
+docker compose down -v
+docker compose up -d
+
+# 2. Atualize o seu arquivo schema.prisma com a nova estrutura
+pnpm prisma db pull
+
+# 3. Atualize os tipos do TypeScript
+pnpm prisma generate
+
+# Guia de Atualização e Sincronização: Banco de Dados ➡️ Prisma
+# 1. Limpar o Ambiente Antigo (Se necessário)
+docker compose down -v
+# 2. Subir os Contêineres Docker
+docker compose up -d
+# 3. Trazer a Estrutura do Banco para o Prisma (Introspection)
+pnpm prisma:pull
+# 4. Tratar Avisos no schema.prisma (Se houver)
+# 5. Gerar os Tipos do TypeScript
+pnpm prisma:generate
+# Regras de Ouro para Não Esquecer:
+# 1. Quem manda é o Banco: Nunca altere o arquivo schema.prisma manualmente para criar tabelas. Altere sempre o arquivo ./script/schema.sql, resete o Docker (down -v) e rode o pnpm prisma:pull
+# 2. O perigo do Push: Nunca rode prisma db push ou pnpm prisma:push em ambientes onde a estrutura oficial nasce de um script SQL pronto, para não apagar dados ou tabelas por acidente.
+

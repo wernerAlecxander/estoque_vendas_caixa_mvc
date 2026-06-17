@@ -1,0 +1,56 @@
+services:
+  postgres-db:
+    image: postgres:17-alpine
+    container_name: estoque_vendas_caixa_db
+    restart: always
+    environment:
+      POSTGRES_USER: admin_system
+      POSTGRES_PASSWORD: SenhaSuperSeguraDoBanco123
+      POSTGRES_DB: estoque_vendas_caixa
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./script/schema.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin_system -d estoque_vendas_caixa"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  next-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: estoque_vendas_caixa_app
+    restart: always
+    ports:
+      - "127.0.0.1:3100:3100"
+    volumes:
+      - .:/app
+      - node_modules_vol:/app/node_modules
+      - next_cache_vol:/app/.next
+    environment:
+      DATABASE_URL: postgresql://admin_system:SenhaSuperSeguraDoBanco123@postgres-db:5432/estoque_vendas_caixa?schema=public
+      NEXTAUTH_SECRET: chave_secreta_gerada_para_tokens_jwt_do_estoque_vendas_caixa
+      NEXTAUTH_URL: http://localhost:3100
+      NODE_ENV: development
+      PORT: 3100
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  postgres_data:
+  node_modules_vol:
+  next_cache_vol:

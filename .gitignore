@@ -1,0 +1,65 @@
+# ==============================================================================
+# 📦 GERENCIADORES DE PACOTES (pnpm)
+# ==============================================================================
+node_modules
+.pnpm-debug.log*
+store/
+pnpm-lock.yaml
+
+# ==============================================================================
+# 🚀 NEXT.JS / PRODUCTION BUILDS
+# ==============================================================================
+.next/
+out/
+build/
+dist/
+
+# ==============================================================================
+# 🔑 SEGURANÇA E VARIÁVEIS DE AMBIENTE (Nunca commitar!)
+# ==============================================================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+
+# ==============================================================================
+# 🐳 DOCKER & PERSISTÊNCIA DE DADOS
+# ==============================================================================
+# Ignora pastas locais se você mapear volumes físicos do Docker nelas
+.docker/
+postgres_data/
+
+# ==============================================================================
+# ◭ PRISMA / BANCO DE DADOS
+# ==============================================================================
+# Ignora bancos SQLite locais de teste, caso use no futuro
+*.db
+*.db-journal
+
+# Se você gerar o client em uma pasta customizada (não é o seu caso atual)
+# prisma/generated-client
+
+# ==============================================================================
+# 🖥️ SISTEMA OPERACIONAL & EDITORES (Windows 11 / VS Code)
+# ==============================================================================
+# Windows
+Thumbs.db
+Desktop.ini
+
+# VS Code
+.vscode/*
+!.vscode/extensions.json
+.history/
+*.code-workspace
+
+# Logs de Erros Globais
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Cobertura de Testes (caso adicione Jest/Vitest)
+coverage/

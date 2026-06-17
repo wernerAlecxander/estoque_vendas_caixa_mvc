@@ -1,0 +1,69 @@
+# Para os contêineres e remove os volumes antigos associados
+docker compose down -v
+
+# Sobe os contêineres novamente recriando o banco de dados limpo
+docker compose up -d
+
+# verifique os logs do contêiner do banco:
+docker compose logs postgres-db
+
+# verificar logs do container
+docker compose logs
+
+# postgresql
+docker compose logs postgres-db
+
+# nextJS
+docker compose logs next-app
+
+# Acessar o terminal do PostgreSQL
+docker compose exec postgres-db psql -U admin_system -d estoque_vendas_caixa
+
+# deleta containers parados, redes não utilizadas, imagens suspensas 
+# e, opcionalmente, volumes antigos (onde ficam a maior parte dos 
+# resíduos de bancos de dados antigos)
+docker system prune -a --volumes
+
+# comando avancado via powershell
+foreach ($id in docker ps -q) { Clear-Content $(docker inspect --format '{{.LogPath}}' $id) -ErrorAction SilentlyContinue }
+
+# para monitorar os logs do seu aplicativo Next.js em tempo real enquanto ele roda isolado dentro de um container Docker
+docker compose logs -f next-app
+
+# deletar logs acumulados (via powershell)
+Clear-Content (docker inspect --format='{{.LogPath}}' (docker compose ps -q next-app))
+
+# Este comando vai entrar no container que já está ativo, ler o seu arquivo schema.prisma e injetar todas as tabelas imediatamente dentro do banco de dados
+docker compose exec next-app pnpm prisma:push
+
+# Comando para injetar as tabelas dentro do container usando como modelo o script/schema.sql 
+Get-Content script/schema.sql | docker compose exec -i -T postgres-db psql -U admin_system -d estoque_vendas_caixa
+
+# Comando para injetar/atualizar os models prisma dentro do prisma/schema.prisma usando como modelo o script/schema.sql
+docker compose exec next-app pnpm prisma db pull --force
+
+# Atualizar o Cliente do Pirsma
+docker compose exec next-app pnpm prisma generate
+
+# 1. Derruba os contêineres e força a remoção de volumes órfãos
+docker compose down --volumes --remove-orphans
+
+# 2. Lista os volumes do Docker para ver se sobrou algum do seu projeto
+docker volume ls
+
+# 3. Se encontrar o volume do seu banco na lista (ex: meu_projeto_postgres_data), apague-o manualmente:
+docker volume rm NOME_DO_VOLUME_AQUI
+
+#Comando para deletar todos os volumes listados em 'docker volume ls'
+docker volume ls -q | ForEach-Object { docker volume rm $_ }
+
+#Se você criar uma tabela nova ou mudar uma coluna diretamente no seu arquivo ./script/schema.sql, o processo correto para atualizar seu código TypeScript sem quebrar nada é:
+# 1. Recrie o banco no docker para aplicar o novo SQL
+docker compose down -v
+docker compose up -d
+
+# 2. Atualize o seu arquivo schema.prisma com a nova estrutura
+pnpm prisma db pull
+
+# 3. Atualize os tipos do TypeScript
+pnpm prisma generate

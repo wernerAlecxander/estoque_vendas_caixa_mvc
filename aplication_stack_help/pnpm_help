@@ -1,0 +1,28 @@
+# ativar corepack (via powershell como administrador)
+corepack enable
+Set-ExecutionPolicy RemoteSigned -Scope LocalMachine
+
+# Instalar o pnpm
+iwr https://get.pnpm.io/install.ps1 -useb | iex
+
+# Configurar as variáveis de ambiente globais
+pnpm setup
+
+# Definir o caminho global
+pnpm config set global-dir "$HOME\AppData\Local\pnpm\global"
+pnpm config set global-bin-dir "$HOME\AppData\Local\pnpm"
+
+# Adicionar exceção no Windows Defender
+Add-MpPreference -ExclusionPath $(pnpm store path)
+
+# instalar pacotes globalmente (exemplo)
+pnpm add -g <nome-do-pacote>
+
+# instalar vi npm
+npm i -g pnpm
+
+# Instale o pacote dotenv nas devDependencies do seu app:
+pnpm --filter estoque_vendas_caixa add -D dotenv
+
+# Este comando vai entrar no container que já está ativo, ler o seu arquivo schema.prisma e injetar todas as tabelas imediatamente dentro do banco de dados
+docker compose exec next-app pnpm prisma:push
