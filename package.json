@@ -7,7 +7,7 @@
     "preinstall": "pnpm dlx only-allow pnpm",
     "prisma:generate": "prisma generate",
     "prisma:pull": "prisma db pull",
-    "dev": "sleep 5 && pnpm prisma:generate && next dev -H 0.0.0.0 -p 3100",
+    "dev": "sleep 3 && pnpm prisma:generate && next dev -H 0.0.0.0 -p 3100",
     "build": "pnpm prisma:generate && next build",
     "start": "next start -p 3100"
   },

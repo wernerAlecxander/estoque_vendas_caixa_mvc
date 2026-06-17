@@ -241,7 +241,7 @@ CREATE TABLE pedidos_vendas (
     cliente_comprador_id UUID NOT NULL,
     responsavel_venda_id UUID NOT NULL,
     data_venda TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    valor_total DECIMAL(10, 2) NOT NULL DEFAULT 0.00, --CHECK (valor_total >= 0),
+    valor_total DECIMAL(10, 2) NOT NULL DEFAULT 0.00, --CHECK (valor_total >= 0)
     metodo_pagamento metodo_pagamento DEFAULT 'Pix' NOT NULL,
     status_pedido status_pedido DEFAULT 'Autorizado' NOT NULL,
     observacoes_recibo varchar(500),
@@ -253,7 +253,7 @@ CREATE TABLE itens_pedido_vendas (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     pedido_venda_id UUID NOT NULL,
     peca_estoque_id UUID UNIQUE NOT NULL,
-    valor_venda DECIMAL(10, 2) NOT NULL --CHECK (valor_venda >= 0),
+    valor_venda DECIMAL(10, 2) NOT NULL, --CHECK (valor_venda >= 0)
     data_fim_garantia DATE NOT NULL,
     status_item status_item DEFAULT 'Disponivel' NOT NULL,
     data_devolucao TIMESTAMP,

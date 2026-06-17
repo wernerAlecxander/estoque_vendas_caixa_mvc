@@ -26,3 +26,5 @@ pnpm --filter estoque_vendas_caixa add -D dotenv
 
 # Este comando vai entrar no container que já está ativo, ler o seu arquivo schema.prisma e injetar todas as tabelas imediatamente dentro do banco de dados
 docker compose exec next-app pnpm prisma:push
+
+git reset --hard origin/master

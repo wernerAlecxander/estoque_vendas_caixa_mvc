@@ -1,25 +1,23 @@
-# Alterado para a mesma versão do seu ambiente local
 FROM node:22.19.0-alpine
 WORKDIR /app
 
-# Copia os manifestos de pacotes
-COPY package.json pnpm-lock.yaml* ./
-
-# Ativa o corepack e prepara o pnpm
-# Garante a versão exata exigida pelo package.json
+# 1. Ativa o corepack antes de copiar arquivos para aproveitar o cache do Docker
 RUN corepack enable && corepack prepare pnpm@9.0.0 --activate
 
-# Instala todas as dependências necessárias para desenvolvimento e build
-RUN pnpm install
+# 2. Configura a variável de ambiente para o pnpm usar uma pasta de cache local
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
 
-# roda o prisma para mapear o banco de dados e criar o schema.prisma
-#RUN pnpm prisma generate
+# 3. Copia APENAS os manifestos primeiro
+COPY package.json pnpm-lock.yaml* ./
 
-# Copia o restante do código da sua máquina para o container
+# 4. Melhores Práticas: Instala as dependências usando cache nativo do Docker BuildKit
+# Isso evita baixar tudo de novo se o lockfile não mudou
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+
+# 5. Copia o restante do código (como o código muda muito, fica por último)
 COPY . .
 
-# Expõe a porta 3100 para acesso externo
 EXPOSE 3100
 
-# CORRIGIDO: Executa usando o pnpm em vez do npm
 CMD ["pnpm", "run", "dev"]
