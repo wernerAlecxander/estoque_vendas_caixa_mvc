@@ -5,6 +5,7 @@ WORKDIR /app
 RUN corepack enable && corepack prepare pnpm@9.0.0 --activate
 
 # 2. Configura a variável de ambiente para o pnpm usar uma pasta de cache local
+#NÃO ESQUECER DE RODAR PNPM INSTALL TODA VEZ QUE ALTERAR ALGUMA COISA.
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 
@@ -13,7 +14,7 @@ COPY package.json pnpm-lock.yaml* ./
 
 # 4. Melhores Práticas: Instala as dependências usando cache nativo do Docker BuildKit
 # Isso evita baixar tudo de novo se o lockfile não mudou
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --no-frozen-lockfile
 
 # 5. Copia o restante do código (como o código muda muito, fica por último)
 COPY . .
