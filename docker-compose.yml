@@ -4,9 +4,9 @@ services:
     container_name: estoque_vendas_caixa_db
     restart: always
     environment:
-      POSTGRES_USER: admin_system
-      POSTGRES_PASSWORD: SenhaSuperSeguraDoBanco123
-      POSTGRES_DB: estoque_vendas_caixa
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "127.0.0.1:5432:5432"
     volumes:
@@ -30,17 +30,17 @@ services:
     container_name: estoque_vendas_caixa_app
     restart: always
     ports:
-      - "127.0.0.1:3100:3100"
+      - "127.0.0.1:${PORT}:${PORT}"
     volumes:
       - .:/app
       - node_modules_vol:/app/node_modules
       - next_cache_vol:/app/.next
     environment:
-      DATABASE_URL: postgresql://admin_system:SenhaSuperSeguraDoBanco123@postgres-db:5432/estoque_vendas_caixa?schema=public
-      NEXTAUTH_SECRET: chave_secreta_gerada_para_tokens_jwt_do_estoque_vendas_caixa
-      NEXTAUTH_URL: http://localhost:3100
+      DATABASE_URL: ${DATABASE_URL}
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+      NEXTAUTH_URL: ${NEXTAUTH_URL}
       NODE_ENV: development
-      PORT: 3100
+      PORT: ${PORT}
     depends_on:
       postgres-db:
         condition: service_healthy

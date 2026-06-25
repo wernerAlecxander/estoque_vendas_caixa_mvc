@@ -68,5 +68,5 @@ pnpm prisma db pull
 # 3. Atualize os tipos do TypeScript
 pnpm prisma generate
 
-# Docker Compose processa o arquivo (.env) e mostra o resultado final na tela
-docker compose config
+# Force a variável de ambiente correta diretamente no comando do terminal para limpar o cache interno e fazer a primeira comunicação de fora para dentro do Docker.Abra o terminal da sua máquina física e rode o comando injetando o localhost manualmente:
+$env:DATABASE_URL="postgresql://admin_system:SenhaSuperSeguraDoBanco123@localhost:5432/estoque_vendas_caixa?schema=public"; pnpm prisma:pull

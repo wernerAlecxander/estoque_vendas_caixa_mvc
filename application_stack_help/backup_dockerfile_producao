@@ -1,0 +1,35 @@
+# --- ETAPA 1: Instalação de dependências e Build ---
+FROM node:22.19.0-alpine AS builder
+WORKDIR /app
+RUN corepack enable && corepack prepare pnpm@9.0.0 --activate
+
+COPY package.json pnpm-lock.yaml* ./
+COPY prisma ./prisma/
+
+# Instala tudo (incluindo devDependencies para poder buildar o Next.js)
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+
+COPY . .
+RUN pnpm prisma generate
+RUN pnpm build
+
+# --- ETAPA 2: Imagem final super leve para rodar o app ---
+FROM node:22.19.0-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+RUN corepack enable && corepack prepare pnpm@9.0.0 --activate
+
+# Copia apenas o que é estritamente necessário para rodar
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/prisma ./prisma
+
+# Remove dependências de desenvolvimento para a imagem ficar minúscula
+RUN pnpm prune --prod
+
+EXPOSE 3100
+ENV PORT=3100
+
+CMD ["pnpm", "start"]

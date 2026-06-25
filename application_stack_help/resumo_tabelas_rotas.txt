@@ -1,0 +1,86 @@
+1.(1-compras 1.1-sucata 1.2-peças avulsas 1.3-itens genéricos 1.4-cancelar compras 1.5-consultar compras; 2-clientes 2.1-cadastrar 2.2-consultar clientes 2.3-deletar clientes; 3-vendas 3.1-sucatas 3.2-consultar vendas 3.3-deletar vendas; 4-estoque 4.1-consultar peças 4.2-consultar sucatas 4.3-localizar peças 4.4-localizar sucatas 4.5-etiquetas(QRcode) 4.6-deletar peças 4.7-deletar sucatas; 5-manutencao 5.1-cadastrar ordem de serviço 5.2-consultar ordens de serviço 5.3-deletar ordens de serviço; 6-despesas 6.1-cadastrar despesas 6.2-consultar despesas 6.3-deletar despesas; 7-usuarios 7.1-cadastrar usuarios 7.2-consultar usuarios 7.3-deletar usuarios; 8-relatorios 8.1-vendas por periodo 8.2-compras por periodo 8.3-despesas por periodo).
+
+tabelas:
+1. usuários
+2. modelos
+3. estoque_objetos_duraveis
+4. estoque_objetos_genericos
+5. despesas
+6. sucata_estoque
+7. peca_estoque
+8. peca_imagens
+9. clientes
+10. compatibilidade_pecas
+11. pedidos_vendas
+12. itens_pedido_vendas
+13. sucata_compras
+14. veiculos_cliente_manutencao
+15. servico_manutencao
+
+ROTAS:
+1. cadastrar
+	1.1 clientes
+	1.2 peças avulsas
+	1.3 sucatas
+	1.4 objetos_duraveis
+	1.5 objetos descartáveis
+	1.6 usuários
+	1.7 marcas
+	1.8 modelos
+	1.9 VEÍCULOS CLIENTES
+
+2. CONSULTAS/RELATÓRIOS/QRCODE
+	2.1 DESPESAS
+	2.2 RECEITAS
+	2.3 NOTA FISCAL
+	2.4 VENDAS
+	2.5 SERVIÇOS MANUTENÇÃO
+	2.6 COMPRAS
+	2.7 ESTOQUE
+	2.8 CLIENTES
+	2.9 USUÁRIOS
+	2.10 MARCAS
+	2.11 MODELOS
+	2.12 IMPRIMIR QRCODE
+
+4. COMPRAS
+	5.1 REALIZAR COMPRAS
+	5.2 CONSULTAR COMPRAS
+	5.3 REALIZAR COMPRAS GENÉRICAS (DURÁVEIS E/OU DESCARTÁVEIS)
+	5.4 CANCELAR COMPRAS
+	5.5 OBSERVAÇÃO COMPRAS
+	5.6 QRCODE PEÇAS
+	5.7 QRCODE SUCATAS
+
+5. VENDAS
+	5.1 ELABORAR ORÇAMENTOS
+	5.2 CONSULTAR VENDAS
+	5.3 REALIZAR VENDAS
+	5.4 CANCELAR VENDAS
+	5.5 OBSERVAÇÃO VENDAS
+
+6. SERVIÇOS
+	6.1 ELABORAR ORÇAMENTOS
+	6.2 CONSULTAR ORÇAMENTOS
+	6.3 REALIZAR SERVIÇOS
+	6.4 CANCELAR SERVIÇOS
+	6.5 OBSERVAÇÃO SERVIÇOS
+
+7. CAIXA
+	7.1 FATURAMENTO (receita bruta =  O volume total de vendas)
+	7.2 MARGEM DE CONTRIBUIÇÃO (quanto cada venda sobra após cobrir custos variáveis)
+	7.3 MARGEM LÍQUIDA (A porcentagem da receita que se transforma em lucro líquido real depois de descontar todas as despesas (fixas, variáveis, impostos e operacionais))
+	7.4 CADASTRAR RECEITAS EXTRAS
+	7.5 CONSULTAR DESPESAS
+	7.6 CONSULTAR RECEITAS
+	7.7 CADASTRAR DESPESAS
+	7.8 PONTO DE EQUILÍBRIO (O valor mínimo que a empresa precisa faturar para cobrir todos os seus custos e não ter prejuízo, mas também não tem lucro.)
+	7.9 TICKET MÉDIO (A média de valor gasto por cliente por compra,)
+	7.10 TAXA DE CONVERSÃO DE VENDAS (A porcentagem de orçamentos emitidos que se transformam em vendas fechadas = pedidos faturados)
+
+8. INVENTÁRIO
+	8.1 DURAVEIS CADASTRADOS
+	8.2 DESCARTÁVEIS CADASTRADOS
+	8.3 REALIZAR BAIXA CONTÁBIL DURÁVEIS
+	8.4 REALIZAR BAIXA CONTÁBIL DESCARTÁVEIS
+	8.5 CONSULTAR BAIXAS CONTÁBEIS
