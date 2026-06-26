@@ -54,6 +54,9 @@ Desktop.ini
 .history/
 *.code-workspace
 
+# lint
+.eslintignore
+
 # Logs de Erros Globais
 logs
 *.log

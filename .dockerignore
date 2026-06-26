@@ -1,6 +1,12 @@
 node_modules
 .next
+out
+build
+dist
 .env*.local
 .git
 .gitignore
 Dockerfile
+application_stack_help/
+backup_data_base_structure/
+documentation_stack_app_info/
