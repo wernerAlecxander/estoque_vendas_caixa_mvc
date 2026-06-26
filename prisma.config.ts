@@ -1,4 +1,7 @@
-import "dotenv/config";
+import { config } from "dotenv";
+// Força o Prisma CLI a ler o arquivo local com endereço localhost
+config({ path: ".env.local" }); 
+
 import { defineConfig, env } from "prisma/config";
 
 export default defineConfig({
@@ -8,6 +11,7 @@ export default defineConfig({
   // Onde as migrações serão salvas
   migrations: {
     path: "prisma/migrations",
+    seed: "pnpm dlx tsx prisma/seed.ts",
   },
   
   // Configuração central da URL do banco de dados para a CLI
