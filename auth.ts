@@ -1,22 +1,54 @@
-import NextAuth from "next-auth"
-import { PrismaAdapter } from "@auth/prisma-adapter"
-import { prisma } from "@/lib/prisma" // Caminho para o seu arquivo lib/prisma.ts
+// ./auth.ts
+/*
+Aqui importamos o cliente Prisma centralizado e injetamos o provedor de credenciais de forma segura no ambiente Node.js.
+*/
+import NextAuth, { CredentialsSignin } from "next-auth";
+import Credentials from "next-auth/providers/credentials";
+import bcrypt from "bcryptjs";
+import { prisma } from "@/lib/prisma"; // Importa o Prisma isolado do passo 1
+import { authConfig } from "./auth.config";
+
+class CustomAuthError extends CredentialsSignin {
+  constructor(mensagem: string) {
+    super();
+    this.code = mensagem;
+  }
+}
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  // Injeta o adaptador mapeado do Prisma 7
-  adapter: PrismaAdapter(prisma),
+  ...authConfig,
   providers: [
-    // Configure seus provedores aqui (Ex: Credentials, Google, GitHub, etc.)
-  ],
-  callbacks: {
-    jwt({ token, user }) {
-      if (user) token.id = user.id
-      return token
-    },
-    session({ session, token }) {
-      if (session.user) session.user.id = token.id as string
-      return session
-    },
-  },
-  session: { strategy: "jwt" },
-})
+    Credentials({
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "text" },
+        senha: { label: "Senha", type: "password" }
+      },
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.senha) {
+          throw new CustomAuthError("Credenciais ausentes.");
+        }
+
+        const usuario = await prisma.usuarios.findUnique({
+          where: { email: credentials.email as string }
+        });
+
+        if (!usuario) {
+          throw new CustomAuthError("Usuário ou senha incorretos.");
+        }
+
+        const senhaValida = await bcrypt.compare(credentials.senha as string, usuario.senha_hash);
+        if (!senhaValida) {
+          throw new CustomAuthError("Usuário ou senha incorretos.");
+        }
+
+        return {
+          id: usuario.id.toString(),
+          name: usuario.nome,
+          email: usuario.email,
+          role: usuario.cargo_usuario 
+        };
+      }
+    })
+  ]
+});

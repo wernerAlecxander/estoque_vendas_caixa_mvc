@@ -1,3 +1,5 @@
+//ARQUIVO DE DECLARAÇÃO DE TIPOS (USER, ROLE e ID)
+
 import { DefaultSession, DefaultUser } from "next-auth";
 // IMPORTANTE: Importar o JWT explicitamente garante a extensão correta na v5
 import "next-auth/jwt"; 
