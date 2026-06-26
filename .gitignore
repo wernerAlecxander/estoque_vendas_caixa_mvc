@@ -4,7 +4,7 @@
 node_modules
 .pnpm-debug.log*
 store/
-pnpm-lock.yaml
+!pnpm-lock.yaml
 
 # ==============================================================================
 # 🚀 NEXT.JS / PRODUCTION BUILDS
@@ -63,3 +63,16 @@ yarn-error.log*
 
 # Cobertura de Testes (caso adicione Jest/Vitest)
 coverage/
+
+# ==============================================================================
+# 🖥️ PASTAS LOCAIS DE SUPOSTE & INFORMAÇÃO
+# ==============================================================================
+application_stack_help/
+backup_data_base_structure/
+documentation_stack_app_info/
+
+#----------------------------------------
+#-----comandos para rodar esporadicamente
+git rm -r --cached .
+git add .
+git commit -m "Refatora .gitignore e limpa cache"
