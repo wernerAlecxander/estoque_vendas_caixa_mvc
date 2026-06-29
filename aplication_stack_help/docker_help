@@ -70,3 +70,9 @@ pnpm prisma generate
 
 # Docker Compose processa o arquivo (.env) e mostra o resultado final na tela
 docker compose config
+
+# force o pnpm a atualizar os pacotes dentro do Docker rodando
+docker compose exec next-app pnpm install
+
+# rode a bateria de testes do fluxo de caixa
+docker compose exec next-app pnpm test

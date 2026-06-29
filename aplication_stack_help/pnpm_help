@@ -28,3 +28,10 @@ pnpm --filter estoque_vendas_caixa add -D dotenv
 docker compose exec next-app pnpm prisma:push
 
 git reset --hard origin/master
+
+# instalar etiquetas QRCode
+pnpm add qrcode
+pnpm add -D @types/qrcode
+
+# instalar motor de testes Vitest
+pnpm add -D vitest @vitejs/plugin-react jsdom

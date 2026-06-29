@@ -1,0 +1,69 @@
+# .github/workflows/ci.yml
+name: Pipeline CI/CD Ferro Velho
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test_and_validate:
+    runs-on: ubuntu-latest
+
+    # Inicializa um banco PostgreSQL limpo na nuvem para o Prisma testar as tabelas
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: admin_system
+          POSTGRES_PASSWORD: SenhaSuperSeguraDoBanco123
+          POSTGRES_DB: estoque_vendas_caixa_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: 📥 Baixar código do repositório
+        uses: actions/checkout@v4
+
+      - name: 🟢 Configurar Node.js v22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: 📦 Instalar PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.0.0
+
+      - name: ⚡ Configurar cache do PNPM (Deixa o processo mais rápido)
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/pnpm/store
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: 🛠️ Instalar dependências do projeto
+        run: pnpm install --no-frozen-lockfile
+
+      - name: ◭ Sincronizar o Prisma com o banco de dados temporário
+        env:
+          DATABASE_URL: postgresql://admin_system:SenhaSuperSeguraDoBanco123@localhost:5432/estoque_vendas_caixa_test?schema=public
+        run: |
+          pnpm prisma generate
+          pnpm prisma db push
+
+      - name: 🩺 Validar erros de tipagem do TypeScript
+        run: pnpm tsc --noEmit
+
+      - name: 🧪 Executar a suíte de testes com Vitest
+        env:
+          DATABASE_URL: postgresql://admin_system:SenhaSuperSeguraDoBanco123@localhost:5432/estoque_vendas_caixa_test?schema=public
+          NEXTAUTH_SECRET: static_secret_for_testing_purposes_only_12345
+        run: pnpm test
