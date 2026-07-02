@@ -81,3 +81,8 @@ documentation_stack_app_info/
 git rm -r --cached .
 git add .
 git commit -m "Refatora .gitignore e limpa cache"
+
+#-----------------------------
+# 
+# para limpar o cache do git e forçar a atualização do gitignore, pode usar os comandos:
+#

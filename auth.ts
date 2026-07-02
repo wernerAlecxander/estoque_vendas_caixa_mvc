@@ -1,7 +1,8 @@
-// ./auth.ts
-/*
-Aqui importamos o cliente Prisma centralizado e injetamos o provedor de credenciais de forma segura no ambiente Node.js.
-*/
+if (process.env.CODESPACE_NAME) {
+  const port = process.env.PORT || '3100';
+  process.env.NEXTAUTH_URL = `https://${process.env.CODESPACE_NAME}-${port}.app.github.dev`;
+}//URL correta do Codespaces antes de inicializar o servidor. Caso esteja rodando localmente, a variável de ambiente NEXTAUTH_URL deve ser definida no arquivo .env.local
+
 import NextAuth, { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";

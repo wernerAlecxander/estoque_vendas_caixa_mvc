@@ -8,7 +8,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
-      - "5432:5432"
+      - "5432:5432" #O primeiro valor (Esquerda): É a porta física que você vai digitar no navegador (no computador local ou a URL gerada pelo Codespaces). O segundo valor (Direita): É a porta em que o programa (Next.js ou Prisma) está rodando de verdade "lá dentro" do container isolado.
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./script/schema.sql:/docker-entrypoint-initdb.d/init.sql
@@ -30,7 +30,8 @@ services:
     container_name: estoque_vendas_caixa_app
     restart: always
     ports:
-      - "127.0.0.1:${PORT}:${PORT}"
+      - "${PORT}:${PORT}"
+      - "${PRISMA_STUDIO_PORT}:${PRISMA_STUDIO_PORT}" # para abrir o prisma studio
     volumes:
       - .:/app
       - node_modules_vol:/app/node_modules

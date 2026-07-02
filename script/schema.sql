@@ -121,6 +121,7 @@ CREATE TABLE estoque_objetos_duraveis (
     data_compra timestamp DEFAULT CURRENT_TIMESTAMP,
     data_descarte timestamp DEFAULT CURRENT_TIMESTAMP,
     responsavel_compra_id UUID NOT NULL,
+    valor_compra DECIMAL(10, 2) NOT NULL, -- CHECK (valor_compra >= 0)
     CONSTRAINT fk_responsavel_compra FOREIGN KEY (responsavel_compra_id) REFERENCES usuarios(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
 
@@ -143,7 +144,6 @@ CREATE TABLE despesas (
     data_despesa TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     responsavel_compra_id UUID NOT NULL,
     categoria_despesa categoria_despesas NOT NULL,
-    -- CORRIGIDO: Removida a vírgula sobressalente no final desta linha
     CONSTRAINT fk_responsavel_despesa FOREIGN KEY (responsavel_compra_id) REFERENCES usuarios(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
 
@@ -266,8 +266,7 @@ CREATE TABLE sucata_compras (
     valor_compra DECIMAL(10, 2) NOT NULL,
     quantidade INT NOT NULL DEFAULT 1,
     responsavel_compra_id UUID NOT NULL,
-    cliente_vendedor_id UUID NOT NULL,
-    -- CORRIGIDO: Removida a FK fantasma de peca_id (não existia na tabela e referenciava tabela incorreta)
+    cliente_vendedor_id UUID NOT NULL,  
     CONSTRAINT fk_responsavel_compra FOREIGN KEY (responsavel_compra_id) REFERENCES usuarios(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
     CONSTRAINT fk_cliente_vendedor_id FOREIGN KEY (cliente_vendedor_id) REFERENCES clientes(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
@@ -275,7 +274,6 @@ CREATE TABLE sucata_compras (
 --------------------------------------------------------------------------------
 -- 6. CRIAÇÃO DAS TABELAS DE MANUTENÇÃO
 --------------------------------------------------------------------------------
--- CORRIGIDO: Movido para cima de 'servico_manutencao' devido à dependência de FK
 CREATE TABLE veiculos_cliente_manutencao (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     marca_veiculo marca_veiculo NOT NULL,
