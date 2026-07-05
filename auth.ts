@@ -3,7 +3,7 @@
 Aqui importamos o cliente Prisma centralizado e injetamos o provedor de credenciais de forma segura no ambiente Node.js.
 */
 import NextAuth, { CredentialsSignin } from "next-auth";
-import Credentials from "next-auth/providers/credentials";
+import Credentials from "next-auth/providers/credentials"; //provedor que permite autenticar usuários usando formulários próprios (email e senha) em vez de redes sociais
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma"; // Importa o Prisma isolado do passo 1
 import { authConfig } from "./auth.config";

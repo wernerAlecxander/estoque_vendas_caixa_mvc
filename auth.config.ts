@@ -2,14 +2,14 @@
 /*
 Este arquivo não deve conter nenhuma dependência de banco de dados ou criptografia Node.js.
 */
-import type { NextAuthConfig } from "next-auth";
+import type { NextAuthConfig } from "next-auth";//
 
 export const authConfig: NextAuthConfig = {
   session: {
     strategy: "jwt",
   },
   pages: {
-    signIn: "/login",
+    signIn: "/login",// Aponta estritamente para a rota do navegador, ignorando o grupo (auth)
   },
   callbacks: {
     async jwt({ token, user }) {
