@@ -3,6 +3,7 @@ services:
     image: postgres:17-alpine
     container_name: estoque_vendas_caixa_db
     restart: always
+    mem_limit: ${POSTGRES_MEM_LIMIT:-256m}
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -29,11 +30,12 @@ services:
       dockerfile: Dockerfile
     container_name: estoque_vendas_caixa_app
     restart: always
+    mem_limit: ${NEXT_APP_MEM_LIMIT:-512m}
+    #stdin_open: true # Permite interagir com o Next.js pelo teclado
     ports:
       - "${PORT}:${PORT}"
-      - "${PRISMA_STUDIO_PORT}:${PRISMA_STUDIO_PORT}" # para abrir o prisma studio
     volumes:
-      - .:/app
+      - .:/app:cached # O cached é uma otimização para o Docker Desktop, que melhora a performance de leitura e escrita de arquivos entre o container e o host. No linux não é necessário.
       - node_modules_vol:/app/node_modules
       - next_cache_vol:/app/.next
     environment:
@@ -50,12 +52,38 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+  prisma-studio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: estoque_vendas_caixa_prisma_studio
+    restart: always
+    mem_limit: "${PRISMA_STUDIO_MEM_LIMIT:-256m}"
+    ports:
+      - "${PRISMA_STUDIO_PORT}:${PRISMA_STUDIO_PORT}"
+    volumes:
+      - .:/app:cached
+      - node_modules_vol:/app/node_modules
+      - prisma_studio_data:/app/prisma_studio_data
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+    # Força o container a rodar o comando do studio apontando para a porta correta e escutando a rede externa
+    command: pnpm prisma studio --port ${PRISMA_STUDIO_PORT} --hostname 0.0.0.0
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
   next-test:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: estoque_vendas_caixa_test
     restart: "no"
+    mem_limit: ${NEXT_APP_MEM_LIMIT:-512m}
     stdin_open: true # Permite interagir com o Vitest pelo teclado
     tty: true        # Mantém a formatação de cores do terminal
     environment:
@@ -76,8 +104,32 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: always
+    mem_limit: 128m
+    profiles:
+      - debug   # Vincula o Portainer ao perfil opcional "debug"
+    ports:
+      - "9443:9443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    depends_on:
+      postgres-db:
+        condition: service_healthy   # Só inicia após o banco estar pronto para receber conexões
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 volumes:
   postgres_data:
+    name: postgres_data # dá um  nome ao volume para que ele não seja deletado quando o docker compose for executado.
+    external: true # impede que o docker compose down delete o volume de dados do banco de dados
   node_modules_vol:
   next_cache_vol:
+  portainer_data:
+  prisma_studio_data:

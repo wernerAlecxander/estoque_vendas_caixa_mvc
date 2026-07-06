@@ -10,7 +10,7 @@
     "prisma:migrate": "pnpm prisma migrate dev",
     "prisma:studio": "pnpm prisma studio --port ${PRISMA_STUDIO_PORT:-5555} --browser none",
     "prisma:seed": "pnpm prisma db seed",
-    "dev": "pnpm prisma:generate && (pnpm prisma:studio &) && next dev -H 0.0.0.0 -p 3100",
+    "dev": "pnpm prisma:generate && next dev -H 0.0.0.0 -p 3100",
     "build": "pnpm prisma:generate && next build",
     "start": "next start -p 3100",
     "test": "pnpm prisma:generate && vitest",
