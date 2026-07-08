@@ -1,7 +1,7 @@
 services:
   postgres-db:
     image: postgres:17-alpine
-    container_name: estoque_vendas_caixa_db
+    container_name: estoque_vendas_caixa_mvc_db
     restart: always
     mem_limit: ${POSTGRES_MEM_LIMIT:-256m}
     environment:
@@ -28,7 +28,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: estoque_vendas_caixa_app
+    container_name: estoque_vendas_caixa_mvc_app
     restart: always
     mem_limit: ${NEXT_APP_MEM_LIMIT:-512m}
     #stdin_open: true # Permite interagir com o Next.js pelo teclado
@@ -56,7 +56,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: estoque_vendas_caixa_prisma_studio
+    container_name: estoque_vendas_caixa_mvc_prisma_studio
     restart: always
     mem_limit: "${PRISMA_STUDIO_MEM_LIMIT:-256m}"
     ports:
@@ -81,7 +81,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: estoque_vendas_caixa_test
+    container_name: estoque_vendas_caixa_mvc_test
     restart: "no"
     mem_limit: ${NEXT_APP_MEM_LIMIT:-512m}
     stdin_open: true # Permite interagir com o Vitest pelo teclado
@@ -106,7 +106,7 @@ services:
         max-file: "3"
   portainer:
     image: portainer/portainer-ce:latest
-    container_name: portainer
+    container_name: estoque_vendas_caixa_mvc_portainer
     restart: always
     mem_limit: 128m
     profiles:

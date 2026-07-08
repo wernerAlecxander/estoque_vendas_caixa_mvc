@@ -1,0 +1,127 @@
+estrutura de pastas, componentes e regras de negócio
+
+. (Raiz do Projeto)
+├── prisma/                             # Configuração global do Prisma (Fora da src)
+│   └── schema.prisma                   # Suas 15 tabelas mapeadas
+│
+├── src/                                # Pasta única de código-fonte
+│   ├── models/                         # [M] MODEL: Instância do Prisma Client e Queries Complexas
+│   │   ├── prisma.ts                   # Exporta o client global do Prisma (`new PrismaClient()`)
+│   │   ├── cliente.model.ts            # Queries customizadas para Clientes/Veículos
+│   │   └── financeiro.model.ts         # Agregações brutas via Prisma para o Caixa
+│   │
+│   ├── schemas/                        # VALIDAÇÃO: Contratos de dados com Zod (Garante tipo seguro)
+│   │   ├── cliente.schema.ts           # Validações de entrada de clientes/veículos
+│   │   └── financeiro.schema.ts        # Validações de datas para Relatórios por Período
+│   │
+│   ├── controllers/                    # [C] CONTROLLER: Lógica de negócio (Next.js Server Actions)
+│   │   ├── cliente.controller.ts       # Valida com Zod -> Chama o Model -> Retorna erro/sucesso
+│   │   └── financeiro.controller.ts    # Roda as fórmulas (Ticket Médio, Margem Líquida)
+│   │
+│   └── app/                            # [V] VIEW: Roteamento e Componentes Visuais (Tailwind CSS)
+│       ├── (oficina)/
+│       │   └── clientes/
+│       │       ├── page.tsx            # Server Component (Busca a lista de clientes)
+│       │       └── table-client.tsx    # Client Component (Tabela interativa em Tailwind)
+│       └── dashboard/
+│           └── page.tsx                # Gráficos e KPIs do Caixa
+│
+└── vitest.config.ts                    # Configuração de testes unitários rápidos e tipados
+
+
+(1. cadastros
+	1.1 Cadastrar clientes
+	1.2 Consultar clientes
+	1.3 Deletar clientes
+	1.4 Cadastrar usuários
+	1.5 Consultar Usuários
+	1.6 Deletar Usuários
+	1.7 Cadastrar marcas de veículos
+	1.8 Cadastrar modelos de veículos
+	1.9 Cadastrar veículos de clientes
+	1.10 Consultar veículos de clientes
+	1.11 Deletar veículos de clientes
+	1.12 Cadastrar tipos de serviços
+	1.13 Consultar tipos de serviços
+	1.14 Deletar tipos de serviços
+2. CONSULTAS/RELATÓRIOS/QRCODE
+	2.1 despesas por Período
+	2.2 receitas por Período
+	2.3 Notas Fiscais por Período
+	2.4 Vendas por Período
+	2.5 Manutenção por Período
+	2.6 Compras por Período
+	2.7 Inventário por Período
+	2.8 Clientes por Período
+	2.9 Usuários por Período
+	2.10 Relatórios marcas
+	2.11 Relatórios modelos
+	2.12 Boletos por Período
+	2.13 O.S. por Período
+	2.14 caixa por Categoria
+	2.15 Vendas por Cliente
+	2.16 Compras por Fornecedor
+	2.17 Manutenção por Cliente
+	2.18 Comprovantes por Período
+4. COMPRAS
+	5.1 REALIZAR COMPRAS
+	5.2 CONSULTAR COMPRAS
+	5.3 Realizar compras itens Genéricos duráveis
+	5.4 deletar COMPRAS
+	5.5 OBSERVAÇÃO COMPRAS
+	5.6 QRCODE PEÇAS
+	5.7 QRCODE SUCATAS
+	5.8 Realizar compras itens descartáveis
+5. VENDAS
+	5.1 Vender sucatas
+	5.2 CONSULTAR VENDAS
+	5.3 Deletar Vendas
+	5.4 Vender pecas avulsas
+	5.5 Elaborar orçamento de vendas
+	5.6 Observação de vendas
+	5.7 Elaborar orçamento de vendas
+6. Manutenção
+	6.1 ELABORAR ORÇAMENTOS
+	6.2 CONSULTAR ORÇAMENTOS
+	6.3 REALIZAR SERVIÇOS
+	6.4 CANCELAR SERVIÇOS
+	6.5 OBSERVAÇÃO SERVIÇOS
+7. CAIXA
+	7.1 FATURAMENTO (receita bruta =  O volume total de vendas)
+	7.2 MARGEM DE CONTRIBUIÇÃO (quanto cada venda sobra após cobrir custos variáveis)
+	7.3 MARGEM LÍQUIDA (A porcentagem da receita que se transforma em lucro líquido real depois de descontar todas as despesas (fixas, variáveis, impostos e operacionais))
+	7.4 CADASTRAR RECEITAS EXTRAS
+	7.5 CONSULTAR DESPESAS
+	7.6 CONSULTAR RECEITAS
+	7.7 CADASTRAR DESPESAS
+	7.8 PONTO DE EQUILÍBRIO (O valor mínimo que a empresa precisa faturar para cobrir todos os seus custos e não ter prejuízo, mas também não tem lucro.)
+	7.9 TICKET MÉDIO (A média de valor gasto por cliente por compra,)
+	7.10 TAXA DE CONVERSÃO DE VENDAS (A porcentagem de orçamentos emitidos que se transformam em vendas fechadas = pedidos faturados)
+8. INVENTÁRIO
+	8.1 DURAVEIS CADASTRADOS
+	8.2 DESCARTÁVEIS CADASTRADOS
+	8.3 REALIZAR BAIXA CONTÁBIL DURÁVEIS
+	8.4 REALIZAR BAIXA CONTÁBIL DESCARTÁVEIS
+	8.5 consultar baixa contábil duráveis
+	8.6 consultar baixa contábil descartáveis
+	8.7 Etiquetas (QR Code) duráveis
+	8.8 Etiquetas (QR Code) descartáveis) 
+
+//Essas são as tabelas do PostgreSQL:
+1. usuários
+2. modelos
+3. estoque_objetos_duraveis
+4. estoque_objetos_genericos
+5. despesas
+6. sucata_estoque
+7. peca_estoque
+8. peca_imagens
+9. clientes
+10. compatibilidade_pecas
+11. pedidos_vendas
+12. itens_pedido_vendas
+13. sucata_compras
+14. veiculos_cliente_manutencao
+15. servico_manutencao
+
+# docker + pnpm + postgre + prisma + typescript + nextJS + zod + vitest + tailwindcss

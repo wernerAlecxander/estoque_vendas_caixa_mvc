@@ -18,7 +18,7 @@ jobs:
         env:
           POSTGRES_USER: admin_system
           POSTGRES_PASSWORD: SenhaSuperSeguraDoBanco123
-          POSTGRES_DB: estoque_vendas_caixa_test
+          POSTGRES_DB: estoque_vendas_caixa_mvc_test
         ports:
           - 5432:5432
         options: >-
@@ -54,7 +54,7 @@ jobs:
 
       - name: ◭ Sincronizar o Prisma com o banco de dados temporário
         env:
-          DATABASE_URL: postgresql://admin_system:SenhaSuperSeguraDoBanco123@localhost:5432/estoque_vendas_caixa_test?schema=public
+          DATABASE_URL: postgresql://admin_system:SenhaSuperSeguraDoBanco123@localhost:5432/estoque_vendas_caixa_mvc_test?schema=public
         run: |
           pnpm prisma generate
           pnpm prisma db push
@@ -64,6 +64,6 @@ jobs:
 
       - name: 🧪 Executar a suíte de testes com Vitest
         env:
-          DATABASE_URL: postgresql://admin_system:SenhaSuperSeguraDoBanco123@localhost:5432/estoque_vendas_caixa_test?schema=public
+          DATABASE_URL: postgresql://admin_system:SenhaSuperSeguraDoBanco123@localhost:5432/estoque_vendas_caixa_mvc_test?schema=public
           NEXTAUTH_SECRET: static_secret_for_testing_purposes_only_12345
         run: pnpm test

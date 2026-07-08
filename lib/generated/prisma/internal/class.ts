@@ -23,7 +23,7 @@ const config: runtime.GetPrismaClientConfig = {
       "value": "prisma-client"
     },
     "output": {
-      "value": "C:\\engineer\\estoque_vendas_caixa\\lib\\generated\\prisma",
+      "value": "C:\\engineer\\estoque_vendas_caixa_mvc\\lib\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -37,7 +37,7 @@ const config: runtime.GetPrismaClientConfig = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\engineer\\estoque_vendas_caixa\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\engineer\\_mvc\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativePath": "../../../prisma",
