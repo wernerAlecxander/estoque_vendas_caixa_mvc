@@ -68,7 +68,7 @@ CREATE TYPE setor_usuario AS ENUM ('administrativo', 'vendas', 'manutencao', 'es
 
 CREATE TYPE status_usuario AS ENUM ('ativo', 'inativo', 'suspenso', 'pendente', 'demitido', 'aposentado');
 
-CREATE TYPE marca_veiculo AS ENUM ('Fiat', 'Volkswagen', 'Chevrolet', 'Hyundai', 'Toyota', 'Jeep', 'Renault', 'Honda', 'Nissan', 'BYD', 'GWM', 'Caoa Chery', 'Ford', 'Peugeot', 'Citroën', 'Mitsubishi', 'BMW', 'Mercedes-Benz', 'Audi', 'Volvo', 'Land Rover', 'Porsche', 'Kia', 'Ram');
+--CREATE TYPE marca_veiculo AS ENUM ('Fiat', 'Volkswagen', 'Chevrolet', 'Hyundai', 'Toyota', 'Jeep', 'Renault', 'Honda', 'Nissan', 'BYD', 'GWM', 'Caoa Chery', 'Ford', 'Peugeot', 'Citroën', 'Mitsubishi', 'BMW', 'Mercedes-Benz', 'Audi', 'Volvo', 'Land Rover', 'Porsche', 'Kia', 'Ram');
 
 CREATE TYPE status_sucata AS ENUM ('Em desmonte', 'Em manutenção', 'Concluído', 'Indisponível', 'Disponível', 'Vendido', 'Reservado', 'Aguardando avaliação', 'Em avaliação', 'Rejeitado', 'Aprovado', 'Em estoque', 'Fora de estoque');
 
@@ -82,7 +82,7 @@ CREATE TYPE status_venda AS ENUM ('Vendida', 'Reservada', 'Em avaliação', 'Nao
 -- CORRIGIDO: Adicionado o ponto e vírgula no final
 CREATE TYPE metodo_pagamento AS ENUM ('Pix', 'Debito', 'Credito', 'Dinheiro', 'cheque');
 
-CREATE TYPE categoria_peca AS ENUM ('Motor e componentes', 'Elétrica e componentes', 'Carroceria', 'Sistema de iluminação interior', 'Rodas e Pneus', 'Sistema de arrefecimento', 'Sistema de combustível', 'Sistema de direção', 'Sistema de embreagem', 'Sistema de injeção eletrônica', 'Sistema de transmissão', 'Sistema de suspensão', 'Sistema de freios', 'Sistema elétrico', 'Sistema de vidros e espelhos', 'Sistema de iluminação exterior', 'Sistema de exaustão', 'Outros');
+CREATE TYPE categoria_peca AS ENUM ('Motor e componentes', 'Elétrica e componentes', 'Carroceria', 'Sistema de iluminação interior', 'Rodas e Pneus', 'Sistema de arrefecimento', 'Sistema de combustível', 'Sistema de direção', 'Sistema de embreagem', 'Sistema de injeção eletrônica', 'Sistema de transmissão', 'Sistema de suspensão', 'Sistema de freios', 'Sistema elétrico', 'Sistema de vidros e espelhos', 'Sistema de iluminação exterior', 'Sistema de exaustão', 'Ar-condicionado', 'Outros'); 
 
 CREATE TYPE localizacao_peca AS ENUM ('prateleira 1', 'prateleira 2', 'prateleira 3', 'prateleira 4', 'expositor', 'outro');
 
@@ -90,7 +90,7 @@ CREATE TYPE setor_prateleira AS ENUM ('setor A', 'setor B', 'setor C', 'setor D'
 
 CREATE TYPE status_manutencao AS ENUM ('Pendente', 'Em andamento', 'Concluída', 'Cancelada', 'Aguardando peças', 'Aguardando avaliação', 'Rejeitada', 'Aprovada');
 
-CREATE TYPE categoria_despesas AS ENUM ('Despesas operacionais', 'Despesas administrativas', 'Despesas de marketing', 'Despesas de pessoal', 'Despesas financeiras', 'Despesas de manutenção', 'Despesas de estoque', 'despesas médicas', 'Outras despesas');
+CREATE TYPE categoria_despesas AS ENUM ('Despesas operacionais', 'Despesas administrativas', 'Despesas de marketing', 'Despesas de pessoal', 'Despesas financeiras', 'Despesas de manutenção', 'Despesas de estoque', 'Despesas médicas', 'Outras despesas');
 
 --------------------------------------------------------------------------------
 -- 2. CRIAÇÃO DAS TABELAS BASE (SEM DEPENDÊNCIAS REVERSAS)
@@ -108,11 +108,23 @@ CREATE TABLE usuarios (
     data_cadastro_sistema TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
+CREATE TABLE marcas_veiculo (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    nome VARCHAR(50) UNIQUE NOT NULL
+);
+
+INSERT INTO marcas_veiculo (nome) VALUES 
+('Fiat'), ('Volkswagen'), ('Chevrolet'), ('Hyundai'), ('Toyota'), ('Jeep'), 
+('Renault'), ('Honda'), ('Nissan'), ('BYD'), ('GWM'), ('Caoa Chery'), 
+('Ford'), ('Peugeot'), ('Citroën'), ('Mitsubishi'), ('BMW'), ('Mercedes-Benz'), 
+('Audi'), ('Volvo'), ('Land Rover'), ('Porsche'), ('Kia'), ('Ram');
+
 CREATE TABLE modelos (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    marca_veiculo marca_veiculo NOT NULL,
-    nome_modelo VARCHAR(100) UNIQUE NOT NULL,
-    CONSTRAINT uk_marca_modelo UNIQUE (marca_veiculo, nome_modelo)
+    marcas_veiculo_id INT NOT NULL,
+    nome_modelo VARCHAR(100) NOT NULL,
+    CONSTRAINT fk_marca FOREIGN KEY (marcas_veiculo_id) REFERENCES marcas_veiculo(id) ON DELETE RESTRICT,
+    CONSTRAINT uk_marca_modelo UNIQUE (marcas_veiculo_id, nome_modelo)
 );
 
 CREATE TABLE estoque_objetos_duraveis (
@@ -152,7 +164,6 @@ CREATE TABLE despesas (
 --------------------------------------------------------------------------------
 CREATE TABLE sucata_estoque (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    marca_veiculo marca_veiculo NOT NULL,
     modelo_id INT NOT NULL,
     ano_fabricacao INT NOT NULL,
     ano_modelo INT NOT NULL,
@@ -276,24 +287,29 @@ CREATE TABLE sucata_compras (
 --------------------------------------------------------------------------------
 CREATE TABLE veiculos_cliente_manutencao (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    marca_veiculo marca_veiculo NOT NULL,
     modelo_id INT NOT NULL, 
     cliente_id UUID NOT NULL,
     CONSTRAINT fk_modelo_veiculo_manutencao FOREIGN KEY (modelo_id) REFERENCES modelos(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
     CONSTRAINT fk_cliente_veiculo_manutencao FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
 
+CREATE TABLE tipo_servico (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    nome_servico VARCHAR(150) NOT NULL UNIQUE, 
+    categoria_servico categoria_peca NOT NULL
+);
+
 CREATE TABLE servico_manutencao (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    categoria_servico categoria_peca NOT NULL,
-    descricao_manutencao TEXT NOT NULL,
+    tipo_servico_id UUID NOT NULL, 
+    descricao_manutencao TEXT NOT NULL, 
     veiculo_manutencao_id UUID NOT NULL,
     cliente_id UUID NOT NULL,
     data_manutencao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     responsavel_id UUID NOT NULL,
     status_manutencao status_manutencao DEFAULT 'Pendente' NOT NULL,
     preco DECIMAL(10, 2) NOT NULL,
-    
+    CONSTRAINT fk_tipo_servico FOREIGN KEY (tipo_servico_id) REFERENCES tipo_servico(id) ON DELETE RESTRICT,
     CONSTRAINT fk_veiculo_manutencao FOREIGN KEY (veiculo_manutencao_id) REFERENCES veiculos_cliente_manutencao(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
     CONSTRAINT fk_cliente_manutencao FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
     CONSTRAINT fk_responsavel_manutencao FOREIGN KEY (responsavel_id) REFERENCES usuarios(id) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -539,80 +555,227 @@ FOR EACH ROW EXECUTE FUNCTION validar_e_baixar_estoque();
 --VALUES ('da009a72-132d-45db-99e2-3ba28fef6f82', 'tizolim', 'admin@ferrovelho.com', '$2b$10$fW3N6D0S8FvX7X5678901eG7KjJ2kL1mN3hJ2kL1mN.eA7bC6dEfG', 'administrador', 'administrativo', '4', 'ativo', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 --query para inserir os modelos de veículos na tabela modelos, associando cada modelo à sua respectiva marca utilizando o tipo ENUM criado anteriormente
-INSERT INTO modelos (marca_veiculo, nome_modelo) 
+INSERT INTO modelos (marcas_veiculo_id, nome_modelo) 
 VALUES 
     -- Fiat
-    ('Fiat', 'Strada'), ('Fiat', 'Toro'), ('Fiat', 'Mobi'), ('Fiat', 'Argo'), ('Fiat', 'Cronos'), ('Fiat', 'Fastback'), ('Fiat', 'Pulse'), ('Fiat', 'Uno'), ('Fiat', 'Palio'), ('Fiat', 'Siena'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Fiat'), 'Strada'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Fiat'), 'Toro'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Fiat'), 'Mobi'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Fiat'), 'Argo'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Fiat'), 'Cronos'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Fiat'), 'Fastback'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Fiat'), 'Pulse'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Fiat'), 'Uno'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Fiat'), 'Palio'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Fiat'), 'Siena'),
     
     -- Volkswagen
-    ('Volkswagen', 'Gol'), ('Volkswagen', 'Polo'), ('Volkswagen', 'T-Cross'), ('Volkswagen', 'Nivus'), ('Volkswagen', 'Virtus'), ('Volkswagen', 'Saveiro'), ('Volkswagen', 'Amarok'), ('Volkswagen', 'Taos'), ('Volkswagen', 'Jetta'), ('Volkswagen', 'Fox'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Volkswagen'), 'Gol'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Volkswagen'), 'Polo'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Volkswagen'), 'T-Cross'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Volkswagen'), 'Nivus'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Volkswagen'), 'Virtus'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Volkswagen'), 'Saveiro'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Volkswagen'), 'Amarok'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Volkswagen'), 'Taos'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Volkswagen'), 'Jetta'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Volkswagen'), 'Fox'),
     
     -- Chevrolet
-    ('Chevrolet', 'Onix'), ('Chevrolet', 'Onix Plus'), ('Chevrolet', 'Tracker'), ('Chevrolet', 'Montana'), ('Chevrolet', 'S10'), ('Chevrolet', 'Spin'), ('Chevrolet', 'Cruze'), ('Chevrolet', 'Equinox'), ('Chevrolet', 'Trailblazer'), ('Chevrolet', 'Celta'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Chevrolet'), 'Onix'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Chevrolet'), 'Onix Plus'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Chevrolet'), 'Tracker'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Chevrolet'), 'Montana'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Chevrolet'), 'S10'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Chevrolet'), 'Spin'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Chevrolet'), 'Cruze'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Chevrolet'), 'Equinox'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Chevrolet'), 'Trailblazer'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Chevrolet'), 'Celta'),
     
     -- Hyundai
-    ('Hyundai', 'HB20'), ('Hyundai', 'HB20S'), ('Hyundai', 'Creta'), ('Hyundai', 'Tucson'), ('Hyundai', 'Ix35'), ('Hyundai', 'Santa Fe'), ('Hyundai', 'Azera'), ('Hyundai', 'Elantra'), ('Hyundai', 'I30'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Hyundai'), 'HB20'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Hyundai'), 'HB20S'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Hyundai'), 'Creta'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Hyundai'), 'Tucson'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Hyundai'), 'Ix35'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Hyundai'), 'Santa Fe'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Hyundai'), 'Azera'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Hyundai'), 'Elantra'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Hyundai'), 'I30'),
     
     -- Toyota
-    ('Toyota', 'Corolla'), ('Toyota', 'Corolla Cross'), ('Toyota', 'Hilux'), ('Toyota', 'SW4'), ('Toyota', 'Yaris Hatch'), ('Toyota', 'Yaris Sedan'), ('Toyota', 'Etios'), ('Toyota', 'Rav4'), ('Toyota', 'Prius'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Toyota'), 'Corolla'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Toyota'), 'Corolla Cross'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Toyota'), 'Hilux'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Toyota'), 'SW4'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Toyota'), 'Yaris Hatch'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Toyota'), 'Yaris Sedan'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Toyota'), 'Etios'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Toyota'), 'Rav4'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Toyota'), 'Prius'),
     
     -- Jeep
-    ('Jeep', 'Compass'), ('Jeep', 'Renegade'), ('Jeep', 'Commander'), ('Jeep', 'Wrangler'), ('Jeep', 'Grand Cherokee'), ('Jeep', 'Gladiator'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Jeep'), 'Compass'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Jeep'), 'Renegade'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Jeep'), 'Commander'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Jeep'), 'Wrangler'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Jeep'), 'Grand Cherokee'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Jeep'), 'Gladiator'),
     
     -- Renault
-    ('Renault', 'Kwid'), ('Renault', 'Duster'), ('Renault', 'Sandero'), ('Renault', 'Logan'), ('Renault', 'Oroch'), ('Renault', 'Kardian'), ('Renault', 'Master'), ('Renault', 'Captur'), ('Renault', 'Fluence'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Renault'), 'Kwid'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Renault'), 'Duster'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Renault'), 'Sandero'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Renault'), 'Logan'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Renault'), 'Oroch'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Renault'), 'Kardian'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Renault'), 'Master'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Renault'), 'Captur'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Renault'), 'Fluence'),
     
     -- Honda
-    ('Honda', 'HR-V'), ('Honda', 'Civic'), ('Honda', 'City Hatch'), ('Honda', 'City Sedan'), ('Honda', 'CR-V'), ('Honda', 'ZR-V'), ('Honda', 'Fit'), ('Honda', 'WR-V'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Honda'), 'HR-V'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Honda'), 'Civic'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Honda'), 'City Hatch'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Honda'), 'City Sedan'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Honda'), 'CR-V'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Honda'), 'ZR-V'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Honda'), 'Fit'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Honda'), 'WR-V'),
     
     -- Nissan
-    ('Nissan', 'Kicks'), ('Nissan', 'Versa'), ('Nissan', 'Frontier'), ('Nissan', 'Sentra'), ('Nissan', 'March'), ('Nissan', 'Leaf'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Nissan'), 'Kicks'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Nissan'), 'Versa'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Nissan'), 'Frontier'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Nissan'), 'Sentra'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Nissan'), 'March'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Nissan'), 'Leaf'),
     
     -- BYD
-    ('BYD', 'Dolphin'), ('BYD', 'Dolphin Mini'), ('BYD', 'Song Plus'), ('BYD', 'Yuan Plus'), ('BYD', 'Seal'), ('BYD', 'King'), ('BYD', 'Tan'), ('BYD', 'Han'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'BYD'), 'Dolphin'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'BYD'), 'Dolphin Mini'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'BYD'), 'Song Plus'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'BYD'), 'Yuan Plus'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'BYD'), 'Seal'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'BYD'), 'King'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'BYD'), 'Tan'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'BYD'), 'Han'),
     
     -- GWM
-    ('GWM', 'Haval H6'), ('GWM', 'Ora 03'), ('GWM', 'Poer'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'GWM'), 'Haval H6'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'GWM'), 'Ora 03'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'GWM'), 'Poer'),
     
     -- Caoa Chery
-    ('Caoa Chery', 'Tiggo 5X'), ('Caoa Chery', 'Tiggo 7'), ('Caoa Chery', 'Tiggo 8'), ('Caoa Chery', 'Arrizo 6'), ('Caoa Chery', 'iCar'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Caoa Chery'), 'Tiggo 5X'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Caoa Chery'), 'Tiggo 7'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Caoa Chery'), 'Tiggo 8'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Caoa Chery'), 'Arrizo 6'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Caoa Chery'), 'iCar'),
     
     -- Ford
-    ('Ford', 'Ranger'), ('Ford', 'Territory'), ('Ford', 'Maverick'), ('Ford', 'Mustang'), ('Ford', 'Bronco Sport'), ('Ford', 'Ka'), ('Ford', 'EcoSport'), ('Ford', 'Focus'), ('Ford', 'Fiesta'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Ford'), 'Ranger'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Ford'), 'Territory'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Ford'), 'Maverick'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Ford'), 'Mustang'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Ford'), 'Bronco Sport'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Ford'), 'Ka'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Ford'), 'EcoSport'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Ford'), 'Focus'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Ford'), 'Fiesta'),
     
     -- Peugeot
-    ('Peugeot', '208'), ('Peugeot', '2008'), ('Peugeot', '3008'), ('Peugeot', 'Expert'), ('Peugeot', 'Partner'), ('Peugeot', '308'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Peugeot'), '208'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Peugeot'), '2008'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Peugeot'), '3008'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Peugeot'), 'Expert'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Peugeot'), 'Partner'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Peugeot'), '308'),
     
     -- Citroën
-    ('Citroën', 'C3'), ('Citroën', 'C3 Aircross'), ('Citroën', 'C4 Cactus'), ('Citroën', 'Jumpy'), ('Citroën', 'C4 Pallas'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Citroën'), 'C3'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Citroën'), 'C3 Aircross'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Citroën'), 'C4 Cactus'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Citroën'), 'Jumpy'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Citroën'), 'C4 Pallas'),
     
     -- Mitsubishi
-    ('Mitsubishi', 'L200 Triton'), ('Mitsubishi', 'Eclipse Cross'), ('Mitsubishi', 'Pajero Sport'), ('Mitsubishi', 'Outlander'), ('Mitsubishi', 'ASX'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Mitsubishi'), 'L200 Triton'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Mitsubishi'), 'Eclipse Cross'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Mitsubishi'), 'Pajero Sport'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Mitsubishi'), 'Outlander'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Mitsubishi'), 'ASX'),
     
     -- BMW
-    ('BMW', 'Série 3'), ('BMW', 'X1'), ('BMW', 'X3'), ('BMW', 'X5'), ('BMW', 'Série 1'), ('BMW', 'iX'), ('BMW', 'M3'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'BMW'), 'Série 3'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'BMW'), 'X1'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'BMW'), 'X3'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'BMW'), 'X5'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'BMW'), 'Série 1'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'BMW'), 'iX'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'BMW'), 'M3'),
     
     -- Mercedes-Benz
-    ('Mercedes-Benz', 'Classe C'), ('Mercedes-Benz', 'GLA'), ('Mercedes-Benz', 'GLC'), ('Mercedes-Benz', 'Classe A'), ('Mercedes-Benz', 'GLE'), ('Mercedes-Benz', 'Sprinter'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Mercedes-Benz'), 'Classe C'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Mercedes-Benz'), 'GLA'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Mercedes-Benz'), 'GLC'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Mercedes-Benz'), 'Classe A'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Mercedes-Benz'), 'GLE'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Mercedes-Benz'), 'Sprinter'),
     
     -- Audi
-    ('Audi', 'A3 Sedan'), ('Audi', 'Q3'), ('Audi', 'Q5'), ('Audi', 'A4'), ('Audi', 'E-Tron'), ('Audi', 'TT'),
-    
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Audi'), 'A3 Sedan'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Audi'), 'Q3'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Audi'), 'Q5'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Audi'), 'A4'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Audi'), 'E-Tron'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Audi'), 'TT'),
+
     -- Volvo
-    ('Volvo', 'XC40'), ('Volvo', 'XC60'), ('Volvo', 'XC90'), ('Volvo', 'EX30'), ('Volvo', 'C40'),
-    
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Volvo'), 'XC40'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Volvo'), 'XC60'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Volvo'), 'XC90'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Volvo'), 'EX30'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Volvo'), 'C40'),
+
     -- Land Rover
-    ('Land Rover', 'Defender'), ('Land Rover', 'Discovery Sport'), ('Land Rover', 'Range Rover Evoque'), ('Land Rover', 'Range Rover Velar'), ('Land Rover', 'Discovery'),
-    
-    -- Porsche
-    ('Porsche', '911'), ('Porsche', 'Macan'), ('Porsche', 'Cayenne'), ('Porsche', 'Taycan'), ('Porsche', 'Panamera'), ('Porsche', '718 Boxster'),
-    
-    -- Kia
-    ('Kia', 'Sportage'), ('Kia', 'Niro'), ('Kia', 'Stonic'), ('Kia', 'Bongo'), ('Kia', 'Cerato'), ('Kia', 'Sorento'), ('Kia', 'Carnival'),
-    
-    -- Ram
-    ('Ram', 'Rampage'), ('Ram', 'Classic'), ('Ram', '1500'), ('Ram', '2500'), ('Ram', '3500')
-ON CONFLICT (marca_veiculo, nome_modelo) DO NOTHING;
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Land Rover'), 'Defender'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Land Rover'), 'Discovery Sport'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Land Rover'), 'Range Rover Evoque'),((SELECT id FROM marcas_veiculo WHERE nome = 'Land Rover'), 'Range Rover Velar'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Land Rover'), 'Discovery'),
+
+    --Jaguar
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Jaguar'), 'F-Pace'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Jaguar'), 'E-Pace'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Jaguar'), 'I-Pace'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Jaguar'), 'XF'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Jaguar'), 'XJ');
+
+    --Porsche
+    (SELECT id FROM marcas_veiculo WHERE nome = 'Porsche'), '911'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Porsche'), 'Macan'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Porsche'), 'Cayenne'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Porsche'), 'Taycan'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Porsche'), 'Panamera'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Porsche'), '718 Boxster'),
+
+    --Kia
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Kia'), 'Sportage'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Kia'), 'Niro'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Kia'), 'Stonic'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Kia'), 'Bongo'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Kia'), 'Cerato'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Kia'), 'Sorento'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Kia'), 'Carnival'),
+
+    --Ram
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Ram'), 'Rampage'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Ram'), 'Classic'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Ram'), '1500'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Ram'), '2500'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Ram'), '3500')
+    ON CONFLICT (marcas_veiculo_id, nome_modelo) DO NOTHING;
 
 --visualizar as tabelas criadas
 --SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_type = 'BASE TABLE';
@@ -627,17 +790,12 @@ ON CONFLICT (marca_veiculo, nome_modelo) DO NOTHING;
 -- 1. CRIAÇÃO DE ÍNDICES PARA OTIMIZAÇÃO (INDEX)
 --------------------------------------------------------------------------------
 
--- CORRIGIDO: Nome da tabela para 'sucata_estoque' e 'nome_modelo' para 'modelo_id'
-CREATE INDEX idx_sucata_marca_modelo 
-ON sucata_estoque (marca_veiculo, modelo_id);
 
--- CORRIGIDO: Nome da tabela para 'sucata_estoque' e 'nome_modelo' para 'modelo_id'
-CREATE INDEX idx_sucata_modelo_marca 
-ON sucata_estoque (modelo_id, marca_veiculo);
+CREATE INDEX idx_sucata_marca_modelo ON sucata_estoque (marcas_veiculo, modelo_id);
 
--- CORRIGIDO: Nome da tabela para 'peca_estoque'
-CREATE INDEX idx_pecas_nome_categoria 
-ON peca_estoque (nome_peca, categoria);
+CREATE INDEX idx_sucata_modelo_marca ON sucata_estoque (modelo_id, marcas_veiculo);
+
+CREATE INDEX idx_pecas_nome_categoria ON peca_estoque (nomes_peca, categoria);
 
 
 --------------------------------------------------------------------------------
@@ -657,7 +815,7 @@ INNER JOIN usuarios u ON s.responsavel_id = u.id;
 -- Consulta de Veículos em Manutenção com Modelos e Proprietários
 SELECT 
     v.id AS veiculo_id,
-    m.marca_veiculo,
+    m.marcas_veiculo,
     m.nome_modelo,
     c.nome_cliente AS proprietario
 FROM veiculos_cliente_manutencao v

@@ -1,7 +1,9 @@
 import { config } from "dotenv";
 // Força o Prisma CLI a ler o arquivo local com endereço localhost
-config({ path: ".env.local" }); 
-
+if (require("fs").existsSync(".env.local")){
+config({ path: ".env.local" });
+}
+config({ path: ".env" });
 import { defineConfig, env } from "prisma/config";
 
 export default defineConfig({

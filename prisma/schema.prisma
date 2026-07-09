@@ -52,6 +52,7 @@ model estoque_objetos_duraveis {
   data_compra           DateTime? @default(now()) @db.Timestamp(6)
   data_descarte         DateTime? @default(now()) @db.Timestamp(6)
   responsavel_compra_id String    @db.Uuid
+  valor_compra          Decimal   @db.Decimal(10, 2)
   usuarios              usuarios  @relation(fields: [responsavel_compra_id], references: [id], onUpdate: Restrict, map: "fk_responsavel_compra")
 }
 
@@ -79,16 +80,23 @@ model itens_pedido_vendas {
   pedidos_vendas    pedidos_vendas @relation(fields: [pedido_venda_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_pedido_venda")
 }
 
+model marcas_veiculo {
+  id      Int       @id @default(autoincrement())
+  nome    String    @unique @db.VarChar(50)
+  modelos modelos[]
+}
+
 model modelos {
   id                          Int                           @id @default(autoincrement())
-  marca_veiculo               marca_veiculo
-  nome_modelo                 String                        @unique @db.VarChar(100)
+  marcas_veiculo_id           Int
+  nome_modelo                 String                        @db.VarChar(100)
   compatibilidade_pecas       compatibilidade_pecas[]
+  marcas_veiculo              marcas_veiculo                @relation(fields: [marcas_veiculo_id], references: [id], onUpdate: NoAction, map: "fk_marca")
   peca_estoque                peca_estoque[]
   sucata_estoque              sucata_estoque[]
   veiculos_cliente_manutencao veiculos_cliente_manutencao[]
 
-  @@unique([marca_veiculo, nome_modelo], map: "uk_marca_modelo")
+  @@unique([marcas_veiculo_id, nome_modelo], map: "uk_marca_modelo")
 }
 
 model peca_estoque {
@@ -111,7 +119,6 @@ model peca_estoque {
   peca_imagens          peca_imagens[]
 
   @@unique([veiculo_origem_id, modelo_origem_id, nome_peca], map: "uc_peca_modelo_origem")
-  @@index([nome_peca, categoria], map: "idx_pecas_nome_categoria")
 }
 
 model peca_imagens {
@@ -139,7 +146,7 @@ model pedidos_vendas {
 
 model servico_manutencao {
   id                          String                      @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  categoria_servico           categoria_peca
+  tipo_servico_id             String                      @db.Uuid
   descricao_manutencao        String
   veiculo_manutencao_id       String                      @db.Uuid
   cliente_id                  String                      @db.Uuid
@@ -149,6 +156,7 @@ model servico_manutencao {
   preco                       Decimal                     @db.Decimal(10, 2)
   clientes                    clientes                    @relation(fields: [cliente_id], references: [id], onUpdate: Restrict, map: "fk_cliente_manutencao")
   usuarios                    usuarios                    @relation(fields: [responsavel_id], references: [id], onUpdate: Restrict, map: "fk_responsavel_manutencao")
+  tipo_servico                tipo_servico                @relation(fields: [tipo_servico_id], references: [id], onUpdate: NoAction, map: "fk_tipo_servico")
   veiculos_cliente_manutencao veiculos_cliente_manutencao @relation(fields: [veiculo_manutencao_id], references: [id], onUpdate: Restrict, map: "fk_veiculo_manutencao")
 }
 
@@ -165,7 +173,6 @@ model sucata_compras {
 
 model sucata_estoque {
   id                    String         @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  marca_veiculo         marca_veiculo
   modelo_id             Int
   ano_fabricacao        Int
   ano_modelo            Int
@@ -177,9 +184,13 @@ model sucata_estoque {
   peca_estoque          peca_estoque[]
   usuarios              usuarios       @relation(fields: [responsavel_compra_id], references: [id], onUpdate: Restrict, map: "fk_responsavel_compra_id")
   modelos               modelos        @relation(fields: [modelo_id], references: [id], onUpdate: Restrict, map: "fk_sucata_modelo_marca_id")
+}
 
-  @@index([marca_veiculo, modelo_id], map: "idx_sucata_marca_modelo")
-  @@index([modelo_id, marca_veiculo], map: "idx_sucata_modelo_marca")
+model tipo_servico {
+  id                 String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  nome_servico       String               @unique @db.VarChar(150)
+  categoria_servico  categoria_peca
+  servico_manutencao servico_manutencao[]
 }
 
 model usuarios {
@@ -205,7 +216,6 @@ model usuarios {
 
 model veiculos_cliente_manutencao {
   id                 String               @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  marca_veiculo      marca_veiculo
   modelo_id          Int
   cliente_id         String               @db.Uuid
   servico_manutencao servico_manutencao[]
@@ -237,7 +247,7 @@ enum categoria_despesas {
   Despesas_financeiras     @map("Despesas financeiras")
   Despesas_de_manuten__o   @map("Despesas de manutenção")
   Despesas_de_estoque      @map("Despesas de estoque")
-  despesas_m_dicas         @map("despesas médicas")
+  Despesas_m_dicas         @map("Despesas médicas")
   Outras_despesas          @map("Outras despesas")
 }
 
@@ -259,6 +269,7 @@ enum categoria_peca {
   Sistema_de_vidros_e_espelhos   @map("Sistema de vidros e espelhos")
   Sistema_de_ilumina__o_exterior @map("Sistema de iluminação exterior")
   Sistema_de_exaust_o            @map("Sistema de exaustão")
+  Ar_condicionado                @map("Ar-condicionado")
   Outros
 }
 
@@ -287,33 +298,6 @@ enum localizacao_peca {
   prateleira_4 @map("prateleira 4")
   expositor
   outro
-}
-
-enum marca_veiculo {
-  Fiat
-  Volkswagen
-  Chevrolet
-  Hyundai
-  Toyota
-  Jeep
-  Renault
-  Honda
-  Nissan
-  BYD
-  GWM
-  Caoa_Chery    @map("Caoa Chery")
-  Ford
-  Peugeot
-  Citro_n       @map("Citroën")
-  Mitsubishi
-  BMW
-  Mercedes_Benz @map("Mercedes-Benz")
-  Audi
-  Volvo
-  Land_Rover    @map("Land Rover")
-  Porsche
-  Kia
-  Ram
 }
 
 enum metodo_pagamento {

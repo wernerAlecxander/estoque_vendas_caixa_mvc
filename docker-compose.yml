@@ -68,7 +68,7 @@ services:
     environment:
       DATABASE_URL: ${DATABASE_URL}
     # Força o container a rodar o comando do studio apontando para a porta correta e escutando a rede externa
-    command: pnpm prisma studio --port ${PRISMA_STUDIO_PORT} --hostname 0.0.0.0
+    command: pnpm prisma studio --port ${PRISMA_STUDIO_PORT} --browser none
     depends_on:
       postgres-db:
         condition: service_healthy
@@ -128,7 +128,7 @@ services:
 volumes:
   postgres_data:
     name: postgres_data # dá um  nome ao volume para que ele não seja deletado quando o docker compose for executado.
-    external: true # impede que o docker compose down delete o volume de dados do banco de dados
+    #external: true # impede que o docker compose down delete o volume de dados do banco de dados
   node_modules_vol:
   next_cache_vol:
   portainer_data:

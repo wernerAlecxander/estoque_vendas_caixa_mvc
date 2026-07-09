@@ -1,5 +1,6 @@
 estrutura de pastas, componentes e regras de negócio
 
+OPÇÃO 1 (TUDO JUNTO):
 . (Raiz do Projeto)
 ├── prisma/                             # Configuração global do Prisma (Fora da src)
 │   └── schema.prisma                   # Suas 15 tabelas mapeadas
@@ -28,14 +29,61 @@ estrutura de pastas, componentes e regras de negócio
 │
 └── vitest.config.ts                    # Configuração de testes unitários rápidos e tipados
 
+OPÇÃO 2 (BACK E FRONT SEPARADOS):
+
+📦 ferro-velho-backend (Frontend: React com Vite + pnpm + TypeScript + Zod)
+├── 📁 prisma/
+│   └── schema.prisma           # Seu modelo atual do Prisma
+├── 📁 src/
+│   ├── 📁 config/
+│   │   └── database.ts         # Instância global do Prisma Client
+│   ├── 📁 middleware/
+│   │   ├── auth.middleware.ts  # Protege rotas do caixa e estoque (JWT)
+│   │   └── error.middleware.ts # Captura erros globais e do Zod
+│   ├── 📁 modules/             # Divisão por contexto de negócio (Garante organização)
+│   │   ├── 📁 estoque/
+│   │   │   ├── estoque.controller.ts # CONTROLLER: Valida entrada (Zod) e responde HTTP
+│   │   │   ├── estoque.service.ts    # MODEL: Regras de negócio (entrada de sucata, baixa de peças)
+│   │   │   └── estoque.schema.ts     # Validação sintática do Zod para o estoque
+│   │   ├── 📁 caixa/
+│   │   │   ├── caixa.controller.ts   # CONTROLLER: Fluxo de caixa
+│   │   │   ├── caixa.service.ts      # MODEL: Regras financeiras (entradas, saídas, fechamento do dia)
+│   │   │   └── caixa.schema.ts       # Validação sintática do Zod para o caixa
+│   │   └── 📁 auth/
+│   │       ├── auth.controller.ts    # CONTROLLER: Login e geração de token
+│   │       ├── auth.service.ts       # MODEL: Verificação de senha e criptografia
+│   │       └── auth.schema.ts        # Validação de e-mail e senha com Zod
+│   ├── routes.ts               # Centraliza todas as rotas do Express
+│   └── server.ts               # Inicialização do Express (Docker aponta para cá)
+├── 📁 tests/                   # Seus testes com Vitest
+├── Dockerfile
+├── docker-compose.yml
+└── package.json
+---------------
+📦 ferro-velho-frontend (Backend (API): Express|NestJS|Fastify + Prisma + TypeScript + Zod + PostgreSQL + Docker)
+├── 📁 src/
+│   ├── 📁 components/          # Botões, tabelas de estoque, inputs
+│   ├── 📁 services/
+│   │   └── api.ts              # Configuração do Axios/Fetch apontando para o Express
+│   ├── 📁 app/                 # Se usar Next.js (App Router)
+│   │   ├── 📁 (public)/        # Rotas públicas (Página de vendas/institucional do ferro velho)
+│   │   │   ├── page.tsx        # Vitrine de peças disponíveis
+│   │   │   └── layout.tsx
+│   │   ├── 📁 (auth)/          # Rotas de acesso
+│   │   │   └── login/          # Tela de login
+│   │   └── 📁 (admin)/         # Rotas privadas (Estoque e Caixa) - Protegidas por Middleware
+│   │       ├── 📁 estoque/     # Tela de gerenciamento de peças e sucatas
+│   │       └── 📁 caixa/       # Painel de fluxo de caixa (entradas e saídas)
+└── package.json
+
 
 (1. cadastros
-	1.1 Cadastrar clientes
-	1.2 Consultar clientes
-	1.3 Deletar clientes
-	1.4 Cadastrar usuários
-	1.5 Consultar Usuários
-	1.6 Deletar Usuários
+	1.1 
+	1.2 
+	1.3 
+	1.4 
+	1.5 
+	1.6 
 	1.7 Cadastrar marcas de veículos
 	1.8 Cadastrar modelos de veículos
 	1.9 Cadastrar veículos de clientes
@@ -125,3 +173,8 @@ estrutura de pastas, componentes e regras de negócio
 15. servico_manutencao
 
 # docker + pnpm + postgre + prisma + typescript + nextJS + zod + vitest + tailwindcss
+
+1.0 CLIENTES(cadastrar/consultar/alterar/deletar)
+2.0 USUÁRIOS/PERMISSÕES(cadastrar/consultar/alterar/deletar)
+3.0 VEÍCULOS(cadastrar/consultar/alterar/deletar)
+4.0 SERVIÇOS(cadastrar_serviços)
