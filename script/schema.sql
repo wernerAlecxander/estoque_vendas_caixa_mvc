@@ -117,7 +117,7 @@ INSERT INTO marcas_veiculo (nome) VALUES
 ('Fiat'), ('Volkswagen'), ('Chevrolet'), ('Hyundai'), ('Toyota'), ('Jeep'), 
 ('Renault'), ('Honda'), ('Nissan'), ('BYD'), ('GWM'), ('Caoa Chery'), 
 ('Ford'), ('Peugeot'), ('Citroën'), ('Mitsubishi'), ('BMW'), ('Mercedes-Benz'), 
-('Audi'), ('Volvo'), ('Land Rover'), ('Porsche'), ('Kia'), ('Ram');
+('Audi'), ('Volvo'), ('Land Rover'), ('Porsche'), ('Kia'), ('Ram'), ('Jaguar');
 
 CREATE TABLE modelos (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -742,7 +742,8 @@ VALUES
     -- Land Rover
     ((SELECT id FROM marcas_veiculo WHERE nome = 'Land Rover'), 'Defender'),
     ((SELECT id FROM marcas_veiculo WHERE nome = 'Land Rover'), 'Discovery Sport'),
-    ((SELECT id FROM marcas_veiculo WHERE nome = 'Land Rover'), 'Range Rover Evoque'),((SELECT id FROM marcas_veiculo WHERE nome = 'Land Rover'), 'Range Rover Velar'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Land Rover'), 'Range Rover Evoque'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Land Rover'), 'Range Rover Velar'),
     ((SELECT id FROM marcas_veiculo WHERE nome = 'Land Rover'), 'Discovery'),
 
     --Jaguar

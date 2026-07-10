@@ -58,7 +58,7 @@ importers:
         specifier: ^2.4.6
         version: 2.4.6
       '@types/node':
-        specifier: ^20.19.41
+        specifier: ^20.19.43
         version: 20.19.43
       '@types/pg':
         specifier: ^8.20.0
