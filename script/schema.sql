@@ -1,39 +1,13 @@
---comandos uteis
+-- ATIVA A EXTENSÃO DE CRIPTOGRAFIA (O código para liberar o gen_random_bytes)
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
---SELECT constraint_name FROM information_schema.constraint_column_usage WHERE table_name = 'pedidos_vendas' AND column_name = 'valor_total';
+-- Configura o formato de data brasileiro diretamente no banco
+ALTER DATABASE estoque_vendas_caixa_mvc SET DateStyle = 'SQL, DMY';
 
---ALTER TABLE pedidos_vendas DROP CONSTRAINT pedidos_vendas_valor_total_check;
 
---COMANDO SQL PARA CONVERTER PADRÃO ANTIGO (v4) EM NOVO PADRÃO (v7)
---ALTER TABLE clientes ALTER COLUMN id SET DEFAULT uuidv7();
---ALTER TABLE compatibilidade_pecas ALTER COLUMN id SET DEFAULT uuidv7();
---ALTER TABLE despesas ALTER COLUMN id SET DEFAULT uuidv7();
---ALTER TABLE estoque_objetos_duraveis ALTER COLUMN id SET DEFAULT uuidv7();
---ALTER TABLE estoque_objetos_genericos ALTER COLUMN id SET DEFAULT uuidv7();
---ALTER TABLE peca_imagens ALTER COLUMN id SET DEFAULT uuidv7();
---ALTER TABLE pecas ALTER COLUMN id SET DEFAULT uuidv7();
---ALTER TABLE servico_manutencao ALTER COLUMN id SET DEFAULT uuidv7();
---ALTER TABLE sucata_compras ALTER COLUMN id SET DEFAULT uuidv7();
---ALTER TABLE usuarios ALTER COLUMN id SET DEFAULT uuidv7();
---ALTER TABLE veiculos_cliente_manutencao ALTER COLUMN id SET DEFAULT uuidv7();
---ALTER TABLE vendas ALTER COLUMN id SET DEFAULT uuidv7();
-
---ALTER TABLE estoque_objetos_duraveis 
---    ADD COLUMN responsavel_compra_id UUID NOT NULL,
---    ADD COLUMN data_compra TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
---    ADD COLUMN data_descarte TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
---    ADD CONSTRAINT fk_responsavel_compra 
---        FOREIGN KEY (responsavel_compra_id) 
---        REFERENCES usuarios(id) 
---        ON DELETE RESTRICT 
---        ON UPDATE RESTRICT;
-
--- Ativação da extensão para geração de UUID
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-
--- FUNÇÃO PARA CONVERTE UUID PRIMARY KEY DEFAULT gen_random_uuid() (v4) PARA uuidv7 (v7)
-------->
-CREATE OR REPLACE FUNCTION uuidv7()
+-----> ESSA FUNÇÃO É USADA PARA CONVERTE UUID PRIMARY KEY DEFAULT gen_random_uuid() (v4) PARA uuidv7 (v7).
+-- > 2. CRIA A FUNÇÃO COM O NOME gen_random_uuidv7 QUE O PRISMA JÁ ESTÁ ESPERANDO
+CREATE OR REPLACE FUNCTION gen_random_uuidv7() 
 RETURNS uuid AS $$
 DECLARE
     timestamp_ms bigint;
@@ -44,20 +18,57 @@ BEGIN
     
     -- Monta a estrutura binária oficial do UUIDv7 (Timestamp + Versão 7 + Variante + Bits Aleatórios)
     bytes := decode(
-        lpad(to_hex(timestamp_ms), 12, '0') || '7' || 
-        substr(to_hex((random() * 4095)::int), 2, 3) || '8' || 
-        substr(to_hex((random() * 4095)::int), 2, 3) || 
+        lpad(to_hex(timestamp_ms), 12, '0') || 
+        '7' || substr(to_hex((random() * 4095)::int), 2, 3) || 
+        '8' || substr(to_hex((random() * 4095)::int), 2, 3) || 
         lpad(to_hex((random() * 4294967295)::bigint), 8, '0'), 
         'hex'
     );
     RETURN bytes::uuid;
 END;
 $$ LANGUAGE plpgsql VOLATILE;
------X
+-- Ativação da extensão para geração de UUID
+--CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+-- FUNÇÃO PARA CONVERTE UUID PRIMARY KEY DEFAULT gen_random_uuid() (v4) PARA uuidv7 (v7)
+-------X
+
 
 --------------------------------------------------------------------------------
 -- 1. CRIAÇÃO DOS TIPOS (ENUMS)
 --------------------------------------------------------------------------------
+
+CREATE TYPE tipo_despesa AS ENUM (
+    'FIXA', 
+    'VARIAVEL'
+);
+
+CREATE TYPE tipo_despesa_fixa AS ENUM (
+    'aluguel',
+    'pro-labore',
+    'internet',
+    'salário fixo',
+    'água',
+    'energia elétrica',
+    'iptu',
+    'contador',
+    'despesas de informática',
+    'segurança e vigilância',
+    'controle de resíduos e descartes',
+    'outras despesas fixas'
+);
+
+CREATE TYPE tipo_despesa_variavel AS ENUM (
+    'matéria-prima',
+    'Peças reposição',
+    'Impostos de vendas',
+    'Logística transporte',
+    'Comissões mão de obra',
+    'Insumos produção',
+    'Taxas cartão',
+    'Outras despesas variáveis'
+);
+
 CREATE TYPE nivel_acesso AS ENUM ('Nivel_1', 'NIvel_2', 'Nivel_3', 'Nivel_4');
 
 CREATE TYPE cargo_usuario AS ENUM ('administrador', 'vendedor', 'mecanico', 'estoquista', 'gerente', 'desenvolvedor', 'funcionario', 'eletricista', 'desmontador', 'auxiliar de estoque', 'auxiliar administrativo', 'limpador', 'outros');
@@ -96,7 +107,7 @@ CREATE TYPE categoria_despesas AS ENUM ('Despesas operacionais', 'Despesas admin
 -- 2. CRIAÇÃO DAS TABELAS BASE (SEM DEPENDÊNCIAS REVERSAS)
 --------------------------------------------------------------------------------
 CREATE TABLE usuarios (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
     nome VARCHAR(100) UNIQUE NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     senha_hash TEXT NOT NULL,
@@ -128,17 +139,17 @@ CREATE TABLE modelos (
 );
 
 CREATE TABLE estoque_objetos_duraveis (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
     objeto_duravel VARCHAR(100),
     data_compra timestamp DEFAULT CURRENT_TIMESTAMP,
     data_descarte timestamp DEFAULT CURRENT_TIMESTAMP,
     responsavel_compra_id UUID NOT NULL,
-    valor_compra DECIMAL(10, 2) NOT NULL, -- CHECK (valor_compra >= 0)
+    valor_compra DECIMAL(10, 2) NOT NULL CHECK (valor_compra >= 0),
     CONSTRAINT fk_responsavel_compra FOREIGN KEY (responsavel_compra_id) REFERENCES usuarios(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
 
 CREATE TABLE estoque_objetos_genericos (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
     objeto_descartavel_nome VARCHAR(100),
     preco_objeto_descartavel DECIMAL(10, 2) DEFAULT 0.00 NOT NULL,
     quantidade_objeto_descartavel INT NOT NULL DEFAULT 1,
@@ -150,20 +161,24 @@ CREATE TABLE estoque_objetos_genericos (
 );
 
 CREATE TABLE despesas (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    descricao_despesa VARCHAR(200) NOT NULL,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
+    descricao_despesa VARCHAR(255) NOT NULL,
+    tipo_despesa tipo_despesa NOT NULL,
+    tipo_despesa_fixa tipo_despesa_fixa NOT NULL,
+    tipo_despesa_variavel tipo_despesa_variavel NOT NULL,
     valor_despesa DECIMAL(10, 2) NOT NULL,
-    data_despesa TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_despesa TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     responsavel_compra_id UUID NOT NULL,
-    categoria_despesa categoria_despesas NOT NULL,
-    CONSTRAINT fk_responsavel_despesa FOREIGN KEY (responsavel_compra_id) REFERENCES usuarios(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+    categoria_despesa categoria_despesas NOT NULL DEFAULT 'Despesas operacionais', 
+    CONSTRAINT fk_responsavel_compra_id FOREIGN KEY (responsavel_compra_id) 
+    REFERENCES usuarios(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
 
 --------------------------------------------------------------------------------
 -- 3. CRIAÇÃO DAS TABELAS DE SUCATA E PEÇAS
 --------------------------------------------------------------------------------
 CREATE TABLE sucata_estoque (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
     modelo_id INT NOT NULL,
     ano_fabricacao INT NOT NULL,
     ano_modelo INT NOT NULL,
@@ -177,7 +192,7 @@ CREATE TABLE sucata_estoque (
 );
 
 CREATE TABLE peca_estoque (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
     veiculo_origem_id UUID NOT NULL,
     nome_peca VARCHAR(100) NOT NULL, 
     modelo_origem_id INT NOT NULL,
@@ -196,7 +211,7 @@ CREATE TABLE peca_estoque (
 );
 
 CREATE TABLE peca_imagens (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
     peca_id UUID NOT NULL,
     url_imagem TEXT NOT NULL,
     principal BOOLEAN DEFAULT FALSE,
@@ -211,26 +226,27 @@ CREATE TABLE peca_imagens (
 --------------------------------------------------------------------------------
 -- CORRIGIDO: Movido para cima para permitir a criação das FKs de vendas e serviços
 CREATE TABLE clientes (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
     nome_cliente VARCHAR(100) UNIQUE NOT NULL,
-    CPF_cliente VARCHAR(14) UNIQUE NOT NULL, --CHECK (CPF_cliente ~ '^\d{3}\.\d{3}\.\d{3}-\d{2}$'),
+    CPF_cliente VARCHAR(14) UNIQUE NOT NULL CHECK (CPF_cliente ~ '^\d{3}\.\d{3}\.\d{3}-\d{2}$'),
     endereco_cliente VARCHAR(200),
     bairro_cliente VARCHAR(100),
-    CEP_cliente VARCHAR(9) NOT NULL DEFAULT '69.300-000', --CHECK (CEP_cliente ~ '^[0-9]{2}\.[0-9]{3}-[0-9]{3}$'),
+    CEP_cliente VARCHAR(9) NOT NULL DEFAULT '69.300-000' CHECK (CEP_cliente ~ '^[0-9]{2}\.[0-9]{3}-[0-9]{3}$'),
     cidade_cliente VARCHAR(100) DEFAULT 'Boa Vista',
-    telefone_cliente VARCHAR(20), --CHECK (
-        --telefone_cliente ~ '^\+55\s?\(?\d{2}\)?\s?\d{4,5}-?\d{4}$' OR
-        --telefone_cliente ~ '^\+592\s?\d{3}-?\d{4}$'   OR
-        --telefone_cliente ~ '^\+58\s?\d{3}-?\d{7}$'    OR
-        --telefone_cliente ~ '^\+597\s?\d{3,4}-?\d{3,4}$' OR
-        --telefone_cliente ~ '^\+57\s?\d{3}-?\d{7}$'),
-    data_nascimento DATE,
+    pais_cliente VARCHAR(50) DEFAULT 'Brasil',
+    telefone_cliente VARCHAR(20) CHECK (
+        telefone_cliente ~ '^\+55\s?\(?\d{2}\)?\s?\d{4,5}-?\d{4}$' OR
+        telefone_cliente ~ '^\+592\s?\d{3}-?\d{4}$'   OR
+        telefone_cliente ~ '^\+58\s?\d{3}-?\d{7}$'    OR
+        telefone_cliente ~ '^\+597\s?\d{3,4}-?\d{3,4}$' OR
+        telefone_cliente ~ '^\+57\s?\d{3}-?\d{7}$'),
+    data_nascimento DATE CHECK (data_nascimento <= CURRENT_DATE),
     email_cliente VARCHAR(100) UNIQUE NOT NULL,
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE compatibilidade_pecas (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
     peca_id UUID NOT NULL,
     modelo_origem_id INT NOT NULL,
     ano_inicio INT,
@@ -245,11 +261,11 @@ CREATE TABLE compatibilidade_pecas (
 -- 5. CRIAÇÃO DAS TABELAS DE FLUXO DE CAIXA (VENDAS E COMPRAS)
 --------------------------------------------------------------------------------
 CREATE TABLE pedidos_vendas (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
     cliente_comprador_id UUID NOT NULL,
     responsavel_venda_id UUID NOT NULL,
     data_venda TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    valor_total DECIMAL(10, 2) NOT NULL DEFAULT 0.00, --CHECK (valor_total >= 0)
+    valor_total DECIMAL(10, 2) NOT NULL DEFAULT 0.00, CHECK (valor_total >= 0),
     metodo_pagamento metodo_pagamento DEFAULT 'Pix' NOT NULL,
     status_pedido status_pedido DEFAULT 'Autorizado' NOT NULL,
     observacoes_recibo varchar(500),
@@ -258,10 +274,10 @@ CREATE TABLE pedidos_vendas (
 );
 
 CREATE TABLE itens_pedido_vendas (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
     pedido_venda_id UUID NOT NULL,
     peca_estoque_id UUID UNIQUE NOT NULL,
-    valor_venda DECIMAL(10, 2) NOT NULL, --CHECK (valor_venda >= 0)
+    valor_venda DECIMAL(10, 2) NOT NULL, CHECK (valor_venda >= 0),
     data_fim_garantia DATE NOT NULL,
     status_item status_item DEFAULT 'Disponivel' NOT NULL,
     data_devolucao TIMESTAMP,
@@ -272,10 +288,10 @@ CREATE TABLE itens_pedido_vendas (
 );
 
 CREATE TABLE sucata_compras (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
     data_compra TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    valor_compra DECIMAL(10, 2) NOT NULL,
-    quantidade INT NOT NULL DEFAULT 1,
+    valor_compra DECIMAL(10, 2) NOT NULL, CHECK (valor_compra >= 0),
+    quantidade INT NOT NULL DEFAULT 1, CHECK (quantidade >= 0),
     responsavel_compra_id UUID NOT NULL,
     cliente_vendedor_id UUID NOT NULL,  
     CONSTRAINT fk_responsavel_compra FOREIGN KEY (responsavel_compra_id) REFERENCES usuarios(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
@@ -286,7 +302,7 @@ CREATE TABLE sucata_compras (
 -- 6. CRIAÇÃO DAS TABELAS DE MANUTENÇÃO
 --------------------------------------------------------------------------------
 CREATE TABLE veiculos_cliente_manutencao (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
     modelo_id INT NOT NULL, 
     cliente_id UUID NOT NULL,
     CONSTRAINT fk_modelo_veiculo_manutencao FOREIGN KEY (modelo_id) REFERENCES modelos(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
@@ -300,7 +316,7 @@ CREATE TABLE tipo_servico (
 );
 
 CREATE TABLE servico_manutencao (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
     tipo_servico_id UUID NOT NULL, 
     descricao_manutencao TEXT NOT NULL, 
     veiculo_manutencao_id UUID NOT NULL,

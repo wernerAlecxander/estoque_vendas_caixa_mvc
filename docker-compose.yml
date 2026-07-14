@@ -1,6 +1,6 @@
 services:
   postgres-db:
-    image: postgres:17-alpine
+    image: postgres:18.4-alpine
     container_name: estoque_vendas_caixa_mvc_db
     restart: always
     mem_limit: ${POSTGRES_MEM_LIMIT:-256m}
@@ -8,10 +8,11 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
+      PGDATA: /var/lib/postgresql/data/pgdata # Isola os dados do motor do Postgres em um subdiretório, evitando problemas de permissão e corrupção de dados.
     ports:
       - "5432:5432" #O primeiro valor (Esquerda): É a porta física que você vai digitar no navegador (no computador local ou a URL gerada pelo Codespaces). O segundo valor (Direita): É a porta em que o programa (Next.js ou Prisma) está rodando de verdade "lá dentro" do container isolado.
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql # versões anteriores (17<=18) do Postgres não suportam o bind mount de arquivos SQL, então é necessário usar um volume para persistir os dados do banco de dados.
       - ./script/schema.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
@@ -38,6 +39,9 @@ services:
       - .:/app:cached # O cached é uma otimização para o Docker Desktop, que melhora a performance de leitura e escrita de arquivos entre o container e o host. No linux não é necessário.
       - node_modules_vol:/app/node_modules
       - next_cache_vol:/app/.next
+      - /app/.pnpm # Evita que o pnpm baixe dependências repetidas vezes, melhorando a performance do build.
+      - /app/.pnpm # Evita conflito cruzado de binários compilados locais vs container
+      - /pnpm  # <- Mantém o cache interno do pnpm blindado dentro do container
     environment:
       DATABASE_URL: ${DATABASE_URL}
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
@@ -65,6 +69,8 @@ services:
       - .:/app:cached
       - node_modules_vol:/app/node_modules
       - prisma_studio_data:/app/prisma_studio_data
+      - /app/.pnpm
+      - /pnpm # Mantém o cache interno do pnpm blindado dentro do container
     environment:
       DATABASE_URL: ${DATABASE_URL}
     # Força o container a rodar o comando do studio apontando para a porta correta e escutando a rede externa
@@ -95,6 +101,8 @@ services:
       - .:/app
       - node_modules_vol:/app/node_modules
       - next_cache_vol:/app/.next
+      - /app/.pnpm
+      - /pnpm # Mantém o cache interno do pnpm blindado dentro do container
     command: pnpm test
     depends_on:
       postgres-db:

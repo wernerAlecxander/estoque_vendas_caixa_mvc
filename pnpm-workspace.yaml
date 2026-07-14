@@ -1,0 +1,12 @@
+# pnpm-workspace.yaml
+packages:
+  - "**"
+
+allowBuilds:
+  "@prisma/engines": true
+  "esbuild": true
+  "prisma": true
+  "sharp": true
+  "tree-sitter": true
+  "tree-sitter-javascript": true
+  "tree-sitter-typescript": true

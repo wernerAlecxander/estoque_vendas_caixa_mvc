@@ -1,3 +1,5 @@
+#controle de estoque com fluxo de caixa + página pública de vendas.
+
 estrutura de pastas, componentes e regras de negócio
 
 OPÇÃO 1 (TUDO JUNTO):
@@ -29,9 +31,9 @@ OPÇÃO 1 (TUDO JUNTO):
 │
 └── vitest.config.ts                    # Configuração de testes unitários rápidos e tipados
 
-OPÇÃO 2 (BACK E FRONT SEPARADOS):
+OPÇÃO 2 (FRONT E BACK SEPARADOS):
 
-📦 ferro-velho-backend (Frontend: React com Vite + pnpm + TypeScript + Zod)
+📦 ferro-velho-frontend (Frontend: React com Vite|nextJS + pnpm + TypeScript + Zod)
 ├── 📁 prisma/
 │   └── schema.prisma           # Seu modelo atual do Prisma
 ├── 📁 src/
@@ -60,7 +62,7 @@ OPÇÃO 2 (BACK E FRONT SEPARADOS):
 ├── docker-compose.yml
 └── package.json
 ---------------
-📦 ferro-velho-frontend (Backend (API): Express|NestJS|Fastify + Prisma + TypeScript + Zod + PostgreSQL + Docker)
+📦 ferro-velho-backend (Backend (API): Express|NestJS|Fastify + Prisma + TypeScript + Zod + PostgreSQL + Docker)
 ├── 📁 src/
 │   ├── 📁 components/          # Botões, tabelas de estoque, inputs
 │   ├── 📁 services/
@@ -76,17 +78,17 @@ OPÇÃO 2 (BACK E FRONT SEPARADOS):
 │   │       └── 📁 caixa/       # Painel de fluxo de caixa (entradas e saídas)
 └── package.json
 
-
+REGRAS_NEGOCIO
 (1. cadastros
-	1.1 
-	1.2 
-	1.3 
-	1.4 
-	1.5 
-	1.6 
+	1.1 Cadastrar clientes 
+	1.2 Consultar clientes 
+	1.3 Deletar clientes 
+	1.4 Cadastrar usuários
+	1.5 Consultar Usuários
+	1.6 Deletar Usuários
 	1.7 Cadastrar marcas de veículos
-	1.8 Cadastrar modelos de veículos
-	1.9 Cadastrar veículos de clientes
+	1.8 Cadastrar modelos de veículos 
+	1.9 Cadastrar veículos de clientes 
 	1.10 Consultar veículos de clientes
 	1.11 Deletar veículos de clientes
 	1.12 Cadastrar tipos de serviços
@@ -135,16 +137,16 @@ OPÇÃO 2 (BACK E FRONT SEPARADOS):
 	6.4 CANCELAR SERVIÇOS
 	6.5 OBSERVAÇÃO SERVIÇOS
 7. CAIXA
-	7.1 FATURAMENTO (receita bruta =  O volume total de vendas)
-	7.2 MARGEM DE CONTRIBUIÇÃO (quanto cada venda sobra após cobrir custos variáveis)
-	7.3 MARGEM LÍQUIDA (A porcentagem da receita que se transforma em lucro líquido real depois de descontar todas as despesas (fixas, variáveis, impostos e operacionais))
+	7.1 FATURAMENTO
+	7.2 MARGEM DE CONTRIBUIÇÃO 
+	7.3 MARGEM LÍQUIDA
 	7.4 CADASTRAR RECEITAS EXTRAS
 	7.5 CONSULTAR DESPESAS
 	7.6 CONSULTAR RECEITAS
 	7.7 CADASTRAR DESPESAS
-	7.8 PONTO DE EQUILÍBRIO (O valor mínimo que a empresa precisa faturar para cobrir todos os seus custos e não ter prejuízo, mas também não tem lucro.)
-	7.9 TICKET MÉDIO (A média de valor gasto por cliente por compra,)
-	7.10 TAXA DE CONVERSÃO DE VENDAS (A porcentagem de orçamentos emitidos que se transformam em vendas fechadas = pedidos faturados)
+	7.8 PONTO DE EQUILÍBRIO
+	7.9 TICKET MÉDIO
+	7.10 TAXA DE CONVERSÃO DE VENDAS 
 8. INVENTÁRIO
 	8.1 DURAVEIS CADASTRADOS
 	8.2 DESCARTÁVEIS CADASTRADOS
@@ -172,9 +174,20 @@ OPÇÃO 2 (BACK E FRONT SEPARADOS):
 14. veiculos_cliente_manutencao
 15. servico_manutencao
 
-# docker + pnpm + postgre + prisma + typescript + nextJS + zod + vitest + tailwindcss
+# STACK_FRONTEND: docker(29.6.1) + pnpm(11.0.1) + postgre(18.4) + prisma(7.8.0) + typescript(7.0.2) + nextJS(16.2.10) + node(24-alpine) + zod(^4.4.3) + vitest(4.1.10) + tailwindcss
+# STACK_BACKEND: docker(29.6.1) + express(5.2.1) + postgreSQL(18.4) + prisma(7.8.0) + typescript(7.0.2) + pnpm(11.0.1) + zod(^4.4.3) + vitest(4.1.10) + node(24-alpine)
 
-1.0 CLIENTES(cadastrar/consultar/alterar/deletar)
-2.0 USUÁRIOS/PERMISSÕES(cadastrar/consultar/alterar/deletar)
-3.0 VEÍCULOS(cadastrar/consultar/alterar/deletar)
-4.0 SERVIÇOS(cadastrar_serviços)
+--OFICINA/ESTOQUE(OPERACIONAL)---
+ACAO: CADASTRAR/CONSULTAR/ALTERAR/DELETAR/BAIXAR_ESTOQUE
+OBJETO: CLIENTES&&VEICULOS/FORNECEDORES/SERVICOS/SUCATAS/PECAS/
+ETIQUETAS: QRCODE_SUCATAS/QRCODE_PECAS/QRCODE_VEICULOS 
+
+---CAIXA(FLUXO_FINANCEIRO)--------
+ACAO: CADASTRAR/CONSULTAR/ALTERAR/DELETAR/BAIXAR_CONTABIL
+OBJETO: RECEITAS/DESPESAS/COMPRAS/VENDAS/SERVICOS/BENS_DURAVEIS/ORCAMENTO/BENS_DESCARTAVEIS/RECEITAS_EXTRAS
+ETIQUETAS: QRCODE_DURAVEIS/QRCODE_DESCARTAVEIS/ORCAMENTO/NOTA_FISCAL
+DEMONSTRATIVO: PONTO_EQUILIBRIO/TICKET_MEDIO/TAXA_CONVERSÃO_VENDAS/FATURAMENTO/MARGEM_CONTRIBUICAO/MARGEM_LIQUIDA
+
+-----CONFIGURACOES(SISTEMA)
+CADASTRAR/CONSULTAR/ALTERAR/DELETAR/
+USUARIOS&&PERMISSOES
