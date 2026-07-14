@@ -32,6 +32,3 @@ CMD ["pnpm", "run", "dev"]
 
 # Para rodar no codespace quando quiser abrir o PRISMA STUDIO no browser:
 # docker compose exec next-app pnpm prisma studio --port $PRISMA_STUDIO_PORT --browser none docker compose exec -d next-app pnpm prisma studio --port $PRISMA_STUDIO_PORT --browser none
-
-
-

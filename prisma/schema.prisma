@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client-js"     // O novo padrão otimizado do Prisma 7
+  output   = "./generated/client"     // para evitar sumir no node_modules
 }
 
 datasource db {
@@ -227,14 +228,14 @@ enum tipo_objeto_receita {
 
 model configuracao_imposto {
   id                      String            @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
-  tipo_objeto_recita      tipo_objeto_receita   
+  tipo_objeto_receita     tipo_objeto_receita   
   aliquota_iss            Decimal           @default(0) @db.Decimal(5, 2)  
   aliquota_icms           Decimal           @default(0) @db.Decimal(5, 2)
   aliquota_pis            Decimal           @default(0) @db.Decimal(5, 2) 
   aliquota_cofins         Decimal           @default(0) @db.Decimal(5, 2) 
   data_atualizacao        DateTime          @updatedAt @map("data de atualização")
 
-  @@map("configuração_imposto")
+  @@map("configuracao_imposto")
 }
 
 // ==========================================
@@ -294,19 +295,20 @@ model despesas {
 
 
 enum cargo_usuario {
-  administrador
-  vendedor
-  mecanico
-  estoquista
-  gerente
-  desenvolvedor
-  funcionario
-  eletricista
-  desmontador
+  administrador           @map("administrador")
+  vendedor                @map("vendedor")
+  mecanico                @map("mecanico")
+  estoquista              @map("estoquista")
+  gerente                 @map("gerente")
+  desenvolvedor           @map("desenvolvedor")
+  funcionario             @map("funcionario")
+  eletricista             @map("eletricista")
+  desmontador             @map("desmontador")
   auxiliar_de_estoque     @map("auxiliar de estoque")
   auxiliar_administrativo @map("auxiliar administrativo")
-  limpador
-  outros
+  limpador                @map("limpador")
+  outros                  @map("outros")
+  @@map("cargo_usuario")
 }
 
 enum categoria_despesas {
@@ -475,9 +477,9 @@ enum status_venda {
   Nao_disponivel @map("Nao disponivel")
 }
 
-
 //docker compose exec -it next-app pnpm prisma migrate dev --name adicionar_check_valor_compra
 //docker compose exec -it next-app pnpm prisma migrate dev --name sincronizar_schema
 //docker compose exec -it next-app pnpm prisma db pull (se quiser puxar do banco para o model)
 //docker compose exec -it next-app pnpm prisma generate
-
+//docker compose exec -it next-app pnpm prisma migrate reset
+//docker compose exec -it next-app pnpm prisma migrate dev --create-only --name criar_funcao_gen_random_uuidv7

@@ -1,7 +1,6 @@
 // ./prisma/seed.ts
-import { cargo_usuario, setor_usuario, marca_veiculo } from '@prisma/client';
 import bcrypt from 'bcryptjs';
-// IMPORTANTE: Importa a instância correta e já configurada com o Adapter do PG
+import { cargo_usuario, setor_usuario } from './generated/client'; 
 import { prisma } from '../lib/prisma'; 
 
 async function main() {
@@ -17,30 +16,60 @@ async function main() {
       nome: 'Administrador do Sistema',
       email: 'admin@sistema.com',
       senha_hash: senhaHash,
-      cargo_usuario: cargo_usuario.administrador,
+      cargo_usuario: cargo_usuario.administrador, 
       setor_usuario: setor_usuario.desenvolvimento,
       status_usuario: 'ativo',
     },
   });
+
   console.log(`👤 Usuário Admin criado/verificado: ${admin.email}`);
 
-  // 2. Inserir Modelos de Carro Iniciais para testar o Estoque de Peças/Sucatas
-  console.log('🚗 Inserindo modelos de veículos para teste de compatibilidade...');
+  // 2. Inserir as Marcas de Veículos Primeiro (Tabela marcas_veiculo)
+  console.log('🚗 Inserindo as marcas de veículos...');
+  
+  const marcasIniciais = ['Fiat', 'Volkswagen', 'Chevrolet', 'Toyota'];
+  
+  // Guardaremos os IDs gerados para facilitar a criação dos modelos no próximo passo
+  const marcasMapeadas: Record<string, number> = {};
+
+  for (const nomeMarca of marcasIniciais) {
+    const marcaBanco = await prisma.marcas_veiculo.upsert({
+      where: { nome: nomeMarca },
+      update: {},
+      create: { nome: nomeMarca },
+    });
+    
+    marcasMapeadas[nomeMarca] = marcaBanco.id;
+  }
+
+  // 3. Inserir Modelos de Carro Vinculando com os IDs (Respeitando o @@unique composto)
+  console.log('🚘 Inserindo os modelos de veículos...');
   
   const modelosParaInserir = [
-    { marca_veiculo: marca_veiculo.Fiat, nome_modelo: 'Uno Mille 1.0' },
-    { marca_veiculo: marca_veiculo.Volkswagen, nome_modelo: 'Gol G4 1.6' },
-    { marca_veiculo: marca_veiculo.Chevrolet, nome_modelo: 'Celta 1.0' },
-    { marca_veiculo: marca_veiculo.Toyota, nome_modelo: 'Corolla XEI' }
+    { marca: 'Fiat', nome_modelo: 'Uno Mille 1.0' },
+    { marca: 'Volkswagen', nome_modelo: 'Gol G4 1.6' },
+    { marca: 'Chevrolet', nome_modelo: 'Celta 1.0' },
+    { marca: 'Toyota', nome_modelo: 'Corolla XEI' }
   ];
 
   for (const item of modelosParaInserir) {
+    const marcaId = marcasMapeadas[item.marca];
+
     await prisma.modelos.upsert({
-      where: { nome_modelo: item.nome_modelo },
+      // Usamos a chave única composta (@@unique) gerada automaticamente pelo Prisma baseada no seu schema
+      where: {
+        marcas_veiculo_id_nome_modelo: {
+          marcas_veiculo_id: marcaId,
+          nome_modelo: item.nome_modelo,
+        }
+      },
       update: {},
       create: {
-        marca_veiculo: item.marca_veiculo,
         nome_modelo: item.nome_modelo,
+        // Conectamos diretamente pelo ID da tabela marcas_veiculo mapeada acima
+        marcas_veiculo: {
+          connect: { id: marcaId }
+        }
       },
     });
   }

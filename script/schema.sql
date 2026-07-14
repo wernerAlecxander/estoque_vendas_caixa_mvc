@@ -7,26 +7,35 @@ ALTER DATABASE estoque_vendas_caixa_mvc SET DateStyle = 'SQL, DMY';
 
 -----> ESSA FUNÇÃO É USADA PARA CONVERTE UUID PRIMARY KEY DEFAULT gen_random_uuid() (v4) PARA uuidv7 (v7).
 -- > 2. CRIA A FUNÇÃO COM O NOME gen_random_uuidv7 QUE O PRISMA JÁ ESTÁ ESPERANDO
-CREATE OR REPLACE FUNCTION gen_random_uuidv7() 
-RETURNS uuid AS $$
+CREATE OR REPLACE FUNCTION gen_random_uuidv7() RETURNS uuid AS \$\$
 DECLARE
     timestamp_ms bigint;
     bytes bytea;
 BEGIN
-    -- Captura o timestamp atual em milissegundos
+    -- 1. Captura o timestamp em milissegundos
     timestamp_ms := (EXTRACT(EPOCH FROM clock_timestamp()) * 1000)::bigint;
     
-    -- Monta a estrutura binária oficial do UUIDv7 (Timestamp + Versão 7 + Variante + Bits Aleatórios)
-    bytes := decode(
-        lpad(to_hex(timestamp_ms), 12, '0') || 
-        '7' || substr(to_hex((random() * 4095)::int), 2, 3) || 
-        '8' || substr(to_hex((random() * 4095)::int), 2, 3) || 
-        lpad(to_hex((random() * 4294967295)::bigint), 8, '0'), 
-        'hex'
-    );
-    RETURN bytes::uuid;
+    -- 2. Gera 16 bytes aleatórios iniciais usando pgcrypto
+    bytes := gen_random_bytes(16);
+    
+    -- 3. Injeta o timestamp nos primeiros 6 bytes (48 bits)
+    bytes := set_byte(bytes, 0, ((timestamp_ms >> 40) & 255)::int);
+    bytes := set_byte(bytes, 1, ((timestamp_ms >> 32) & 255)::int);
+    bytes := set_byte(bytes, 2, ((timestamp_ms >> 24) & 255)::int);
+    bytes := set_byte(bytes, 3, ((timestamp_ms >> 16) & 255)::int);
+    bytes := set_byte(bytes, 4, ((timestamp_ms >> 8) & 255)::int);
+    bytes := set_byte(bytes, 5, (timestamp_ms & 255)::int);
+    
+    -- 4. Força a versão 7 no byte 6 (bits mais significativos de 0111XXXX)
+    bytes := set_byte(bytes, 6, ((get_byte(bytes, 6) & 15) | 112)::int);
+    
+    -- 5. Força a variante do UUID (10XXXXXX) no byte 8
+    bytes := set_byte(bytes, 8, ((get_byte(bytes, 8) & 63) | 128)::int);
+    
+    -- 6. Converte os bytes tratados diretamente para o formato UUID válido de 32 hex caracteres
+    RETURN encode(bytes, 'hex')::uuid;
 END;
-$$ LANGUAGE plpgsql VOLATILE;
+\$\$ LANGUAGE plpgsql VOLATILE;
 -- Ativação da extensão para geração de UUID
 --CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
@@ -331,7 +340,7 @@ CREATE TABLE servico_manutencao (
     CONSTRAINT fk_responsavel_manutencao FOREIGN KEY (responsavel_id) REFERENCES usuarios(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
 
--- FUNÇÃO PARA IMPEDIR ALGUÉM DELETAR ID DA TABELA USUÁRIO
+-- FUNÇÃO PARA IMPEDIR ALGUÉM DELETAR ID DAS TABELAS USUARIOS, ESTOQUE_OBJETOS_DURAVEIS, ESTOQUE_OBJETOS_GENERICOS, DESPESAS, SUCATA_ESTOQUE, PECA_ESTOQUE, PECA_IMAGENS, COMPATIBILIDADE_PEÇAS, PEDIDOS_VENDAS, ITENS_PEDIDO_VENDAS, SUCATA_COMPRAS, CLIENTES, SERVICO_MANUTENCAO E VEICULOS_CLIENTE_MANUTENCAO
 ------------>
 CREATE OR REPLACE FUNCTION impedir_alterar_id_usuario()
 RETURNS TRIGGER AS $$
@@ -343,75 +352,30 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- TRIGGER PARA IMPEDIR ALGUÉM DELETAR ID TABELA USUARIOS
-CREATE TRIGGER trg_impedir_alterar_id_tabela_usuarios
-BEFORE UPDATE OF id ON usuarios
-FOR EACH ROW EXECUTE FUNCTION impedir_alterar_id_usuario();
+DO $$
+DECLARE
+    tabelas TEXT[] := ARRAY[
+        'usuarios', 'estoque_objetos_duraveis', 'estoque_objetos_genericos', 
+        'despesas', 'sucata_estoque', 'peca_estoque', 'peca_imagens', 
+        'compatibilidade_pecas', 'pedidos_vendas', 'itens_pedido_vendas', 
+        'sucata_compras', 'clientes', 'servico_manutencao', 'veiculos_cliente_manutencao'
+    ];
+    tabela TEXT;
+BEGIN
+    FOREACH tabela IN ARRAY tabelas LOOP
+        -- Opcional: Remove o trigger antigo se ele já existir para evitar duplicados
+        EXECUTE format('DROP TRIGGER IF EXISTS trg_impedir_alterar_id_tabela_%I ON %I;', tabela, tabela);
+        
+        -- Cria o trigger dinamicamente para cada tabela da lista
+        EXECUTE format('
+            CREATE TRIGGER trg_impedir_alterar_id_tabela_%I
+            BEFORE UPDATE OF id ON %I
+            FOR EACH ROW
+            EXECUTE FUNCTION impedir_alterar_id_usuario();
+        ', tabela, tabela);
+    END LOOP;
+END $$;
 
--- TRIGGER PARA IMPEDIR ALGUÉM DELETAR ID TABELA estoque_objetos_duraveis
-CREATE TRIGGER trg_impedir_alterar_id_tabela_estoque_objetos_duraveis
-BEFORE UPDATE OF id ON estoque_objetos_duraveis
-FOR EACH ROW EXECUTE FUNCTION impedir_alterar_id_usuario();
-
--- TRIGGER PARA IMPEDIR ALGUÉM DELETAR ID TABELA estoque_objetos_genericos
-CREATE TRIGGER trg_impedir_alterar_id_tabela_estoque_objetos_genericos
-BEFORE UPDATE OF id ON estoque_objetos_genericos
-FOR EACH ROW EXECUTE FUNCTION impedir_alterar_id_usuario();
-
--- TRIGGER PARA IMPEDIR ALGUÉM DELETAR ID TABELA despesas
-CREATE TRIGGER trg_impedir_alterar_id_tabela_despesas
-BEFORE UPDATE OF id ON despesas
-FOR EACH ROW EXECUTE FUNCTION impedir_alterar_id_usuario();
-
--- TRIGGER PARA IMPEDIR ALGUÉM DELETAR ID TABELA sucata_estoque
-CREATE TRIGGER trg_impedir_alterar_id_tabela_sucata_estoque
-BEFORE UPDATE OF id ON sucata_estoque
-FOR EACH ROW EXECUTE FUNCTION impedir_alterar_id_usuario();
-
--- TRIGGER PARA IMPEDIR ALGUÉM DELETAR ID TABELA peca_estoque
-CREATE TRIGGER trg_impedir_alterar_id_tabela_peca_estoque
-BEFORE UPDATE OF id ON peca_estoque
-FOR EACH ROW EXECUTE FUNCTION impedir_alterar_id_usuario();
-
--- TRIGGER PARA IMPEDIR ALGUÉM DELETAR ID TABELA peca_imagens
-CREATE TRIGGER trg_impedir_alterar_id_tabela_peca_imagens
-BEFORE UPDATE OF id ON peca_imagens
-FOR EACH ROW EXECUTE FUNCTION impedir_alterar_id_usuario();
-
--- TRIGGER PARA IMPEDIR ALGUÉM DELETAR ID TABELA compatibilidade_pecas
-CREATE TRIGGER trg_impedir_alterar_id_tabela_compatibilidade_pecas
-BEFORE UPDATE OF id ON compatibilidade_pecas
-FOR EACH ROW EXECUTE FUNCTION impedir_alterar_id_usuario();
-
--- TRIGGER PARA IMPEDIR ALGUÉM DELETAR ID TABELA pedidos_vendas
-CREATE TRIGGER trg_impedir_alterar_id_tabela_pedidos_vendas
-BEFORE UPDATE OF id ON pedidos_vendas
-FOR EACH ROW EXECUTE FUNCTION impedir_alterar_id_usuario();
-
--- TRIGGER PARA IMPEDIR ALGUÉM DELETAR ID TABELA itens_pedido_vendas
-CREATE TRIGGER trg_impedir_alterar_id_tabela_itens_pedido_vendas
-BEFORE UPDATE OF id ON itens_pedido_vendas
-FOR EACH ROW EXECUTE FUNCTION impedir_alterar_id_usuario();
-
--- TRIGGER PARA IMPEDIR ALGUÉM DELETAR ID TABELA SUCATA_COMPRAS
-CREATE TRIGGER trg_impedir_alterar_id_tabela_sucata_compras
-BEFORE UPDATE OF id ON sucata_compras
-FOR EACH ROW EXECUTE FUNCTION impedir_alterar_id_usuario();
-
--- TRIGGER PARA IMPEDIR ALGUÉM DELETAR ID TABELA clientes
-CREATE TRIGGER trg_impedir_alterar_id_tabela_clientes
-BEFORE UPDATE OF id ON clientes
-FOR EACH ROW EXECUTE FUNCTION impedir_alterar_id_usuario();
-
--- TRIGGER PARA IMPEDIR ALGUÉM DELETAR ID TABELA servico_manutencao
-CREATE TRIGGER trg_impedir_alterar_id_tabela_servico_manutencao
-BEFORE UPDATE OF id ON servico_manutencao
-FOR EACH ROW EXECUTE FUNCTION impedir_alterar_id_usuario();
-
--- TRIGGER PARA IMPEDIR ALGUÉM DELETAR ID TABELA veiculos_cliente_manutencao
-CREATE TRIGGER trg_impedir_alterar_id_tabela_veiculos_cliente_manutencao
-BEFORE UPDATE OF id ON veiculos_cliente_manutencao
-FOR EACH ROW EXECUTE FUNCTION impedir_alterar_id_usuario();
 -------------------------X
 
 -- FUNÇÃO PARA IMPEDIR ALGUÉM DELETAR NOME DA TABELA USUARIOs

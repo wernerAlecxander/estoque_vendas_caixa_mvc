@@ -1,23 +1,25 @@
+// prisma.config.ts
+import { existsSync } from "node:fs";
 import { config } from "dotenv";
-// Força o Prisma CLI a ler o arquivo local com endereço localhost
-if (require("fs").existsSync(".env.local")){
-config({ path: ".env.local" });
-}
-config({ path: ".env" });
 import { defineConfig, env } from "prisma/config";
 
+// 1. Carrega o .env.local apenas se ele existir (útil para desenvolvimento local/Codespaces)
+// Se o Docker Compose já injetou a DATABASE_URL na máquina, o process.env manterá a prioridade
+if (existsSync(".env.local")) {
+  config({ path: ".env.local" });
+} else {
+  config(); // Fallback para .env padrão se aplicável
+}
+
 export default defineConfig({
-  // Caminho do seu arquivo de esquema
-  schema: "prisma/schema.prisma",
-  
-  // Onde as migrações serão salvas
+  schema: "./prisma/schema.prisma",
   migrations: {
-    path: "prisma/migrations",
-    seed: "pnpm dlx tsx prisma/seed.ts",
+    path: "./prisma/migrations",
+    // [NOVO NO PRISMA 7]: O script de seed deve ser declarado diretamente aqui!
+    seed: "tsx prisma/seed.ts", 
   },
-  
-  // Configuração central da URL do banco de dados para a CLI
   datasource: {
-    url: env("DATABASE_URL"),
+    // Captura com segurança a variável resolvida pelo dotenv ou Docker
+    url: env("DATABASE_URL"), 
   },
 });

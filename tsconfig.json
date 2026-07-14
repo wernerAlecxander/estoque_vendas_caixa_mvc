@@ -5,6 +5,7 @@
       "dom.iterable",
       "esnext"
     ],
+    "types": ["node"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -14,20 +15,32 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "plugins": [
       {
         "name": "next"
       }
     ],
-        "paths": {
-      "@/*": ["./src/*"],
-      "@models/*": ["./src/models/*"],
-      "@controllers/*": ["./src/controllers/*"],
-      "@schemas/*": ["./src/schemas/*"],
-      "@app/*": ["./src/app/*"],
-      "@components/*": ["./src/components/*"]
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@models/*": [
+        "./src/models/*"
+      ],
+      "@controllers/*": [
+        "./src/controllers/*"
+      ],
+      "@schemas/*": [
+        "./src/schemas/*"
+      ],
+      "@app/*": [
+        "./src/app/*"
+      ],
+      "@components/*": [
+        "./src/components/*"
+      ]
     },
     "target": "ES2017"
   },
@@ -35,12 +48,14 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-   "exclude": [
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+, "prisma/tsconfig.json"  ],
+  "exclude": [
     "node_modules",
     "application_stack_help",
     "backup_data_base_structure",
-    "documentation_stack_app_info"
+    "documentation_stack_app_info",
+    "prisma.config.ts"
   ]
 }
