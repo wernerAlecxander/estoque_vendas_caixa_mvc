@@ -56,6 +56,7 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+
   prisma-studio:
     build:
       context: .
@@ -83,6 +84,7 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+
   next-test:
     build:
       context: .
@@ -112,6 +114,7 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+        
   portainer:
     image: portainer/portainer-ce:latest
     container_name: estoque_vendas_caixa_mvc_portainer
