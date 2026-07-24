@@ -17,8 +17,8 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 5s
-      timeout: 5s
-      retries: 5
+      timeout: 8s
+      retries: 10
     logging:
       driver: "json-file"
       options:
@@ -37,7 +37,7 @@ services:
       - "${PORT}:${PORT}"
     volumes:
       - .:/app:cached # O cached é uma otimização para o Docker Desktop, que melhora a performance de leitura e escrita de arquivos entre o container e o host. No linux não é necessário.
-      - node_modules_vol:/app/node_modules
+      - node_modules_app:/app/node_modules 
       - next_cache_vol:/app/.next
       - /app/.pnpm # Evita que o pnpm baixe dependências repetidas vezes, melhorando a performance do build.
       - /app/.pnpm # Evita conflito cruzado de binários compilados locais vs container
@@ -68,7 +68,7 @@ services:
       - "${PRISMA_STUDIO_PORT}:${PRISMA_STUDIO_PORT}"
     volumes:
       - .:/app:cached
-      - node_modules_vol:/app/node_modules
+      - node_modules_studio:/app/node_modules_prisma-studio
       - prisma_studio_data:/app/prisma_studio_data
       - /app/.pnpm
       - /pnpm # Mantém o cache interno do pnpm blindado dentro do container
@@ -101,7 +101,7 @@ services:
       NODE_ENV: test
     volumes:
       - .:/app
-      - node_modules_vol:/app/node_modules
+      - node_modules_test:/app/node_modules
       - next_cache_vol:/app/.next
       - /app/.pnpm
       - /pnpm # Mantém o cache interno do pnpm blindado dentro do container
@@ -140,7 +140,9 @@ volumes:
   postgres_data:
     name: postgres_data # dá um  nome ao volume para que ele não seja deletado quando o docker compose for executado.
     #external: true # impede que o docker compose down delete o volume de dados do banco de dados
-  node_modules_vol:
+  node_modules_app:
+  node_modules_studio:
+  node_modules_test:
   next_cache_vol:
   portainer_data:
   prisma_studio_data:

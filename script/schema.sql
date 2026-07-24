@@ -1,4 +1,4 @@
--- ATIVA A EXTENSÃO DE CRIPTOGRAFIA (O código para liberar o gen_random_bytes)
+-- ATIVA A EXTENSÃO DE CRIPTOGRAFIA (O código para liberar o gen_random_bytes de 16 bytes)
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 -- Configura o formato de data brasileiro diretamente no banco
@@ -7,7 +7,7 @@ ALTER DATABASE estoque_vendas_caixa_mvc SET DateStyle = 'SQL, DMY';
 
 -----> ESSA FUNÇÃO É USADA PARA CONVERTE UUID PRIMARY KEY DEFAULT gen_random_uuid() (v4) PARA uuidv7 (v7).
 -- > 2. CRIA A FUNÇÃO COM O NOME gen_random_uuidv7 QUE O PRISMA JÁ ESTÁ ESPERANDO
-CREATE OR REPLACE FUNCTION gen_random_uuidv7() RETURNS uuid AS \$\$
+CREATE OR REPLACE FUNCTION gen_random_uuidv7() RETURNS uuid AS $$
 DECLARE
     timestamp_ms bigint;
     bytes bytea;
@@ -35,7 +35,7 @@ BEGIN
     -- 6. Converte os bytes tratados diretamente para o formato UUID válido de 32 hex caracteres
     RETURN encode(bytes, 'hex')::uuid;
 END;
-\$\$ LANGUAGE plpgsql VOLATILE;
+$$ LANGUAGE plpgsql VOLATILE;
 -- Ativação da extensão para geração de UUID
 --CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
