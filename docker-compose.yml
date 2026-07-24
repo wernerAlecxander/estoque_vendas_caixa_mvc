@@ -43,6 +43,8 @@ services:
       - /app/.pnpm # Evita conflito cruzado de binários compilados locais vs container
       - /pnpm  # <- Mantém o cache interno do pnpm blindado dentro do container
     environment:
+      PNPM_CONFIG_FROZEN_LOCKFILE: "false" # Evita que o pnpm trave o build do container caso o lockfile esteja desatualizado. Isso é útil para desenvolvimento, mas em produção é recomendado manter o lockfile atualizado.
+      CI: false
       DATABASE_URL: ${DATABASE_URL}
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
       NEXTAUTH_URL: ${NEXTAUTH_URL}
@@ -73,9 +75,11 @@ services:
       - /app/.pnpm
       - /pnpm # Mantém o cache interno do pnpm blindado dentro do container
     environment:
+      PNPM_CONFIG_FROZEN_LOCKFILE: "false" # Evita que o pnpm trave o build do container caso o lockfile esteja desatualizado. Isso é útil para desenvolvimento, mas em produção é recomendado manter o lockfile atualizado.
+      CI: false # <- Evita que o Prisma Studio entre em modo interativo, que não funciona bem dentro de containers.
       DATABASE_URL: ${DATABASE_URL}
     # Força o container a rodar o comando do studio apontando para a porta correta e escutando a rede externa
-    command: pnpm prisma studio --port ${PRISMA_STUDIO_PORT} --browser none
+    command: pnpm exec prisma studio --port ${PRISMA_STUDIO_PORT} --browser none
     depends_on:
       postgres-db:
         condition: service_healthy
@@ -95,6 +99,8 @@ services:
     stdin_open: true # Permite interagir com o Vitest pelo teclado
     tty: true        # Mantém a formatação de cores do terminal
     environment:
+      PNPM_CONFIG_FROZEN_LOCKFILE: "false" # Evita que o pnpm trave o build do container caso o lockfile esteja desatualizado. Isso é útil para desenvolvimento, mas em produção é recomendado manter o lockfile atualizado.
+      CI: false # <-Não Evita que o Next.js entre em modo interativo.
       DATABASE_URL: ${DATABASE_URL}
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
       NEXTAUTH_URL: ${NEXTAUTH_URL}
