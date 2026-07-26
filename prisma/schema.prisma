@@ -11,7 +11,7 @@ model clientes {
   id           String  @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
   nome_cliente String  @unique @db.VarChar(100)
   cpf_cliente  String  @unique @db.VarChar(14) // Suporta CPF ou CNPJ formatados
-  ie_cliente   String? @db.VarChar(14) // Inscrição Estadual (Obrigatório para PJ contribuinte)
+  IE_cliente   String? @db.VarChar(14) // Inscrição Estadual (Obrigatório para PJ contribuinte)
 
   // Endereço estruturado para SEFAZ
   endereco_cliente String? @db.VarChar(200) // Logradouro + Número + Complemento
@@ -19,7 +19,7 @@ model clientes {
   cep_cliente      String  @default("69.300-000") @db.VarChar(9)
   cidade_cliente   String? @default("Boa Vista") @db.VarChar(100)
   uf_cliente       String  @default("RR") @db.VarChar(2) // Obrigatório para validação fiscal
-  codigo_ibge      String  @default("1400100") @db.VarChar(7) // Código IBGE (Boa Vista = 1400100)
+  codigo_IBGE      String  @default("1400100") @db.VarChar(7) // Código IBGE (Boa Vista = 1400100)
   pais_cliente     String? @default("Brasil") @db.VarChar(50)
 
   telefone_cliente String?   @db.VarChar(20)
@@ -28,13 +28,15 @@ model clientes {
   data_cadastro    DateTime? @default(now()) @db.Timestamp(6)
 
   // Relacionamentos Antigos Mapeados
-  pedidos_vendas              pedidos_vendas[]
-  sucata_compras              sucata_compras[]
-  veiculos_cliente_manutencao veiculos_cliente_manutencao[]
+  pedidos_venda    pedidos_vendas[]
+  sucata_compra    sucata_compras[]
+  veiculos_cliente veiculos_cliente_manutencao[]
 
   // --- NOVOS RELACIONAMENTOS DO SISTEMA REESTRUTURADO ---
   ordens_servico             ordem_servico[] // Vinculo com o novo módulo de O.S.
   sucatas_compradas_inteiras sucata_estoque[] @relation("CompradorSucataInteira") // Para o caso de venda do carro inteiro
+
+  @@map("clientes")
 }
 
 model compatibilidade_pecas {
@@ -125,18 +127,19 @@ model peca_estoque {
 
 // tabela obrigatoria para faturamento automático SEFAZ/RR e regras de 2026
 model dados_fiscais_peca {
-  id          String  @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
-  peca_id     String  @unique @db.Uuid
-  ncm         String  @db.VarChar(8) // Obrigatório nacional (Ex: Peças = 8708.xx.xx)
-  cest        String? @db.VarChar(7) // Código Especificador da Substituição Tributária (se aplicável em RR)
-  cfop_padrao String  @default("5102") @db.VarChar(4) // 5102 Venda de mercadoria adquirida de terceiros
-  cst_icms    String  @default("000") @db.VarChar(3) // Regime Normal ou CSOSN para Simples Nacional
+  id       String  @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
+  peca_id  String  @unique @db.Uuid
+  ncm      String  @db.VarChar(8) // Obrigatório nacional (Ex: Peças = 8708.xx.xx)
+  cest     String? @db.VarChar(7) // Código Especificador da Substituição Tributária (se aplicável em RR)
+  cfop_id  String  @default("01900000-0000-7000-8000-000000005102") @db.Uuid
+  cst_icms String  @default("000") @db.VarChar(3) // Regime Normal ou CSOSN para Simples Nacional
 
   // Adaptação Obrigatória Reforma Tributária 2026 (Nota Técnica Padrão RTC)
   cst_ibs_cbs String? @db.VarChar(3) // Código de Situação Tributária unificado da Reforma
   cClassTrib  String? @db.VarChar(5) // Código de classificação tributária do produto
 
   peca_estoque peca_estoque @relation(fields: [peca_id], references: [id], onDelete: Cascade)
+  cfop         cfops        @relation(fields: [cfop_id], references: [id], onUpdate: Restrict)
 
   @@map("dados_fiscais_peca")
 }
@@ -154,7 +157,10 @@ model itens_pedido_vendas {
   id                String      @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
   pedido_venda_id   String      @db.Uuid
   peca_estoque_id   String      @db.Uuid
-  valor_venda       Decimal     @db.Decimal(10, 2)
+  quantidade_peca   Int         @default(1)
+  preco_unitario    Decimal     @db.Decimal(10, 2)
+  preco_total       Decimal     @db.Decimal(10, 2)
+  valor_desconto    Decimal     @default(0.00) @db.Decimal(10, 2)
   data_fim_garantia DateTime    @db.Date
   status_item       status_item @default(Disponivel)
   data_devolucao    DateTime?   @db.Timestamp(6)
@@ -165,23 +171,31 @@ model itens_pedido_vendas {
 }
 
 model pedidos_vendas {
-  id                   String           @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
-  cliente_comprador_id String           @db.Uuid
-  responsavel_venda_id String           @db.Uuid
-  data_venda           DateTime         @default(now()) @db.Timestamp(6)
-  valor_total          Decimal          @default(0.00) @db.Decimal(10, 2)
-  metodo_pagamento     metodo_pagamento @default(Pix)
-  status_pedido        status_pedido    @default(Autorizado)
-  observacoes_recibo   String?          @db.VarChar(500)
+  id                 String           @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
+  data_venda         DateTime         @default(now()) @db.Timestamp(6)
+  valor_total        Decimal          @default(0.00) @db.Decimal(10, 2)
+  metodo_pagamento   metodo_pagamento @default(Pix)
+  status_pedido      status_pedido    @default(Autorizado)
+  observacoes_recibo String?          @db.VarChar(500)
+
+  // =========================================================================
+  // CAMPOS ESCALARES (Campos físicos que guardam as chaves estrangeiras no banco)
+  // =========================================================================
+  cliente_comprador_id String @db.Uuid
+  responsavel_venda_id String @db.Uuid
 
   //Relacionamento
   itens_pedido_vendas itens_pedido_vendas[]
-  clientes            clientes              @relation(fields: [cliente_comprador_id], references: [id], onUpdate: Restrict, map: "fk_cliente_comprador_id")
-  usuarios            usuarios              @relation(fields: [responsavel_venda_id], references: [id], onUpdate: Restrict, map: "fk_responsavel_venda")
+  cliente_comprador   clientes              @relation(fields: [cliente_comprador_id], references: [id], onUpdate: Restrict, map: "fk_cliente_comprador_id")
+  responsavel_venda   usuarios              @relation(fields: [responsavel_venda_id], references: [id], onUpdate: Restrict, map: "fk_responsavel_venda")
 
   // --- NOVOS RELACIONAMENTOS PARA EMISSÃO FISCAL E FLUXO DE CAIXA ---
-  documento_fiscal  documento_fiscal? // Vinculo com NF-e / NFC-e gerada para esta venda
-  lancamentos_caixa fluxo_caixa[] // Vinculo com o registro de entrada financeira do caixa
+  documento_fiscal    documento_fiscal? // Vinculo com NF-e / NFC-e gerada para esta venda
+  lancamentos_caixa   fluxo_caixa[] // Vinculo com o registro de entrada financeira do caixa
+  osServicosItens     os_servicos_itens? @relation(fields: [os_servicos_itensId], references: [id])
+  os_servicos_itensId String?            @db.Uuid
+
+  @@map("pedidos_vendas")
 }
 
 // ==========================================
@@ -199,7 +213,7 @@ model ordem_servico {
   data_fechamento       DateTime? @db.Timestamp(6)
 
   status_os           status_manutencao @default(Pendente)
-  sintomas_reclamados String            @db.Text // Reclamação inicial do cliente
+  descricao_problema  String            @db.Text // Reclamação inicial do cliente
   diagnostico_tecnico String?           @db.Text // Avaliação da oficina
 
   // Consolidação financeira da O.S.
@@ -239,6 +253,9 @@ model os_servicos_itens {
   tipo_servico  tipo_servico  @relation(fields: [tipo_servico_id], references: [id], onUpdate: NoAction)
   mecanico      usuarios      @relation(fields: [mecanico_id], references: [id], onUpdate: Restrict)
 
+  veiculos veiculos_cliente_manutencao[]
+  pedidos  pedidos_vendas[]
+
   @@map("os_servicos_itens")
 }
 
@@ -276,6 +293,16 @@ model sucata_compras {
   @@map("sucata_compras")
 }
 
+model cfops {
+  id                String               @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
+  codigo            String               @unique @db.VarChar(4) // Ex: "5102", "1102"
+  descricao         String               @db.VarChar(255) // Descrição simplificada para o seu negócio
+  tipo              String               @db.VarChar(7) // "ENTRADA" ou "SAIDA"
+  dadosFiscaisPecas dados_fiscais_peca[]
+
+  @@map("cfops")
+}
+
 model sucata_estoque {
   id                    String         @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
   modelo_id             Int
@@ -311,6 +338,8 @@ model tipo_servico {
   nome_servico      String              @unique @db.VarChar(150)
   categoria_servico categoria_peca
   os_servicos_itens os_servicos_itens[]
+
+  @@map("tipo_servico")
 }
 
 model usuarios {
@@ -338,15 +367,21 @@ model usuarios {
 }
 
 model veiculos_cliente_manutencao {
-  id         String @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
-  modelo_id  Int
-  cliente_id String @db.Uuid
+  id             String  @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
+  modelo_id      Int
+  cliente_id     String  @db.Uuid
+  placa          String  @unique @db.VarChar(10)
+  chassi         String? @unique @db.VarChar(17)
+  cor            String? @db.VarChar(30)
+  ano_fabricacao Int?
 
   //lista reversa
-  ordem_servico ordem_servico[]
+  ordem_servico       ordem_servico[]
   //campos reversos
-  clientes      clientes        @relation(fields: [cliente_id], references: [id], onUpdate: Restrict, map: "fk_cliente_veiculo_manutencao")
-  modelos       modelos         @relation(fields: [modelo_id], references: [id], onUpdate: Restrict, map: "fk_modelo_veiculo_manutencao")
+  clientes            clientes           @relation(fields: [cliente_id], references: [id], onUpdate: Restrict, map: "fk_cliente_veiculo_manutencao")
+  modelos             modelos            @relation(fields: [modelo_id], references: [id], onUpdate: Restrict, map: "fk_modelo_veiculo_manutencao")
+  osServicosItens     os_servicos_itens? @relation(fields: [os_servicos_itensId], references: [id])
+  os_servicos_itensId String?            @db.Uuid
 }
 
 // ==========================================

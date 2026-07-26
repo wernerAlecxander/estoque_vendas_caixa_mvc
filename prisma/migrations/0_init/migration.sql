@@ -1,41 +1,5 @@
--- ATIVA A EXTENSÃO DE CRIPTOGRAFIA (O código para liberar o gen_random_bytes de 16 bytes)
-CREATE EXTENSION IF NOT EXISTS pgcrypto;
-
--- Configura o formato de data brasileiro diretamente no banco
-ALTER DATABASE estoque_vendas_caixa_mvc SET DateStyle = 'SQL, DMY';
-
-
------> ESSA FUNÇÃO É USADA PARA CONVERTE UUID PRIMARY KEY DEFAULT gen_random_uuid() (v4) PARA uuidv7 (v7).
--- > 2. CRIA A FUNÇÃO COM O NOME gen_random_uuidv7 QUE O PRISMA JÁ ESTÁ ESPERANDO
-CREATE OR REPLACE FUNCTION gen_random_uuidv7() RETURNS uuid AS $$
-DECLARE
-    timestamp_ms bigint;
-    bytes bytea;
-BEGIN
-    -- 1. Captura o timestamp em milissegundos
-    timestamp_ms := (EXTRACT(EPOCH FROM clock_timestamp()) * 1000)::bigint;
-    
-    -- 2. Gera 16 bytes aleatórios iniciais usando pgcrypto
-    bytes := gen_random_bytes(16);
-    
-    -- 3. Injeta o timestamp nos primeiros 6 bytes (48 bits)
-    bytes := set_byte(bytes, 0, ((timestamp_ms >> 40) & 255)::int);
-    bytes := set_byte(bytes, 1, ((timestamp_ms >> 32) & 255)::int);
-    bytes := set_byte(bytes, 2, ((timestamp_ms >> 24) & 255)::int);
-    bytes := set_byte(bytes, 3, ((timestamp_ms >> 16) & 255)::int);
-    bytes := set_byte(bytes, 4, ((timestamp_ms >> 8) & 255)::int);
-    bytes := set_byte(bytes, 5, (timestamp_ms & 255)::int);
-    
-    -- 4. Força a versão 7 no byte 6 (bits mais significativos de 0111XXXX)
-    bytes := set_byte(bytes, 6, ((get_byte(bytes, 6) & 15) | 112)::int);
-    
-    -- 5. Força a variante do UUID (10XXXXXX) no byte 8
-    bytes := set_byte(bytes, 8, ((get_byte(bytes, 8) & 63) | 128)::int);
-    
-    -- 6. Converte os bytes tratados diretamente para o formato UUID válido de 32 hex caracteres
-    RETURN encode(bytes, 'hex')::uuid;
-END;
-$$ LANGUAGE plpgsql VOLATILE;
+-- CreateSchema
+CREATE SCHEMA IF NOT EXISTS "public";
 
 -- CreateEnum
 CREATE TYPE "tipo_objeto_receita" AS ENUM ('PEÇA', 'SUCATA', 'SERVIÇO', 'RECEITA EXTRA');
@@ -50,6 +14,15 @@ CREATE TYPE "tipo_despesa_fixa" AS ENUM ('Aluguel', 'Pro-labore', 'Internet', 'S
 CREATE TYPE "tipo_despesa_variavel" AS ENUM ('Matéria prima', 'Peças de reposição', 'Impostos sobre vendas', 'Logística e transporte', 'Comissões e mão de obra', 'Insumos de produção', 'Taxas de cartão', 'OUTRAS DESPESAS VARIÁVEIS');
 
 -- CreateEnum
+CREATE TYPE "status_fiscal" AS ENUM ('PENDENTE', 'PROCESSANDO', 'AUTORIZADA', 'REJEITADA', 'CANCELADA', 'CONTINGENCIA');
+
+-- CreateEnum
+CREATE TYPE "modelo_documento_fiscal" AS ENUM ('55', '65', '00');
+
+-- CreateEnum
+CREATE TYPE "tipo_movimentacao_caixa" AS ENUM ('ENTRADA', 'SAIDA');
+
+-- CreateEnum
 CREATE TYPE "cargo_usuario" AS ENUM ('administrador', 'vendedor', 'mecanico', 'estoquista', 'gerente', 'desenvolvedor', 'funcionario', 'eletricista', 'desmontador', 'auxiliar de estoque', 'auxiliar administrativo', 'limpador', 'outros');
 
 -- CreateEnum
@@ -59,7 +32,7 @@ CREATE TYPE "categoria_despesas" AS ENUM ('Despesas operacionais', 'Despesas adm
 CREATE TYPE "categoria_peca" AS ENUM ('Motor e componentes', 'Elétrica e componentes', 'Carroceria', 'Sistema de iluminação interior', 'Rodas e Pneus', 'Sistema de arrefecimento', 'Sistema de combustível', 'Sistema de direção', 'Sistema de embreagem', 'Sistema de injeção eletrônica', 'Sistema de transmissão', 'Sistema de suspensão', 'Sistema de freios', 'Sistema elétrico', 'Sistema de vidros e espelhos', 'Sistema de iluminação exterior', 'Sistema de exaustão', 'Ar-condicionado', 'Outros');
 
 -- CreateEnum
-CREATE TYPE "cor" AS ENUM ('Preto', 'Branco', 'Prata', 'Cinza', 'Vermelho', 'Azul', 'Amarelo', 'Verde', 'Laranja', 'Roxo', 'Marrom', 'Dourado', 'grafite', 'indefinida', 'Outros');
+CREATE TYPE "cor" AS ENUM ('Preto', 'Branco', 'Prata', 'Cinza', 'Vermelho', 'Azul', 'Amarelo', 'Verde', 'Laranja', 'Roxo', 'Marrom', 'Dourado', 'Grafite', 'Indefinida', 'Outros');
 
 -- CreateEnum
 CREATE TYPE "localizacao_peca" AS ENUM ('prateleira 1', 'prateleira 2', 'prateleira 3', 'prateleira 4', 'expositor', 'outro');
@@ -68,7 +41,7 @@ CREATE TYPE "localizacao_peca" AS ENUM ('prateleira 1', 'prateleira 2', 'pratele
 CREATE TYPE "metodo_pagamento" AS ENUM ('Pix', 'Debito', 'Credito', 'Dinheiro', 'cheque');
 
 -- CreateEnum
-CREATE TYPE "nivel_acesso" AS ENUM ('Nivel_1', 'NIvel_2', 'Nivel_3', 'Nivel_4');
+CREATE TYPE "nivel_acesso" AS ENUM ('Nivel_1', 'Nivel_2', 'Nivel_3', 'Nivel_4');
 
 -- CreateEnum
 CREATE TYPE "setor_prateleira" AS ENUM ('setor A', 'setor B', 'setor C', 'setor D', 'setor E', 'setor F', 'setor G', 'setor H', 'setor I', 'setor J', 'NÃO ESTÁ NA PRATELEIRA');
@@ -99,10 +72,13 @@ CREATE TABLE "clientes" (
     "id" UUID NOT NULL DEFAULT gen_random_uuidv7(),
     "nome_cliente" VARCHAR(100) NOT NULL,
     "cpf_cliente" VARCHAR(14) NOT NULL,
+    "IE_cliente" VARCHAR(14),
     "endereco_cliente" VARCHAR(200),
     "bairro_cliente" VARCHAR(100),
     "cep_cliente" VARCHAR(9) NOT NULL DEFAULT '69.300-000',
     "cidade_cliente" VARCHAR(100) DEFAULT 'Boa Vista',
+    "uf_cliente" VARCHAR(2) NOT NULL DEFAULT 'RR',
+    "codigo_IBGE" VARCHAR(7) NOT NULL DEFAULT '1400100',
     "pais_cliente" VARCHAR(50) DEFAULT 'Brasil',
     "telefone_cliente" VARCHAR(20),
     "data_nascimento" DATE,
@@ -149,20 +125,6 @@ CREATE TABLE "estoque_objetos_genericos" (
 );
 
 -- CreateTable
-CREATE TABLE "itens_pedido_vendas" (
-    "id" UUID NOT NULL DEFAULT gen_random_uuidv7(),
-    "pedido_venda_id" UUID NOT NULL,
-    "peca_estoque_id" UUID NOT NULL,
-    "valor_venda" DECIMAL(10,2) NOT NULL,
-    "data_fim_garantia" DATE NOT NULL,
-    "status_item" "status_item" NOT NULL DEFAULT 'Disponivel',
-    "data_devolucao" TIMESTAMP(6),
-    "motivo_devolucao" VARCHAR(500),
-
-    CONSTRAINT "itens_pedido_vendas_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "marcas_veiculo" (
     "id" SERIAL NOT NULL,
     "nome" VARCHAR(50) NOT NULL,
@@ -197,6 +159,20 @@ CREATE TABLE "peca_estoque" (
 );
 
 -- CreateTable
+CREATE TABLE "dados_fiscais_peca" (
+    "id" UUID NOT NULL DEFAULT gen_random_uuidv7(),
+    "peca_id" UUID NOT NULL,
+    "ncm" VARCHAR(8) NOT NULL,
+    "cest" VARCHAR(7),
+    "cfop_id" UUID NOT NULL DEFAULT '01900000-0000-7000-8000-000000005102',
+    "cst_icms" VARCHAR(3) NOT NULL DEFAULT '000',
+    "cst_ibs_cbs" VARCHAR(3),
+    "cClassTrib" VARCHAR(5),
+
+    CONSTRAINT "dados_fiscais_peca_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "peca_imagens" (
     "id" UUID NOT NULL DEFAULT gen_random_uuidv7(),
     "peca_id" UUID NOT NULL,
@@ -208,32 +184,78 @@ CREATE TABLE "peca_imagens" (
 );
 
 -- CreateTable
+CREATE TABLE "itens_pedido_vendas" (
+    "id" UUID NOT NULL DEFAULT gen_random_uuidv7(),
+    "pedido_venda_id" UUID NOT NULL,
+    "peca_estoque_id" UUID NOT NULL,
+    "quantidade_peca" INTEGER NOT NULL DEFAULT 1,
+    "preco_unitario" DECIMAL(10,2) NOT NULL,
+    "preco_total" DECIMAL(10,2) NOT NULL,
+    "valor_desconto" DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    "data_fim_garantia" DATE NOT NULL,
+    "status_item" "status_item" NOT NULL DEFAULT 'Disponivel',
+    "data_devolucao" TIMESTAMP(6),
+    "motivo_devolucao" VARCHAR(500),
+
+    CONSTRAINT "itens_pedido_vendas_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "pedidos_vendas" (
     "id" UUID NOT NULL DEFAULT gen_random_uuidv7(),
-    "cliente_comprador_id" UUID NOT NULL,
-    "responsavel_venda_id" UUID NOT NULL,
     "data_venda" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "valor_total" DECIMAL(10,2) NOT NULL DEFAULT 0.00,
     "metodo_pagamento" "metodo_pagamento" NOT NULL DEFAULT 'Pix',
     "status_pedido" "status_pedido" NOT NULL DEFAULT 'Autorizado',
     "observacoes_recibo" VARCHAR(500),
+    "cliente_comprador_id" UUID NOT NULL,
+    "responsavel_venda_id" UUID NOT NULL,
+    "os_servicos_itensId" UUID,
 
     CONSTRAINT "pedidos_vendas_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "servico_manutencao" (
+CREATE TABLE "ordem_servico" (
     "id" UUID NOT NULL DEFAULT gen_random_uuidv7(),
-    "tipo_servico_id" UUID NOT NULL,
-    "descricao_manutencao" TEXT NOT NULL,
-    "veiculo_manutencao_id" UUID NOT NULL,
     "cliente_id" UUID NOT NULL,
-    "data_manutencao" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
+    "veiculo_id" UUID NOT NULL,
     "responsavel_id" UUID NOT NULL,
-    "status_manutencao" "status_manutencao" NOT NULL DEFAULT 'Pendente',
-    "preco" DECIMAL(10,2) NOT NULL,
+    "data_abertura" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "data_previsao_entrega" TIMESTAMP(6),
+    "data_fechamento" TIMESTAMP(6),
+    "status_os" "status_manutencao" NOT NULL DEFAULT 'Pendente',
+    "descricao_problema" TEXT NOT NULL,
+    "diagnostico_tecnico" TEXT,
+    "valor_servicos" DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    "valor_pecas" DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    "valor_desconto" DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    "valor_total" DECIMAL(10,2) NOT NULL DEFAULT 0.00,
 
-    CONSTRAINT "servico_manutencao_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "ordem_servico_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "os_servicos_itens" (
+    "id" UUID NOT NULL DEFAULT gen_random_uuidv7(),
+    "ordem_servico_id" UUID NOT NULL,
+    "tipo_servico_id" UUID NOT NULL,
+    "mecanico_id" UUID NOT NULL,
+    "quantidade" INTEGER NOT NULL DEFAULT 1,
+    "preco_unitario" DECIMAL(10,2) NOT NULL,
+    "preco_total" DECIMAL(10,2) NOT NULL,
+
+    CONSTRAINT "os_servicos_itens_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "os_pecas_itens" (
+    "id" UUID NOT NULL DEFAULT gen_random_uuidv7(),
+    "ordem_servico_id" UUID NOT NULL,
+    "peca_estoque_id" UUID NOT NULL,
+    "preco_venda" DECIMAL(10,2) NOT NULL,
+
+    CONSTRAINT "os_pecas_itens_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -249,16 +271,31 @@ CREATE TABLE "sucata_compras" (
 );
 
 -- CreateTable
+CREATE TABLE "cfops" (
+    "id" UUID NOT NULL DEFAULT gen_random_uuidv7(),
+    "codigo" VARCHAR(4) NOT NULL,
+    "descricao" VARCHAR(255) NOT NULL,
+    "tipo" VARCHAR(7) NOT NULL,
+
+    CONSTRAINT "cfops_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "sucata_estoque" (
     "id" UUID NOT NULL DEFAULT gen_random_uuidv7(),
     "modelo_id" INTEGER NOT NULL,
     "ano_fabricacao" INTEGER NOT NULL,
     "ano_modelo" INTEGER NOT NULL,
-    "chassi" VARCHAR(100) NOT NULL,
+    "chassi" VARCHAR(17) NOT NULL,
     "cor" "cor" DEFAULT 'Preto',
     "responsavel_compra_id" UUID NOT NULL,
     "status_sucata" "status_sucata" DEFAULT 'Em desmonte',
     "data_entrada" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
+    "preco_venda_inteiro" DECIMAL(10,2),
+    "data_venda_inteiro" TIMESTAMP(6),
+    "cliente_comprador_id" UUID,
+    "ncm_veiculo" VARCHAR(8) NOT NULL DEFAULT '87032310',
+    "cfop_venda" VARCHAR(4) NOT NULL DEFAULT '5102',
 
     CONSTRAINT "sucata_estoque_pkey" PRIMARY KEY ("id")
 );
@@ -276,7 +313,7 @@ CREATE TABLE "tipo_servico" (
 CREATE TABLE "usuarios" (
     "id" UUID NOT NULL DEFAULT gen_random_uuidv7(),
     "nome" VARCHAR(100) NOT NULL,
-    "email" VARCHAR(100) NOT NULL,
+    "email" VARCHAR(60) NOT NULL,
     "senha_hash" TEXT NOT NULL,
     "cargo_usuario" "cargo_usuario" NOT NULL DEFAULT 'funcionario',
     "setor_usuario" "setor_usuario" NOT NULL DEFAULT 'vendas',
@@ -293,6 +330,11 @@ CREATE TABLE "veiculos_cliente_manutencao" (
     "id" UUID NOT NULL DEFAULT gen_random_uuidv7(),
     "modelo_id" INTEGER NOT NULL,
     "cliente_id" UUID NOT NULL,
+    "placa" VARCHAR(10) NOT NULL,
+    "chassi" VARCHAR(17),
+    "cor" VARCHAR(30),
+    "ano_fabricacao" INTEGER,
+    "os_servicos_itensId" UUID,
 
     CONSTRAINT "veiculos_cliente_manutencao_pkey" PRIMARY KEY ("id")
 );
@@ -305,6 +347,10 @@ CREATE TABLE "configuracao_imposto" (
     "aliquota_icms" DECIMAL(5,2) NOT NULL DEFAULT 0,
     "aliquota_pis" DECIMAL(5,2) NOT NULL DEFAULT 0,
     "aliquota_cofins" DECIMAL(5,2) NOT NULL DEFAULT 0,
+    "aliquota_ibs" DECIMAL(5,2) NOT NULL DEFAULT 0,
+    "aliquota_cbs" DECIMAL(5,2) NOT NULL DEFAULT 0,
+    "percentual_reducao_ibs" DECIMAL(5,2) NOT NULL DEFAULT 0,
+    "percentual_reducao_cbs" DECIMAL(5,2) NOT NULL DEFAULT 0,
     "data de atualização" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "configuracao_imposto_pkey" PRIMARY KEY ("id")
@@ -325,6 +371,50 @@ CREATE TABLE "despesas" (
     CONSTRAINT "despesas_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "documento_fiscal" (
+    "id" UUID NOT NULL DEFAULT gen_random_uuidv7(),
+    "pedido_venda_id" UUID,
+    "ordem_servico_id" UUID,
+    "sucata_venda_id" UUID,
+    "modelo" "modelo_documento_fiscal" NOT NULL,
+    "serie" INTEGER NOT NULL DEFAULT 1,
+    "numero" INTEGER NOT NULL,
+    "chave_acesso" VARCHAR(44),
+    "status" "status_fiscal" NOT NULL DEFAULT 'PENDENTE',
+    "tipo_emissao" INTEGER NOT NULL DEFAULT 1,
+    "motivo_contingencia" VARCHAR(255),
+    "data_contingencia" TIMESTAMP(6),
+    "codigo_status_sefaz" INTEGER,
+    "motivo_status_sefaz" VARCHAR(255),
+    "xml_protocolado" TEXT,
+    "url_pdf_danfe" TEXT,
+    "data_emissao" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "data_autorizacao" TIMESTAMP(6),
+
+    CONSTRAINT "documento_fiscal_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "fluxo_caixa" (
+    "id" UUID NOT NULL DEFAULT gen_random_uuidv7(),
+    "descricao" VARCHAR(255) NOT NULL,
+    "tipo" "tipo_movimentacao_caixa" NOT NULL,
+    "valor" DECIMAL(10,2) NOT NULL,
+    "metodo_pagamento" "metodo_pagamento" NOT NULL,
+    "data_movimentacao" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "pedido_venda_id" UUID,
+    "ordem_servico_id" UUID,
+    "despesa_id" UUID,
+    "sucata_compra_id" UUID,
+    "sucata_venda_id" UUID,
+    "objeto_duravel_id" UUID,
+    "objeto_generico_id" UUID,
+    "usuario_caixa_id" UUID NOT NULL,
+
+    CONSTRAINT "fluxo_caixa_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "clientes_nome_cliente_key" ON "clientes"("nome_cliente");
 
@@ -341,9 +431,6 @@ CREATE UNIQUE INDEX "uc_peca_modelo" ON "compatibilidade_pecas"("peca_id", "ano_
 CREATE UNIQUE INDEX "uc_objeto_descartavel" ON "estoque_objetos_genericos"("objeto_descartavel_nome");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "itens_pedido_vendas_peca_estoque_id_key" ON "itens_pedido_vendas"("peca_estoque_id");
-
--- CreateIndex
 CREATE UNIQUE INDEX "marcas_veiculo_nome_key" ON "marcas_veiculo"("nome");
 
 -- CreateIndex
@@ -351,6 +438,15 @@ CREATE UNIQUE INDEX "uk_marca_modelo" ON "modelos"("marcas_veiculo_id", "nome_mo
 
 -- CreateIndex
 CREATE UNIQUE INDEX "uc_peca_modelo_origem" ON "peca_estoque"("veiculo_origem_id", "modelo_origem_id", "nome_peca");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "dados_fiscais_peca_peca_id_key" ON "dados_fiscais_peca"("peca_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "os_pecas_itens_peca_estoque_id_key" ON "os_pecas_itens"("peca_estoque_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "cfops_codigo_key" ON "cfops"("codigo");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "sucata_estoque_chassi_key" ON "sucata_estoque"("chassi");
@@ -363,6 +459,27 @@ CREATE UNIQUE INDEX "usuarios_nome_key" ON "usuarios"("nome");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "usuarios_email_key" ON "usuarios"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "veiculos_cliente_manutencao_placa_key" ON "veiculos_cliente_manutencao"("placa");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "veiculos_cliente_manutencao_chassi_key" ON "veiculos_cliente_manutencao"("chassi");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "documento_fiscal_pedido_venda_id_key" ON "documento_fiscal"("pedido_venda_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "documento_fiscal_ordem_servico_id_key" ON "documento_fiscal"("ordem_servico_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "documento_fiscal_sucata_venda_id_key" ON "documento_fiscal"("sucata_venda_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "documento_fiscal_numero_key" ON "documento_fiscal"("numero");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "documento_fiscal_chave_acesso_key" ON "documento_fiscal"("chave_acesso");
 
 -- AddForeignKey
 ALTER TABLE "compatibilidade_pecas" ADD CONSTRAINT "fk_compativel_peca_modelo_marca" FOREIGN KEY ("modelo_origem_id") REFERENCES "modelos"("id") ON DELETE RESTRICT ON UPDATE RESTRICT;
@@ -377,12 +494,6 @@ ALTER TABLE "estoque_objetos_duraveis" ADD CONSTRAINT "fk_responsavel_compra" FO
 ALTER TABLE "estoque_objetos_genericos" ADD CONSTRAINT "fk_responsavel_compra" FOREIGN KEY ("responsavel_compra_id") REFERENCES "usuarios"("id") ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 -- AddForeignKey
-ALTER TABLE "itens_pedido_vendas" ADD CONSTRAINT "fk_peca_venda" FOREIGN KEY ("peca_estoque_id") REFERENCES "peca_estoque"("id") ON DELETE CASCADE ON UPDATE NO ACTION;
-
--- AddForeignKey
-ALTER TABLE "itens_pedido_vendas" ADD CONSTRAINT "fk_pedido_venda" FOREIGN KEY ("pedido_venda_id") REFERENCES "pedidos_vendas"("id") ON DELETE CASCADE ON UPDATE NO ACTION;
-
--- AddForeignKey
 ALTER TABLE "modelos" ADD CONSTRAINT "fk_marca" FOREIGN KEY ("marcas_veiculo_id") REFERENCES "marcas_veiculo"("id") ON DELETE RESTRICT ON UPDATE NO ACTION;
 
 -- AddForeignKey
@@ -395,7 +506,19 @@ ALTER TABLE "peca_estoque" ADD CONSTRAINT "fk_responsavel_compra_id" FOREIGN KEY
 ALTER TABLE "peca_estoque" ADD CONSTRAINT "fk_veiculo_origem_id_veiculo_sucata" FOREIGN KEY ("veiculo_origem_id") REFERENCES "sucata_estoque"("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 
 -- AddForeignKey
+ALTER TABLE "dados_fiscais_peca" ADD CONSTRAINT "dados_fiscais_peca_peca_id_fkey" FOREIGN KEY ("peca_id") REFERENCES "peca_estoque"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "dados_fiscais_peca" ADD CONSTRAINT "dados_fiscais_peca_cfop_id_fkey" FOREIGN KEY ("cfop_id") REFERENCES "cfops"("id") ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+-- AddForeignKey
 ALTER TABLE "peca_imagens" ADD CONSTRAINT "fk_peca_id" FOREIGN KEY ("peca_id") REFERENCES "peca_estoque"("id") ON DELETE CASCADE ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE "itens_pedido_vendas" ADD CONSTRAINT "fk_peca_venda" FOREIGN KEY ("peca_estoque_id") REFERENCES "peca_estoque"("id") ON DELETE CASCADE ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE "itens_pedido_vendas" ADD CONSTRAINT "fk_pedido_venda" FOREIGN KEY ("pedido_venda_id") REFERENCES "pedidos_vendas"("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 
 -- AddForeignKey
 ALTER TABLE "pedidos_vendas" ADD CONSTRAINT "fk_cliente_comprador_id" FOREIGN KEY ("cliente_comprador_id") REFERENCES "clientes"("id") ON DELETE RESTRICT ON UPDATE RESTRICT;
@@ -404,16 +527,31 @@ ALTER TABLE "pedidos_vendas" ADD CONSTRAINT "fk_cliente_comprador_id" FOREIGN KE
 ALTER TABLE "pedidos_vendas" ADD CONSTRAINT "fk_responsavel_venda" FOREIGN KEY ("responsavel_venda_id") REFERENCES "usuarios"("id") ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 -- AddForeignKey
-ALTER TABLE "servico_manutencao" ADD CONSTRAINT "fk_cliente_manutencao" FOREIGN KEY ("cliente_id") REFERENCES "clientes"("id") ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE "pedidos_vendas" ADD CONSTRAINT "pedidos_vendas_os_servicos_itensId_fkey" FOREIGN KEY ("os_servicos_itensId") REFERENCES "os_servicos_itens"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "servico_manutencao" ADD CONSTRAINT "fk_responsavel_manutencao" FOREIGN KEY ("responsavel_id") REFERENCES "usuarios"("id") ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE "ordem_servico" ADD CONSTRAINT "ordem_servico_cliente_id_fkey" FOREIGN KEY ("cliente_id") REFERENCES "clientes"("id") ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 -- AddForeignKey
-ALTER TABLE "servico_manutencao" ADD CONSTRAINT "fk_tipo_servico" FOREIGN KEY ("tipo_servico_id") REFERENCES "tipo_servico"("id") ON DELETE RESTRICT ON UPDATE NO ACTION;
+ALTER TABLE "ordem_servico" ADD CONSTRAINT "ordem_servico_veiculo_id_fkey" FOREIGN KEY ("veiculo_id") REFERENCES "veiculos_cliente_manutencao"("id") ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 -- AddForeignKey
-ALTER TABLE "servico_manutencao" ADD CONSTRAINT "fk_veiculo_manutencao" FOREIGN KEY ("veiculo_manutencao_id") REFERENCES "veiculos_cliente_manutencao"("id") ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE "ordem_servico" ADD CONSTRAINT "ordem_servico_responsavel_id_fkey" FOREIGN KEY ("responsavel_id") REFERENCES "usuarios"("id") ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+-- AddForeignKey
+ALTER TABLE "os_servicos_itens" ADD CONSTRAINT "os_servicos_itens_ordem_servico_id_fkey" FOREIGN KEY ("ordem_servico_id") REFERENCES "ordem_servico"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "os_servicos_itens" ADD CONSTRAINT "os_servicos_itens_tipo_servico_id_fkey" FOREIGN KEY ("tipo_servico_id") REFERENCES "tipo_servico"("id") ON DELETE RESTRICT ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE "os_servicos_itens" ADD CONSTRAINT "os_servicos_itens_mecanico_id_fkey" FOREIGN KEY ("mecanico_id") REFERENCES "usuarios"("id") ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+-- AddForeignKey
+ALTER TABLE "os_pecas_itens" ADD CONSTRAINT "os_pecas_itens_ordem_servico_id_fkey" FOREIGN KEY ("ordem_servico_id") REFERENCES "ordem_servico"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "os_pecas_itens" ADD CONSTRAINT "os_pecas_itens_peca_estoque_id_fkey" FOREIGN KEY ("peca_estoque_id") REFERENCES "peca_estoque"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "sucata_compras" ADD CONSTRAINT "fk_cliente_vendedor_id" FOREIGN KEY ("cliente_vendedor_id") REFERENCES "clientes"("id") ON DELETE RESTRICT ON UPDATE RESTRICT;
@@ -428,10 +566,50 @@ ALTER TABLE "sucata_estoque" ADD CONSTRAINT "fk_responsavel_compra_id" FOREIGN K
 ALTER TABLE "sucata_estoque" ADD CONSTRAINT "fk_sucata_modelo_marca_id" FOREIGN KEY ("modelo_id") REFERENCES "modelos"("id") ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 -- AddForeignKey
+ALTER TABLE "sucata_estoque" ADD CONSTRAINT "sucata_estoque_cliente_comprador_id_fkey" FOREIGN KEY ("cliente_comprador_id") REFERENCES "clientes"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "veiculos_cliente_manutencao" ADD CONSTRAINT "fk_cliente_veiculo_manutencao" FOREIGN KEY ("cliente_id") REFERENCES "clientes"("id") ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 -- AddForeignKey
 ALTER TABLE "veiculos_cliente_manutencao" ADD CONSTRAINT "fk_modelo_veiculo_manutencao" FOREIGN KEY ("modelo_id") REFERENCES "modelos"("id") ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 -- AddForeignKey
+ALTER TABLE "veiculos_cliente_manutencao" ADD CONSTRAINT "veiculos_cliente_manutencao_os_servicos_itensId_fkey" FOREIGN KEY ("os_servicos_itensId") REFERENCES "os_servicos_itens"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "despesas" ADD CONSTRAINT "despesas_responsavel_compra_id_fkey" FOREIGN KEY ("responsavel_compra_id") REFERENCES "usuarios"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "documento_fiscal" ADD CONSTRAINT "documento_fiscal_pedido_venda_id_fkey" FOREIGN KEY ("pedido_venda_id") REFERENCES "pedidos_vendas"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "documento_fiscal" ADD CONSTRAINT "documento_fiscal_ordem_servico_id_fkey" FOREIGN KEY ("ordem_servico_id") REFERENCES "ordem_servico"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "documento_fiscal" ADD CONSTRAINT "documento_fiscal_sucata_venda_id_fkey" FOREIGN KEY ("sucata_venda_id") REFERENCES "sucata_estoque"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "fluxo_caixa" ADD CONSTRAINT "fluxo_caixa_pedido_venda_id_fkey" FOREIGN KEY ("pedido_venda_id") REFERENCES "pedidos_vendas"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "fluxo_caixa" ADD CONSTRAINT "fluxo_caixa_ordem_servico_id_fkey" FOREIGN KEY ("ordem_servico_id") REFERENCES "ordem_servico"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "fluxo_caixa" ADD CONSTRAINT "fluxo_caixa_despesa_id_fkey" FOREIGN KEY ("despesa_id") REFERENCES "despesas"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "fluxo_caixa" ADD CONSTRAINT "fluxo_caixa_sucata_compra_id_fkey" FOREIGN KEY ("sucata_compra_id") REFERENCES "sucata_compras"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "fluxo_caixa" ADD CONSTRAINT "fluxo_caixa_sucata_venda_id_fkey" FOREIGN KEY ("sucata_venda_id") REFERENCES "sucata_estoque"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "fluxo_caixa" ADD CONSTRAINT "fluxo_caixa_usuario_caixa_id_fkey" FOREIGN KEY ("usuario_caixa_id") REFERENCES "usuarios"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "fluxo_caixa" ADD CONSTRAINT "fluxo_caixa_objeto_duravel_id_fkey" FOREIGN KEY ("objeto_duravel_id") REFERENCES "estoque_objetos_duraveis"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "fluxo_caixa" ADD CONSTRAINT "fluxo_caixa_objeto_generico_id_fkey" FOREIGN KEY ("objeto_generico_id") REFERENCES "estoque_objetos_genericos"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+

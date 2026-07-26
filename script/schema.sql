@@ -41,8 +41,6 @@ $$ LANGUAGE plpgsql VOLATILE;
 
 -- FUNÇÃO PARA CONVERTE UUID PRIMARY KEY DEFAULT gen_random_uuid() (v4) PARA uuidv7 (v7)
 -------X
-
-
 --------------------------------------------------------------------------------
 -- 1. CRIAÇÃO DOS TIPOS (ENUMS)
 --------------------------------------------------------------------------------
@@ -802,3 +800,82 @@ SELECT
 FROM veiculos_cliente_manutencao v
 JOIN modelos m ON v.modelo_id = m.id
 JOIN clientes c ON v.cliente_id = c.id;
+
+-- ============================================================================
+-- 1. AUTOMAÇÃO PARA OS ITENS DO PEDIDO (Calcula preco_total do item)
+-- ============================================================================
+
+CREATE OR REPLACE FUNCTION fn_calcular_preco_total_item()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Multiplica quantidade pelo preço unitário e subtrai o desconto
+    NEW.preco_total := (NEW.quantidade * NEW.preco_unitario) - COALESCE(NEW.valor_desconto, 0.00);
+    
+    -- Garante que o valor total do item nunca seja negativo
+    IF NEW.preco_total < 0 THEN
+        NEW.preco_total := 0.00;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Gatilho executado ANTES de salvar a linha no banco
+CREATE OR REPLACE TRIGGER tg_calcular_preco_total_item
+BEFORE INSERT OR UPDATE ON itens_pedido_vendas
+FOR EACH ROW
+EXECUTE FUNCTION fn_calcular_preco_total_item();
+
+
+-- ============================================================================
+-- 2. AUTOMAÇÃO PARA O CABEÇALHO DO PEDIDO (Soma os itens no valor_total)
+-- ============================================================================
+------------------>
+CREATE OR REPLACE FUNCTION fn_atualizar_valor_total_pedido()
+RETURNS TRIGGER AS $$
+DECLARE
+    v_pedido_id UUID;
+BEGIN
+    -- Identifica o ID do pedido afetado (funciona em INSERT, UPDATE e DELETE)
+    IF TG_OP = 'DELETE' THEN
+        v_pedido_id := OLD.pedido_venda_id;
+    ELSE
+        v_pedido_id := NEW.pedido_venda_id;
+    END IF;
+
+    -- Atualiza a tabela pai com a soma de todos os itens filhos vigentes
+    UPDATE pedidos_vendas
+    SET valor_total = COALESCE((
+        SELECT SUM(preco_total) 
+        FROM itens_pedido_vendas 
+        WHERE pedido_venda_id = v_pedido_id
+    ), 0.00)
+    WHERE id = v_pedido_id;
+
+    RETURN NULL; -- Triggers do tipo AFTER EACH ROW podem retornar NULL
+END;
+$$ LANGUAGE plpgsql;
+
+-- Gatilho executado DEPOIS de consolidar as alterações dos itens
+CREATE OR REPLACE TRIGGER tg_atualizar_valor_total_pedido
+AFTER INSERT OR UPDATE OR DELETE ON itens_pedido_vendas
+FOR EACH ROW
+EXECUTE FUNCTION fn_atualizar_valor_total_pedido();
+--------------------X
+
+---------> Cria a função que busca o código CFOP com base no ID do CFOP selecionado na tabela de itens da nota fiscal
+CREATE OR REPLACE FUNCTION preencher_cfop_codigo()
+RETURNS TRIGGER AS $$
+BEGIN
+    SELECT codigo INTO NEW.cfop_codigo 
+    FROM cfops 
+    WHERE id = NEW.cfop_id;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- 2. Cria o gatilho na sua tabela de itens da nota (Ex: item_nota)
+CREATE TRIGGER tgr_preencher_cfop_item_nota
+BEFORE INSERT OR UPDATE ON item_documento_fiscal
+FOR EACH ROW
+EXECUTE FUNCTION preencher_cfop_codigo();

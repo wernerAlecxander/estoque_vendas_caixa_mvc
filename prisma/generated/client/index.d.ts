@@ -3949,7 +3949,7 @@ export namespace Prisma {
     id: string | null
     nome_cliente: string | null
     cpf_cliente: string | null
-    ie_cliente: string | null
+    IE_cliente: string | null
     endereco_cliente: string | null
     bairro_cliente: string | null
     cep_cliente: string | null
@@ -3967,7 +3967,7 @@ export namespace Prisma {
     id: string | null
     nome_cliente: string | null
     cpf_cliente: string | null
-    ie_cliente: string | null
+    IE_cliente: string | null
     endereco_cliente: string | null
     bairro_cliente: string | null
     cep_cliente: string | null
@@ -3985,7 +3985,7 @@ export namespace Prisma {
     id: number
     nome_cliente: number
     cpf_cliente: number
-    ie_cliente: number
+    IE_cliente: number
     endereco_cliente: number
     bairro_cliente: number
     cep_cliente: number
@@ -4005,7 +4005,7 @@ export namespace Prisma {
     id?: true
     nome_cliente?: true
     cpf_cliente?: true
-    ie_cliente?: true
+    IE_cliente?: true
     endereco_cliente?: true
     bairro_cliente?: true
     cep_cliente?: true
@@ -4023,7 +4023,7 @@ export namespace Prisma {
     id?: true
     nome_cliente?: true
     cpf_cliente?: true
-    ie_cliente?: true
+    IE_cliente?: true
     endereco_cliente?: true
     bairro_cliente?: true
     cep_cliente?: true
@@ -4041,7 +4041,7 @@ export namespace Prisma {
     id?: true
     nome_cliente?: true
     cpf_cliente?: true
-    ie_cliente?: true
+    IE_cliente?: true
     endereco_cliente?: true
     bairro_cliente?: true
     cep_cliente?: true
@@ -4132,7 +4132,7 @@ export namespace Prisma {
     id: string
     nome_cliente: string
     cpf_cliente: string
-    ie_cliente: string | null
+    IE_cliente: string | null
     endereco_cliente: string | null
     bairro_cliente: string | null
     cep_cliente: string
@@ -4167,7 +4167,7 @@ export namespace Prisma {
     id?: boolean
     nome_cliente?: boolean
     cpf_cliente?: boolean
-    ie_cliente?: boolean
+    IE_cliente?: boolean
     endereco_cliente?: boolean
     bairro_cliente?: boolean
     cep_cliente?: boolean
@@ -4191,7 +4191,7 @@ export namespace Prisma {
     id?: boolean
     nome_cliente?: boolean
     cpf_cliente?: boolean
-    ie_cliente?: boolean
+    IE_cliente?: boolean
     endereco_cliente?: boolean
     bairro_cliente?: boolean
     cep_cliente?: boolean
@@ -4209,7 +4209,7 @@ export namespace Prisma {
     id?: boolean
     nome_cliente?: boolean
     cpf_cliente?: boolean
-    ie_cliente?: boolean
+    IE_cliente?: boolean
     endereco_cliente?: boolean
     bairro_cliente?: boolean
     cep_cliente?: boolean
@@ -4227,7 +4227,7 @@ export namespace Prisma {
     id?: boolean
     nome_cliente?: boolean
     cpf_cliente?: boolean
-    ie_cliente?: boolean
+    IE_cliente?: boolean
     endereco_cliente?: boolean
     bairro_cliente?: boolean
     cep_cliente?: boolean
@@ -4241,7 +4241,7 @@ export namespace Prisma {
     data_cadastro?: boolean
   }
 
-  export type clientesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome_cliente" | "cpf_cliente" | "ie_cliente" | "endereco_cliente" | "bairro_cliente" | "cep_cliente" | "cidade_cliente" | "uf_cliente" | "codigo_ibge" | "pais_cliente" | "telefone_cliente" | "data_nascimento" | "email_cliente" | "data_cadastro", ExtArgs["result"]["clientes"]>
+  export type clientesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome_cliente" | "cpf_cliente" | "IE_cliente" | "endereco_cliente" | "bairro_cliente" | "cep_cliente" | "cidade_cliente" | "uf_cliente" | "codigo_ibge" | "pais_cliente" | "telefone_cliente" | "data_nascimento" | "email_cliente" | "data_cadastro", ExtArgs["result"]["clientes"]>
   export type clientesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     pedidos_vendas?: boolean | clientes$pedidos_vendasArgs<ExtArgs>
     sucata_compras?: boolean | clientes$sucata_comprasArgs<ExtArgs>
@@ -4266,7 +4266,7 @@ export namespace Prisma {
       id: string
       nome_cliente: string
       cpf_cliente: string
-      ie_cliente: string | null
+      IE_cliente: string | null
       endereco_cliente: string | null
       bairro_cliente: string | null
       cep_cliente: string
@@ -4709,7 +4709,7 @@ export namespace Prisma {
     readonly id: FieldRef<"clientes", 'String'>
     readonly nome_cliente: FieldRef<"clientes", 'String'>
     readonly cpf_cliente: FieldRef<"clientes", 'String'>
-    readonly ie_cliente: FieldRef<"clientes", 'String'>
+    readonly IE_cliente: FieldRef<"clientes", 'String'>
     readonly endereco_cliente: FieldRef<"clientes", 'String'>
     readonly bairro_cliente: FieldRef<"clientes", 'String'>
     readonly cep_cliente: FieldRef<"clientes", 'String'>
@@ -14431,18 +14431,27 @@ export namespace Prisma {
   }
 
   export type Itens_pedido_vendasAvgAggregateOutputType = {
-    valor_venda: Decimal | null
+    quantidade_peca: number | null
+    preco_unitario: Decimal | null
+    preco_total: Decimal | null
+    valor_desconto: Decimal | null
   }
 
   export type Itens_pedido_vendasSumAggregateOutputType = {
-    valor_venda: Decimal | null
+    quantidade_peca: number | null
+    preco_unitario: Decimal | null
+    preco_total: Decimal | null
+    valor_desconto: Decimal | null
   }
 
   export type Itens_pedido_vendasMinAggregateOutputType = {
     id: string | null
     pedido_venda_id: string | null
     peca_estoque_id: string | null
-    valor_venda: Decimal | null
+    quantidade_peca: number | null
+    preco_unitario: Decimal | null
+    preco_total: Decimal | null
+    valor_desconto: Decimal | null
     data_fim_garantia: Date | null
     status_item: $Enums.status_item | null
     data_devolucao: Date | null
@@ -14453,7 +14462,10 @@ export namespace Prisma {
     id: string | null
     pedido_venda_id: string | null
     peca_estoque_id: string | null
-    valor_venda: Decimal | null
+    quantidade_peca: number | null
+    preco_unitario: Decimal | null
+    preco_total: Decimal | null
+    valor_desconto: Decimal | null
     data_fim_garantia: Date | null
     status_item: $Enums.status_item | null
     data_devolucao: Date | null
@@ -14464,7 +14476,10 @@ export namespace Prisma {
     id: number
     pedido_venda_id: number
     peca_estoque_id: number
-    valor_venda: number
+    quantidade_peca: number
+    preco_unitario: number
+    preco_total: number
+    valor_desconto: number
     data_fim_garantia: number
     status_item: number
     data_devolucao: number
@@ -14474,18 +14489,27 @@ export namespace Prisma {
 
 
   export type Itens_pedido_vendasAvgAggregateInputType = {
-    valor_venda?: true
+    quantidade_peca?: true
+    preco_unitario?: true
+    preco_total?: true
+    valor_desconto?: true
   }
 
   export type Itens_pedido_vendasSumAggregateInputType = {
-    valor_venda?: true
+    quantidade_peca?: true
+    preco_unitario?: true
+    preco_total?: true
+    valor_desconto?: true
   }
 
   export type Itens_pedido_vendasMinAggregateInputType = {
     id?: true
     pedido_venda_id?: true
     peca_estoque_id?: true
-    valor_venda?: true
+    quantidade_peca?: true
+    preco_unitario?: true
+    preco_total?: true
+    valor_desconto?: true
     data_fim_garantia?: true
     status_item?: true
     data_devolucao?: true
@@ -14496,7 +14520,10 @@ export namespace Prisma {
     id?: true
     pedido_venda_id?: true
     peca_estoque_id?: true
-    valor_venda?: true
+    quantidade_peca?: true
+    preco_unitario?: true
+    preco_total?: true
+    valor_desconto?: true
     data_fim_garantia?: true
     status_item?: true
     data_devolucao?: true
@@ -14507,7 +14534,10 @@ export namespace Prisma {
     id?: true
     pedido_venda_id?: true
     peca_estoque_id?: true
-    valor_venda?: true
+    quantidade_peca?: true
+    preco_unitario?: true
+    preco_total?: true
+    valor_desconto?: true
     data_fim_garantia?: true
     status_item?: true
     data_devolucao?: true
@@ -14605,7 +14635,10 @@ export namespace Prisma {
     id: string
     pedido_venda_id: string
     peca_estoque_id: string
-    valor_venda: Decimal
+    quantidade_peca: number
+    preco_unitario: Decimal
+    preco_total: Decimal
+    valor_desconto: Decimal
     data_fim_garantia: Date
     status_item: $Enums.status_item
     data_devolucao: Date | null
@@ -14635,7 +14668,10 @@ export namespace Prisma {
     id?: boolean
     pedido_venda_id?: boolean
     peca_estoque_id?: boolean
-    valor_venda?: boolean
+    quantidade_peca?: boolean
+    preco_unitario?: boolean
+    preco_total?: boolean
+    valor_desconto?: boolean
     data_fim_garantia?: boolean
     status_item?: boolean
     data_devolucao?: boolean
@@ -14648,7 +14684,10 @@ export namespace Prisma {
     id?: boolean
     pedido_venda_id?: boolean
     peca_estoque_id?: boolean
-    valor_venda?: boolean
+    quantidade_peca?: boolean
+    preco_unitario?: boolean
+    preco_total?: boolean
+    valor_desconto?: boolean
     data_fim_garantia?: boolean
     status_item?: boolean
     data_devolucao?: boolean
@@ -14661,7 +14700,10 @@ export namespace Prisma {
     id?: boolean
     pedido_venda_id?: boolean
     peca_estoque_id?: boolean
-    valor_venda?: boolean
+    quantidade_peca?: boolean
+    preco_unitario?: boolean
+    preco_total?: boolean
+    valor_desconto?: boolean
     data_fim_garantia?: boolean
     status_item?: boolean
     data_devolucao?: boolean
@@ -14674,14 +14716,17 @@ export namespace Prisma {
     id?: boolean
     pedido_venda_id?: boolean
     peca_estoque_id?: boolean
-    valor_venda?: boolean
+    quantidade_peca?: boolean
+    preco_unitario?: boolean
+    preco_total?: boolean
+    valor_desconto?: boolean
     data_fim_garantia?: boolean
     status_item?: boolean
     data_devolucao?: boolean
     motivo_devolucao?: boolean
   }
 
-  export type itens_pedido_vendasOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "pedido_venda_id" | "peca_estoque_id" | "valor_venda" | "data_fim_garantia" | "status_item" | "data_devolucao" | "motivo_devolucao", ExtArgs["result"]["itens_pedido_vendas"]>
+  export type itens_pedido_vendasOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "pedido_venda_id" | "peca_estoque_id" | "quantidade_peca" | "preco_unitario" | "preco_total" | "valor_desconto" | "data_fim_garantia" | "status_item" | "data_devolucao" | "motivo_devolucao", ExtArgs["result"]["itens_pedido_vendas"]>
   export type itens_pedido_vendasInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     peca_estoque?: boolean | peca_estoqueDefaultArgs<ExtArgs>
     pedidos_vendas?: boolean | pedidos_vendasDefaultArgs<ExtArgs>
@@ -14705,7 +14750,10 @@ export namespace Prisma {
       id: string
       pedido_venda_id: string
       peca_estoque_id: string
-      valor_venda: Prisma.Decimal
+      quantidade_peca: number
+      preco_unitario: Prisma.Decimal
+      preco_total: Prisma.Decimal
+      valor_desconto: Prisma.Decimal
       data_fim_garantia: Date
       status_item: $Enums.status_item
       data_devolucao: Date | null
@@ -15138,7 +15186,10 @@ export namespace Prisma {
     readonly id: FieldRef<"itens_pedido_vendas", 'String'>
     readonly pedido_venda_id: FieldRef<"itens_pedido_vendas", 'String'>
     readonly peca_estoque_id: FieldRef<"itens_pedido_vendas", 'String'>
-    readonly valor_venda: FieldRef<"itens_pedido_vendas", 'Decimal'>
+    readonly quantidade_peca: FieldRef<"itens_pedido_vendas", 'Int'>
+    readonly preco_unitario: FieldRef<"itens_pedido_vendas", 'Decimal'>
+    readonly preco_total: FieldRef<"itens_pedido_vendas", 'Decimal'>
+    readonly valor_desconto: FieldRef<"itens_pedido_vendas", 'Decimal'>
     readonly data_fim_garantia: FieldRef<"itens_pedido_vendas", 'DateTime'>
     readonly status_item: FieldRef<"itens_pedido_vendas", 'status_item'>
     readonly data_devolucao: FieldRef<"itens_pedido_vendas", 'DateTime'>
@@ -15584,35 +15635,35 @@ export namespace Prisma {
 
   export type Pedidos_vendasMinAggregateOutputType = {
     id: string | null
-    cliente_comprador_id: string | null
-    responsavel_venda_id: string | null
     data_venda: Date | null
     valor_total: Decimal | null
     metodo_pagamento: $Enums.metodo_pagamento | null
     status_pedido: $Enums.status_pedido | null
     observacoes_recibo: string | null
+    cliente_comprador_id: string | null
+    responsavel_venda_id: string | null
   }
 
   export type Pedidos_vendasMaxAggregateOutputType = {
     id: string | null
-    cliente_comprador_id: string | null
-    responsavel_venda_id: string | null
     data_venda: Date | null
     valor_total: Decimal | null
     metodo_pagamento: $Enums.metodo_pagamento | null
     status_pedido: $Enums.status_pedido | null
     observacoes_recibo: string | null
+    cliente_comprador_id: string | null
+    responsavel_venda_id: string | null
   }
 
   export type Pedidos_vendasCountAggregateOutputType = {
     id: number
-    cliente_comprador_id: number
-    responsavel_venda_id: number
     data_venda: number
     valor_total: number
     metodo_pagamento: number
     status_pedido: number
     observacoes_recibo: number
+    cliente_comprador_id: number
+    responsavel_venda_id: number
     _all: number
   }
 
@@ -15627,35 +15678,35 @@ export namespace Prisma {
 
   export type Pedidos_vendasMinAggregateInputType = {
     id?: true
-    cliente_comprador_id?: true
-    responsavel_venda_id?: true
     data_venda?: true
     valor_total?: true
     metodo_pagamento?: true
     status_pedido?: true
     observacoes_recibo?: true
+    cliente_comprador_id?: true
+    responsavel_venda_id?: true
   }
 
   export type Pedidos_vendasMaxAggregateInputType = {
     id?: true
-    cliente_comprador_id?: true
-    responsavel_venda_id?: true
     data_venda?: true
     valor_total?: true
     metodo_pagamento?: true
     status_pedido?: true
     observacoes_recibo?: true
+    cliente_comprador_id?: true
+    responsavel_venda_id?: true
   }
 
   export type Pedidos_vendasCountAggregateInputType = {
     id?: true
-    cliente_comprador_id?: true
-    responsavel_venda_id?: true
     data_venda?: true
     valor_total?: true
     metodo_pagamento?: true
     status_pedido?: true
     observacoes_recibo?: true
+    cliente_comprador_id?: true
+    responsavel_venda_id?: true
     _all?: true
   }
 
@@ -15747,13 +15798,13 @@ export namespace Prisma {
 
   export type Pedidos_vendasGroupByOutputType = {
     id: string
-    cliente_comprador_id: string
-    responsavel_venda_id: string
     data_venda: Date
     valor_total: Decimal
     metodo_pagamento: $Enums.metodo_pagamento
     status_pedido: $Enums.status_pedido
     observacoes_recibo: string | null
+    cliente_comprador_id: string
+    responsavel_venda_id: string
     _count: Pedidos_vendasCountAggregateOutputType | null
     _avg: Pedidos_vendasAvgAggregateOutputType | null
     _sum: Pedidos_vendasSumAggregateOutputType | null
@@ -15777,16 +15828,16 @@ export namespace Prisma {
 
   export type pedidos_vendasSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    cliente_comprador_id?: boolean
-    responsavel_venda_id?: boolean
     data_venda?: boolean
     valor_total?: boolean
     metodo_pagamento?: boolean
     status_pedido?: boolean
     observacoes_recibo?: boolean
+    cliente_comprador_id?: boolean
+    responsavel_venda_id?: boolean
     itens_pedido_vendas?: boolean | pedidos_vendas$itens_pedido_vendasArgs<ExtArgs>
-    clientes?: boolean | clientesDefaultArgs<ExtArgs>
-    usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
+    cliente_comprador?: boolean | clientesDefaultArgs<ExtArgs>
+    responsavel_venda?: boolean | usuariosDefaultArgs<ExtArgs>
     documento_fiscal?: boolean | pedidos_vendas$documento_fiscalArgs<ExtArgs>
     lancamentos_caixa?: boolean | pedidos_vendas$lancamentos_caixaArgs<ExtArgs>
     _count?: boolean | Pedidos_vendasCountOutputTypeDefaultArgs<ExtArgs>
@@ -15794,77 +15845,77 @@ export namespace Prisma {
 
   export type pedidos_vendasSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    cliente_comprador_id?: boolean
-    responsavel_venda_id?: boolean
     data_venda?: boolean
     valor_total?: boolean
     metodo_pagamento?: boolean
     status_pedido?: boolean
     observacoes_recibo?: boolean
-    clientes?: boolean | clientesDefaultArgs<ExtArgs>
-    usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
+    cliente_comprador_id?: boolean
+    responsavel_venda_id?: boolean
+    cliente_comprador?: boolean | clientesDefaultArgs<ExtArgs>
+    responsavel_venda?: boolean | usuariosDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pedidos_vendas"]>
 
   export type pedidos_vendasSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    cliente_comprador_id?: boolean
-    responsavel_venda_id?: boolean
     data_venda?: boolean
     valor_total?: boolean
     metodo_pagamento?: boolean
     status_pedido?: boolean
     observacoes_recibo?: boolean
-    clientes?: boolean | clientesDefaultArgs<ExtArgs>
-    usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
+    cliente_comprador_id?: boolean
+    responsavel_venda_id?: boolean
+    cliente_comprador?: boolean | clientesDefaultArgs<ExtArgs>
+    responsavel_venda?: boolean | usuariosDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pedidos_vendas"]>
 
   export type pedidos_vendasSelectScalar = {
     id?: boolean
-    cliente_comprador_id?: boolean
-    responsavel_venda_id?: boolean
     data_venda?: boolean
     valor_total?: boolean
     metodo_pagamento?: boolean
     status_pedido?: boolean
     observacoes_recibo?: boolean
+    cliente_comprador_id?: boolean
+    responsavel_venda_id?: boolean
   }
 
-  export type pedidos_vendasOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cliente_comprador_id" | "responsavel_venda_id" | "data_venda" | "valor_total" | "metodo_pagamento" | "status_pedido" | "observacoes_recibo", ExtArgs["result"]["pedidos_vendas"]>
+  export type pedidos_vendasOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "data_venda" | "valor_total" | "metodo_pagamento" | "status_pedido" | "observacoes_recibo" | "cliente_comprador_id" | "responsavel_venda_id", ExtArgs["result"]["pedidos_vendas"]>
   export type pedidos_vendasInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     itens_pedido_vendas?: boolean | pedidos_vendas$itens_pedido_vendasArgs<ExtArgs>
-    clientes?: boolean | clientesDefaultArgs<ExtArgs>
-    usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
+    cliente_comprador?: boolean | clientesDefaultArgs<ExtArgs>
+    responsavel_venda?: boolean | usuariosDefaultArgs<ExtArgs>
     documento_fiscal?: boolean | pedidos_vendas$documento_fiscalArgs<ExtArgs>
     lancamentos_caixa?: boolean | pedidos_vendas$lancamentos_caixaArgs<ExtArgs>
     _count?: boolean | Pedidos_vendasCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type pedidos_vendasIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    clientes?: boolean | clientesDefaultArgs<ExtArgs>
-    usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
+    cliente_comprador?: boolean | clientesDefaultArgs<ExtArgs>
+    responsavel_venda?: boolean | usuariosDefaultArgs<ExtArgs>
   }
   export type pedidos_vendasIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    clientes?: boolean | clientesDefaultArgs<ExtArgs>
-    usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
+    cliente_comprador?: boolean | clientesDefaultArgs<ExtArgs>
+    responsavel_venda?: boolean | usuariosDefaultArgs<ExtArgs>
   }
 
   export type $pedidos_vendasPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "pedidos_vendas"
     objects: {
       itens_pedido_vendas: Prisma.$itens_pedido_vendasPayload<ExtArgs>[]
-      clientes: Prisma.$clientesPayload<ExtArgs>
-      usuarios: Prisma.$usuariosPayload<ExtArgs>
+      cliente_comprador: Prisma.$clientesPayload<ExtArgs>
+      responsavel_venda: Prisma.$usuariosPayload<ExtArgs>
       documento_fiscal: Prisma.$documento_fiscalPayload<ExtArgs> | null
       lancamentos_caixa: Prisma.$fluxo_caixaPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      cliente_comprador_id: string
-      responsavel_venda_id: string
       data_venda: Date
       valor_total: Prisma.Decimal
       metodo_pagamento: $Enums.metodo_pagamento
       status_pedido: $Enums.status_pedido
       observacoes_recibo: string | null
+      cliente_comprador_id: string
+      responsavel_venda_id: string
     }, ExtArgs["result"]["pedidos_vendas"]>
     composites: {}
   }
@@ -16260,8 +16311,8 @@ export namespace Prisma {
   export interface Prisma__pedidos_vendasClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     itens_pedido_vendas<T extends pedidos_vendas$itens_pedido_vendasArgs<ExtArgs> = {}>(args?: Subset<T, pedidos_vendas$itens_pedido_vendasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$itens_pedido_vendasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    clientes<T extends clientesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, clientesDefaultArgs<ExtArgs>>): Prisma__clientesClient<$Result.GetResult<Prisma.$clientesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    usuarios<T extends usuariosDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usuariosDefaultArgs<ExtArgs>>): Prisma__usuariosClient<$Result.GetResult<Prisma.$usuariosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    cliente_comprador<T extends clientesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, clientesDefaultArgs<ExtArgs>>): Prisma__clientesClient<$Result.GetResult<Prisma.$clientesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    responsavel_venda<T extends usuariosDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usuariosDefaultArgs<ExtArgs>>): Prisma__usuariosClient<$Result.GetResult<Prisma.$usuariosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     documento_fiscal<T extends pedidos_vendas$documento_fiscalArgs<ExtArgs> = {}>(args?: Subset<T, pedidos_vendas$documento_fiscalArgs<ExtArgs>>): Prisma__documento_fiscalClient<$Result.GetResult<Prisma.$documento_fiscalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     lancamentos_caixa<T extends pedidos_vendas$lancamentos_caixaArgs<ExtArgs> = {}>(args?: Subset<T, pedidos_vendas$lancamentos_caixaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$fluxo_caixaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -16294,13 +16345,13 @@ export namespace Prisma {
    */
   interface pedidos_vendasFieldRefs {
     readonly id: FieldRef<"pedidos_vendas", 'String'>
-    readonly cliente_comprador_id: FieldRef<"pedidos_vendas", 'String'>
-    readonly responsavel_venda_id: FieldRef<"pedidos_vendas", 'String'>
     readonly data_venda: FieldRef<"pedidos_vendas", 'DateTime'>
     readonly valor_total: FieldRef<"pedidos_vendas", 'Decimal'>
     readonly metodo_pagamento: FieldRef<"pedidos_vendas", 'metodo_pagamento'>
     readonly status_pedido: FieldRef<"pedidos_vendas", 'status_pedido'>
     readonly observacoes_recibo: FieldRef<"pedidos_vendas", 'String'>
+    readonly cliente_comprador_id: FieldRef<"pedidos_vendas", 'String'>
+    readonly responsavel_venda_id: FieldRef<"pedidos_vendas", 'String'>
   }
     
 
@@ -16822,7 +16873,7 @@ export namespace Prisma {
     data_previsao_entrega: Date | null
     data_fechamento: Date | null
     status_os: $Enums.status_manutencao | null
-    sintomas_reclamados: string | null
+    descricao_problema: string | null
     diagnostico_tecnico: string | null
     valor_servicos: Decimal | null
     valor_pecas: Decimal | null
@@ -16839,7 +16890,7 @@ export namespace Prisma {
     data_previsao_entrega: Date | null
     data_fechamento: Date | null
     status_os: $Enums.status_manutencao | null
-    sintomas_reclamados: string | null
+    descricao_problema: string | null
     diagnostico_tecnico: string | null
     valor_servicos: Decimal | null
     valor_pecas: Decimal | null
@@ -16856,7 +16907,7 @@ export namespace Prisma {
     data_previsao_entrega: number
     data_fechamento: number
     status_os: number
-    sintomas_reclamados: number
+    descricao_problema: number
     diagnostico_tecnico: number
     valor_servicos: number
     valor_pecas: number
@@ -16889,7 +16940,7 @@ export namespace Prisma {
     data_previsao_entrega?: true
     data_fechamento?: true
     status_os?: true
-    sintomas_reclamados?: true
+    descricao_problema?: true
     diagnostico_tecnico?: true
     valor_servicos?: true
     valor_pecas?: true
@@ -16906,7 +16957,7 @@ export namespace Prisma {
     data_previsao_entrega?: true
     data_fechamento?: true
     status_os?: true
-    sintomas_reclamados?: true
+    descricao_problema?: true
     diagnostico_tecnico?: true
     valor_servicos?: true
     valor_pecas?: true
@@ -16923,7 +16974,7 @@ export namespace Prisma {
     data_previsao_entrega?: true
     data_fechamento?: true
     status_os?: true
-    sintomas_reclamados?: true
+    descricao_problema?: true
     diagnostico_tecnico?: true
     valor_servicos?: true
     valor_pecas?: true
@@ -17027,7 +17078,7 @@ export namespace Prisma {
     data_previsao_entrega: Date | null
     data_fechamento: Date | null
     status_os: $Enums.status_manutencao
-    sintomas_reclamados: string
+    descricao_problema: string
     diagnostico_tecnico: string | null
     valor_servicos: Decimal
     valor_pecas: Decimal
@@ -17063,7 +17114,7 @@ export namespace Prisma {
     data_previsao_entrega?: boolean
     data_fechamento?: boolean
     status_os?: boolean
-    sintomas_reclamados?: boolean
+    descricao_problema?: boolean
     diagnostico_tecnico?: boolean
     valor_servicos?: boolean
     valor_pecas?: boolean
@@ -17088,7 +17139,7 @@ export namespace Prisma {
     data_previsao_entrega?: boolean
     data_fechamento?: boolean
     status_os?: boolean
-    sintomas_reclamados?: boolean
+    descricao_problema?: boolean
     diagnostico_tecnico?: boolean
     valor_servicos?: boolean
     valor_pecas?: boolean
@@ -17108,7 +17159,7 @@ export namespace Prisma {
     data_previsao_entrega?: boolean
     data_fechamento?: boolean
     status_os?: boolean
-    sintomas_reclamados?: boolean
+    descricao_problema?: boolean
     diagnostico_tecnico?: boolean
     valor_servicos?: boolean
     valor_pecas?: boolean
@@ -17128,7 +17179,7 @@ export namespace Prisma {
     data_previsao_entrega?: boolean
     data_fechamento?: boolean
     status_os?: boolean
-    sintomas_reclamados?: boolean
+    descricao_problema?: boolean
     diagnostico_tecnico?: boolean
     valor_servicos?: boolean
     valor_pecas?: boolean
@@ -17136,7 +17187,7 @@ export namespace Prisma {
     valor_total?: boolean
   }
 
-  export type ordem_servicoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cliente_id" | "veiculo_id" | "responsavel_id" | "data_abertura" | "data_previsao_entrega" | "data_fechamento" | "status_os" | "sintomas_reclamados" | "diagnostico_tecnico" | "valor_servicos" | "valor_pecas" | "valor_desconto" | "valor_total", ExtArgs["result"]["ordem_servico"]>
+  export type ordem_servicoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cliente_id" | "veiculo_id" | "responsavel_id" | "data_abertura" | "data_previsao_entrega" | "data_fechamento" | "status_os" | "descricao_problema" | "diagnostico_tecnico" | "valor_servicos" | "valor_pecas" | "valor_desconto" | "valor_total", ExtArgs["result"]["ordem_servico"]>
   export type ordem_servicoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     clientes?: boolean | clientesDefaultArgs<ExtArgs>
     veiculo?: boolean | veiculos_cliente_manutencaoDefaultArgs<ExtArgs>
@@ -17178,7 +17229,7 @@ export namespace Prisma {
       data_previsao_entrega: Date | null
       data_fechamento: Date | null
       status_os: $Enums.status_manutencao
-      sintomas_reclamados: string
+      descricao_problema: string
       diagnostico_tecnico: string | null
       valor_servicos: Prisma.Decimal
       valor_pecas: Prisma.Decimal
@@ -17622,7 +17673,7 @@ export namespace Prisma {
     readonly data_previsao_entrega: FieldRef<"ordem_servico", 'DateTime'>
     readonly data_fechamento: FieldRef<"ordem_servico", 'DateTime'>
     readonly status_os: FieldRef<"ordem_servico", 'status_manutencao'>
-    readonly sintomas_reclamados: FieldRef<"ordem_servico", 'String'>
+    readonly descricao_problema: FieldRef<"ordem_servico", 'String'>
     readonly diagnostico_tecnico: FieldRef<"ordem_servico", 'String'>
     readonly valor_servicos: FieldRef<"ordem_servico", 'Decimal'>
     readonly valor_pecas: FieldRef<"ordem_servico", 'Decimal'>
@@ -25326,56 +25377,84 @@ export namespace Prisma {
 
   export type Veiculos_cliente_manutencaoAvgAggregateOutputType = {
     modelo_id: number | null
+    ano_fabricacao: number | null
   }
 
   export type Veiculos_cliente_manutencaoSumAggregateOutputType = {
     modelo_id: number | null
+    ano_fabricacao: number | null
   }
 
   export type Veiculos_cliente_manutencaoMinAggregateOutputType = {
     id: string | null
     modelo_id: number | null
     cliente_id: string | null
+    placa: string | null
+    chassi: string | null
+    cor: string | null
+    ano_fabricacao: number | null
   }
 
   export type Veiculos_cliente_manutencaoMaxAggregateOutputType = {
     id: string | null
     modelo_id: number | null
     cliente_id: string | null
+    placa: string | null
+    chassi: string | null
+    cor: string | null
+    ano_fabricacao: number | null
   }
 
   export type Veiculos_cliente_manutencaoCountAggregateOutputType = {
     id: number
     modelo_id: number
     cliente_id: number
+    placa: number
+    chassi: number
+    cor: number
+    ano_fabricacao: number
     _all: number
   }
 
 
   export type Veiculos_cliente_manutencaoAvgAggregateInputType = {
     modelo_id?: true
+    ano_fabricacao?: true
   }
 
   export type Veiculos_cliente_manutencaoSumAggregateInputType = {
     modelo_id?: true
+    ano_fabricacao?: true
   }
 
   export type Veiculos_cliente_manutencaoMinAggregateInputType = {
     id?: true
     modelo_id?: true
     cliente_id?: true
+    placa?: true
+    chassi?: true
+    cor?: true
+    ano_fabricacao?: true
   }
 
   export type Veiculos_cliente_manutencaoMaxAggregateInputType = {
     id?: true
     modelo_id?: true
     cliente_id?: true
+    placa?: true
+    chassi?: true
+    cor?: true
+    ano_fabricacao?: true
   }
 
   export type Veiculos_cliente_manutencaoCountAggregateInputType = {
     id?: true
     modelo_id?: true
     cliente_id?: true
+    placa?: true
+    chassi?: true
+    cor?: true
+    ano_fabricacao?: true
     _all?: true
   }
 
@@ -25469,6 +25548,10 @@ export namespace Prisma {
     id: string
     modelo_id: number
     cliente_id: string
+    placa: string
+    chassi: string | null
+    cor: string | null
+    ano_fabricacao: number | null
     _count: Veiculos_cliente_manutencaoCountAggregateOutputType | null
     _avg: Veiculos_cliente_manutencaoAvgAggregateOutputType | null
     _sum: Veiculos_cliente_manutencaoSumAggregateOutputType | null
@@ -25494,6 +25577,10 @@ export namespace Prisma {
     id?: boolean
     modelo_id?: boolean
     cliente_id?: boolean
+    placa?: boolean
+    chassi?: boolean
+    cor?: boolean
+    ano_fabricacao?: boolean
     ordem_servico?: boolean | veiculos_cliente_manutencao$ordem_servicoArgs<ExtArgs>
     clientes?: boolean | clientesDefaultArgs<ExtArgs>
     modelos?: boolean | modelosDefaultArgs<ExtArgs>
@@ -25504,6 +25591,10 @@ export namespace Prisma {
     id?: boolean
     modelo_id?: boolean
     cliente_id?: boolean
+    placa?: boolean
+    chassi?: boolean
+    cor?: boolean
+    ano_fabricacao?: boolean
     clientes?: boolean | clientesDefaultArgs<ExtArgs>
     modelos?: boolean | modelosDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["veiculos_cliente_manutencao"]>
@@ -25512,6 +25603,10 @@ export namespace Prisma {
     id?: boolean
     modelo_id?: boolean
     cliente_id?: boolean
+    placa?: boolean
+    chassi?: boolean
+    cor?: boolean
+    ano_fabricacao?: boolean
     clientes?: boolean | clientesDefaultArgs<ExtArgs>
     modelos?: boolean | modelosDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["veiculos_cliente_manutencao"]>
@@ -25520,9 +25615,13 @@ export namespace Prisma {
     id?: boolean
     modelo_id?: boolean
     cliente_id?: boolean
+    placa?: boolean
+    chassi?: boolean
+    cor?: boolean
+    ano_fabricacao?: boolean
   }
 
-  export type veiculos_cliente_manutencaoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "modelo_id" | "cliente_id", ExtArgs["result"]["veiculos_cliente_manutencao"]>
+  export type veiculos_cliente_manutencaoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "modelo_id" | "cliente_id" | "placa" | "chassi" | "cor" | "ano_fabricacao", ExtArgs["result"]["veiculos_cliente_manutencao"]>
   export type veiculos_cliente_manutencaoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ordem_servico?: boolean | veiculos_cliente_manutencao$ordem_servicoArgs<ExtArgs>
     clientes?: boolean | clientesDefaultArgs<ExtArgs>
@@ -25549,6 +25648,10 @@ export namespace Prisma {
       id: string
       modelo_id: number
       cliente_id: string
+      placa: string
+      chassi: string | null
+      cor: string | null
+      ano_fabricacao: number | null
     }, ExtArgs["result"]["veiculos_cliente_manutencao"]>
     composites: {}
   }
@@ -25978,6 +26081,10 @@ export namespace Prisma {
     readonly id: FieldRef<"veiculos_cliente_manutencao", 'String'>
     readonly modelo_id: FieldRef<"veiculos_cliente_manutencao", 'Int'>
     readonly cliente_id: FieldRef<"veiculos_cliente_manutencao", 'String'>
+    readonly placa: FieldRef<"veiculos_cliente_manutencao", 'String'>
+    readonly chassi: FieldRef<"veiculos_cliente_manutencao", 'String'>
+    readonly cor: FieldRef<"veiculos_cliente_manutencao", 'String'>
+    readonly ano_fabricacao: FieldRef<"veiculos_cliente_manutencao", 'Int'>
   }
     
 
@@ -31512,7 +31619,7 @@ export namespace Prisma {
     id: 'id',
     nome_cliente: 'nome_cliente',
     cpf_cliente: 'cpf_cliente',
-    ie_cliente: 'ie_cliente',
+    IE_cliente: 'IE_cliente',
     endereco_cliente: 'endereco_cliente',
     bairro_cliente: 'bairro_cliente',
     cep_cliente: 'cep_cliente',
@@ -31628,7 +31735,10 @@ export namespace Prisma {
     id: 'id',
     pedido_venda_id: 'pedido_venda_id',
     peca_estoque_id: 'peca_estoque_id',
-    valor_venda: 'valor_venda',
+    quantidade_peca: 'quantidade_peca',
+    preco_unitario: 'preco_unitario',
+    preco_total: 'preco_total',
+    valor_desconto: 'valor_desconto',
     data_fim_garantia: 'data_fim_garantia',
     status_item: 'status_item',
     data_devolucao: 'data_devolucao',
@@ -31640,13 +31750,13 @@ export namespace Prisma {
 
   export const Pedidos_vendasScalarFieldEnum: {
     id: 'id',
-    cliente_comprador_id: 'cliente_comprador_id',
-    responsavel_venda_id: 'responsavel_venda_id',
     data_venda: 'data_venda',
     valor_total: 'valor_total',
     metodo_pagamento: 'metodo_pagamento',
     status_pedido: 'status_pedido',
-    observacoes_recibo: 'observacoes_recibo'
+    observacoes_recibo: 'observacoes_recibo',
+    cliente_comprador_id: 'cliente_comprador_id',
+    responsavel_venda_id: 'responsavel_venda_id'
   };
 
   export type Pedidos_vendasScalarFieldEnum = (typeof Pedidos_vendasScalarFieldEnum)[keyof typeof Pedidos_vendasScalarFieldEnum]
@@ -31661,7 +31771,7 @@ export namespace Prisma {
     data_previsao_entrega: 'data_previsao_entrega',
     data_fechamento: 'data_fechamento',
     status_os: 'status_os',
-    sintomas_reclamados: 'sintomas_reclamados',
+    descricao_problema: 'descricao_problema',
     diagnostico_tecnico: 'diagnostico_tecnico',
     valor_servicos: 'valor_servicos',
     valor_pecas: 'valor_pecas',
@@ -31755,7 +31865,11 @@ export namespace Prisma {
   export const Veiculos_cliente_manutencaoScalarFieldEnum: {
     id: 'id',
     modelo_id: 'modelo_id',
-    cliente_id: 'cliente_id'
+    cliente_id: 'cliente_id',
+    placa: 'placa',
+    chassi: 'chassi',
+    cor: 'cor',
+    ano_fabricacao: 'ano_fabricacao'
   };
 
   export type Veiculos_cliente_manutencaoScalarFieldEnum = (typeof Veiculos_cliente_manutencaoScalarFieldEnum)[keyof typeof Veiculos_cliente_manutencaoScalarFieldEnum]
@@ -32233,7 +32347,7 @@ export namespace Prisma {
     id?: UuidFilter<"clientes"> | string
     nome_cliente?: StringFilter<"clientes"> | string
     cpf_cliente?: StringFilter<"clientes"> | string
-    ie_cliente?: StringNullableFilter<"clientes"> | string | null
+    IE_cliente?: StringNullableFilter<"clientes"> | string | null
     endereco_cliente?: StringNullableFilter<"clientes"> | string | null
     bairro_cliente?: StringNullableFilter<"clientes"> | string | null
     cep_cliente?: StringFilter<"clientes"> | string
@@ -32256,7 +32370,7 @@ export namespace Prisma {
     id?: SortOrder
     nome_cliente?: SortOrder
     cpf_cliente?: SortOrder
-    ie_cliente?: SortOrderInput | SortOrder
+    IE_cliente?: SortOrderInput | SortOrder
     endereco_cliente?: SortOrderInput | SortOrder
     bairro_cliente?: SortOrderInput | SortOrder
     cep_cliente?: SortOrder
@@ -32283,7 +32397,7 @@ export namespace Prisma {
     AND?: clientesWhereInput | clientesWhereInput[]
     OR?: clientesWhereInput[]
     NOT?: clientesWhereInput | clientesWhereInput[]
-    ie_cliente?: StringNullableFilter<"clientes"> | string | null
+    IE_cliente?: StringNullableFilter<"clientes"> | string | null
     endereco_cliente?: StringNullableFilter<"clientes"> | string | null
     bairro_cliente?: StringNullableFilter<"clientes"> | string | null
     cep_cliente?: StringFilter<"clientes"> | string
@@ -32305,7 +32419,7 @@ export namespace Prisma {
     id?: SortOrder
     nome_cliente?: SortOrder
     cpf_cliente?: SortOrder
-    ie_cliente?: SortOrderInput | SortOrder
+    IE_cliente?: SortOrderInput | SortOrder
     endereco_cliente?: SortOrderInput | SortOrder
     bairro_cliente?: SortOrderInput | SortOrder
     cep_cliente?: SortOrder
@@ -32329,7 +32443,7 @@ export namespace Prisma {
     id?: UuidWithAggregatesFilter<"clientes"> | string
     nome_cliente?: StringWithAggregatesFilter<"clientes"> | string
     cpf_cliente?: StringWithAggregatesFilter<"clientes"> | string
-    ie_cliente?: StringNullableWithAggregatesFilter<"clientes"> | string | null
+    IE_cliente?: StringNullableWithAggregatesFilter<"clientes"> | string | null
     endereco_cliente?: StringNullableWithAggregatesFilter<"clientes"> | string | null
     bairro_cliente?: StringNullableWithAggregatesFilter<"clientes"> | string | null
     cep_cliente?: StringWithAggregatesFilter<"clientes"> | string
@@ -32882,7 +32996,10 @@ export namespace Prisma {
     id?: UuidFilter<"itens_pedido_vendas"> | string
     pedido_venda_id?: UuidFilter<"itens_pedido_vendas"> | string
     peca_estoque_id?: UuidFilter<"itens_pedido_vendas"> | string
-    valor_venda?: DecimalFilter<"itens_pedido_vendas"> | Decimal | DecimalJsLike | number | string
+    quantidade_peca?: IntFilter<"itens_pedido_vendas"> | number
+    preco_unitario?: DecimalFilter<"itens_pedido_vendas"> | Decimal | DecimalJsLike | number | string
+    preco_total?: DecimalFilter<"itens_pedido_vendas"> | Decimal | DecimalJsLike | number | string
+    valor_desconto?: DecimalFilter<"itens_pedido_vendas"> | Decimal | DecimalJsLike | number | string
     data_fim_garantia?: DateTimeFilter<"itens_pedido_vendas"> | Date | string
     status_item?: Enumstatus_itemFilter<"itens_pedido_vendas"> | $Enums.status_item
     data_devolucao?: DateTimeNullableFilter<"itens_pedido_vendas"> | Date | string | null
@@ -32895,7 +33012,10 @@ export namespace Prisma {
     id?: SortOrder
     pedido_venda_id?: SortOrder
     peca_estoque_id?: SortOrder
-    valor_venda?: SortOrder
+    quantidade_peca?: SortOrder
+    preco_unitario?: SortOrder
+    preco_total?: SortOrder
+    valor_desconto?: SortOrder
     data_fim_garantia?: SortOrder
     status_item?: SortOrder
     data_devolucao?: SortOrderInput | SortOrder
@@ -32911,7 +33031,10 @@ export namespace Prisma {
     NOT?: itens_pedido_vendasWhereInput | itens_pedido_vendasWhereInput[]
     pedido_venda_id?: UuidFilter<"itens_pedido_vendas"> | string
     peca_estoque_id?: UuidFilter<"itens_pedido_vendas"> | string
-    valor_venda?: DecimalFilter<"itens_pedido_vendas"> | Decimal | DecimalJsLike | number | string
+    quantidade_peca?: IntFilter<"itens_pedido_vendas"> | number
+    preco_unitario?: DecimalFilter<"itens_pedido_vendas"> | Decimal | DecimalJsLike | number | string
+    preco_total?: DecimalFilter<"itens_pedido_vendas"> | Decimal | DecimalJsLike | number | string
+    valor_desconto?: DecimalFilter<"itens_pedido_vendas"> | Decimal | DecimalJsLike | number | string
     data_fim_garantia?: DateTimeFilter<"itens_pedido_vendas"> | Date | string
     status_item?: Enumstatus_itemFilter<"itens_pedido_vendas"> | $Enums.status_item
     data_devolucao?: DateTimeNullableFilter<"itens_pedido_vendas"> | Date | string | null
@@ -32924,7 +33047,10 @@ export namespace Prisma {
     id?: SortOrder
     pedido_venda_id?: SortOrder
     peca_estoque_id?: SortOrder
-    valor_venda?: SortOrder
+    quantidade_peca?: SortOrder
+    preco_unitario?: SortOrder
+    preco_total?: SortOrder
+    valor_desconto?: SortOrder
     data_fim_garantia?: SortOrder
     status_item?: SortOrder
     data_devolucao?: SortOrderInput | SortOrder
@@ -32943,7 +33069,10 @@ export namespace Prisma {
     id?: UuidWithAggregatesFilter<"itens_pedido_vendas"> | string
     pedido_venda_id?: UuidWithAggregatesFilter<"itens_pedido_vendas"> | string
     peca_estoque_id?: UuidWithAggregatesFilter<"itens_pedido_vendas"> | string
-    valor_venda?: DecimalWithAggregatesFilter<"itens_pedido_vendas"> | Decimal | DecimalJsLike | number | string
+    quantidade_peca?: IntWithAggregatesFilter<"itens_pedido_vendas"> | number
+    preco_unitario?: DecimalWithAggregatesFilter<"itens_pedido_vendas"> | Decimal | DecimalJsLike | number | string
+    preco_total?: DecimalWithAggregatesFilter<"itens_pedido_vendas"> | Decimal | DecimalJsLike | number | string
+    valor_desconto?: DecimalWithAggregatesFilter<"itens_pedido_vendas"> | Decimal | DecimalJsLike | number | string
     data_fim_garantia?: DateTimeWithAggregatesFilter<"itens_pedido_vendas"> | Date | string
     status_item?: Enumstatus_itemWithAggregatesFilter<"itens_pedido_vendas"> | $Enums.status_item
     data_devolucao?: DateTimeNullableWithAggregatesFilter<"itens_pedido_vendas"> | Date | string | null
@@ -32955,32 +33084,32 @@ export namespace Prisma {
     OR?: pedidos_vendasWhereInput[]
     NOT?: pedidos_vendasWhereInput | pedidos_vendasWhereInput[]
     id?: UuidFilter<"pedidos_vendas"> | string
-    cliente_comprador_id?: UuidFilter<"pedidos_vendas"> | string
-    responsavel_venda_id?: UuidFilter<"pedidos_vendas"> | string
     data_venda?: DateTimeFilter<"pedidos_vendas"> | Date | string
     valor_total?: DecimalFilter<"pedidos_vendas"> | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFilter<"pedidos_vendas"> | $Enums.metodo_pagamento
     status_pedido?: Enumstatus_pedidoFilter<"pedidos_vendas"> | $Enums.status_pedido
     observacoes_recibo?: StringNullableFilter<"pedidos_vendas"> | string | null
+    cliente_comprador_id?: UuidFilter<"pedidos_vendas"> | string
+    responsavel_venda_id?: UuidFilter<"pedidos_vendas"> | string
     itens_pedido_vendas?: Itens_pedido_vendasListRelationFilter
-    clientes?: XOR<ClientesScalarRelationFilter, clientesWhereInput>
-    usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
+    cliente_comprador?: XOR<ClientesScalarRelationFilter, clientesWhereInput>
+    responsavel_venda?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
     documento_fiscal?: XOR<Documento_fiscalNullableScalarRelationFilter, documento_fiscalWhereInput> | null
     lancamentos_caixa?: Fluxo_caixaListRelationFilter
   }
 
   export type pedidos_vendasOrderByWithRelationInput = {
     id?: SortOrder
-    cliente_comprador_id?: SortOrder
-    responsavel_venda_id?: SortOrder
     data_venda?: SortOrder
     valor_total?: SortOrder
     metodo_pagamento?: SortOrder
     status_pedido?: SortOrder
     observacoes_recibo?: SortOrderInput | SortOrder
+    cliente_comprador_id?: SortOrder
+    responsavel_venda_id?: SortOrder
     itens_pedido_vendas?: itens_pedido_vendasOrderByRelationAggregateInput
-    clientes?: clientesOrderByWithRelationInput
-    usuarios?: usuariosOrderByWithRelationInput
+    cliente_comprador?: clientesOrderByWithRelationInput
+    responsavel_venda?: usuariosOrderByWithRelationInput
     documento_fiscal?: documento_fiscalOrderByWithRelationInput
     lancamentos_caixa?: fluxo_caixaOrderByRelationAggregateInput
   }
@@ -32990,29 +33119,29 @@ export namespace Prisma {
     AND?: pedidos_vendasWhereInput | pedidos_vendasWhereInput[]
     OR?: pedidos_vendasWhereInput[]
     NOT?: pedidos_vendasWhereInput | pedidos_vendasWhereInput[]
-    cliente_comprador_id?: UuidFilter<"pedidos_vendas"> | string
-    responsavel_venda_id?: UuidFilter<"pedidos_vendas"> | string
     data_venda?: DateTimeFilter<"pedidos_vendas"> | Date | string
     valor_total?: DecimalFilter<"pedidos_vendas"> | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFilter<"pedidos_vendas"> | $Enums.metodo_pagamento
     status_pedido?: Enumstatus_pedidoFilter<"pedidos_vendas"> | $Enums.status_pedido
     observacoes_recibo?: StringNullableFilter<"pedidos_vendas"> | string | null
+    cliente_comprador_id?: UuidFilter<"pedidos_vendas"> | string
+    responsavel_venda_id?: UuidFilter<"pedidos_vendas"> | string
     itens_pedido_vendas?: Itens_pedido_vendasListRelationFilter
-    clientes?: XOR<ClientesScalarRelationFilter, clientesWhereInput>
-    usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
+    cliente_comprador?: XOR<ClientesScalarRelationFilter, clientesWhereInput>
+    responsavel_venda?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
     documento_fiscal?: XOR<Documento_fiscalNullableScalarRelationFilter, documento_fiscalWhereInput> | null
     lancamentos_caixa?: Fluxo_caixaListRelationFilter
   }, "id">
 
   export type pedidos_vendasOrderByWithAggregationInput = {
     id?: SortOrder
-    cliente_comprador_id?: SortOrder
-    responsavel_venda_id?: SortOrder
     data_venda?: SortOrder
     valor_total?: SortOrder
     metodo_pagamento?: SortOrder
     status_pedido?: SortOrder
     observacoes_recibo?: SortOrderInput | SortOrder
+    cliente_comprador_id?: SortOrder
+    responsavel_venda_id?: SortOrder
     _count?: pedidos_vendasCountOrderByAggregateInput
     _avg?: pedidos_vendasAvgOrderByAggregateInput
     _max?: pedidos_vendasMaxOrderByAggregateInput
@@ -33025,13 +33154,13 @@ export namespace Prisma {
     OR?: pedidos_vendasScalarWhereWithAggregatesInput[]
     NOT?: pedidos_vendasScalarWhereWithAggregatesInput | pedidos_vendasScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"pedidos_vendas"> | string
-    cliente_comprador_id?: UuidWithAggregatesFilter<"pedidos_vendas"> | string
-    responsavel_venda_id?: UuidWithAggregatesFilter<"pedidos_vendas"> | string
     data_venda?: DateTimeWithAggregatesFilter<"pedidos_vendas"> | Date | string
     valor_total?: DecimalWithAggregatesFilter<"pedidos_vendas"> | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoWithAggregatesFilter<"pedidos_vendas"> | $Enums.metodo_pagamento
     status_pedido?: Enumstatus_pedidoWithAggregatesFilter<"pedidos_vendas"> | $Enums.status_pedido
     observacoes_recibo?: StringNullableWithAggregatesFilter<"pedidos_vendas"> | string | null
+    cliente_comprador_id?: UuidWithAggregatesFilter<"pedidos_vendas"> | string
+    responsavel_venda_id?: UuidWithAggregatesFilter<"pedidos_vendas"> | string
   }
 
   export type ordem_servicoWhereInput = {
@@ -33046,7 +33175,7 @@ export namespace Prisma {
     data_previsao_entrega?: DateTimeNullableFilter<"ordem_servico"> | Date | string | null
     data_fechamento?: DateTimeNullableFilter<"ordem_servico"> | Date | string | null
     status_os?: Enumstatus_manutencaoFilter<"ordem_servico"> | $Enums.status_manutencao
-    sintomas_reclamados?: StringFilter<"ordem_servico"> | string
+    descricao_problema?: StringFilter<"ordem_servico"> | string
     diagnostico_tecnico?: StringNullableFilter<"ordem_servico"> | string | null
     valor_servicos?: DecimalFilter<"ordem_servico"> | Decimal | DecimalJsLike | number | string
     valor_pecas?: DecimalFilter<"ordem_servico"> | Decimal | DecimalJsLike | number | string
@@ -33070,7 +33199,7 @@ export namespace Prisma {
     data_previsao_entrega?: SortOrderInput | SortOrder
     data_fechamento?: SortOrderInput | SortOrder
     status_os?: SortOrder
-    sintomas_reclamados?: SortOrder
+    descricao_problema?: SortOrder
     diagnostico_tecnico?: SortOrderInput | SortOrder
     valor_servicos?: SortOrder
     valor_pecas?: SortOrder
@@ -33097,7 +33226,7 @@ export namespace Prisma {
     data_previsao_entrega?: DateTimeNullableFilter<"ordem_servico"> | Date | string | null
     data_fechamento?: DateTimeNullableFilter<"ordem_servico"> | Date | string | null
     status_os?: Enumstatus_manutencaoFilter<"ordem_servico"> | $Enums.status_manutencao
-    sintomas_reclamados?: StringFilter<"ordem_servico"> | string
+    descricao_problema?: StringFilter<"ordem_servico"> | string
     diagnostico_tecnico?: StringNullableFilter<"ordem_servico"> | string | null
     valor_servicos?: DecimalFilter<"ordem_servico"> | Decimal | DecimalJsLike | number | string
     valor_pecas?: DecimalFilter<"ordem_servico"> | Decimal | DecimalJsLike | number | string
@@ -33121,7 +33250,7 @@ export namespace Prisma {
     data_previsao_entrega?: SortOrderInput | SortOrder
     data_fechamento?: SortOrderInput | SortOrder
     status_os?: SortOrder
-    sintomas_reclamados?: SortOrder
+    descricao_problema?: SortOrder
     diagnostico_tecnico?: SortOrderInput | SortOrder
     valor_servicos?: SortOrder
     valor_pecas?: SortOrder
@@ -33146,7 +33275,7 @@ export namespace Prisma {
     data_previsao_entrega?: DateTimeNullableWithAggregatesFilter<"ordem_servico"> | Date | string | null
     data_fechamento?: DateTimeNullableWithAggregatesFilter<"ordem_servico"> | Date | string | null
     status_os?: Enumstatus_manutencaoWithAggregatesFilter<"ordem_servico"> | $Enums.status_manutencao
-    sintomas_reclamados?: StringWithAggregatesFilter<"ordem_servico"> | string
+    descricao_problema?: StringWithAggregatesFilter<"ordem_servico"> | string
     diagnostico_tecnico?: StringNullableWithAggregatesFilter<"ordem_servico"> | string | null
     valor_servicos?: DecimalWithAggregatesFilter<"ordem_servico"> | Decimal | DecimalJsLike | number | string
     valor_pecas?: DecimalWithAggregatesFilter<"ordem_servico"> | Decimal | DecimalJsLike | number | string
@@ -33626,6 +33755,10 @@ export namespace Prisma {
     id?: UuidFilter<"veiculos_cliente_manutencao"> | string
     modelo_id?: IntFilter<"veiculos_cliente_manutencao"> | number
     cliente_id?: UuidFilter<"veiculos_cliente_manutencao"> | string
+    placa?: StringFilter<"veiculos_cliente_manutencao"> | string
+    chassi?: StringNullableFilter<"veiculos_cliente_manutencao"> | string | null
+    cor?: StringNullableFilter<"veiculos_cliente_manutencao"> | string | null
+    ano_fabricacao?: IntNullableFilter<"veiculos_cliente_manutencao"> | number | null
     ordem_servico?: Ordem_servicoListRelationFilter
     clientes?: XOR<ClientesScalarRelationFilter, clientesWhereInput>
     modelos?: XOR<ModelosScalarRelationFilter, modelosWhereInput>
@@ -33635,6 +33768,10 @@ export namespace Prisma {
     id?: SortOrder
     modelo_id?: SortOrder
     cliente_id?: SortOrder
+    placa?: SortOrder
+    chassi?: SortOrderInput | SortOrder
+    cor?: SortOrderInput | SortOrder
+    ano_fabricacao?: SortOrderInput | SortOrder
     ordem_servico?: ordem_servicoOrderByRelationAggregateInput
     clientes?: clientesOrderByWithRelationInput
     modelos?: modelosOrderByWithRelationInput
@@ -33642,20 +33779,28 @@ export namespace Prisma {
 
   export type veiculos_cliente_manutencaoWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    placa?: string
+    chassi?: string
     AND?: veiculos_cliente_manutencaoWhereInput | veiculos_cliente_manutencaoWhereInput[]
     OR?: veiculos_cliente_manutencaoWhereInput[]
     NOT?: veiculos_cliente_manutencaoWhereInput | veiculos_cliente_manutencaoWhereInput[]
     modelo_id?: IntFilter<"veiculos_cliente_manutencao"> | number
     cliente_id?: UuidFilter<"veiculos_cliente_manutencao"> | string
+    cor?: StringNullableFilter<"veiculos_cliente_manutencao"> | string | null
+    ano_fabricacao?: IntNullableFilter<"veiculos_cliente_manutencao"> | number | null
     ordem_servico?: Ordem_servicoListRelationFilter
     clientes?: XOR<ClientesScalarRelationFilter, clientesWhereInput>
     modelos?: XOR<ModelosScalarRelationFilter, modelosWhereInput>
-  }, "id">
+  }, "id" | "placa" | "chassi">
 
   export type veiculos_cliente_manutencaoOrderByWithAggregationInput = {
     id?: SortOrder
     modelo_id?: SortOrder
     cliente_id?: SortOrder
+    placa?: SortOrder
+    chassi?: SortOrderInput | SortOrder
+    cor?: SortOrderInput | SortOrder
+    ano_fabricacao?: SortOrderInput | SortOrder
     _count?: veiculos_cliente_manutencaoCountOrderByAggregateInput
     _avg?: veiculos_cliente_manutencaoAvgOrderByAggregateInput
     _max?: veiculos_cliente_manutencaoMaxOrderByAggregateInput
@@ -33670,6 +33815,10 @@ export namespace Prisma {
     id?: UuidWithAggregatesFilter<"veiculos_cliente_manutencao"> | string
     modelo_id?: IntWithAggregatesFilter<"veiculos_cliente_manutencao"> | number
     cliente_id?: UuidWithAggregatesFilter<"veiculos_cliente_manutencao"> | string
+    placa?: StringWithAggregatesFilter<"veiculos_cliente_manutencao"> | string
+    chassi?: StringNullableWithAggregatesFilter<"veiculos_cliente_manutencao"> | string | null
+    cor?: StringNullableWithAggregatesFilter<"veiculos_cliente_manutencao"> | string | null
+    ano_fabricacao?: IntNullableWithAggregatesFilter<"veiculos_cliente_manutencao"> | number | null
   }
 
   export type configuracao_impostoWhereInput = {
@@ -34091,7 +34240,7 @@ export namespace Prisma {
     id?: string
     nome_cliente: string
     cpf_cliente: string
-    ie_cliente?: string | null
+    IE_cliente?: string | null
     endereco_cliente?: string | null
     bairro_cliente?: string | null
     cep_cliente?: string
@@ -34103,7 +34252,7 @@ export namespace Prisma {
     data_nascimento?: Date | string | null
     email_cliente: string
     data_cadastro?: Date | string | null
-    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutClientesInput
+    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutCliente_compradorInput
     sucata_compras?: sucata_comprasCreateNestedManyWithoutClientesInput
     veiculos_cliente_manutencao?: veiculos_cliente_manutencaoCreateNestedManyWithoutClientesInput
     ordens_servico?: ordem_servicoCreateNestedManyWithoutClientesInput
@@ -34114,7 +34263,7 @@ export namespace Prisma {
     id?: string
     nome_cliente: string
     cpf_cliente: string
-    ie_cliente?: string | null
+    IE_cliente?: string | null
     endereco_cliente?: string | null
     bairro_cliente?: string | null
     cep_cliente?: string
@@ -34126,7 +34275,7 @@ export namespace Prisma {
     data_nascimento?: Date | string | null
     email_cliente: string
     data_cadastro?: Date | string | null
-    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutClientesInput
+    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutCliente_compradorInput
     sucata_compras?: sucata_comprasUncheckedCreateNestedManyWithoutClientesInput
     veiculos_cliente_manutencao?: veiculos_cliente_manutencaoUncheckedCreateNestedManyWithoutClientesInput
     ordens_servico?: ordem_servicoUncheckedCreateNestedManyWithoutClientesInput
@@ -34137,7 +34286,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
-    ie_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
@@ -34149,7 +34298,7 @@ export namespace Prisma {
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email_cliente?: StringFieldUpdateOperationsInput | string
     data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    pedidos_vendas?: pedidos_vendasUpdateManyWithoutClientesNestedInput
+    pedidos_vendas?: pedidos_vendasUpdateManyWithoutCliente_compradorNestedInput
     sucata_compras?: sucata_comprasUpdateManyWithoutClientesNestedInput
     veiculos_cliente_manutencao?: veiculos_cliente_manutencaoUpdateManyWithoutClientesNestedInput
     ordens_servico?: ordem_servicoUpdateManyWithoutClientesNestedInput
@@ -34160,7 +34309,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
-    ie_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
@@ -34172,7 +34321,7 @@ export namespace Prisma {
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email_cliente?: StringFieldUpdateOperationsInput | string
     data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutClientesNestedInput
+    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutCliente_compradorNestedInput
     sucata_compras?: sucata_comprasUncheckedUpdateManyWithoutClientesNestedInput
     veiculos_cliente_manutencao?: veiculos_cliente_manutencaoUncheckedUpdateManyWithoutClientesNestedInput
     ordens_servico?: ordem_servicoUncheckedUpdateManyWithoutClientesNestedInput
@@ -34183,7 +34332,7 @@ export namespace Prisma {
     id?: string
     nome_cliente: string
     cpf_cliente: string
-    ie_cliente?: string | null
+    IE_cliente?: string | null
     endereco_cliente?: string | null
     bairro_cliente?: string | null
     cep_cliente?: string
@@ -34201,7 +34350,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
-    ie_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
@@ -34219,7 +34368,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
-    ie_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
@@ -34764,7 +34913,10 @@ export namespace Prisma {
 
   export type itens_pedido_vendasCreateInput = {
     id?: string
-    valor_venda: Decimal | DecimalJsLike | number | string
+    quantidade_peca?: number
+    preco_unitario: Decimal | DecimalJsLike | number | string
+    preco_total: Decimal | DecimalJsLike | number | string
+    valor_desconto?: Decimal | DecimalJsLike | number | string
     data_fim_garantia: Date | string
     status_item?: $Enums.status_item
     data_devolucao?: Date | string | null
@@ -34777,7 +34929,10 @@ export namespace Prisma {
     id?: string
     pedido_venda_id: string
     peca_estoque_id: string
-    valor_venda: Decimal | DecimalJsLike | number | string
+    quantidade_peca?: number
+    preco_unitario: Decimal | DecimalJsLike | number | string
+    preco_total: Decimal | DecimalJsLike | number | string
+    valor_desconto?: Decimal | DecimalJsLike | number | string
     data_fim_garantia: Date | string
     status_item?: $Enums.status_item
     data_devolucao?: Date | string | null
@@ -34786,7 +34941,10 @@ export namespace Prisma {
 
   export type itens_pedido_vendasUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    valor_venda?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidade_peca?: IntFieldUpdateOperationsInput | number
+    preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valor_desconto?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     data_fim_garantia?: DateTimeFieldUpdateOperationsInput | Date | string
     status_item?: Enumstatus_itemFieldUpdateOperationsInput | $Enums.status_item
     data_devolucao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -34799,7 +34957,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     pedido_venda_id?: StringFieldUpdateOperationsInput | string
     peca_estoque_id?: StringFieldUpdateOperationsInput | string
-    valor_venda?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidade_peca?: IntFieldUpdateOperationsInput | number
+    preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valor_desconto?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     data_fim_garantia?: DateTimeFieldUpdateOperationsInput | Date | string
     status_item?: Enumstatus_itemFieldUpdateOperationsInput | $Enums.status_item
     data_devolucao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -34810,7 +34971,10 @@ export namespace Prisma {
     id?: string
     pedido_venda_id: string
     peca_estoque_id: string
-    valor_venda: Decimal | DecimalJsLike | number | string
+    quantidade_peca?: number
+    preco_unitario: Decimal | DecimalJsLike | number | string
+    preco_total: Decimal | DecimalJsLike | number | string
+    valor_desconto?: Decimal | DecimalJsLike | number | string
     data_fim_garantia: Date | string
     status_item?: $Enums.status_item
     data_devolucao?: Date | string | null
@@ -34819,7 +34983,10 @@ export namespace Prisma {
 
   export type itens_pedido_vendasUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    valor_venda?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidade_peca?: IntFieldUpdateOperationsInput | number
+    preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valor_desconto?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     data_fim_garantia?: DateTimeFieldUpdateOperationsInput | Date | string
     status_item?: Enumstatus_itemFieldUpdateOperationsInput | $Enums.status_item
     data_devolucao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -34830,7 +34997,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     pedido_venda_id?: StringFieldUpdateOperationsInput | string
     peca_estoque_id?: StringFieldUpdateOperationsInput | string
-    valor_venda?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidade_peca?: IntFieldUpdateOperationsInput | number
+    preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valor_desconto?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     data_fim_garantia?: DateTimeFieldUpdateOperationsInput | Date | string
     status_item?: Enumstatus_itemFieldUpdateOperationsInput | $Enums.status_item
     data_devolucao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -34845,21 +35015,21 @@ export namespace Prisma {
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
     itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
-    clientes: clientesCreateNestedOneWithoutPedidos_vendasInput
-    usuarios: usuariosCreateNestedOneWithoutPedidos_vendasInput
+    cliente_comprador: clientesCreateNestedOneWithoutPedidos_vendasInput
+    responsavel_venda: usuariosCreateNestedOneWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalCreateNestedOneWithoutPedido_vendaInput
     lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutPedido_vendaInput
   }
 
   export type pedidos_vendasUncheckedCreateInput = {
     id?: string
-    cliente_comprador_id: string
-    responsavel_venda_id: string
     data_venda?: Date | string
     valor_total?: Decimal | DecimalJsLike | number | string
     metodo_pagamento?: $Enums.metodo_pagamento
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
+    cliente_comprador_id: string
+    responsavel_venda_id: string
     itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalUncheckedCreateNestedOneWithoutPedido_vendaInput
     lancamentos_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutPedido_vendaInput
@@ -34873,21 +35043,21 @@ export namespace Prisma {
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
     itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
-    clientes?: clientesUpdateOneRequiredWithoutPedidos_vendasNestedInput
-    usuarios?: usuariosUpdateOneRequiredWithoutPedidos_vendasNestedInput
+    cliente_comprador?: clientesUpdateOneRequiredWithoutPedidos_vendasNestedInput
+    responsavel_venda?: usuariosUpdateOneRequiredWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUpdateOneWithoutPedido_vendaNestedInput
     lancamentos_caixa?: fluxo_caixaUpdateManyWithoutPedido_vendaNestedInput
   }
 
   export type pedidos_vendasUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    cliente_comprador_id?: StringFieldUpdateOperationsInput | string
-    responsavel_venda_id?: StringFieldUpdateOperationsInput | string
     data_venda?: DateTimeFieldUpdateOperationsInput | Date | string
     valor_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_comprador_id?: StringFieldUpdateOperationsInput | string
+    responsavel_venda_id?: StringFieldUpdateOperationsInput | string
     itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUncheckedUpdateOneWithoutPedido_vendaNestedInput
     lancamentos_caixa?: fluxo_caixaUncheckedUpdateManyWithoutPedido_vendaNestedInput
@@ -34895,13 +35065,13 @@ export namespace Prisma {
 
   export type pedidos_vendasCreateManyInput = {
     id?: string
-    cliente_comprador_id: string
-    responsavel_venda_id: string
     data_venda?: Date | string
     valor_total?: Decimal | DecimalJsLike | number | string
     metodo_pagamento?: $Enums.metodo_pagamento
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
+    cliente_comprador_id: string
+    responsavel_venda_id: string
   }
 
   export type pedidos_vendasUpdateManyMutationInput = {
@@ -34915,13 +35085,13 @@ export namespace Prisma {
 
   export type pedidos_vendasUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    cliente_comprador_id?: StringFieldUpdateOperationsInput | string
-    responsavel_venda_id?: StringFieldUpdateOperationsInput | string
     data_venda?: DateTimeFieldUpdateOperationsInput | Date | string
     valor_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_comprador_id?: StringFieldUpdateOperationsInput | string
+    responsavel_venda_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type ordem_servicoCreateInput = {
@@ -34930,7 +35100,7 @@ export namespace Prisma {
     data_previsao_entrega?: Date | string | null
     data_fechamento?: Date | string | null
     status_os?: $Enums.status_manutencao
-    sintomas_reclamados: string
+    descricao_problema: string
     diagnostico_tecnico?: string | null
     valor_servicos?: Decimal | DecimalJsLike | number | string
     valor_pecas?: Decimal | DecimalJsLike | number | string
@@ -34954,7 +35124,7 @@ export namespace Prisma {
     data_previsao_entrega?: Date | string | null
     data_fechamento?: Date | string | null
     status_os?: $Enums.status_manutencao
-    sintomas_reclamados: string
+    descricao_problema: string
     diagnostico_tecnico?: string | null
     valor_servicos?: Decimal | DecimalJsLike | number | string
     valor_pecas?: Decimal | DecimalJsLike | number | string
@@ -34972,7 +35142,7 @@ export namespace Prisma {
     data_previsao_entrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     data_fechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status_os?: Enumstatus_manutencaoFieldUpdateOperationsInput | $Enums.status_manutencao
-    sintomas_reclamados?: StringFieldUpdateOperationsInput | string
+    descricao_problema?: StringFieldUpdateOperationsInput | string
     diagnostico_tecnico?: NullableStringFieldUpdateOperationsInput | string | null
     valor_servicos?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valor_pecas?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -34996,7 +35166,7 @@ export namespace Prisma {
     data_previsao_entrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     data_fechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status_os?: Enumstatus_manutencaoFieldUpdateOperationsInput | $Enums.status_manutencao
-    sintomas_reclamados?: StringFieldUpdateOperationsInput | string
+    descricao_problema?: StringFieldUpdateOperationsInput | string
     diagnostico_tecnico?: NullableStringFieldUpdateOperationsInput | string | null
     valor_servicos?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valor_pecas?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -35017,7 +35187,7 @@ export namespace Prisma {
     data_previsao_entrega?: Date | string | null
     data_fechamento?: Date | string | null
     status_os?: $Enums.status_manutencao
-    sintomas_reclamados: string
+    descricao_problema: string
     diagnostico_tecnico?: string | null
     valor_servicos?: Decimal | DecimalJsLike | number | string
     valor_pecas?: Decimal | DecimalJsLike | number | string
@@ -35031,7 +35201,7 @@ export namespace Prisma {
     data_previsao_entrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     data_fechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status_os?: Enumstatus_manutencaoFieldUpdateOperationsInput | $Enums.status_manutencao
-    sintomas_reclamados?: StringFieldUpdateOperationsInput | string
+    descricao_problema?: StringFieldUpdateOperationsInput | string
     diagnostico_tecnico?: NullableStringFieldUpdateOperationsInput | string | null
     valor_servicos?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valor_pecas?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -35048,7 +35218,7 @@ export namespace Prisma {
     data_previsao_entrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     data_fechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status_os?: Enumstatus_manutencaoFieldUpdateOperationsInput | $Enums.status_manutencao
-    sintomas_reclamados?: StringFieldUpdateOperationsInput | string
+    descricao_problema?: StringFieldUpdateOperationsInput | string
     diagnostico_tecnico?: NullableStringFieldUpdateOperationsInput | string | null
     valor_servicos?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valor_pecas?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -35424,7 +35594,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisCreateNestedManyWithoutUsuariosInput
     estoque_objetos_genericos?: estoque_objetos_genericosCreateNestedManyWithoutUsuariosInput
     peca_estoque?: peca_estoqueCreateNestedManyWithoutUsuariosInput
-    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutUsuariosInput
+    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutResponsavel_vendaInput
     sucata_compras?: sucata_comprasCreateNestedManyWithoutUsuariosInput
     sucata_estoque?: sucata_estoqueCreateNestedManyWithoutUsuariosInput
     ordens_servico_abertas?: ordem_servicoCreateNestedManyWithoutUsuario_responsavelInput
@@ -35447,7 +35617,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisUncheckedCreateNestedManyWithoutUsuariosInput
     estoque_objetos_genericos?: estoque_objetos_genericosUncheckedCreateNestedManyWithoutUsuariosInput
     peca_estoque?: peca_estoqueUncheckedCreateNestedManyWithoutUsuariosInput
-    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutUsuariosInput
+    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutResponsavel_vendaInput
     sucata_compras?: sucata_comprasUncheckedCreateNestedManyWithoutUsuariosInput
     sucata_estoque?: sucata_estoqueUncheckedCreateNestedManyWithoutUsuariosInput
     ordens_servico_abertas?: ordem_servicoUncheckedCreateNestedManyWithoutUsuario_responsavelInput
@@ -35470,7 +35640,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisUpdateManyWithoutUsuariosNestedInput
     estoque_objetos_genericos?: estoque_objetos_genericosUpdateManyWithoutUsuariosNestedInput
     peca_estoque?: peca_estoqueUpdateManyWithoutUsuariosNestedInput
-    pedidos_vendas?: pedidos_vendasUpdateManyWithoutUsuariosNestedInput
+    pedidos_vendas?: pedidos_vendasUpdateManyWithoutResponsavel_vendaNestedInput
     sucata_compras?: sucata_comprasUpdateManyWithoutUsuariosNestedInput
     sucata_estoque?: sucata_estoqueUpdateManyWithoutUsuariosNestedInput
     ordens_servico_abertas?: ordem_servicoUpdateManyWithoutUsuario_responsavelNestedInput
@@ -35493,7 +35663,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisUncheckedUpdateManyWithoutUsuariosNestedInput
     estoque_objetos_genericos?: estoque_objetos_genericosUncheckedUpdateManyWithoutUsuariosNestedInput
     peca_estoque?: peca_estoqueUncheckedUpdateManyWithoutUsuariosNestedInput
-    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutUsuariosNestedInput
+    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutResponsavel_vendaNestedInput
     sucata_compras?: sucata_comprasUncheckedUpdateManyWithoutUsuariosNestedInput
     sucata_estoque?: sucata_estoqueUncheckedUpdateManyWithoutUsuariosNestedInput
     ordens_servico_abertas?: ordem_servicoUncheckedUpdateManyWithoutUsuario_responsavelNestedInput
@@ -35542,6 +35712,10 @@ export namespace Prisma {
 
   export type veiculos_cliente_manutencaoCreateInput = {
     id?: string
+    placa: string
+    chassi?: string | null
+    cor?: string | null
+    ano_fabricacao?: number | null
     ordem_servico?: ordem_servicoCreateNestedManyWithoutVeiculoInput
     clientes: clientesCreateNestedOneWithoutVeiculos_cliente_manutencaoInput
     modelos: modelosCreateNestedOneWithoutVeiculos_cliente_manutencaoInput
@@ -35551,11 +35725,19 @@ export namespace Prisma {
     id?: string
     modelo_id: number
     cliente_id: string
+    placa: string
+    chassi?: string | null
+    cor?: string | null
+    ano_fabricacao?: number | null
     ordem_servico?: ordem_servicoUncheckedCreateNestedManyWithoutVeiculoInput
   }
 
   export type veiculos_cliente_manutencaoUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    placa?: StringFieldUpdateOperationsInput | string
+    chassi?: NullableStringFieldUpdateOperationsInput | string | null
+    cor?: NullableStringFieldUpdateOperationsInput | string | null
+    ano_fabricacao?: NullableIntFieldUpdateOperationsInput | number | null
     ordem_servico?: ordem_servicoUpdateManyWithoutVeiculoNestedInput
     clientes?: clientesUpdateOneRequiredWithoutVeiculos_cliente_manutencaoNestedInput
     modelos?: modelosUpdateOneRequiredWithoutVeiculos_cliente_manutencaoNestedInput
@@ -35565,6 +35747,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     modelo_id?: IntFieldUpdateOperationsInput | number
     cliente_id?: StringFieldUpdateOperationsInput | string
+    placa?: StringFieldUpdateOperationsInput | string
+    chassi?: NullableStringFieldUpdateOperationsInput | string | null
+    cor?: NullableStringFieldUpdateOperationsInput | string | null
+    ano_fabricacao?: NullableIntFieldUpdateOperationsInput | number | null
     ordem_servico?: ordem_servicoUncheckedUpdateManyWithoutVeiculoNestedInput
   }
 
@@ -35572,16 +35758,28 @@ export namespace Prisma {
     id?: string
     modelo_id: number
     cliente_id: string
+    placa: string
+    chassi?: string | null
+    cor?: string | null
+    ano_fabricacao?: number | null
   }
 
   export type veiculos_cliente_manutencaoUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    placa?: StringFieldUpdateOperationsInput | string
+    chassi?: NullableStringFieldUpdateOperationsInput | string | null
+    cor?: NullableStringFieldUpdateOperationsInput | string | null
+    ano_fabricacao?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type veiculos_cliente_manutencaoUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     modelo_id?: IntFieldUpdateOperationsInput | number
     cliente_id?: StringFieldUpdateOperationsInput | string
+    placa?: StringFieldUpdateOperationsInput | string
+    chassi?: NullableStringFieldUpdateOperationsInput | string | null
+    cor?: NullableStringFieldUpdateOperationsInput | string | null
+    ano_fabricacao?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type configuracao_impostoCreateInput = {
@@ -36136,7 +36334,7 @@ export namespace Prisma {
     id?: SortOrder
     nome_cliente?: SortOrder
     cpf_cliente?: SortOrder
-    ie_cliente?: SortOrder
+    IE_cliente?: SortOrder
     endereco_cliente?: SortOrder
     bairro_cliente?: SortOrder
     cep_cliente?: SortOrder
@@ -36154,7 +36352,7 @@ export namespace Prisma {
     id?: SortOrder
     nome_cliente?: SortOrder
     cpf_cliente?: SortOrder
-    ie_cliente?: SortOrder
+    IE_cliente?: SortOrder
     endereco_cliente?: SortOrder
     bairro_cliente?: SortOrder
     cep_cliente?: SortOrder
@@ -36172,7 +36370,7 @@ export namespace Prisma {
     id?: SortOrder
     nome_cliente?: SortOrder
     cpf_cliente?: SortOrder
-    ie_cliente?: SortOrder
+    IE_cliente?: SortOrder
     endereco_cliente?: SortOrder
     bairro_cliente?: SortOrder
     cep_cliente?: SortOrder
@@ -36821,7 +37019,10 @@ export namespace Prisma {
     id?: SortOrder
     pedido_venda_id?: SortOrder
     peca_estoque_id?: SortOrder
-    valor_venda?: SortOrder
+    quantidade_peca?: SortOrder
+    preco_unitario?: SortOrder
+    preco_total?: SortOrder
+    valor_desconto?: SortOrder
     data_fim_garantia?: SortOrder
     status_item?: SortOrder
     data_devolucao?: SortOrder
@@ -36829,14 +37030,20 @@ export namespace Prisma {
   }
 
   export type itens_pedido_vendasAvgOrderByAggregateInput = {
-    valor_venda?: SortOrder
+    quantidade_peca?: SortOrder
+    preco_unitario?: SortOrder
+    preco_total?: SortOrder
+    valor_desconto?: SortOrder
   }
 
   export type itens_pedido_vendasMaxOrderByAggregateInput = {
     id?: SortOrder
     pedido_venda_id?: SortOrder
     peca_estoque_id?: SortOrder
-    valor_venda?: SortOrder
+    quantidade_peca?: SortOrder
+    preco_unitario?: SortOrder
+    preco_total?: SortOrder
+    valor_desconto?: SortOrder
     data_fim_garantia?: SortOrder
     status_item?: SortOrder
     data_devolucao?: SortOrder
@@ -36847,7 +37054,10 @@ export namespace Prisma {
     id?: SortOrder
     pedido_venda_id?: SortOrder
     peca_estoque_id?: SortOrder
-    valor_venda?: SortOrder
+    quantidade_peca?: SortOrder
+    preco_unitario?: SortOrder
+    preco_total?: SortOrder
+    valor_desconto?: SortOrder
     data_fim_garantia?: SortOrder
     status_item?: SortOrder
     data_devolucao?: SortOrder
@@ -36855,7 +37065,10 @@ export namespace Prisma {
   }
 
   export type itens_pedido_vendasSumOrderByAggregateInput = {
-    valor_venda?: SortOrder
+    quantidade_peca?: SortOrder
+    preco_unitario?: SortOrder
+    preco_total?: SortOrder
+    valor_desconto?: SortOrder
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -36898,13 +37111,13 @@ export namespace Prisma {
 
   export type pedidos_vendasCountOrderByAggregateInput = {
     id?: SortOrder
-    cliente_comprador_id?: SortOrder
-    responsavel_venda_id?: SortOrder
     data_venda?: SortOrder
     valor_total?: SortOrder
     metodo_pagamento?: SortOrder
     status_pedido?: SortOrder
     observacoes_recibo?: SortOrder
+    cliente_comprador_id?: SortOrder
+    responsavel_venda_id?: SortOrder
   }
 
   export type pedidos_vendasAvgOrderByAggregateInput = {
@@ -36913,24 +37126,24 @@ export namespace Prisma {
 
   export type pedidos_vendasMaxOrderByAggregateInput = {
     id?: SortOrder
-    cliente_comprador_id?: SortOrder
-    responsavel_venda_id?: SortOrder
     data_venda?: SortOrder
     valor_total?: SortOrder
     metodo_pagamento?: SortOrder
     status_pedido?: SortOrder
     observacoes_recibo?: SortOrder
+    cliente_comprador_id?: SortOrder
+    responsavel_venda_id?: SortOrder
   }
 
   export type pedidos_vendasMinOrderByAggregateInput = {
     id?: SortOrder
-    cliente_comprador_id?: SortOrder
-    responsavel_venda_id?: SortOrder
     data_venda?: SortOrder
     valor_total?: SortOrder
     metodo_pagamento?: SortOrder
     status_pedido?: SortOrder
     observacoes_recibo?: SortOrder
+    cliente_comprador_id?: SortOrder
+    responsavel_venda_id?: SortOrder
   }
 
   export type pedidos_vendasSumOrderByAggregateInput = {
@@ -36988,7 +37201,7 @@ export namespace Prisma {
     data_previsao_entrega?: SortOrder
     data_fechamento?: SortOrder
     status_os?: SortOrder
-    sintomas_reclamados?: SortOrder
+    descricao_problema?: SortOrder
     diagnostico_tecnico?: SortOrder
     valor_servicos?: SortOrder
     valor_pecas?: SortOrder
@@ -37012,7 +37225,7 @@ export namespace Prisma {
     data_previsao_entrega?: SortOrder
     data_fechamento?: SortOrder
     status_os?: SortOrder
-    sintomas_reclamados?: SortOrder
+    descricao_problema?: SortOrder
     diagnostico_tecnico?: SortOrder
     valor_servicos?: SortOrder
     valor_pecas?: SortOrder
@@ -37029,7 +37242,7 @@ export namespace Prisma {
     data_previsao_entrega?: SortOrder
     data_fechamento?: SortOrder
     status_os?: SortOrder
-    sintomas_reclamados?: SortOrder
+    descricao_problema?: SortOrder
     diagnostico_tecnico?: SortOrder
     valor_servicos?: SortOrder
     valor_pecas?: SortOrder
@@ -37489,26 +37702,40 @@ export namespace Prisma {
     id?: SortOrder
     modelo_id?: SortOrder
     cliente_id?: SortOrder
+    placa?: SortOrder
+    chassi?: SortOrder
+    cor?: SortOrder
+    ano_fabricacao?: SortOrder
   }
 
   export type veiculos_cliente_manutencaoAvgOrderByAggregateInput = {
     modelo_id?: SortOrder
+    ano_fabricacao?: SortOrder
   }
 
   export type veiculos_cliente_manutencaoMaxOrderByAggregateInput = {
     id?: SortOrder
     modelo_id?: SortOrder
     cliente_id?: SortOrder
+    placa?: SortOrder
+    chassi?: SortOrder
+    cor?: SortOrder
+    ano_fabricacao?: SortOrder
   }
 
   export type veiculos_cliente_manutencaoMinOrderByAggregateInput = {
     id?: SortOrder
     modelo_id?: SortOrder
     cliente_id?: SortOrder
+    placa?: SortOrder
+    chassi?: SortOrder
+    cor?: SortOrder
+    ano_fabricacao?: SortOrder
   }
 
   export type veiculos_cliente_manutencaoSumOrderByAggregateInput = {
     modelo_id?: SortOrder
+    ano_fabricacao?: SortOrder
   }
 
   export type Enumtipo_objeto_receitaFilter<$PrismaModel = never> = {
@@ -37909,10 +38136,10 @@ export namespace Prisma {
     _max?: NestedEnumtipo_movimentacao_caixaFilter<$PrismaModel>
   }
 
-  export type pedidos_vendasCreateNestedManyWithoutClientesInput = {
-    create?: XOR<pedidos_vendasCreateWithoutClientesInput, pedidos_vendasUncheckedCreateWithoutClientesInput> | pedidos_vendasCreateWithoutClientesInput[] | pedidos_vendasUncheckedCreateWithoutClientesInput[]
-    connectOrCreate?: pedidos_vendasCreateOrConnectWithoutClientesInput | pedidos_vendasCreateOrConnectWithoutClientesInput[]
-    createMany?: pedidos_vendasCreateManyClientesInputEnvelope
+  export type pedidos_vendasCreateNestedManyWithoutCliente_compradorInput = {
+    create?: XOR<pedidos_vendasCreateWithoutCliente_compradorInput, pedidos_vendasUncheckedCreateWithoutCliente_compradorInput> | pedidos_vendasCreateWithoutCliente_compradorInput[] | pedidos_vendasUncheckedCreateWithoutCliente_compradorInput[]
+    connectOrCreate?: pedidos_vendasCreateOrConnectWithoutCliente_compradorInput | pedidos_vendasCreateOrConnectWithoutCliente_compradorInput[]
+    createMany?: pedidos_vendasCreateManyCliente_compradorInputEnvelope
     connect?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
   }
 
@@ -37944,10 +38171,10 @@ export namespace Prisma {
     connect?: sucata_estoqueWhereUniqueInput | sucata_estoqueWhereUniqueInput[]
   }
 
-  export type pedidos_vendasUncheckedCreateNestedManyWithoutClientesInput = {
-    create?: XOR<pedidos_vendasCreateWithoutClientesInput, pedidos_vendasUncheckedCreateWithoutClientesInput> | pedidos_vendasCreateWithoutClientesInput[] | pedidos_vendasUncheckedCreateWithoutClientesInput[]
-    connectOrCreate?: pedidos_vendasCreateOrConnectWithoutClientesInput | pedidos_vendasCreateOrConnectWithoutClientesInput[]
-    createMany?: pedidos_vendasCreateManyClientesInputEnvelope
+  export type pedidos_vendasUncheckedCreateNestedManyWithoutCliente_compradorInput = {
+    create?: XOR<pedidos_vendasCreateWithoutCliente_compradorInput, pedidos_vendasUncheckedCreateWithoutCliente_compradorInput> | pedidos_vendasCreateWithoutCliente_compradorInput[] | pedidos_vendasUncheckedCreateWithoutCliente_compradorInput[]
+    connectOrCreate?: pedidos_vendasCreateOrConnectWithoutCliente_compradorInput | pedidos_vendasCreateOrConnectWithoutCliente_compradorInput[]
+    createMany?: pedidos_vendasCreateManyCliente_compradorInputEnvelope
     connect?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
   }
 
@@ -37991,17 +38218,17 @@ export namespace Prisma {
     set?: Date | string | null
   }
 
-  export type pedidos_vendasUpdateManyWithoutClientesNestedInput = {
-    create?: XOR<pedidos_vendasCreateWithoutClientesInput, pedidos_vendasUncheckedCreateWithoutClientesInput> | pedidos_vendasCreateWithoutClientesInput[] | pedidos_vendasUncheckedCreateWithoutClientesInput[]
-    connectOrCreate?: pedidos_vendasCreateOrConnectWithoutClientesInput | pedidos_vendasCreateOrConnectWithoutClientesInput[]
-    upsert?: pedidos_vendasUpsertWithWhereUniqueWithoutClientesInput | pedidos_vendasUpsertWithWhereUniqueWithoutClientesInput[]
-    createMany?: pedidos_vendasCreateManyClientesInputEnvelope
+  export type pedidos_vendasUpdateManyWithoutCliente_compradorNestedInput = {
+    create?: XOR<pedidos_vendasCreateWithoutCliente_compradorInput, pedidos_vendasUncheckedCreateWithoutCliente_compradorInput> | pedidos_vendasCreateWithoutCliente_compradorInput[] | pedidos_vendasUncheckedCreateWithoutCliente_compradorInput[]
+    connectOrCreate?: pedidos_vendasCreateOrConnectWithoutCliente_compradorInput | pedidos_vendasCreateOrConnectWithoutCliente_compradorInput[]
+    upsert?: pedidos_vendasUpsertWithWhereUniqueWithoutCliente_compradorInput | pedidos_vendasUpsertWithWhereUniqueWithoutCliente_compradorInput[]
+    createMany?: pedidos_vendasCreateManyCliente_compradorInputEnvelope
     set?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
     disconnect?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
     delete?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
     connect?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
-    update?: pedidos_vendasUpdateWithWhereUniqueWithoutClientesInput | pedidos_vendasUpdateWithWhereUniqueWithoutClientesInput[]
-    updateMany?: pedidos_vendasUpdateManyWithWhereWithoutClientesInput | pedidos_vendasUpdateManyWithWhereWithoutClientesInput[]
+    update?: pedidos_vendasUpdateWithWhereUniqueWithoutCliente_compradorInput | pedidos_vendasUpdateWithWhereUniqueWithoutCliente_compradorInput[]
+    updateMany?: pedidos_vendasUpdateManyWithWhereWithoutCliente_compradorInput | pedidos_vendasUpdateManyWithWhereWithoutCliente_compradorInput[]
     deleteMany?: pedidos_vendasScalarWhereInput | pedidos_vendasScalarWhereInput[]
   }
 
@@ -38061,17 +38288,17 @@ export namespace Prisma {
     deleteMany?: sucata_estoqueScalarWhereInput | sucata_estoqueScalarWhereInput[]
   }
 
-  export type pedidos_vendasUncheckedUpdateManyWithoutClientesNestedInput = {
-    create?: XOR<pedidos_vendasCreateWithoutClientesInput, pedidos_vendasUncheckedCreateWithoutClientesInput> | pedidos_vendasCreateWithoutClientesInput[] | pedidos_vendasUncheckedCreateWithoutClientesInput[]
-    connectOrCreate?: pedidos_vendasCreateOrConnectWithoutClientesInput | pedidos_vendasCreateOrConnectWithoutClientesInput[]
-    upsert?: pedidos_vendasUpsertWithWhereUniqueWithoutClientesInput | pedidos_vendasUpsertWithWhereUniqueWithoutClientesInput[]
-    createMany?: pedidos_vendasCreateManyClientesInputEnvelope
+  export type pedidos_vendasUncheckedUpdateManyWithoutCliente_compradorNestedInput = {
+    create?: XOR<pedidos_vendasCreateWithoutCliente_compradorInput, pedidos_vendasUncheckedCreateWithoutCliente_compradorInput> | pedidos_vendasCreateWithoutCliente_compradorInput[] | pedidos_vendasUncheckedCreateWithoutCliente_compradorInput[]
+    connectOrCreate?: pedidos_vendasCreateOrConnectWithoutCliente_compradorInput | pedidos_vendasCreateOrConnectWithoutCliente_compradorInput[]
+    upsert?: pedidos_vendasUpsertWithWhereUniqueWithoutCliente_compradorInput | pedidos_vendasUpsertWithWhereUniqueWithoutCliente_compradorInput[]
+    createMany?: pedidos_vendasCreateManyCliente_compradorInputEnvelope
     set?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
     disconnect?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
     delete?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
     connect?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
-    update?: pedidos_vendasUpdateWithWhereUniqueWithoutClientesInput | pedidos_vendasUpdateWithWhereUniqueWithoutClientesInput[]
-    updateMany?: pedidos_vendasUpdateManyWithWhereWithoutClientesInput | pedidos_vendasUpdateManyWithWhereWithoutClientesInput[]
+    update?: pedidos_vendasUpdateWithWhereUniqueWithoutCliente_compradorInput | pedidos_vendasUpdateWithWhereUniqueWithoutCliente_compradorInput[]
+    updateMany?: pedidos_vendasUpdateManyWithWhereWithoutCliente_compradorInput | pedidos_vendasUpdateManyWithWhereWithoutCliente_compradorInput[]
     deleteMany?: pedidos_vendasScalarWhereInput | pedidos_vendasScalarWhereInput[]
   }
 
@@ -39583,10 +39810,10 @@ export namespace Prisma {
     connect?: peca_estoqueWhereUniqueInput | peca_estoqueWhereUniqueInput[]
   }
 
-  export type pedidos_vendasCreateNestedManyWithoutUsuariosInput = {
-    create?: XOR<pedidos_vendasCreateWithoutUsuariosInput, pedidos_vendasUncheckedCreateWithoutUsuariosInput> | pedidos_vendasCreateWithoutUsuariosInput[] | pedidos_vendasUncheckedCreateWithoutUsuariosInput[]
-    connectOrCreate?: pedidos_vendasCreateOrConnectWithoutUsuariosInput | pedidos_vendasCreateOrConnectWithoutUsuariosInput[]
-    createMany?: pedidos_vendasCreateManyUsuariosInputEnvelope
+  export type pedidos_vendasCreateNestedManyWithoutResponsavel_vendaInput = {
+    create?: XOR<pedidos_vendasCreateWithoutResponsavel_vendaInput, pedidos_vendasUncheckedCreateWithoutResponsavel_vendaInput> | pedidos_vendasCreateWithoutResponsavel_vendaInput[] | pedidos_vendasUncheckedCreateWithoutResponsavel_vendaInput[]
+    connectOrCreate?: pedidos_vendasCreateOrConnectWithoutResponsavel_vendaInput | pedidos_vendasCreateOrConnectWithoutResponsavel_vendaInput[]
+    createMany?: pedidos_vendasCreateManyResponsavel_vendaInputEnvelope
     connect?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
   }
 
@@ -39653,10 +39880,10 @@ export namespace Prisma {
     connect?: peca_estoqueWhereUniqueInput | peca_estoqueWhereUniqueInput[]
   }
 
-  export type pedidos_vendasUncheckedCreateNestedManyWithoutUsuariosInput = {
-    create?: XOR<pedidos_vendasCreateWithoutUsuariosInput, pedidos_vendasUncheckedCreateWithoutUsuariosInput> | pedidos_vendasCreateWithoutUsuariosInput[] | pedidos_vendasUncheckedCreateWithoutUsuariosInput[]
-    connectOrCreate?: pedidos_vendasCreateOrConnectWithoutUsuariosInput | pedidos_vendasCreateOrConnectWithoutUsuariosInput[]
-    createMany?: pedidos_vendasCreateManyUsuariosInputEnvelope
+  export type pedidos_vendasUncheckedCreateNestedManyWithoutResponsavel_vendaInput = {
+    create?: XOR<pedidos_vendasCreateWithoutResponsavel_vendaInput, pedidos_vendasUncheckedCreateWithoutResponsavel_vendaInput> | pedidos_vendasCreateWithoutResponsavel_vendaInput[] | pedidos_vendasUncheckedCreateWithoutResponsavel_vendaInput[]
+    connectOrCreate?: pedidos_vendasCreateOrConnectWithoutResponsavel_vendaInput | pedidos_vendasCreateOrConnectWithoutResponsavel_vendaInput[]
+    createMany?: pedidos_vendasCreateManyResponsavel_vendaInputEnvelope
     connect?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
   }
 
@@ -39767,17 +39994,17 @@ export namespace Prisma {
     deleteMany?: peca_estoqueScalarWhereInput | peca_estoqueScalarWhereInput[]
   }
 
-  export type pedidos_vendasUpdateManyWithoutUsuariosNestedInput = {
-    create?: XOR<pedidos_vendasCreateWithoutUsuariosInput, pedidos_vendasUncheckedCreateWithoutUsuariosInput> | pedidos_vendasCreateWithoutUsuariosInput[] | pedidos_vendasUncheckedCreateWithoutUsuariosInput[]
-    connectOrCreate?: pedidos_vendasCreateOrConnectWithoutUsuariosInput | pedidos_vendasCreateOrConnectWithoutUsuariosInput[]
-    upsert?: pedidos_vendasUpsertWithWhereUniqueWithoutUsuariosInput | pedidos_vendasUpsertWithWhereUniqueWithoutUsuariosInput[]
-    createMany?: pedidos_vendasCreateManyUsuariosInputEnvelope
+  export type pedidos_vendasUpdateManyWithoutResponsavel_vendaNestedInput = {
+    create?: XOR<pedidos_vendasCreateWithoutResponsavel_vendaInput, pedidos_vendasUncheckedCreateWithoutResponsavel_vendaInput> | pedidos_vendasCreateWithoutResponsavel_vendaInput[] | pedidos_vendasUncheckedCreateWithoutResponsavel_vendaInput[]
+    connectOrCreate?: pedidos_vendasCreateOrConnectWithoutResponsavel_vendaInput | pedidos_vendasCreateOrConnectWithoutResponsavel_vendaInput[]
+    upsert?: pedidos_vendasUpsertWithWhereUniqueWithoutResponsavel_vendaInput | pedidos_vendasUpsertWithWhereUniqueWithoutResponsavel_vendaInput[]
+    createMany?: pedidos_vendasCreateManyResponsavel_vendaInputEnvelope
     set?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
     disconnect?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
     delete?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
     connect?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
-    update?: pedidos_vendasUpdateWithWhereUniqueWithoutUsuariosInput | pedidos_vendasUpdateWithWhereUniqueWithoutUsuariosInput[]
-    updateMany?: pedidos_vendasUpdateManyWithWhereWithoutUsuariosInput | pedidos_vendasUpdateManyWithWhereWithoutUsuariosInput[]
+    update?: pedidos_vendasUpdateWithWhereUniqueWithoutResponsavel_vendaInput | pedidos_vendasUpdateWithWhereUniqueWithoutResponsavel_vendaInput[]
+    updateMany?: pedidos_vendasUpdateManyWithWhereWithoutResponsavel_vendaInput | pedidos_vendasUpdateManyWithWhereWithoutResponsavel_vendaInput[]
     deleteMany?: pedidos_vendasScalarWhereInput | pedidos_vendasScalarWhereInput[]
   }
 
@@ -39907,17 +40134,17 @@ export namespace Prisma {
     deleteMany?: peca_estoqueScalarWhereInput | peca_estoqueScalarWhereInput[]
   }
 
-  export type pedidos_vendasUncheckedUpdateManyWithoutUsuariosNestedInput = {
-    create?: XOR<pedidos_vendasCreateWithoutUsuariosInput, pedidos_vendasUncheckedCreateWithoutUsuariosInput> | pedidos_vendasCreateWithoutUsuariosInput[] | pedidos_vendasUncheckedCreateWithoutUsuariosInput[]
-    connectOrCreate?: pedidos_vendasCreateOrConnectWithoutUsuariosInput | pedidos_vendasCreateOrConnectWithoutUsuariosInput[]
-    upsert?: pedidos_vendasUpsertWithWhereUniqueWithoutUsuariosInput | pedidos_vendasUpsertWithWhereUniqueWithoutUsuariosInput[]
-    createMany?: pedidos_vendasCreateManyUsuariosInputEnvelope
+  export type pedidos_vendasUncheckedUpdateManyWithoutResponsavel_vendaNestedInput = {
+    create?: XOR<pedidos_vendasCreateWithoutResponsavel_vendaInput, pedidos_vendasUncheckedCreateWithoutResponsavel_vendaInput> | pedidos_vendasCreateWithoutResponsavel_vendaInput[] | pedidos_vendasUncheckedCreateWithoutResponsavel_vendaInput[]
+    connectOrCreate?: pedidos_vendasCreateOrConnectWithoutResponsavel_vendaInput | pedidos_vendasCreateOrConnectWithoutResponsavel_vendaInput[]
+    upsert?: pedidos_vendasUpsertWithWhereUniqueWithoutResponsavel_vendaInput | pedidos_vendasUpsertWithWhereUniqueWithoutResponsavel_vendaInput[]
+    createMany?: pedidos_vendasCreateManyResponsavel_vendaInputEnvelope
     set?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
     disconnect?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
     delete?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
     connect?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
-    update?: pedidos_vendasUpdateWithWhereUniqueWithoutUsuariosInput | pedidos_vendasUpdateWithWhereUniqueWithoutUsuariosInput[]
-    updateMany?: pedidos_vendasUpdateManyWithWhereWithoutUsuariosInput | pedidos_vendasUpdateManyWithWhereWithoutUsuariosInput[]
+    update?: pedidos_vendasUpdateWithWhereUniqueWithoutResponsavel_vendaInput | pedidos_vendasUpdateWithWhereUniqueWithoutResponsavel_vendaInput[]
+    updateMany?: pedidos_vendasUpdateManyWithWhereWithoutResponsavel_vendaInput | pedidos_vendasUpdateManyWithWhereWithoutResponsavel_vendaInput[]
     deleteMany?: pedidos_vendasScalarWhereInput | pedidos_vendasScalarWhereInput[]
   }
 
@@ -40964,7 +41191,7 @@ export namespace Prisma {
     _max?: NestedEnumtipo_movimentacao_caixaFilter<$PrismaModel>
   }
 
-  export type pedidos_vendasCreateWithoutClientesInput = {
+  export type pedidos_vendasCreateWithoutCliente_compradorInput = {
     id?: string
     data_venda?: Date | string
     valor_total?: Decimal | DecimalJsLike | number | string
@@ -40972,31 +41199,31 @@ export namespace Prisma {
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
     itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
-    usuarios: usuariosCreateNestedOneWithoutPedidos_vendasInput
+    responsavel_venda: usuariosCreateNestedOneWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalCreateNestedOneWithoutPedido_vendaInput
     lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutPedido_vendaInput
   }
 
-  export type pedidos_vendasUncheckedCreateWithoutClientesInput = {
+  export type pedidos_vendasUncheckedCreateWithoutCliente_compradorInput = {
     id?: string
-    responsavel_venda_id: string
     data_venda?: Date | string
     valor_total?: Decimal | DecimalJsLike | number | string
     metodo_pagamento?: $Enums.metodo_pagamento
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
+    responsavel_venda_id: string
     itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalUncheckedCreateNestedOneWithoutPedido_vendaInput
     lancamentos_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutPedido_vendaInput
   }
 
-  export type pedidos_vendasCreateOrConnectWithoutClientesInput = {
+  export type pedidos_vendasCreateOrConnectWithoutCliente_compradorInput = {
     where: pedidos_vendasWhereUniqueInput
-    create: XOR<pedidos_vendasCreateWithoutClientesInput, pedidos_vendasUncheckedCreateWithoutClientesInput>
+    create: XOR<pedidos_vendasCreateWithoutCliente_compradorInput, pedidos_vendasUncheckedCreateWithoutCliente_compradorInput>
   }
 
-  export type pedidos_vendasCreateManyClientesInputEnvelope = {
-    data: pedidos_vendasCreateManyClientesInput | pedidos_vendasCreateManyClientesInput[]
+  export type pedidos_vendasCreateManyCliente_compradorInputEnvelope = {
+    data: pedidos_vendasCreateManyCliente_compradorInput | pedidos_vendasCreateManyCliente_compradorInput[]
     skipDuplicates?: boolean
   }
 
@@ -41030,6 +41257,10 @@ export namespace Prisma {
 
   export type veiculos_cliente_manutencaoCreateWithoutClientesInput = {
     id?: string
+    placa: string
+    chassi?: string | null
+    cor?: string | null
+    ano_fabricacao?: number | null
     ordem_servico?: ordem_servicoCreateNestedManyWithoutVeiculoInput
     modelos: modelosCreateNestedOneWithoutVeiculos_cliente_manutencaoInput
   }
@@ -41037,6 +41268,10 @@ export namespace Prisma {
   export type veiculos_cliente_manutencaoUncheckedCreateWithoutClientesInput = {
     id?: string
     modelo_id: number
+    placa: string
+    chassi?: string | null
+    cor?: string | null
+    ano_fabricacao?: number | null
     ordem_servico?: ordem_servicoUncheckedCreateNestedManyWithoutVeiculoInput
   }
 
@@ -41056,7 +41291,7 @@ export namespace Prisma {
     data_previsao_entrega?: Date | string | null
     data_fechamento?: Date | string | null
     status_os?: $Enums.status_manutencao
-    sintomas_reclamados: string
+    descricao_problema: string
     diagnostico_tecnico?: string | null
     valor_servicos?: Decimal | DecimalJsLike | number | string
     valor_pecas?: Decimal | DecimalJsLike | number | string
@@ -41078,7 +41313,7 @@ export namespace Prisma {
     data_previsao_entrega?: Date | string | null
     data_fechamento?: Date | string | null
     status_os?: $Enums.status_manutencao
-    sintomas_reclamados: string
+    descricao_problema: string
     diagnostico_tecnico?: string | null
     valor_servicos?: Decimal | DecimalJsLike | number | string
     valor_pecas?: Decimal | DecimalJsLike | number | string
@@ -41148,20 +41383,20 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type pedidos_vendasUpsertWithWhereUniqueWithoutClientesInput = {
+  export type pedidos_vendasUpsertWithWhereUniqueWithoutCliente_compradorInput = {
     where: pedidos_vendasWhereUniqueInput
-    update: XOR<pedidos_vendasUpdateWithoutClientesInput, pedidos_vendasUncheckedUpdateWithoutClientesInput>
-    create: XOR<pedidos_vendasCreateWithoutClientesInput, pedidos_vendasUncheckedCreateWithoutClientesInput>
+    update: XOR<pedidos_vendasUpdateWithoutCliente_compradorInput, pedidos_vendasUncheckedUpdateWithoutCliente_compradorInput>
+    create: XOR<pedidos_vendasCreateWithoutCliente_compradorInput, pedidos_vendasUncheckedCreateWithoutCliente_compradorInput>
   }
 
-  export type pedidos_vendasUpdateWithWhereUniqueWithoutClientesInput = {
+  export type pedidos_vendasUpdateWithWhereUniqueWithoutCliente_compradorInput = {
     where: pedidos_vendasWhereUniqueInput
-    data: XOR<pedidos_vendasUpdateWithoutClientesInput, pedidos_vendasUncheckedUpdateWithoutClientesInput>
+    data: XOR<pedidos_vendasUpdateWithoutCliente_compradorInput, pedidos_vendasUncheckedUpdateWithoutCliente_compradorInput>
   }
 
-  export type pedidos_vendasUpdateManyWithWhereWithoutClientesInput = {
+  export type pedidos_vendasUpdateManyWithWhereWithoutCliente_compradorInput = {
     where: pedidos_vendasScalarWhereInput
-    data: XOR<pedidos_vendasUpdateManyMutationInput, pedidos_vendasUncheckedUpdateManyWithoutClientesInput>
+    data: XOR<pedidos_vendasUpdateManyMutationInput, pedidos_vendasUncheckedUpdateManyWithoutCliente_compradorInput>
   }
 
   export type pedidos_vendasScalarWhereInput = {
@@ -41169,13 +41404,13 @@ export namespace Prisma {
     OR?: pedidos_vendasScalarWhereInput[]
     NOT?: pedidos_vendasScalarWhereInput | pedidos_vendasScalarWhereInput[]
     id?: UuidFilter<"pedidos_vendas"> | string
-    cliente_comprador_id?: UuidFilter<"pedidos_vendas"> | string
-    responsavel_venda_id?: UuidFilter<"pedidos_vendas"> | string
     data_venda?: DateTimeFilter<"pedidos_vendas"> | Date | string
     valor_total?: DecimalFilter<"pedidos_vendas"> | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFilter<"pedidos_vendas"> | $Enums.metodo_pagamento
     status_pedido?: Enumstatus_pedidoFilter<"pedidos_vendas"> | $Enums.status_pedido
     observacoes_recibo?: StringNullableFilter<"pedidos_vendas"> | string | null
+    cliente_comprador_id?: UuidFilter<"pedidos_vendas"> | string
+    responsavel_venda_id?: UuidFilter<"pedidos_vendas"> | string
   }
 
   export type sucata_comprasUpsertWithWhereUniqueWithoutClientesInput = {
@@ -41229,6 +41464,10 @@ export namespace Prisma {
     id?: UuidFilter<"veiculos_cliente_manutencao"> | string
     modelo_id?: IntFilter<"veiculos_cliente_manutencao"> | number
     cliente_id?: UuidFilter<"veiculos_cliente_manutencao"> | string
+    placa?: StringFilter<"veiculos_cliente_manutencao"> | string
+    chassi?: StringNullableFilter<"veiculos_cliente_manutencao"> | string | null
+    cor?: StringNullableFilter<"veiculos_cliente_manutencao"> | string | null
+    ano_fabricacao?: IntNullableFilter<"veiculos_cliente_manutencao"> | number | null
   }
 
   export type ordem_servicoUpsertWithWhereUniqueWithoutClientesInput = {
@@ -41259,7 +41498,7 @@ export namespace Prisma {
     data_previsao_entrega?: DateTimeNullableFilter<"ordem_servico"> | Date | string | null
     data_fechamento?: DateTimeNullableFilter<"ordem_servico"> | Date | string | null
     status_os?: Enumstatus_manutencaoFilter<"ordem_servico"> | $Enums.status_manutencao
-    sintomas_reclamados?: StringFilter<"ordem_servico"> | string
+    descricao_problema?: StringFilter<"ordem_servico"> | string
     diagnostico_tecnico?: StringNullableFilter<"ordem_servico"> | string | null
     valor_servicos?: DecimalFilter<"ordem_servico"> | Decimal | DecimalJsLike | number | string
     valor_pecas?: DecimalFilter<"ordem_servico"> | Decimal | DecimalJsLike | number | string
@@ -41455,7 +41694,7 @@ export namespace Prisma {
     despesas?: despesasCreateNestedManyWithoutUsuariosInput
     estoque_objetos_genericos?: estoque_objetos_genericosCreateNestedManyWithoutUsuariosInput
     peca_estoque?: peca_estoqueCreateNestedManyWithoutUsuariosInput
-    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutUsuariosInput
+    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutResponsavel_vendaInput
     sucata_compras?: sucata_comprasCreateNestedManyWithoutUsuariosInput
     sucata_estoque?: sucata_estoqueCreateNestedManyWithoutUsuariosInput
     ordens_servico_abertas?: ordem_servicoCreateNestedManyWithoutUsuario_responsavelInput
@@ -41477,7 +41716,7 @@ export namespace Prisma {
     despesas?: despesasUncheckedCreateNestedManyWithoutUsuariosInput
     estoque_objetos_genericos?: estoque_objetos_genericosUncheckedCreateNestedManyWithoutUsuariosInput
     peca_estoque?: peca_estoqueUncheckedCreateNestedManyWithoutUsuariosInput
-    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutUsuariosInput
+    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutResponsavel_vendaInput
     sucata_compras?: sucata_comprasUncheckedCreateNestedManyWithoutUsuariosInput
     sucata_estoque?: sucata_estoqueUncheckedCreateNestedManyWithoutUsuariosInput
     ordens_servico_abertas?: ordem_servicoUncheckedCreateNestedManyWithoutUsuario_responsavelInput
@@ -41557,7 +41796,7 @@ export namespace Prisma {
     despesas?: despesasUpdateManyWithoutUsuariosNestedInput
     estoque_objetos_genericos?: estoque_objetos_genericosUpdateManyWithoutUsuariosNestedInput
     peca_estoque?: peca_estoqueUpdateManyWithoutUsuariosNestedInput
-    pedidos_vendas?: pedidos_vendasUpdateManyWithoutUsuariosNestedInput
+    pedidos_vendas?: pedidos_vendasUpdateManyWithoutResponsavel_vendaNestedInput
     sucata_compras?: sucata_comprasUpdateManyWithoutUsuariosNestedInput
     sucata_estoque?: sucata_estoqueUpdateManyWithoutUsuariosNestedInput
     ordens_servico_abertas?: ordem_servicoUpdateManyWithoutUsuario_responsavelNestedInput
@@ -41579,7 +41818,7 @@ export namespace Prisma {
     despesas?: despesasUncheckedUpdateManyWithoutUsuariosNestedInput
     estoque_objetos_genericos?: estoque_objetos_genericosUncheckedUpdateManyWithoutUsuariosNestedInput
     peca_estoque?: peca_estoqueUncheckedUpdateManyWithoutUsuariosNestedInput
-    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutUsuariosNestedInput
+    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutResponsavel_vendaNestedInput
     sucata_compras?: sucata_comprasUncheckedUpdateManyWithoutUsuariosNestedInput
     sucata_estoque?: sucata_estoqueUncheckedUpdateManyWithoutUsuariosNestedInput
     ordens_servico_abertas?: ordem_servicoUncheckedUpdateManyWithoutUsuario_responsavelNestedInput
@@ -41637,7 +41876,7 @@ export namespace Prisma {
     despesas?: despesasCreateNestedManyWithoutUsuariosInput
     estoque_objetos_duraveis?: estoque_objetos_duraveisCreateNestedManyWithoutUsuariosInput
     peca_estoque?: peca_estoqueCreateNestedManyWithoutUsuariosInput
-    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutUsuariosInput
+    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutResponsavel_vendaInput
     sucata_compras?: sucata_comprasCreateNestedManyWithoutUsuariosInput
     sucata_estoque?: sucata_estoqueCreateNestedManyWithoutUsuariosInput
     ordens_servico_abertas?: ordem_servicoCreateNestedManyWithoutUsuario_responsavelInput
@@ -41659,7 +41898,7 @@ export namespace Prisma {
     despesas?: despesasUncheckedCreateNestedManyWithoutUsuariosInput
     estoque_objetos_duraveis?: estoque_objetos_duraveisUncheckedCreateNestedManyWithoutUsuariosInput
     peca_estoque?: peca_estoqueUncheckedCreateNestedManyWithoutUsuariosInput
-    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutUsuariosInput
+    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutResponsavel_vendaInput
     sucata_compras?: sucata_comprasUncheckedCreateNestedManyWithoutUsuariosInput
     sucata_estoque?: sucata_estoqueUncheckedCreateNestedManyWithoutUsuariosInput
     ordens_servico_abertas?: ordem_servicoUncheckedCreateNestedManyWithoutUsuario_responsavelInput
@@ -41739,7 +41978,7 @@ export namespace Prisma {
     despesas?: despesasUpdateManyWithoutUsuariosNestedInput
     estoque_objetos_duraveis?: estoque_objetos_duraveisUpdateManyWithoutUsuariosNestedInput
     peca_estoque?: peca_estoqueUpdateManyWithoutUsuariosNestedInput
-    pedidos_vendas?: pedidos_vendasUpdateManyWithoutUsuariosNestedInput
+    pedidos_vendas?: pedidos_vendasUpdateManyWithoutResponsavel_vendaNestedInput
     sucata_compras?: sucata_comprasUpdateManyWithoutUsuariosNestedInput
     sucata_estoque?: sucata_estoqueUpdateManyWithoutUsuariosNestedInput
     ordens_servico_abertas?: ordem_servicoUpdateManyWithoutUsuario_responsavelNestedInput
@@ -41761,7 +42000,7 @@ export namespace Prisma {
     despesas?: despesasUncheckedUpdateManyWithoutUsuariosNestedInput
     estoque_objetos_duraveis?: estoque_objetos_duraveisUncheckedUpdateManyWithoutUsuariosNestedInput
     peca_estoque?: peca_estoqueUncheckedUpdateManyWithoutUsuariosNestedInput
-    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutUsuariosNestedInput
+    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutResponsavel_vendaNestedInput
     sucata_compras?: sucata_comprasUncheckedUpdateManyWithoutUsuariosNestedInput
     sucata_estoque?: sucata_estoqueUncheckedUpdateManyWithoutUsuariosNestedInput
     ordens_servico_abertas?: ordem_servicoUncheckedUpdateManyWithoutUsuario_responsavelNestedInput
@@ -41971,6 +42210,10 @@ export namespace Prisma {
 
   export type veiculos_cliente_manutencaoCreateWithoutModelosInput = {
     id?: string
+    placa: string
+    chassi?: string | null
+    cor?: string | null
+    ano_fabricacao?: number | null
     ordem_servico?: ordem_servicoCreateNestedManyWithoutVeiculoInput
     clientes: clientesCreateNestedOneWithoutVeiculos_cliente_manutencaoInput
   }
@@ -41978,6 +42221,10 @@ export namespace Prisma {
   export type veiculos_cliente_manutencaoUncheckedCreateWithoutModelosInput = {
     id?: string
     cliente_id: string
+    placa: string
+    chassi?: string | null
+    cor?: string | null
+    ano_fabricacao?: number | null
     ordem_servico?: ordem_servicoUncheckedCreateNestedManyWithoutVeiculoInput
   }
 
@@ -42130,7 +42377,10 @@ export namespace Prisma {
 
   export type itens_pedido_vendasCreateWithoutPeca_estoqueInput = {
     id?: string
-    valor_venda: Decimal | DecimalJsLike | number | string
+    quantidade_peca?: number
+    preco_unitario: Decimal | DecimalJsLike | number | string
+    preco_total: Decimal | DecimalJsLike | number | string
+    valor_desconto?: Decimal | DecimalJsLike | number | string
     data_fim_garantia: Date | string
     status_item?: $Enums.status_item
     data_devolucao?: Date | string | null
@@ -42141,7 +42391,10 @@ export namespace Prisma {
   export type itens_pedido_vendasUncheckedCreateWithoutPeca_estoqueInput = {
     id?: string
     pedido_venda_id: string
-    valor_venda: Decimal | DecimalJsLike | number | string
+    quantidade_peca?: number
+    preco_unitario: Decimal | DecimalJsLike | number | string
+    preco_total: Decimal | DecimalJsLike | number | string
+    valor_desconto?: Decimal | DecimalJsLike | number | string
     data_fim_garantia: Date | string
     status_item?: $Enums.status_item
     data_devolucao?: Date | string | null
@@ -42240,7 +42493,7 @@ export namespace Prisma {
     despesas?: despesasCreateNestedManyWithoutUsuariosInput
     estoque_objetos_duraveis?: estoque_objetos_duraveisCreateNestedManyWithoutUsuariosInput
     estoque_objetos_genericos?: estoque_objetos_genericosCreateNestedManyWithoutUsuariosInput
-    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutUsuariosInput
+    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutResponsavel_vendaInput
     sucata_compras?: sucata_comprasCreateNestedManyWithoutUsuariosInput
     sucata_estoque?: sucata_estoqueCreateNestedManyWithoutUsuariosInput
     ordens_servico_abertas?: ordem_servicoCreateNestedManyWithoutUsuario_responsavelInput
@@ -42262,7 +42515,7 @@ export namespace Prisma {
     despesas?: despesasUncheckedCreateNestedManyWithoutUsuariosInput
     estoque_objetos_duraveis?: estoque_objetos_duraveisUncheckedCreateNestedManyWithoutUsuariosInput
     estoque_objetos_genericos?: estoque_objetos_genericosUncheckedCreateNestedManyWithoutUsuariosInput
-    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutUsuariosInput
+    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutResponsavel_vendaInput
     sucata_compras?: sucata_comprasUncheckedCreateNestedManyWithoutUsuariosInput
     sucata_estoque?: sucata_estoqueUncheckedCreateNestedManyWithoutUsuariosInput
     ordens_servico_abertas?: ordem_servicoUncheckedCreateNestedManyWithoutUsuario_responsavelInput
@@ -42396,7 +42649,10 @@ export namespace Prisma {
     id?: UuidFilter<"itens_pedido_vendas"> | string
     pedido_venda_id?: UuidFilter<"itens_pedido_vendas"> | string
     peca_estoque_id?: UuidFilter<"itens_pedido_vendas"> | string
-    valor_venda?: DecimalFilter<"itens_pedido_vendas"> | Decimal | DecimalJsLike | number | string
+    quantidade_peca?: IntFilter<"itens_pedido_vendas"> | number
+    preco_unitario?: DecimalFilter<"itens_pedido_vendas"> | Decimal | DecimalJsLike | number | string
+    preco_total?: DecimalFilter<"itens_pedido_vendas"> | Decimal | DecimalJsLike | number | string
+    valor_desconto?: DecimalFilter<"itens_pedido_vendas"> | Decimal | DecimalJsLike | number | string
     data_fim_garantia?: DateTimeFilter<"itens_pedido_vendas"> | Date | string
     status_item?: Enumstatus_itemFilter<"itens_pedido_vendas"> | $Enums.status_item
     data_devolucao?: DateTimeNullableFilter<"itens_pedido_vendas"> | Date | string | null
@@ -42498,7 +42754,7 @@ export namespace Prisma {
     despesas?: despesasUpdateManyWithoutUsuariosNestedInput
     estoque_objetos_duraveis?: estoque_objetos_duraveisUpdateManyWithoutUsuariosNestedInput
     estoque_objetos_genericos?: estoque_objetos_genericosUpdateManyWithoutUsuariosNestedInput
-    pedidos_vendas?: pedidos_vendasUpdateManyWithoutUsuariosNestedInput
+    pedidos_vendas?: pedidos_vendasUpdateManyWithoutResponsavel_vendaNestedInput
     sucata_compras?: sucata_comprasUpdateManyWithoutUsuariosNestedInput
     sucata_estoque?: sucata_estoqueUpdateManyWithoutUsuariosNestedInput
     ordens_servico_abertas?: ordem_servicoUpdateManyWithoutUsuario_responsavelNestedInput
@@ -42520,7 +42776,7 @@ export namespace Prisma {
     despesas?: despesasUncheckedUpdateManyWithoutUsuariosNestedInput
     estoque_objetos_duraveis?: estoque_objetos_duraveisUncheckedUpdateManyWithoutUsuariosNestedInput
     estoque_objetos_genericos?: estoque_objetos_genericosUncheckedUpdateManyWithoutUsuariosNestedInput
-    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutUsuariosNestedInput
+    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutResponsavel_vendaNestedInput
     sucata_compras?: sucata_comprasUncheckedUpdateManyWithoutUsuariosNestedInput
     sucata_estoque?: sucata_estoqueUncheckedUpdateManyWithoutUsuariosNestedInput
     ordens_servico_abertas?: ordem_servicoUncheckedUpdateManyWithoutUsuario_responsavelNestedInput
@@ -42828,21 +43084,21 @@ export namespace Prisma {
     metodo_pagamento?: $Enums.metodo_pagamento
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
-    clientes: clientesCreateNestedOneWithoutPedidos_vendasInput
-    usuarios: usuariosCreateNestedOneWithoutPedidos_vendasInput
+    cliente_comprador: clientesCreateNestedOneWithoutPedidos_vendasInput
+    responsavel_venda: usuariosCreateNestedOneWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalCreateNestedOneWithoutPedido_vendaInput
     lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutPedido_vendaInput
   }
 
   export type pedidos_vendasUncheckedCreateWithoutItens_pedido_vendasInput = {
     id?: string
-    cliente_comprador_id: string
-    responsavel_venda_id: string
     data_venda?: Date | string
     valor_total?: Decimal | DecimalJsLike | number | string
     metodo_pagamento?: $Enums.metodo_pagamento
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
+    cliente_comprador_id: string
+    responsavel_venda_id: string
     documento_fiscal?: documento_fiscalUncheckedCreateNestedOneWithoutPedido_vendaInput
     lancamentos_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutPedido_vendaInput
   }
@@ -42917,28 +43173,31 @@ export namespace Prisma {
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
-    clientes?: clientesUpdateOneRequiredWithoutPedidos_vendasNestedInput
-    usuarios?: usuariosUpdateOneRequiredWithoutPedidos_vendasNestedInput
+    cliente_comprador?: clientesUpdateOneRequiredWithoutPedidos_vendasNestedInput
+    responsavel_venda?: usuariosUpdateOneRequiredWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUpdateOneWithoutPedido_vendaNestedInput
     lancamentos_caixa?: fluxo_caixaUpdateManyWithoutPedido_vendaNestedInput
   }
 
   export type pedidos_vendasUncheckedUpdateWithoutItens_pedido_vendasInput = {
     id?: StringFieldUpdateOperationsInput | string
-    cliente_comprador_id?: StringFieldUpdateOperationsInput | string
-    responsavel_venda_id?: StringFieldUpdateOperationsInput | string
     data_venda?: DateTimeFieldUpdateOperationsInput | Date | string
     valor_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_comprador_id?: StringFieldUpdateOperationsInput | string
+    responsavel_venda_id?: StringFieldUpdateOperationsInput | string
     documento_fiscal?: documento_fiscalUncheckedUpdateOneWithoutPedido_vendaNestedInput
     lancamentos_caixa?: fluxo_caixaUncheckedUpdateManyWithoutPedido_vendaNestedInput
   }
 
   export type itens_pedido_vendasCreateWithoutPedidos_vendasInput = {
     id?: string
-    valor_venda: Decimal | DecimalJsLike | number | string
+    quantidade_peca?: number
+    preco_unitario: Decimal | DecimalJsLike | number | string
+    preco_total: Decimal | DecimalJsLike | number | string
+    valor_desconto?: Decimal | DecimalJsLike | number | string
     data_fim_garantia: Date | string
     status_item?: $Enums.status_item
     data_devolucao?: Date | string | null
@@ -42949,7 +43208,10 @@ export namespace Prisma {
   export type itens_pedido_vendasUncheckedCreateWithoutPedidos_vendasInput = {
     id?: string
     peca_estoque_id: string
-    valor_venda: Decimal | DecimalJsLike | number | string
+    quantidade_peca?: number
+    preco_unitario: Decimal | DecimalJsLike | number | string
+    preco_total: Decimal | DecimalJsLike | number | string
+    valor_desconto?: Decimal | DecimalJsLike | number | string
     data_fim_garantia: Date | string
     status_item?: $Enums.status_item
     data_devolucao?: Date | string | null
@@ -42970,7 +43232,7 @@ export namespace Prisma {
     id?: string
     nome_cliente: string
     cpf_cliente: string
-    ie_cliente?: string | null
+    IE_cliente?: string | null
     endereco_cliente?: string | null
     bairro_cliente?: string | null
     cep_cliente?: string
@@ -42992,7 +43254,7 @@ export namespace Prisma {
     id?: string
     nome_cliente: string
     cpf_cliente: string
-    ie_cliente?: string | null
+    IE_cliente?: string | null
     endereco_cliente?: string | null
     bairro_cliente?: string | null
     cep_cliente?: string
@@ -43182,7 +43444,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
-    ie_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
@@ -43204,7 +43466,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
-    ie_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
@@ -43348,7 +43610,7 @@ export namespace Prisma {
     id?: string
     nome_cliente: string
     cpf_cliente: string
-    ie_cliente?: string | null
+    IE_cliente?: string | null
     endereco_cliente?: string | null
     bairro_cliente?: string | null
     cep_cliente?: string
@@ -43360,7 +43622,7 @@ export namespace Prisma {
     data_nascimento?: Date | string | null
     email_cliente: string
     data_cadastro?: Date | string | null
-    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutClientesInput
+    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutCliente_compradorInput
     sucata_compras?: sucata_comprasCreateNestedManyWithoutClientesInput
     veiculos_cliente_manutencao?: veiculos_cliente_manutencaoCreateNestedManyWithoutClientesInput
     sucatas_compradas_inteiras?: sucata_estoqueCreateNestedManyWithoutCliente_compradorInput
@@ -43370,7 +43632,7 @@ export namespace Prisma {
     id?: string
     nome_cliente: string
     cpf_cliente: string
-    ie_cliente?: string | null
+    IE_cliente?: string | null
     endereco_cliente?: string | null
     bairro_cliente?: string | null
     cep_cliente?: string
@@ -43382,7 +43644,7 @@ export namespace Prisma {
     data_nascimento?: Date | string | null
     email_cliente: string
     data_cadastro?: Date | string | null
-    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutClientesInput
+    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutCliente_compradorInput
     sucata_compras?: sucata_comprasUncheckedCreateNestedManyWithoutClientesInput
     veiculos_cliente_manutencao?: veiculos_cliente_manutencaoUncheckedCreateNestedManyWithoutClientesInput
     sucatas_compradas_inteiras?: sucata_estoqueUncheckedCreateNestedManyWithoutCliente_compradorInput
@@ -43395,6 +43657,10 @@ export namespace Prisma {
 
   export type veiculos_cliente_manutencaoCreateWithoutOrdem_servicoInput = {
     id?: string
+    placa: string
+    chassi?: string | null
+    cor?: string | null
+    ano_fabricacao?: number | null
     clientes: clientesCreateNestedOneWithoutVeiculos_cliente_manutencaoInput
     modelos: modelosCreateNestedOneWithoutVeiculos_cliente_manutencaoInput
   }
@@ -43403,6 +43669,10 @@ export namespace Prisma {
     id?: string
     modelo_id: number
     cliente_id: string
+    placa: string
+    chassi?: string | null
+    cor?: string | null
+    ano_fabricacao?: number | null
   }
 
   export type veiculos_cliente_manutencaoCreateOrConnectWithoutOrdem_servicoInput = {
@@ -43425,7 +43695,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisCreateNestedManyWithoutUsuariosInput
     estoque_objetos_genericos?: estoque_objetos_genericosCreateNestedManyWithoutUsuariosInput
     peca_estoque?: peca_estoqueCreateNestedManyWithoutUsuariosInput
-    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutUsuariosInput
+    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutResponsavel_vendaInput
     sucata_compras?: sucata_comprasCreateNestedManyWithoutUsuariosInput
     sucata_estoque?: sucata_estoqueCreateNestedManyWithoutUsuariosInput
     servicos_executados?: os_servicos_itensCreateNestedManyWithoutMecanicoInput
@@ -43447,7 +43717,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisUncheckedCreateNestedManyWithoutUsuariosInput
     estoque_objetos_genericos?: estoque_objetos_genericosUncheckedCreateNestedManyWithoutUsuariosInput
     peca_estoque?: peca_estoqueUncheckedCreateNestedManyWithoutUsuariosInput
-    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutUsuariosInput
+    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutResponsavel_vendaInput
     sucata_compras?: sucata_comprasUncheckedCreateNestedManyWithoutUsuariosInput
     sucata_estoque?: sucata_estoqueUncheckedCreateNestedManyWithoutUsuariosInput
     servicos_executados?: os_servicos_itensUncheckedCreateNestedManyWithoutMecanicoInput
@@ -43611,7 +43881,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
-    ie_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
@@ -43623,7 +43893,7 @@ export namespace Prisma {
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email_cliente?: StringFieldUpdateOperationsInput | string
     data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    pedidos_vendas?: pedidos_vendasUpdateManyWithoutClientesNestedInput
+    pedidos_vendas?: pedidos_vendasUpdateManyWithoutCliente_compradorNestedInput
     sucata_compras?: sucata_comprasUpdateManyWithoutClientesNestedInput
     veiculos_cliente_manutencao?: veiculos_cliente_manutencaoUpdateManyWithoutClientesNestedInput
     sucatas_compradas_inteiras?: sucata_estoqueUpdateManyWithoutCliente_compradorNestedInput
@@ -43633,7 +43903,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
-    ie_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
@@ -43645,7 +43915,7 @@ export namespace Prisma {
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email_cliente?: StringFieldUpdateOperationsInput | string
     data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutClientesNestedInput
+    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutCliente_compradorNestedInput
     sucata_compras?: sucata_comprasUncheckedUpdateManyWithoutClientesNestedInput
     veiculos_cliente_manutencao?: veiculos_cliente_manutencaoUncheckedUpdateManyWithoutClientesNestedInput
     sucatas_compradas_inteiras?: sucata_estoqueUncheckedUpdateManyWithoutCliente_compradorNestedInput
@@ -43664,6 +43934,10 @@ export namespace Prisma {
 
   export type veiculos_cliente_manutencaoUpdateWithoutOrdem_servicoInput = {
     id?: StringFieldUpdateOperationsInput | string
+    placa?: StringFieldUpdateOperationsInput | string
+    chassi?: NullableStringFieldUpdateOperationsInput | string | null
+    cor?: NullableStringFieldUpdateOperationsInput | string | null
+    ano_fabricacao?: NullableIntFieldUpdateOperationsInput | number | null
     clientes?: clientesUpdateOneRequiredWithoutVeiculos_cliente_manutencaoNestedInput
     modelos?: modelosUpdateOneRequiredWithoutVeiculos_cliente_manutencaoNestedInput
   }
@@ -43672,6 +43946,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     modelo_id?: IntFieldUpdateOperationsInput | number
     cliente_id?: StringFieldUpdateOperationsInput | string
+    placa?: StringFieldUpdateOperationsInput | string
+    chassi?: NullableStringFieldUpdateOperationsInput | string | null
+    cor?: NullableStringFieldUpdateOperationsInput | string | null
+    ano_fabricacao?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type usuariosUpsertWithoutOrdens_servico_abertasInput = {
@@ -43700,7 +43978,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisUpdateManyWithoutUsuariosNestedInput
     estoque_objetos_genericos?: estoque_objetos_genericosUpdateManyWithoutUsuariosNestedInput
     peca_estoque?: peca_estoqueUpdateManyWithoutUsuariosNestedInput
-    pedidos_vendas?: pedidos_vendasUpdateManyWithoutUsuariosNestedInput
+    pedidos_vendas?: pedidos_vendasUpdateManyWithoutResponsavel_vendaNestedInput
     sucata_compras?: sucata_comprasUpdateManyWithoutUsuariosNestedInput
     sucata_estoque?: sucata_estoqueUpdateManyWithoutUsuariosNestedInput
     servicos_executados?: os_servicos_itensUpdateManyWithoutMecanicoNestedInput
@@ -43722,7 +44000,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisUncheckedUpdateManyWithoutUsuariosNestedInput
     estoque_objetos_genericos?: estoque_objetos_genericosUncheckedUpdateManyWithoutUsuariosNestedInput
     peca_estoque?: peca_estoqueUncheckedUpdateManyWithoutUsuariosNestedInput
-    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutUsuariosNestedInput
+    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutResponsavel_vendaNestedInput
     sucata_compras?: sucata_comprasUncheckedUpdateManyWithoutUsuariosNestedInput
     sucata_estoque?: sucata_estoqueUncheckedUpdateManyWithoutUsuariosNestedInput
     servicos_executados?: os_servicos_itensUncheckedUpdateManyWithoutMecanicoNestedInput
@@ -43847,7 +44125,7 @@ export namespace Prisma {
     data_previsao_entrega?: Date | string | null
     data_fechamento?: Date | string | null
     status_os?: $Enums.status_manutencao
-    sintomas_reclamados: string
+    descricao_problema: string
     diagnostico_tecnico?: string | null
     valor_servicos?: Decimal | DecimalJsLike | number | string
     valor_pecas?: Decimal | DecimalJsLike | number | string
@@ -43870,7 +44148,7 @@ export namespace Prisma {
     data_previsao_entrega?: Date | string | null
     data_fechamento?: Date | string | null
     status_os?: $Enums.status_manutencao
-    sintomas_reclamados: string
+    descricao_problema: string
     diagnostico_tecnico?: string | null
     valor_servicos?: Decimal | DecimalJsLike | number | string
     valor_pecas?: Decimal | DecimalJsLike | number | string
@@ -43918,7 +44196,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisCreateNestedManyWithoutUsuariosInput
     estoque_objetos_genericos?: estoque_objetos_genericosCreateNestedManyWithoutUsuariosInput
     peca_estoque?: peca_estoqueCreateNestedManyWithoutUsuariosInput
-    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutUsuariosInput
+    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutResponsavel_vendaInput
     sucata_compras?: sucata_comprasCreateNestedManyWithoutUsuariosInput
     sucata_estoque?: sucata_estoqueCreateNestedManyWithoutUsuariosInput
     ordens_servico_abertas?: ordem_servicoCreateNestedManyWithoutUsuario_responsavelInput
@@ -43940,7 +44218,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisUncheckedCreateNestedManyWithoutUsuariosInput
     estoque_objetos_genericos?: estoque_objetos_genericosUncheckedCreateNestedManyWithoutUsuariosInput
     peca_estoque?: peca_estoqueUncheckedCreateNestedManyWithoutUsuariosInput
-    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutUsuariosInput
+    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutResponsavel_vendaInput
     sucata_compras?: sucata_comprasUncheckedCreateNestedManyWithoutUsuariosInput
     sucata_estoque?: sucata_estoqueUncheckedCreateNestedManyWithoutUsuariosInput
     ordens_servico_abertas?: ordem_servicoUncheckedCreateNestedManyWithoutUsuario_responsavelInput
@@ -43969,7 +44247,7 @@ export namespace Prisma {
     data_previsao_entrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     data_fechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status_os?: Enumstatus_manutencaoFieldUpdateOperationsInput | $Enums.status_manutencao
-    sintomas_reclamados?: StringFieldUpdateOperationsInput | string
+    descricao_problema?: StringFieldUpdateOperationsInput | string
     diagnostico_tecnico?: NullableStringFieldUpdateOperationsInput | string | null
     valor_servicos?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valor_pecas?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -43992,7 +44270,7 @@ export namespace Prisma {
     data_previsao_entrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     data_fechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status_os?: Enumstatus_manutencaoFieldUpdateOperationsInput | $Enums.status_manutencao
-    sintomas_reclamados?: StringFieldUpdateOperationsInput | string
+    descricao_problema?: StringFieldUpdateOperationsInput | string
     diagnostico_tecnico?: NullableStringFieldUpdateOperationsInput | string | null
     valor_servicos?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valor_pecas?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -44052,7 +44330,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisUpdateManyWithoutUsuariosNestedInput
     estoque_objetos_genericos?: estoque_objetos_genericosUpdateManyWithoutUsuariosNestedInput
     peca_estoque?: peca_estoqueUpdateManyWithoutUsuariosNestedInput
-    pedidos_vendas?: pedidos_vendasUpdateManyWithoutUsuariosNestedInput
+    pedidos_vendas?: pedidos_vendasUpdateManyWithoutResponsavel_vendaNestedInput
     sucata_compras?: sucata_comprasUpdateManyWithoutUsuariosNestedInput
     sucata_estoque?: sucata_estoqueUpdateManyWithoutUsuariosNestedInput
     ordens_servico_abertas?: ordem_servicoUpdateManyWithoutUsuario_responsavelNestedInput
@@ -44074,7 +44352,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisUncheckedUpdateManyWithoutUsuariosNestedInput
     estoque_objetos_genericos?: estoque_objetos_genericosUncheckedUpdateManyWithoutUsuariosNestedInput
     peca_estoque?: peca_estoqueUncheckedUpdateManyWithoutUsuariosNestedInput
-    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutUsuariosNestedInput
+    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutResponsavel_vendaNestedInput
     sucata_compras?: sucata_comprasUncheckedUpdateManyWithoutUsuariosNestedInput
     sucata_estoque?: sucata_estoqueUncheckedUpdateManyWithoutUsuariosNestedInput
     ordens_servico_abertas?: ordem_servicoUncheckedUpdateManyWithoutUsuario_responsavelNestedInput
@@ -44087,7 +44365,7 @@ export namespace Prisma {
     data_previsao_entrega?: Date | string | null
     data_fechamento?: Date | string | null
     status_os?: $Enums.status_manutencao
-    sintomas_reclamados: string
+    descricao_problema: string
     diagnostico_tecnico?: string | null
     valor_servicos?: Decimal | DecimalJsLike | number | string
     valor_pecas?: Decimal | DecimalJsLike | number | string
@@ -44110,7 +44388,7 @@ export namespace Prisma {
     data_previsao_entrega?: Date | string | null
     data_fechamento?: Date | string | null
     status_os?: $Enums.status_manutencao
-    sintomas_reclamados: string
+    descricao_problema: string
     diagnostico_tecnico?: string | null
     valor_servicos?: Decimal | DecimalJsLike | number | string
     valor_pecas?: Decimal | DecimalJsLike | number | string
@@ -44184,7 +44462,7 @@ export namespace Prisma {
     data_previsao_entrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     data_fechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status_os?: Enumstatus_manutencaoFieldUpdateOperationsInput | $Enums.status_manutencao
-    sintomas_reclamados?: StringFieldUpdateOperationsInput | string
+    descricao_problema?: StringFieldUpdateOperationsInput | string
     diagnostico_tecnico?: NullableStringFieldUpdateOperationsInput | string | null
     valor_servicos?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valor_pecas?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -44207,7 +44485,7 @@ export namespace Prisma {
     data_previsao_entrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     data_fechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status_os?: Enumstatus_manutencaoFieldUpdateOperationsInput | $Enums.status_manutencao
-    sintomas_reclamados?: StringFieldUpdateOperationsInput | string
+    descricao_problema?: StringFieldUpdateOperationsInput | string
     diagnostico_tecnico?: NullableStringFieldUpdateOperationsInput | string | null
     valor_servicos?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valor_pecas?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -44269,7 +44547,7 @@ export namespace Prisma {
     id?: string
     nome_cliente: string
     cpf_cliente: string
-    ie_cliente?: string | null
+    IE_cliente?: string | null
     endereco_cliente?: string | null
     bairro_cliente?: string | null
     cep_cliente?: string
@@ -44281,7 +44559,7 @@ export namespace Prisma {
     data_nascimento?: Date | string | null
     email_cliente: string
     data_cadastro?: Date | string | null
-    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutClientesInput
+    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutCliente_compradorInput
     veiculos_cliente_manutencao?: veiculos_cliente_manutencaoCreateNestedManyWithoutClientesInput
     ordens_servico?: ordem_servicoCreateNestedManyWithoutClientesInput
     sucatas_compradas_inteiras?: sucata_estoqueCreateNestedManyWithoutCliente_compradorInput
@@ -44291,7 +44569,7 @@ export namespace Prisma {
     id?: string
     nome_cliente: string
     cpf_cliente: string
-    ie_cliente?: string | null
+    IE_cliente?: string | null
     endereco_cliente?: string | null
     bairro_cliente?: string | null
     cep_cliente?: string
@@ -44303,7 +44581,7 @@ export namespace Prisma {
     data_nascimento?: Date | string | null
     email_cliente: string
     data_cadastro?: Date | string | null
-    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutClientesInput
+    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutCliente_compradorInput
     veiculos_cliente_manutencao?: veiculos_cliente_manutencaoUncheckedCreateNestedManyWithoutClientesInput
     ordens_servico?: ordem_servicoUncheckedCreateNestedManyWithoutClientesInput
     sucatas_compradas_inteiras?: sucata_estoqueUncheckedCreateNestedManyWithoutCliente_compradorInput
@@ -44329,7 +44607,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisCreateNestedManyWithoutUsuariosInput
     estoque_objetos_genericos?: estoque_objetos_genericosCreateNestedManyWithoutUsuariosInput
     peca_estoque?: peca_estoqueCreateNestedManyWithoutUsuariosInput
-    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutUsuariosInput
+    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutResponsavel_vendaInput
     sucata_estoque?: sucata_estoqueCreateNestedManyWithoutUsuariosInput
     ordens_servico_abertas?: ordem_servicoCreateNestedManyWithoutUsuario_responsavelInput
     servicos_executados?: os_servicos_itensCreateNestedManyWithoutMecanicoInput
@@ -44351,7 +44629,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisUncheckedCreateNestedManyWithoutUsuariosInput
     estoque_objetos_genericos?: estoque_objetos_genericosUncheckedCreateNestedManyWithoutUsuariosInput
     peca_estoque?: peca_estoqueUncheckedCreateNestedManyWithoutUsuariosInput
-    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutUsuariosInput
+    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutResponsavel_vendaInput
     sucata_estoque?: sucata_estoqueUncheckedCreateNestedManyWithoutUsuariosInput
     ordens_servico_abertas?: ordem_servicoUncheckedCreateNestedManyWithoutUsuario_responsavelInput
     servicos_executados?: os_servicos_itensUncheckedCreateNestedManyWithoutMecanicoInput
@@ -44420,7 +44698,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
-    ie_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
@@ -44432,7 +44710,7 @@ export namespace Prisma {
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email_cliente?: StringFieldUpdateOperationsInput | string
     data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    pedidos_vendas?: pedidos_vendasUpdateManyWithoutClientesNestedInput
+    pedidos_vendas?: pedidos_vendasUpdateManyWithoutCliente_compradorNestedInput
     veiculos_cliente_manutencao?: veiculos_cliente_manutencaoUpdateManyWithoutClientesNestedInput
     ordens_servico?: ordem_servicoUpdateManyWithoutClientesNestedInput
     sucatas_compradas_inteiras?: sucata_estoqueUpdateManyWithoutCliente_compradorNestedInput
@@ -44442,7 +44720,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
-    ie_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
@@ -44454,7 +44732,7 @@ export namespace Prisma {
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email_cliente?: StringFieldUpdateOperationsInput | string
     data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutClientesNestedInput
+    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutCliente_compradorNestedInput
     veiculos_cliente_manutencao?: veiculos_cliente_manutencaoUncheckedUpdateManyWithoutClientesNestedInput
     ordens_servico?: ordem_servicoUncheckedUpdateManyWithoutClientesNestedInput
     sucatas_compradas_inteiras?: sucata_estoqueUncheckedUpdateManyWithoutCliente_compradorNestedInput
@@ -44486,7 +44764,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisUpdateManyWithoutUsuariosNestedInput
     estoque_objetos_genericos?: estoque_objetos_genericosUpdateManyWithoutUsuariosNestedInput
     peca_estoque?: peca_estoqueUpdateManyWithoutUsuariosNestedInput
-    pedidos_vendas?: pedidos_vendasUpdateManyWithoutUsuariosNestedInput
+    pedidos_vendas?: pedidos_vendasUpdateManyWithoutResponsavel_vendaNestedInput
     sucata_estoque?: sucata_estoqueUpdateManyWithoutUsuariosNestedInput
     ordens_servico_abertas?: ordem_servicoUpdateManyWithoutUsuario_responsavelNestedInput
     servicos_executados?: os_servicos_itensUpdateManyWithoutMecanicoNestedInput
@@ -44508,7 +44786,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisUncheckedUpdateManyWithoutUsuariosNestedInput
     estoque_objetos_genericos?: estoque_objetos_genericosUncheckedUpdateManyWithoutUsuariosNestedInput
     peca_estoque?: peca_estoqueUncheckedUpdateManyWithoutUsuariosNestedInput
-    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutUsuariosNestedInput
+    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutResponsavel_vendaNestedInput
     sucata_estoque?: sucata_estoqueUncheckedUpdateManyWithoutUsuariosNestedInput
     ordens_servico_abertas?: ordem_servicoUncheckedUpdateManyWithoutUsuario_responsavelNestedInput
     servicos_executados?: os_servicos_itensUncheckedUpdateManyWithoutMecanicoNestedInput
@@ -44592,7 +44870,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisCreateNestedManyWithoutUsuariosInput
     estoque_objetos_genericos?: estoque_objetos_genericosCreateNestedManyWithoutUsuariosInput
     peca_estoque?: peca_estoqueCreateNestedManyWithoutUsuariosInput
-    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutUsuariosInput
+    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutResponsavel_vendaInput
     sucata_compras?: sucata_comprasCreateNestedManyWithoutUsuariosInput
     ordens_servico_abertas?: ordem_servicoCreateNestedManyWithoutUsuario_responsavelInput
     servicos_executados?: os_servicos_itensCreateNestedManyWithoutMecanicoInput
@@ -44614,7 +44892,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisUncheckedCreateNestedManyWithoutUsuariosInput
     estoque_objetos_genericos?: estoque_objetos_genericosUncheckedCreateNestedManyWithoutUsuariosInput
     peca_estoque?: peca_estoqueUncheckedCreateNestedManyWithoutUsuariosInput
-    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutUsuariosInput
+    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutResponsavel_vendaInput
     sucata_compras?: sucata_comprasUncheckedCreateNestedManyWithoutUsuariosInput
     ordens_servico_abertas?: ordem_servicoUncheckedCreateNestedManyWithoutUsuario_responsavelInput
     servicos_executados?: os_servicos_itensUncheckedCreateNestedManyWithoutMecanicoInput
@@ -44652,7 +44930,7 @@ export namespace Prisma {
     id?: string
     nome_cliente: string
     cpf_cliente: string
-    ie_cliente?: string | null
+    IE_cliente?: string | null
     endereco_cliente?: string | null
     bairro_cliente?: string | null
     cep_cliente?: string
@@ -44664,7 +44942,7 @@ export namespace Prisma {
     data_nascimento?: Date | string | null
     email_cliente: string
     data_cadastro?: Date | string | null
-    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutClientesInput
+    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutCliente_compradorInput
     sucata_compras?: sucata_comprasCreateNestedManyWithoutClientesInput
     veiculos_cliente_manutencao?: veiculos_cliente_manutencaoCreateNestedManyWithoutClientesInput
     ordens_servico?: ordem_servicoCreateNestedManyWithoutClientesInput
@@ -44674,7 +44952,7 @@ export namespace Prisma {
     id?: string
     nome_cliente: string
     cpf_cliente: string
-    ie_cliente?: string | null
+    IE_cliente?: string | null
     endereco_cliente?: string | null
     bairro_cliente?: string | null
     cep_cliente?: string
@@ -44686,7 +44964,7 @@ export namespace Prisma {
     data_nascimento?: Date | string | null
     email_cliente: string
     data_cadastro?: Date | string | null
-    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutClientesInput
+    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutCliente_compradorInput
     sucata_compras?: sucata_comprasUncheckedCreateNestedManyWithoutClientesInput
     veiculos_cliente_manutencao?: veiculos_cliente_manutencaoUncheckedCreateNestedManyWithoutClientesInput
     ordens_servico?: ordem_servicoUncheckedCreateNestedManyWithoutClientesInput
@@ -44826,7 +45104,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisUpdateManyWithoutUsuariosNestedInput
     estoque_objetos_genericos?: estoque_objetos_genericosUpdateManyWithoutUsuariosNestedInput
     peca_estoque?: peca_estoqueUpdateManyWithoutUsuariosNestedInput
-    pedidos_vendas?: pedidos_vendasUpdateManyWithoutUsuariosNestedInput
+    pedidos_vendas?: pedidos_vendasUpdateManyWithoutResponsavel_vendaNestedInput
     sucata_compras?: sucata_comprasUpdateManyWithoutUsuariosNestedInput
     ordens_servico_abertas?: ordem_servicoUpdateManyWithoutUsuario_responsavelNestedInput
     servicos_executados?: os_servicos_itensUpdateManyWithoutMecanicoNestedInput
@@ -44848,7 +45126,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisUncheckedUpdateManyWithoutUsuariosNestedInput
     estoque_objetos_genericos?: estoque_objetos_genericosUncheckedUpdateManyWithoutUsuariosNestedInput
     peca_estoque?: peca_estoqueUncheckedUpdateManyWithoutUsuariosNestedInput
-    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutUsuariosNestedInput
+    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutResponsavel_vendaNestedInput
     sucata_compras?: sucata_comprasUncheckedUpdateManyWithoutUsuariosNestedInput
     ordens_servico_abertas?: ordem_servicoUncheckedUpdateManyWithoutUsuario_responsavelNestedInput
     servicos_executados?: os_servicos_itensUncheckedUpdateManyWithoutMecanicoNestedInput
@@ -44898,7 +45176,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
-    ie_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
@@ -44910,7 +45188,7 @@ export namespace Prisma {
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email_cliente?: StringFieldUpdateOperationsInput | string
     data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    pedidos_vendas?: pedidos_vendasUpdateManyWithoutClientesNestedInput
+    pedidos_vendas?: pedidos_vendasUpdateManyWithoutCliente_compradorNestedInput
     sucata_compras?: sucata_comprasUpdateManyWithoutClientesNestedInput
     veiculos_cliente_manutencao?: veiculos_cliente_manutencaoUpdateManyWithoutClientesNestedInput
     ordens_servico?: ordem_servicoUpdateManyWithoutClientesNestedInput
@@ -44920,7 +45198,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
-    ie_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
@@ -44932,7 +45210,7 @@ export namespace Prisma {
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email_cliente?: StringFieldUpdateOperationsInput | string
     data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutClientesNestedInput
+    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutCliente_compradorNestedInput
     sucata_compras?: sucata_comprasUncheckedUpdateManyWithoutClientesNestedInput
     veiculos_cliente_manutencao?: veiculos_cliente_manutencaoUncheckedUpdateManyWithoutClientesNestedInput
     ordens_servico?: ordem_servicoUncheckedUpdateManyWithoutClientesNestedInput
@@ -45187,7 +45465,7 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type pedidos_vendasCreateWithoutUsuariosInput = {
+  export type pedidos_vendasCreateWithoutResponsavel_vendaInput = {
     id?: string
     data_venda?: Date | string
     valor_total?: Decimal | DecimalJsLike | number | string
@@ -45195,31 +45473,31 @@ export namespace Prisma {
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
     itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
-    clientes: clientesCreateNestedOneWithoutPedidos_vendasInput
+    cliente_comprador: clientesCreateNestedOneWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalCreateNestedOneWithoutPedido_vendaInput
     lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutPedido_vendaInput
   }
 
-  export type pedidos_vendasUncheckedCreateWithoutUsuariosInput = {
+  export type pedidos_vendasUncheckedCreateWithoutResponsavel_vendaInput = {
     id?: string
-    cliente_comprador_id: string
     data_venda?: Date | string
     valor_total?: Decimal | DecimalJsLike | number | string
     metodo_pagamento?: $Enums.metodo_pagamento
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
+    cliente_comprador_id: string
     itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalUncheckedCreateNestedOneWithoutPedido_vendaInput
     lancamentos_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutPedido_vendaInput
   }
 
-  export type pedidos_vendasCreateOrConnectWithoutUsuariosInput = {
+  export type pedidos_vendasCreateOrConnectWithoutResponsavel_vendaInput = {
     where: pedidos_vendasWhereUniqueInput
-    create: XOR<pedidos_vendasCreateWithoutUsuariosInput, pedidos_vendasUncheckedCreateWithoutUsuariosInput>
+    create: XOR<pedidos_vendasCreateWithoutResponsavel_vendaInput, pedidos_vendasUncheckedCreateWithoutResponsavel_vendaInput>
   }
 
-  export type pedidos_vendasCreateManyUsuariosInputEnvelope = {
-    data: pedidos_vendasCreateManyUsuariosInput | pedidos_vendasCreateManyUsuariosInput[]
+  export type pedidos_vendasCreateManyResponsavel_vendaInputEnvelope = {
+    data: pedidos_vendasCreateManyResponsavel_vendaInput | pedidos_vendasCreateManyResponsavel_vendaInput[]
     skipDuplicates?: boolean
   }
 
@@ -45305,7 +45583,7 @@ export namespace Prisma {
     data_previsao_entrega?: Date | string | null
     data_fechamento?: Date | string | null
     status_os?: $Enums.status_manutencao
-    sintomas_reclamados: string
+    descricao_problema: string
     diagnostico_tecnico?: string | null
     valor_servicos?: Decimal | DecimalJsLike | number | string
     valor_pecas?: Decimal | DecimalJsLike | number | string
@@ -45327,7 +45605,7 @@ export namespace Prisma {
     data_previsao_entrega?: Date | string | null
     data_fechamento?: Date | string | null
     status_os?: $Enums.status_manutencao
-    sintomas_reclamados: string
+    descricao_problema: string
     diagnostico_tecnico?: string | null
     valor_servicos?: Decimal | DecimalJsLike | number | string
     valor_pecas?: Decimal | DecimalJsLike | number | string
@@ -45523,20 +45801,20 @@ export namespace Prisma {
     data: XOR<peca_estoqueUpdateManyMutationInput, peca_estoqueUncheckedUpdateManyWithoutUsuariosInput>
   }
 
-  export type pedidos_vendasUpsertWithWhereUniqueWithoutUsuariosInput = {
+  export type pedidos_vendasUpsertWithWhereUniqueWithoutResponsavel_vendaInput = {
     where: pedidos_vendasWhereUniqueInput
-    update: XOR<pedidos_vendasUpdateWithoutUsuariosInput, pedidos_vendasUncheckedUpdateWithoutUsuariosInput>
-    create: XOR<pedidos_vendasCreateWithoutUsuariosInput, pedidos_vendasUncheckedCreateWithoutUsuariosInput>
+    update: XOR<pedidos_vendasUpdateWithoutResponsavel_vendaInput, pedidos_vendasUncheckedUpdateWithoutResponsavel_vendaInput>
+    create: XOR<pedidos_vendasCreateWithoutResponsavel_vendaInput, pedidos_vendasUncheckedCreateWithoutResponsavel_vendaInput>
   }
 
-  export type pedidos_vendasUpdateWithWhereUniqueWithoutUsuariosInput = {
+  export type pedidos_vendasUpdateWithWhereUniqueWithoutResponsavel_vendaInput = {
     where: pedidos_vendasWhereUniqueInput
-    data: XOR<pedidos_vendasUpdateWithoutUsuariosInput, pedidos_vendasUncheckedUpdateWithoutUsuariosInput>
+    data: XOR<pedidos_vendasUpdateWithoutResponsavel_vendaInput, pedidos_vendasUncheckedUpdateWithoutResponsavel_vendaInput>
   }
 
-  export type pedidos_vendasUpdateManyWithWhereWithoutUsuariosInput = {
+  export type pedidos_vendasUpdateManyWithWhereWithoutResponsavel_vendaInput = {
     where: pedidos_vendasScalarWhereInput
-    data: XOR<pedidos_vendasUpdateManyMutationInput, pedidos_vendasUncheckedUpdateManyWithoutUsuariosInput>
+    data: XOR<pedidos_vendasUpdateManyMutationInput, pedidos_vendasUncheckedUpdateManyWithoutResponsavel_vendaInput>
   }
 
   export type sucata_comprasUpsertWithWhereUniqueWithoutUsuariosInput = {
@@ -45625,7 +45903,7 @@ export namespace Prisma {
     data_previsao_entrega?: Date | string | null
     data_fechamento?: Date | string | null
     status_os?: $Enums.status_manutencao
-    sintomas_reclamados: string
+    descricao_problema: string
     diagnostico_tecnico?: string | null
     valor_servicos?: Decimal | DecimalJsLike | number | string
     valor_pecas?: Decimal | DecimalJsLike | number | string
@@ -45647,7 +45925,7 @@ export namespace Prisma {
     data_previsao_entrega?: Date | string | null
     data_fechamento?: Date | string | null
     status_os?: $Enums.status_manutencao
-    sintomas_reclamados: string
+    descricao_problema: string
     diagnostico_tecnico?: string | null
     valor_servicos?: Decimal | DecimalJsLike | number | string
     valor_pecas?: Decimal | DecimalJsLike | number | string
@@ -45673,7 +45951,7 @@ export namespace Prisma {
     id?: string
     nome_cliente: string
     cpf_cliente: string
-    ie_cliente?: string | null
+    IE_cliente?: string | null
     endereco_cliente?: string | null
     bairro_cliente?: string | null
     cep_cliente?: string
@@ -45685,7 +45963,7 @@ export namespace Prisma {
     data_nascimento?: Date | string | null
     email_cliente: string
     data_cadastro?: Date | string | null
-    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutClientesInput
+    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutCliente_compradorInput
     sucata_compras?: sucata_comprasCreateNestedManyWithoutClientesInput
     ordens_servico?: ordem_servicoCreateNestedManyWithoutClientesInput
     sucatas_compradas_inteiras?: sucata_estoqueCreateNestedManyWithoutCliente_compradorInput
@@ -45695,7 +45973,7 @@ export namespace Prisma {
     id?: string
     nome_cliente: string
     cpf_cliente: string
-    ie_cliente?: string | null
+    IE_cliente?: string | null
     endereco_cliente?: string | null
     bairro_cliente?: string | null
     cep_cliente?: string
@@ -45707,7 +45985,7 @@ export namespace Prisma {
     data_nascimento?: Date | string | null
     email_cliente: string
     data_cadastro?: Date | string | null
-    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutClientesInput
+    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutCliente_compradorInput
     sucata_compras?: sucata_comprasUncheckedCreateNestedManyWithoutClientesInput
     ordens_servico?: ordem_servicoUncheckedCreateNestedManyWithoutClientesInput
     sucatas_compradas_inteiras?: sucata_estoqueUncheckedCreateNestedManyWithoutCliente_compradorInput
@@ -45771,7 +46049,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
-    ie_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
@@ -45783,7 +46061,7 @@ export namespace Prisma {
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email_cliente?: StringFieldUpdateOperationsInput | string
     data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    pedidos_vendas?: pedidos_vendasUpdateManyWithoutClientesNestedInput
+    pedidos_vendas?: pedidos_vendasUpdateManyWithoutCliente_compradorNestedInput
     sucata_compras?: sucata_comprasUpdateManyWithoutClientesNestedInput
     ordens_servico?: ordem_servicoUpdateManyWithoutClientesNestedInput
     sucatas_compradas_inteiras?: sucata_estoqueUpdateManyWithoutCliente_compradorNestedInput
@@ -45793,7 +46071,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
-    ie_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
@@ -45805,7 +46083,7 @@ export namespace Prisma {
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email_cliente?: StringFieldUpdateOperationsInput | string
     data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutClientesNestedInput
+    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutCliente_compradorNestedInput
     sucata_compras?: sucata_comprasUncheckedUpdateManyWithoutClientesNestedInput
     ordens_servico?: ordem_servicoUncheckedUpdateManyWithoutClientesNestedInput
     sucatas_compradas_inteiras?: sucata_estoqueUncheckedUpdateManyWithoutCliente_compradorNestedInput
@@ -45895,7 +46173,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisCreateNestedManyWithoutUsuariosInput
     estoque_objetos_genericos?: estoque_objetos_genericosCreateNestedManyWithoutUsuariosInput
     peca_estoque?: peca_estoqueCreateNestedManyWithoutUsuariosInput
-    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutUsuariosInput
+    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutResponsavel_vendaInput
     sucata_compras?: sucata_comprasCreateNestedManyWithoutUsuariosInput
     sucata_estoque?: sucata_estoqueCreateNestedManyWithoutUsuariosInput
     ordens_servico_abertas?: ordem_servicoCreateNestedManyWithoutUsuario_responsavelInput
@@ -45917,7 +46195,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisUncheckedCreateNestedManyWithoutUsuariosInput
     estoque_objetos_genericos?: estoque_objetos_genericosUncheckedCreateNestedManyWithoutUsuariosInput
     peca_estoque?: peca_estoqueUncheckedCreateNestedManyWithoutUsuariosInput
-    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutUsuariosInput
+    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutResponsavel_vendaInput
     sucata_compras?: sucata_comprasUncheckedCreateNestedManyWithoutUsuariosInput
     sucata_estoque?: sucata_estoqueUncheckedCreateNestedManyWithoutUsuariosInput
     ordens_servico_abertas?: ordem_servicoUncheckedCreateNestedManyWithoutUsuario_responsavelInput
@@ -45971,7 +46249,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisUpdateManyWithoutUsuariosNestedInput
     estoque_objetos_genericos?: estoque_objetos_genericosUpdateManyWithoutUsuariosNestedInput
     peca_estoque?: peca_estoqueUpdateManyWithoutUsuariosNestedInput
-    pedidos_vendas?: pedidos_vendasUpdateManyWithoutUsuariosNestedInput
+    pedidos_vendas?: pedidos_vendasUpdateManyWithoutResponsavel_vendaNestedInput
     sucata_compras?: sucata_comprasUpdateManyWithoutUsuariosNestedInput
     sucata_estoque?: sucata_estoqueUpdateManyWithoutUsuariosNestedInput
     ordens_servico_abertas?: ordem_servicoUpdateManyWithoutUsuario_responsavelNestedInput
@@ -45993,7 +46271,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisUncheckedUpdateManyWithoutUsuariosNestedInput
     estoque_objetos_genericos?: estoque_objetos_genericosUncheckedUpdateManyWithoutUsuariosNestedInput
     peca_estoque?: peca_estoqueUncheckedUpdateManyWithoutUsuariosNestedInput
-    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutUsuariosNestedInput
+    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutResponsavel_vendaNestedInput
     sucata_compras?: sucata_comprasUncheckedUpdateManyWithoutUsuariosNestedInput
     sucata_estoque?: sucata_estoqueUncheckedUpdateManyWithoutUsuariosNestedInput
     ordens_servico_abertas?: ordem_servicoUncheckedUpdateManyWithoutUsuario_responsavelNestedInput
@@ -46009,20 +46287,20 @@ export namespace Prisma {
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
     itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
-    clientes: clientesCreateNestedOneWithoutPedidos_vendasInput
-    usuarios: usuariosCreateNestedOneWithoutPedidos_vendasInput
+    cliente_comprador: clientesCreateNestedOneWithoutPedidos_vendasInput
+    responsavel_venda: usuariosCreateNestedOneWithoutPedidos_vendasInput
     lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutPedido_vendaInput
   }
 
   export type pedidos_vendasUncheckedCreateWithoutDocumento_fiscalInput = {
     id?: string
-    cliente_comprador_id: string
-    responsavel_venda_id: string
     data_venda?: Date | string
     valor_total?: Decimal | DecimalJsLike | number | string
     metodo_pagamento?: $Enums.metodo_pagamento
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
+    cliente_comprador_id: string
+    responsavel_venda_id: string
     itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
     lancamentos_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutPedido_vendaInput
   }
@@ -46038,7 +46316,7 @@ export namespace Prisma {
     data_previsao_entrega?: Date | string | null
     data_fechamento?: Date | string | null
     status_os?: $Enums.status_manutencao
-    sintomas_reclamados: string
+    descricao_problema: string
     diagnostico_tecnico?: string | null
     valor_servicos?: Decimal | DecimalJsLike | number | string
     valor_pecas?: Decimal | DecimalJsLike | number | string
@@ -46061,7 +46339,7 @@ export namespace Prisma {
     data_previsao_entrega?: Date | string | null
     data_fechamento?: Date | string | null
     status_os?: $Enums.status_manutencao
-    sintomas_reclamados: string
+    descricao_problema: string
     diagnostico_tecnico?: string | null
     valor_servicos?: Decimal | DecimalJsLike | number | string
     valor_pecas?: Decimal | DecimalJsLike | number | string
@@ -46139,20 +46417,20 @@ export namespace Prisma {
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
     itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
-    clientes?: clientesUpdateOneRequiredWithoutPedidos_vendasNestedInput
-    usuarios?: usuariosUpdateOneRequiredWithoutPedidos_vendasNestedInput
+    cliente_comprador?: clientesUpdateOneRequiredWithoutPedidos_vendasNestedInput
+    responsavel_venda?: usuariosUpdateOneRequiredWithoutPedidos_vendasNestedInput
     lancamentos_caixa?: fluxo_caixaUpdateManyWithoutPedido_vendaNestedInput
   }
 
   export type pedidos_vendasUncheckedUpdateWithoutDocumento_fiscalInput = {
     id?: StringFieldUpdateOperationsInput | string
-    cliente_comprador_id?: StringFieldUpdateOperationsInput | string
-    responsavel_venda_id?: StringFieldUpdateOperationsInput | string
     data_venda?: DateTimeFieldUpdateOperationsInput | Date | string
     valor_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_comprador_id?: StringFieldUpdateOperationsInput | string
+    responsavel_venda_id?: StringFieldUpdateOperationsInput | string
     itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
     lancamentos_caixa?: fluxo_caixaUncheckedUpdateManyWithoutPedido_vendaNestedInput
   }
@@ -46174,7 +46452,7 @@ export namespace Prisma {
     data_previsao_entrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     data_fechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status_os?: Enumstatus_manutencaoFieldUpdateOperationsInput | $Enums.status_manutencao
-    sintomas_reclamados?: StringFieldUpdateOperationsInput | string
+    descricao_problema?: StringFieldUpdateOperationsInput | string
     diagnostico_tecnico?: NullableStringFieldUpdateOperationsInput | string | null
     valor_servicos?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valor_pecas?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -46197,7 +46475,7 @@ export namespace Prisma {
     data_previsao_entrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     data_fechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status_os?: Enumstatus_manutencaoFieldUpdateOperationsInput | $Enums.status_manutencao
-    sintomas_reclamados?: StringFieldUpdateOperationsInput | string
+    descricao_problema?: StringFieldUpdateOperationsInput | string
     diagnostico_tecnico?: NullableStringFieldUpdateOperationsInput | string | null
     valor_servicos?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valor_pecas?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -46265,20 +46543,20 @@ export namespace Prisma {
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
     itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
-    clientes: clientesCreateNestedOneWithoutPedidos_vendasInput
-    usuarios: usuariosCreateNestedOneWithoutPedidos_vendasInput
+    cliente_comprador: clientesCreateNestedOneWithoutPedidos_vendasInput
+    responsavel_venda: usuariosCreateNestedOneWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalCreateNestedOneWithoutPedido_vendaInput
   }
 
   export type pedidos_vendasUncheckedCreateWithoutLancamentos_caixaInput = {
     id?: string
-    cliente_comprador_id: string
-    responsavel_venda_id: string
     data_venda?: Date | string
     valor_total?: Decimal | DecimalJsLike | number | string
     metodo_pagamento?: $Enums.metodo_pagamento
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
+    cliente_comprador_id: string
+    responsavel_venda_id: string
     itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalUncheckedCreateNestedOneWithoutPedido_vendaInput
   }
@@ -46294,7 +46572,7 @@ export namespace Prisma {
     data_previsao_entrega?: Date | string | null
     data_fechamento?: Date | string | null
     status_os?: $Enums.status_manutencao
-    sintomas_reclamados: string
+    descricao_problema: string
     diagnostico_tecnico?: string | null
     valor_servicos?: Decimal | DecimalJsLike | number | string
     valor_pecas?: Decimal | DecimalJsLike | number | string
@@ -46317,7 +46595,7 @@ export namespace Prisma {
     data_previsao_entrega?: Date | string | null
     data_fechamento?: Date | string | null
     status_os?: $Enums.status_manutencao
-    sintomas_reclamados: string
+    descricao_problema: string
     diagnostico_tecnico?: string | null
     valor_servicos?: Decimal | DecimalJsLike | number | string
     valor_pecas?: Decimal | DecimalJsLike | number | string
@@ -46443,7 +46721,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisCreateNestedManyWithoutUsuariosInput
     estoque_objetos_genericos?: estoque_objetos_genericosCreateNestedManyWithoutUsuariosInput
     peca_estoque?: peca_estoqueCreateNestedManyWithoutUsuariosInput
-    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutUsuariosInput
+    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutResponsavel_vendaInput
     sucata_compras?: sucata_comprasCreateNestedManyWithoutUsuariosInput
     sucata_estoque?: sucata_estoqueCreateNestedManyWithoutUsuariosInput
     ordens_servico_abertas?: ordem_servicoCreateNestedManyWithoutUsuario_responsavelInput
@@ -46465,7 +46743,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisUncheckedCreateNestedManyWithoutUsuariosInput
     estoque_objetos_genericos?: estoque_objetos_genericosUncheckedCreateNestedManyWithoutUsuariosInput
     peca_estoque?: peca_estoqueUncheckedCreateNestedManyWithoutUsuariosInput
-    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutUsuariosInput
+    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutResponsavel_vendaInput
     sucata_compras?: sucata_comprasUncheckedCreateNestedManyWithoutUsuariosInput
     sucata_estoque?: sucata_estoqueUncheckedCreateNestedManyWithoutUsuariosInput
     ordens_servico_abertas?: ordem_servicoUncheckedCreateNestedManyWithoutUsuario_responsavelInput
@@ -46544,20 +46822,20 @@ export namespace Prisma {
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
     itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
-    clientes?: clientesUpdateOneRequiredWithoutPedidos_vendasNestedInput
-    usuarios?: usuariosUpdateOneRequiredWithoutPedidos_vendasNestedInput
+    cliente_comprador?: clientesUpdateOneRequiredWithoutPedidos_vendasNestedInput
+    responsavel_venda?: usuariosUpdateOneRequiredWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUpdateOneWithoutPedido_vendaNestedInput
   }
 
   export type pedidos_vendasUncheckedUpdateWithoutLancamentos_caixaInput = {
     id?: StringFieldUpdateOperationsInput | string
-    cliente_comprador_id?: StringFieldUpdateOperationsInput | string
-    responsavel_venda_id?: StringFieldUpdateOperationsInput | string
     data_venda?: DateTimeFieldUpdateOperationsInput | Date | string
     valor_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_comprador_id?: StringFieldUpdateOperationsInput | string
+    responsavel_venda_id?: StringFieldUpdateOperationsInput | string
     itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUncheckedUpdateOneWithoutPedido_vendaNestedInput
   }
@@ -46579,7 +46857,7 @@ export namespace Prisma {
     data_previsao_entrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     data_fechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status_os?: Enumstatus_manutencaoFieldUpdateOperationsInput | $Enums.status_manutencao
-    sintomas_reclamados?: StringFieldUpdateOperationsInput | string
+    descricao_problema?: StringFieldUpdateOperationsInput | string
     diagnostico_tecnico?: NullableStringFieldUpdateOperationsInput | string | null
     valor_servicos?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valor_pecas?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -46602,7 +46880,7 @@ export namespace Prisma {
     data_previsao_entrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     data_fechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status_os?: Enumstatus_manutencaoFieldUpdateOperationsInput | $Enums.status_manutencao
-    sintomas_reclamados?: StringFieldUpdateOperationsInput | string
+    descricao_problema?: StringFieldUpdateOperationsInput | string
     diagnostico_tecnico?: NullableStringFieldUpdateOperationsInput | string | null
     valor_servicos?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valor_pecas?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -46752,7 +47030,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisUpdateManyWithoutUsuariosNestedInput
     estoque_objetos_genericos?: estoque_objetos_genericosUpdateManyWithoutUsuariosNestedInput
     peca_estoque?: peca_estoqueUpdateManyWithoutUsuariosNestedInput
-    pedidos_vendas?: pedidos_vendasUpdateManyWithoutUsuariosNestedInput
+    pedidos_vendas?: pedidos_vendasUpdateManyWithoutResponsavel_vendaNestedInput
     sucata_compras?: sucata_comprasUpdateManyWithoutUsuariosNestedInput
     sucata_estoque?: sucata_estoqueUpdateManyWithoutUsuariosNestedInput
     ordens_servico_abertas?: ordem_servicoUpdateManyWithoutUsuario_responsavelNestedInput
@@ -46774,7 +47052,7 @@ export namespace Prisma {
     estoque_objetos_duraveis?: estoque_objetos_duraveisUncheckedUpdateManyWithoutUsuariosNestedInput
     estoque_objetos_genericos?: estoque_objetos_genericosUncheckedUpdateManyWithoutUsuariosNestedInput
     peca_estoque?: peca_estoqueUncheckedUpdateManyWithoutUsuariosNestedInput
-    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutUsuariosNestedInput
+    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutResponsavel_vendaNestedInput
     sucata_compras?: sucata_comprasUncheckedUpdateManyWithoutUsuariosNestedInput
     sucata_estoque?: sucata_estoqueUncheckedUpdateManyWithoutUsuariosNestedInput
     ordens_servico_abertas?: ordem_servicoUncheckedUpdateManyWithoutUsuario_responsavelNestedInput
@@ -46841,14 +47119,14 @@ export namespace Prisma {
     responsavel_compra_id?: StringFieldUpdateOperationsInput | string
   }
 
-  export type pedidos_vendasCreateManyClientesInput = {
+  export type pedidos_vendasCreateManyCliente_compradorInput = {
     id?: string
-    responsavel_venda_id: string
     data_venda?: Date | string
     valor_total?: Decimal | DecimalJsLike | number | string
     metodo_pagamento?: $Enums.metodo_pagamento
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
+    responsavel_venda_id: string
   }
 
   export type sucata_comprasCreateManyClientesInput = {
@@ -46862,6 +47140,10 @@ export namespace Prisma {
   export type veiculos_cliente_manutencaoCreateManyClientesInput = {
     id?: string
     modelo_id: number
+    placa: string
+    chassi?: string | null
+    cor?: string | null
+    ano_fabricacao?: number | null
   }
 
   export type ordem_servicoCreateManyClientesInput = {
@@ -46872,7 +47154,7 @@ export namespace Prisma {
     data_previsao_entrega?: Date | string | null
     data_fechamento?: Date | string | null
     status_os?: $Enums.status_manutencao
-    sintomas_reclamados: string
+    descricao_problema: string
     diagnostico_tecnico?: string | null
     valor_servicos?: Decimal | DecimalJsLike | number | string
     valor_pecas?: Decimal | DecimalJsLike | number | string
@@ -46896,7 +47178,7 @@ export namespace Prisma {
     cfop_venda?: string
   }
 
-  export type pedidos_vendasUpdateWithoutClientesInput = {
+  export type pedidos_vendasUpdateWithoutCliente_compradorInput = {
     id?: StringFieldUpdateOperationsInput | string
     data_venda?: DateTimeFieldUpdateOperationsInput | Date | string
     valor_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -46904,32 +47186,32 @@ export namespace Prisma {
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
     itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
-    usuarios?: usuariosUpdateOneRequiredWithoutPedidos_vendasNestedInput
+    responsavel_venda?: usuariosUpdateOneRequiredWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUpdateOneWithoutPedido_vendaNestedInput
     lancamentos_caixa?: fluxo_caixaUpdateManyWithoutPedido_vendaNestedInput
   }
 
-  export type pedidos_vendasUncheckedUpdateWithoutClientesInput = {
+  export type pedidos_vendasUncheckedUpdateWithoutCliente_compradorInput = {
     id?: StringFieldUpdateOperationsInput | string
-    responsavel_venda_id?: StringFieldUpdateOperationsInput | string
     data_venda?: DateTimeFieldUpdateOperationsInput | Date | string
     valor_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
+    responsavel_venda_id?: StringFieldUpdateOperationsInput | string
     itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUncheckedUpdateOneWithoutPedido_vendaNestedInput
     lancamentos_caixa?: fluxo_caixaUncheckedUpdateManyWithoutPedido_vendaNestedInput
   }
 
-  export type pedidos_vendasUncheckedUpdateManyWithoutClientesInput = {
+  export type pedidos_vendasUncheckedUpdateManyWithoutCliente_compradorInput = {
     id?: StringFieldUpdateOperationsInput | string
-    responsavel_venda_id?: StringFieldUpdateOperationsInput | string
     data_venda?: DateTimeFieldUpdateOperationsInput | Date | string
     valor_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
+    responsavel_venda_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type sucata_comprasUpdateWithoutClientesInput = {
@@ -46960,6 +47242,10 @@ export namespace Prisma {
 
   export type veiculos_cliente_manutencaoUpdateWithoutClientesInput = {
     id?: StringFieldUpdateOperationsInput | string
+    placa?: StringFieldUpdateOperationsInput | string
+    chassi?: NullableStringFieldUpdateOperationsInput | string | null
+    cor?: NullableStringFieldUpdateOperationsInput | string | null
+    ano_fabricacao?: NullableIntFieldUpdateOperationsInput | number | null
     ordem_servico?: ordem_servicoUpdateManyWithoutVeiculoNestedInput
     modelos?: modelosUpdateOneRequiredWithoutVeiculos_cliente_manutencaoNestedInput
   }
@@ -46967,12 +47253,20 @@ export namespace Prisma {
   export type veiculos_cliente_manutencaoUncheckedUpdateWithoutClientesInput = {
     id?: StringFieldUpdateOperationsInput | string
     modelo_id?: IntFieldUpdateOperationsInput | number
+    placa?: StringFieldUpdateOperationsInput | string
+    chassi?: NullableStringFieldUpdateOperationsInput | string | null
+    cor?: NullableStringFieldUpdateOperationsInput | string | null
+    ano_fabricacao?: NullableIntFieldUpdateOperationsInput | number | null
     ordem_servico?: ordem_servicoUncheckedUpdateManyWithoutVeiculoNestedInput
   }
 
   export type veiculos_cliente_manutencaoUncheckedUpdateManyWithoutClientesInput = {
     id?: StringFieldUpdateOperationsInput | string
     modelo_id?: IntFieldUpdateOperationsInput | number
+    placa?: StringFieldUpdateOperationsInput | string
+    chassi?: NullableStringFieldUpdateOperationsInput | string | null
+    cor?: NullableStringFieldUpdateOperationsInput | string | null
+    ano_fabricacao?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ordem_servicoUpdateWithoutClientesInput = {
@@ -46981,7 +47275,7 @@ export namespace Prisma {
     data_previsao_entrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     data_fechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status_os?: Enumstatus_manutencaoFieldUpdateOperationsInput | $Enums.status_manutencao
-    sintomas_reclamados?: StringFieldUpdateOperationsInput | string
+    descricao_problema?: StringFieldUpdateOperationsInput | string
     diagnostico_tecnico?: NullableStringFieldUpdateOperationsInput | string | null
     valor_servicos?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valor_pecas?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -47003,7 +47297,7 @@ export namespace Prisma {
     data_previsao_entrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     data_fechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status_os?: Enumstatus_manutencaoFieldUpdateOperationsInput | $Enums.status_manutencao
-    sintomas_reclamados?: StringFieldUpdateOperationsInput | string
+    descricao_problema?: StringFieldUpdateOperationsInput | string
     diagnostico_tecnico?: NullableStringFieldUpdateOperationsInput | string | null
     valor_servicos?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valor_pecas?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -47023,7 +47317,7 @@ export namespace Prisma {
     data_previsao_entrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     data_fechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status_os?: Enumstatus_manutencaoFieldUpdateOperationsInput | $Enums.status_manutencao
-    sintomas_reclamados?: StringFieldUpdateOperationsInput | string
+    descricao_problema?: StringFieldUpdateOperationsInput | string
     diagnostico_tecnico?: NullableStringFieldUpdateOperationsInput | string | null
     valor_servicos?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valor_pecas?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -47279,6 +47573,10 @@ export namespace Prisma {
   export type veiculos_cliente_manutencaoCreateManyModelosInput = {
     id?: string
     cliente_id: string
+    placa: string
+    chassi?: string | null
+    cor?: string | null
+    ano_fabricacao?: number | null
   }
 
   export type compatibilidade_pecasUpdateWithoutModelosInput = {
@@ -47407,6 +47705,10 @@ export namespace Prisma {
 
   export type veiculos_cliente_manutencaoUpdateWithoutModelosInput = {
     id?: StringFieldUpdateOperationsInput | string
+    placa?: StringFieldUpdateOperationsInput | string
+    chassi?: NullableStringFieldUpdateOperationsInput | string | null
+    cor?: NullableStringFieldUpdateOperationsInput | string | null
+    ano_fabricacao?: NullableIntFieldUpdateOperationsInput | number | null
     ordem_servico?: ordem_servicoUpdateManyWithoutVeiculoNestedInput
     clientes?: clientesUpdateOneRequiredWithoutVeiculos_cliente_manutencaoNestedInput
   }
@@ -47414,18 +47716,29 @@ export namespace Prisma {
   export type veiculos_cliente_manutencaoUncheckedUpdateWithoutModelosInput = {
     id?: StringFieldUpdateOperationsInput | string
     cliente_id?: StringFieldUpdateOperationsInput | string
+    placa?: StringFieldUpdateOperationsInput | string
+    chassi?: NullableStringFieldUpdateOperationsInput | string | null
+    cor?: NullableStringFieldUpdateOperationsInput | string | null
+    ano_fabricacao?: NullableIntFieldUpdateOperationsInput | number | null
     ordem_servico?: ordem_servicoUncheckedUpdateManyWithoutVeiculoNestedInput
   }
 
   export type veiculos_cliente_manutencaoUncheckedUpdateManyWithoutModelosInput = {
     id?: StringFieldUpdateOperationsInput | string
     cliente_id?: StringFieldUpdateOperationsInput | string
+    placa?: StringFieldUpdateOperationsInput | string
+    chassi?: NullableStringFieldUpdateOperationsInput | string | null
+    cor?: NullableStringFieldUpdateOperationsInput | string | null
+    ano_fabricacao?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type itens_pedido_vendasCreateManyPeca_estoqueInput = {
     id?: string
     pedido_venda_id: string
-    valor_venda: Decimal | DecimalJsLike | number | string
+    quantidade_peca?: number
+    preco_unitario: Decimal | DecimalJsLike | number | string
+    preco_total: Decimal | DecimalJsLike | number | string
+    valor_desconto?: Decimal | DecimalJsLike | number | string
     data_fim_garantia: Date | string
     status_item?: $Enums.status_item
     data_devolucao?: Date | string | null
@@ -47454,7 +47767,10 @@ export namespace Prisma {
 
   export type itens_pedido_vendasUpdateWithoutPeca_estoqueInput = {
     id?: StringFieldUpdateOperationsInput | string
-    valor_venda?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidade_peca?: IntFieldUpdateOperationsInput | number
+    preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valor_desconto?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     data_fim_garantia?: DateTimeFieldUpdateOperationsInput | Date | string
     status_item?: Enumstatus_itemFieldUpdateOperationsInput | $Enums.status_item
     data_devolucao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -47465,7 +47781,10 @@ export namespace Prisma {
   export type itens_pedido_vendasUncheckedUpdateWithoutPeca_estoqueInput = {
     id?: StringFieldUpdateOperationsInput | string
     pedido_venda_id?: StringFieldUpdateOperationsInput | string
-    valor_venda?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidade_peca?: IntFieldUpdateOperationsInput | number
+    preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valor_desconto?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     data_fim_garantia?: DateTimeFieldUpdateOperationsInput | Date | string
     status_item?: Enumstatus_itemFieldUpdateOperationsInput | $Enums.status_item
     data_devolucao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -47475,7 +47794,10 @@ export namespace Prisma {
   export type itens_pedido_vendasUncheckedUpdateManyWithoutPeca_estoqueInput = {
     id?: StringFieldUpdateOperationsInput | string
     pedido_venda_id?: StringFieldUpdateOperationsInput | string
-    valor_venda?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidade_peca?: IntFieldUpdateOperationsInput | number
+    preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valor_desconto?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     data_fim_garantia?: DateTimeFieldUpdateOperationsInput | Date | string
     status_item?: Enumstatus_itemFieldUpdateOperationsInput | $Enums.status_item
     data_devolucao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -47545,7 +47867,10 @@ export namespace Prisma {
   export type itens_pedido_vendasCreateManyPedidos_vendasInput = {
     id?: string
     peca_estoque_id: string
-    valor_venda: Decimal | DecimalJsLike | number | string
+    quantidade_peca?: number
+    preco_unitario: Decimal | DecimalJsLike | number | string
+    preco_total: Decimal | DecimalJsLike | number | string
+    valor_desconto?: Decimal | DecimalJsLike | number | string
     data_fim_garantia: Date | string
     status_item?: $Enums.status_item
     data_devolucao?: Date | string | null
@@ -47570,7 +47895,10 @@ export namespace Prisma {
 
   export type itens_pedido_vendasUpdateWithoutPedidos_vendasInput = {
     id?: StringFieldUpdateOperationsInput | string
-    valor_venda?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidade_peca?: IntFieldUpdateOperationsInput | number
+    preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valor_desconto?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     data_fim_garantia?: DateTimeFieldUpdateOperationsInput | Date | string
     status_item?: Enumstatus_itemFieldUpdateOperationsInput | $Enums.status_item
     data_devolucao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -47581,7 +47909,10 @@ export namespace Prisma {
   export type itens_pedido_vendasUncheckedUpdateWithoutPedidos_vendasInput = {
     id?: StringFieldUpdateOperationsInput | string
     peca_estoque_id?: StringFieldUpdateOperationsInput | string
-    valor_venda?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidade_peca?: IntFieldUpdateOperationsInput | number
+    preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valor_desconto?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     data_fim_garantia?: DateTimeFieldUpdateOperationsInput | Date | string
     status_item?: Enumstatus_itemFieldUpdateOperationsInput | $Enums.status_item
     data_devolucao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -47591,7 +47922,10 @@ export namespace Prisma {
   export type itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasInput = {
     id?: StringFieldUpdateOperationsInput | string
     peca_estoque_id?: StringFieldUpdateOperationsInput | string
-    valor_venda?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidade_peca?: IntFieldUpdateOperationsInput | number
+    preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valor_desconto?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     data_fim_garantia?: DateTimeFieldUpdateOperationsInput | Date | string
     status_item?: Enumstatus_itemFieldUpdateOperationsInput | $Enums.status_item
     data_devolucao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -48037,14 +48371,14 @@ export namespace Prisma {
     data_cadastro?: Date | string | null
   }
 
-  export type pedidos_vendasCreateManyUsuariosInput = {
+  export type pedidos_vendasCreateManyResponsavel_vendaInput = {
     id?: string
-    cliente_comprador_id: string
     data_venda?: Date | string
     valor_total?: Decimal | DecimalJsLike | number | string
     metodo_pagamento?: $Enums.metodo_pagamento
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
+    cliente_comprador_id: string
   }
 
   export type sucata_comprasCreateManyUsuariosInput = {
@@ -48079,7 +48413,7 @@ export namespace Prisma {
     data_previsao_entrega?: Date | string | null
     data_fechamento?: Date | string | null
     status_os?: $Enums.status_manutencao
-    sintomas_reclamados: string
+    descricao_problema: string
     diagnostico_tecnico?: string | null
     valor_servicos?: Decimal | DecimalJsLike | number | string
     valor_pecas?: Decimal | DecimalJsLike | number | string
@@ -48251,7 +48585,7 @@ export namespace Prisma {
     data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type pedidos_vendasUpdateWithoutUsuariosInput = {
+  export type pedidos_vendasUpdateWithoutResponsavel_vendaInput = {
     id?: StringFieldUpdateOperationsInput | string
     data_venda?: DateTimeFieldUpdateOperationsInput | Date | string
     valor_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -48259,32 +48593,32 @@ export namespace Prisma {
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
     itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
-    clientes?: clientesUpdateOneRequiredWithoutPedidos_vendasNestedInput
+    cliente_comprador?: clientesUpdateOneRequiredWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUpdateOneWithoutPedido_vendaNestedInput
     lancamentos_caixa?: fluxo_caixaUpdateManyWithoutPedido_vendaNestedInput
   }
 
-  export type pedidos_vendasUncheckedUpdateWithoutUsuariosInput = {
+  export type pedidos_vendasUncheckedUpdateWithoutResponsavel_vendaInput = {
     id?: StringFieldUpdateOperationsInput | string
-    cliente_comprador_id?: StringFieldUpdateOperationsInput | string
     data_venda?: DateTimeFieldUpdateOperationsInput | Date | string
     valor_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_comprador_id?: StringFieldUpdateOperationsInput | string
     itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUncheckedUpdateOneWithoutPedido_vendaNestedInput
     lancamentos_caixa?: fluxo_caixaUncheckedUpdateManyWithoutPedido_vendaNestedInput
   }
 
-  export type pedidos_vendasUncheckedUpdateManyWithoutUsuariosInput = {
+  export type pedidos_vendasUncheckedUpdateManyWithoutResponsavel_vendaInput = {
     id?: StringFieldUpdateOperationsInput | string
-    cliente_comprador_id?: StringFieldUpdateOperationsInput | string
     data_venda?: DateTimeFieldUpdateOperationsInput | Date | string
     valor_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_comprador_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type sucata_comprasUpdateWithoutUsuariosInput = {
@@ -48373,7 +48707,7 @@ export namespace Prisma {
     data_previsao_entrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     data_fechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status_os?: Enumstatus_manutencaoFieldUpdateOperationsInput | $Enums.status_manutencao
-    sintomas_reclamados?: StringFieldUpdateOperationsInput | string
+    descricao_problema?: StringFieldUpdateOperationsInput | string
     diagnostico_tecnico?: NullableStringFieldUpdateOperationsInput | string | null
     valor_servicos?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valor_pecas?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -48395,7 +48729,7 @@ export namespace Prisma {
     data_previsao_entrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     data_fechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status_os?: Enumstatus_manutencaoFieldUpdateOperationsInput | $Enums.status_manutencao
-    sintomas_reclamados?: StringFieldUpdateOperationsInput | string
+    descricao_problema?: StringFieldUpdateOperationsInput | string
     diagnostico_tecnico?: NullableStringFieldUpdateOperationsInput | string | null
     valor_servicos?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valor_pecas?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -48415,7 +48749,7 @@ export namespace Prisma {
     data_previsao_entrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     data_fechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status_os?: Enumstatus_manutencaoFieldUpdateOperationsInput | $Enums.status_manutencao
-    sintomas_reclamados?: StringFieldUpdateOperationsInput | string
+    descricao_problema?: StringFieldUpdateOperationsInput | string
     diagnostico_tecnico?: NullableStringFieldUpdateOperationsInput | string | null
     valor_servicos?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valor_pecas?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -48506,7 +48840,7 @@ export namespace Prisma {
     data_previsao_entrega?: Date | string | null
     data_fechamento?: Date | string | null
     status_os?: $Enums.status_manutencao
-    sintomas_reclamados: string
+    descricao_problema: string
     diagnostico_tecnico?: string | null
     valor_servicos?: Decimal | DecimalJsLike | number | string
     valor_pecas?: Decimal | DecimalJsLike | number | string
@@ -48520,7 +48854,7 @@ export namespace Prisma {
     data_previsao_entrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     data_fechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status_os?: Enumstatus_manutencaoFieldUpdateOperationsInput | $Enums.status_manutencao
-    sintomas_reclamados?: StringFieldUpdateOperationsInput | string
+    descricao_problema?: StringFieldUpdateOperationsInput | string
     diagnostico_tecnico?: NullableStringFieldUpdateOperationsInput | string | null
     valor_servicos?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valor_pecas?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -48542,7 +48876,7 @@ export namespace Prisma {
     data_previsao_entrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     data_fechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status_os?: Enumstatus_manutencaoFieldUpdateOperationsInput | $Enums.status_manutencao
-    sintomas_reclamados?: StringFieldUpdateOperationsInput | string
+    descricao_problema?: StringFieldUpdateOperationsInput | string
     diagnostico_tecnico?: NullableStringFieldUpdateOperationsInput | string | null
     valor_servicos?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valor_pecas?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -48562,7 +48896,7 @@ export namespace Prisma {
     data_previsao_entrega?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     data_fechamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status_os?: Enumstatus_manutencaoFieldUpdateOperationsInput | $Enums.status_manutencao
-    sintomas_reclamados?: StringFieldUpdateOperationsInput | string
+    descricao_problema?: StringFieldUpdateOperationsInput | string
     diagnostico_tecnico?: NullableStringFieldUpdateOperationsInput | string | null
     valor_servicos?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valor_pecas?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string

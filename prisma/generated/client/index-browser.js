@@ -124,7 +124,7 @@ exports.Prisma.ClientesScalarFieldEnum = {
   id: 'id',
   nome_cliente: 'nome_cliente',
   cpf_cliente: 'cpf_cliente',
-  ie_cliente: 'ie_cliente',
+  IE_cliente: 'IE_cliente',
   endereco_cliente: 'endereco_cliente',
   bairro_cliente: 'bairro_cliente',
   cep_cliente: 'cep_cliente',
@@ -213,7 +213,10 @@ exports.Prisma.Itens_pedido_vendasScalarFieldEnum = {
   id: 'id',
   pedido_venda_id: 'pedido_venda_id',
   peca_estoque_id: 'peca_estoque_id',
-  valor_venda: 'valor_venda',
+  quantidade_peca: 'quantidade_peca',
+  preco_unitario: 'preco_unitario',
+  preco_total: 'preco_total',
+  valor_desconto: 'valor_desconto',
   data_fim_garantia: 'data_fim_garantia',
   status_item: 'status_item',
   data_devolucao: 'data_devolucao',
@@ -222,13 +225,13 @@ exports.Prisma.Itens_pedido_vendasScalarFieldEnum = {
 
 exports.Prisma.Pedidos_vendasScalarFieldEnum = {
   id: 'id',
-  cliente_comprador_id: 'cliente_comprador_id',
-  responsavel_venda_id: 'responsavel_venda_id',
   data_venda: 'data_venda',
   valor_total: 'valor_total',
   metodo_pagamento: 'metodo_pagamento',
   status_pedido: 'status_pedido',
-  observacoes_recibo: 'observacoes_recibo'
+  observacoes_recibo: 'observacoes_recibo',
+  cliente_comprador_id: 'cliente_comprador_id',
+  responsavel_venda_id: 'responsavel_venda_id'
 };
 
 exports.Prisma.Ordem_servicoScalarFieldEnum = {
@@ -240,7 +243,7 @@ exports.Prisma.Ordem_servicoScalarFieldEnum = {
   data_previsao_entrega: 'data_previsao_entrega',
   data_fechamento: 'data_fechamento',
   status_os: 'status_os',
-  sintomas_reclamados: 'sintomas_reclamados',
+  descricao_problema: 'descricao_problema',
   diagnostico_tecnico: 'diagnostico_tecnico',
   valor_servicos: 'valor_servicos',
   valor_pecas: 'valor_pecas',
@@ -313,7 +316,11 @@ exports.Prisma.UsuariosScalarFieldEnum = {
 exports.Prisma.Veiculos_cliente_manutencaoScalarFieldEnum = {
   id: 'id',
   modelo_id: 'modelo_id',
-  cliente_id: 'cliente_id'
+  cliente_id: 'cliente_id',
+  placa: 'placa',
+  chassi: 'chassi',
+  cor: 'cor',
+  ano_fabricacao: 'ano_fabricacao'
 };
 
 exports.Prisma.Configuracao_impostoScalarFieldEnum = {
