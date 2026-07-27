@@ -89,6 +89,11 @@ export type os_pecas_itens = $Result.DefaultSelection<Prisma.$os_pecas_itensPayl
  */
 export type sucata_compras = $Result.DefaultSelection<Prisma.$sucata_comprasPayload>
 /**
+ * Model cfops
+ * 
+ */
+export type cfops = $Result.DefaultSelection<Prisma.$cfopsPayload>
+/**
  * Model sucata_estoque
  * 
  */
@@ -113,6 +118,16 @@ export type veiculos_cliente_manutencao = $Result.DefaultSelection<Prisma.$veicu
  * 
  */
 export type configuracao_imposto = $Result.DefaultSelection<Prisma.$configuracao_impostoPayload>
+/**
+ * Model PlanoContas
+ * 
+ */
+export type PlanoContas = $Result.DefaultSelection<Prisma.$PlanoContasPayload>
+/**
+ * Model Movimentacao
+ * 
+ */
+export type Movimentacao = $Result.DefaultSelection<Prisma.$MovimentacaoPayload>
 /**
  * Model despesas
  * 
@@ -183,6 +198,33 @@ export const tipo_despesa_variavel: {
 export type tipo_despesa_variavel = (typeof tipo_despesa_variavel)[keyof typeof tipo_despesa_variavel]
 
 
+export const TipoContaPlano: {
+  RECEITA_BRUTA: 'RECEITA_BRUTA',
+  DEDUCAO_RECEITA: 'DEDUCAO_RECEITA',
+  CUSTO_VARIAVEL: 'CUSTO_VARIAVEL',
+  DESPESA_FIXA: 'DESPESA_FIXA',
+  INVESTIMENTO: 'INVESTIMENTO'
+};
+
+export type TipoContaPlano = (typeof TipoContaPlano)[keyof typeof TipoContaPlano]
+
+
+export const TipoMovimentacaoCaixa: {
+  ENTRADA: 'ENTRADA',
+  SAIDA: 'SAIDA'
+};
+
+export type TipoMovimentacaoCaixa = (typeof TipoMovimentacaoCaixa)[keyof typeof TipoMovimentacaoCaixa]
+
+
+export const StatusMovimentacao: {
+  PENDENTE: 'PENDENTE',
+  PAGO: 'PAGO'
+};
+
+export type StatusMovimentacao = (typeof StatusMovimentacao)[keyof typeof StatusMovimentacao]
+
+
 export const status_fiscal: {
   PENDENTE: 'PENDENTE',
   PROCESSANDO: 'PROCESSANDO',
@@ -204,14 +246,6 @@ export const modelo_documento_fiscal: {
 export type modelo_documento_fiscal = (typeof modelo_documento_fiscal)[keyof typeof modelo_documento_fiscal]
 
 
-export const tipo_movimentacao_caixa: {
-  ENTRADA: 'ENTRADA',
-  SAIDA: 'SAIDA'
-};
-
-export type tipo_movimentacao_caixa = (typeof tipo_movimentacao_caixa)[keyof typeof tipo_movimentacao_caixa]
-
-
 export const cargo_usuario: {
   administrador: 'administrador',
   vendedor: 'vendedor',
@@ -229,21 +263,6 @@ export const cargo_usuario: {
 };
 
 export type cargo_usuario = (typeof cargo_usuario)[keyof typeof cargo_usuario]
-
-
-export const categoria_despesas: {
-  Despesas_operacionais: 'Despesas_operacionais',
-  Despesas_administrativas: 'Despesas_administrativas',
-  Despesas_de_marketing: 'Despesas_de_marketing',
-  Despesas_de_pessoal: 'Despesas_de_pessoal',
-  Despesas_financeiras: 'Despesas_financeiras',
-  Despesas_de_manutencao: 'Despesas_de_manutencao',
-  Despesas_de_estoque: 'Despesas_de_estoque',
-  Despesas_medicas: 'Despesas_medicas',
-  Outras_despesas: 'Outras_despesas'
-};
-
-export type categoria_despesas = (typeof categoria_despesas)[keyof typeof categoria_despesas]
 
 
 export const categoria_peca: {
@@ -456,6 +475,18 @@ export type tipo_despesa_variavel = $Enums.tipo_despesa_variavel
 
 export const tipo_despesa_variavel: typeof $Enums.tipo_despesa_variavel
 
+export type TipoContaPlano = $Enums.TipoContaPlano
+
+export const TipoContaPlano: typeof $Enums.TipoContaPlano
+
+export type TipoMovimentacaoCaixa = $Enums.TipoMovimentacaoCaixa
+
+export const TipoMovimentacaoCaixa: typeof $Enums.TipoMovimentacaoCaixa
+
+export type StatusMovimentacao = $Enums.StatusMovimentacao
+
+export const StatusMovimentacao: typeof $Enums.StatusMovimentacao
+
 export type status_fiscal = $Enums.status_fiscal
 
 export const status_fiscal: typeof $Enums.status_fiscal
@@ -464,17 +495,9 @@ export type modelo_documento_fiscal = $Enums.modelo_documento_fiscal
 
 export const modelo_documento_fiscal: typeof $Enums.modelo_documento_fiscal
 
-export type tipo_movimentacao_caixa = $Enums.tipo_movimentacao_caixa
-
-export const tipo_movimentacao_caixa: typeof $Enums.tipo_movimentacao_caixa
-
 export type cargo_usuario = $Enums.cargo_usuario
 
 export const cargo_usuario: typeof $Enums.cargo_usuario
-
-export type categoria_despesas = $Enums.categoria_despesas
-
-export const categoria_despesas: typeof $Enums.categoria_despesas
 
 export type categoria_peca = $Enums.categoria_peca
 
@@ -800,6 +823,16 @@ export class PrismaClient<
   get sucata_compras(): Prisma.sucata_comprasDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.cfops`: Exposes CRUD operations for the **cfops** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Cfops
+    * const cfops = await prisma.cfops.findMany()
+    * ```
+    */
+  get cfops(): Prisma.cfopsDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.sucata_estoque`: Exposes CRUD operations for the **sucata_estoque** model.
     * Example usage:
     * ```ts
@@ -848,6 +881,26 @@ export class PrismaClient<
     * ```
     */
   get configuracao_imposto(): Prisma.configuracao_impostoDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.planoContas`: Exposes CRUD operations for the **PlanoContas** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PlanoContas
+    * const planoContas = await prisma.planoContas.findMany()
+    * ```
+    */
+  get planoContas(): Prisma.PlanoContasDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.movimentacao`: Exposes CRUD operations for the **Movimentacao** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Movimentacaos
+    * const movimentacaos = await prisma.movimentacao.findMany()
+    * ```
+    */
+  get movimentacao(): Prisma.MovimentacaoDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.despesas`: Exposes CRUD operations for the **despesas** model.
@@ -1340,11 +1393,14 @@ export namespace Prisma {
     os_servicos_itens: 'os_servicos_itens',
     os_pecas_itens: 'os_pecas_itens',
     sucata_compras: 'sucata_compras',
+    cfops: 'cfops',
     sucata_estoque: 'sucata_estoque',
     tipo_servico: 'tipo_servico',
     usuarios: 'usuarios',
     veiculos_cliente_manutencao: 'veiculos_cliente_manutencao',
     configuracao_imposto: 'configuracao_imposto',
+    PlanoContas: 'PlanoContas',
+    Movimentacao: 'Movimentacao',
     despesas: 'despesas',
     documento_fiscal: 'documento_fiscal',
     fluxo_caixa: 'fluxo_caixa'
@@ -1363,7 +1419,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "clientes" | "compatibilidade_pecas" | "estoque_objetos_duraveis" | "estoque_objetos_genericos" | "marcas_veiculo" | "modelos" | "peca_estoque" | "dados_fiscais_peca" | "peca_imagens" | "itens_pedido_vendas" | "pedidos_vendas" | "ordem_servico" | "os_servicos_itens" | "os_pecas_itens" | "sucata_compras" | "sucata_estoque" | "tipo_servico" | "usuarios" | "veiculos_cliente_manutencao" | "configuracao_imposto" | "despesas" | "documento_fiscal" | "fluxo_caixa"
+      modelProps: "clientes" | "compatibilidade_pecas" | "estoque_objetos_duraveis" | "estoque_objetos_genericos" | "marcas_veiculo" | "modelos" | "peca_estoque" | "dados_fiscais_peca" | "peca_imagens" | "itens_pedido_vendas" | "pedidos_vendas" | "ordem_servico" | "os_servicos_itens" | "os_pecas_itens" | "sucata_compras" | "cfops" | "sucata_estoque" | "tipo_servico" | "usuarios" | "veiculos_cliente_manutencao" | "configuracao_imposto" | "planoContas" | "movimentacao" | "despesas" | "documento_fiscal" | "fluxo_caixa"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2477,6 +2533,80 @@ export namespace Prisma {
           }
         }
       }
+      cfops: {
+        payload: Prisma.$cfopsPayload<ExtArgs>
+        fields: Prisma.cfopsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.cfopsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cfopsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.cfopsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cfopsPayload>
+          }
+          findFirst: {
+            args: Prisma.cfopsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cfopsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.cfopsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cfopsPayload>
+          }
+          findMany: {
+            args: Prisma.cfopsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cfopsPayload>[]
+          }
+          create: {
+            args: Prisma.cfopsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cfopsPayload>
+          }
+          createMany: {
+            args: Prisma.cfopsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.cfopsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cfopsPayload>[]
+          }
+          delete: {
+            args: Prisma.cfopsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cfopsPayload>
+          }
+          update: {
+            args: Prisma.cfopsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cfopsPayload>
+          }
+          deleteMany: {
+            args: Prisma.cfopsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.cfopsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.cfopsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cfopsPayload>[]
+          }
+          upsert: {
+            args: Prisma.cfopsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cfopsPayload>
+          }
+          aggregate: {
+            args: Prisma.CfopsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCfops>
+          }
+          groupBy: {
+            args: Prisma.cfopsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CfopsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.cfopsCountArgs<ExtArgs>
+            result: $Utils.Optional<CfopsCountAggregateOutputType> | number
+          }
+        }
+      }
       sucata_estoque: {
         payload: Prisma.$sucata_estoquePayload<ExtArgs>
         fields: Prisma.sucata_estoqueFieldRefs
@@ -2847,6 +2977,154 @@ export namespace Prisma {
           }
         }
       }
+      PlanoContas: {
+        payload: Prisma.$PlanoContasPayload<ExtArgs>
+        fields: Prisma.PlanoContasFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PlanoContasFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanoContasPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PlanoContasFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanoContasPayload>
+          }
+          findFirst: {
+            args: Prisma.PlanoContasFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanoContasPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PlanoContasFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanoContasPayload>
+          }
+          findMany: {
+            args: Prisma.PlanoContasFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanoContasPayload>[]
+          }
+          create: {
+            args: Prisma.PlanoContasCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanoContasPayload>
+          }
+          createMany: {
+            args: Prisma.PlanoContasCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PlanoContasCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanoContasPayload>[]
+          }
+          delete: {
+            args: Prisma.PlanoContasDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanoContasPayload>
+          }
+          update: {
+            args: Prisma.PlanoContasUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanoContasPayload>
+          }
+          deleteMany: {
+            args: Prisma.PlanoContasDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PlanoContasUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PlanoContasUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanoContasPayload>[]
+          }
+          upsert: {
+            args: Prisma.PlanoContasUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanoContasPayload>
+          }
+          aggregate: {
+            args: Prisma.PlanoContasAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePlanoContas>
+          }
+          groupBy: {
+            args: Prisma.PlanoContasGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PlanoContasGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PlanoContasCountArgs<ExtArgs>
+            result: $Utils.Optional<PlanoContasCountAggregateOutputType> | number
+          }
+        }
+      }
+      Movimentacao: {
+        payload: Prisma.$MovimentacaoPayload<ExtArgs>
+        fields: Prisma.MovimentacaoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MovimentacaoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovimentacaoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MovimentacaoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovimentacaoPayload>
+          }
+          findFirst: {
+            args: Prisma.MovimentacaoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovimentacaoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MovimentacaoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovimentacaoPayload>
+          }
+          findMany: {
+            args: Prisma.MovimentacaoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovimentacaoPayload>[]
+          }
+          create: {
+            args: Prisma.MovimentacaoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovimentacaoPayload>
+          }
+          createMany: {
+            args: Prisma.MovimentacaoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MovimentacaoCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovimentacaoPayload>[]
+          }
+          delete: {
+            args: Prisma.MovimentacaoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovimentacaoPayload>
+          }
+          update: {
+            args: Prisma.MovimentacaoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovimentacaoPayload>
+          }
+          deleteMany: {
+            args: Prisma.MovimentacaoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MovimentacaoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MovimentacaoUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovimentacaoPayload>[]
+          }
+          upsert: {
+            args: Prisma.MovimentacaoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MovimentacaoPayload>
+          }
+          aggregate: {
+            args: Prisma.MovimentacaoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMovimentacao>
+          }
+          groupBy: {
+            args: Prisma.MovimentacaoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MovimentacaoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MovimentacaoCountArgs<ExtArgs>
+            result: $Utils.Optional<MovimentacaoCountAggregateOutputType> | number
+          }
+        }
+      }
       despesas: {
         payload: Prisma.$despesasPayload<ExtArgs>
         fields: Prisma.despesasFieldRefs
@@ -3207,11 +3485,14 @@ export namespace Prisma {
     os_servicos_itens?: os_servicos_itensOmit
     os_pecas_itens?: os_pecas_itensOmit
     sucata_compras?: sucata_comprasOmit
+    cfops?: cfopsOmit
     sucata_estoque?: sucata_estoqueOmit
     tipo_servico?: tipo_servicoOmit
     usuarios?: usuariosOmit
     veiculos_cliente_manutencao?: veiculos_cliente_manutencaoOmit
     configuracao_imposto?: configuracao_impostoOmit
+    planoContas?: PlanoContasOmit
+    movimentacao?: MovimentacaoOmit
     despesas?: despesasOmit
     documento_fiscal?: documento_fiscalOmit
     fluxo_caixa?: fluxo_caixaOmit
@@ -3295,17 +3576,17 @@ export namespace Prisma {
    */
 
   export type ClientesCountOutputType = {
-    pedidos_vendas: number
-    sucata_compras: number
-    veiculos_cliente_manutencao: number
+    pedidos_venda: number
+    sucata_compra: number
+    veiculos_cliente: number
     ordens_servico: number
     sucatas_compradas_inteiras: number
   }
 
   export type ClientesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    pedidos_vendas?: boolean | ClientesCountOutputTypeCountPedidos_vendasArgs
-    sucata_compras?: boolean | ClientesCountOutputTypeCountSucata_comprasArgs
-    veiculos_cliente_manutencao?: boolean | ClientesCountOutputTypeCountVeiculos_cliente_manutencaoArgs
+    pedidos_venda?: boolean | ClientesCountOutputTypeCountPedidos_vendaArgs
+    sucata_compra?: boolean | ClientesCountOutputTypeCountSucata_compraArgs
+    veiculos_cliente?: boolean | ClientesCountOutputTypeCountVeiculos_clienteArgs
     ordens_servico?: boolean | ClientesCountOutputTypeCountOrdens_servicoArgs
     sucatas_compradas_inteiras?: boolean | ClientesCountOutputTypeCountSucatas_compradas_inteirasArgs
   }
@@ -3324,21 +3605,21 @@ export namespace Prisma {
   /**
    * ClientesCountOutputType without action
    */
-  export type ClientesCountOutputTypeCountPedidos_vendasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientesCountOutputTypeCountPedidos_vendaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: pedidos_vendasWhereInput
   }
 
   /**
    * ClientesCountOutputType without action
    */
-  export type ClientesCountOutputTypeCountSucata_comprasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientesCountOutputTypeCountSucata_compraArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: sucata_comprasWhereInput
   }
 
   /**
    * ClientesCountOutputType without action
    */
-  export type ClientesCountOutputTypeCountVeiculos_cliente_manutencaoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientesCountOutputTypeCountVeiculos_clienteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: veiculos_cliente_manutencaoWhereInput
   }
 
@@ -3573,11 +3854,13 @@ export namespace Prisma {
   export type Pedidos_vendasCountOutputType = {
     itens_pedido_vendas: number
     lancamentos_caixa: number
+    movimentacoes: number
   }
 
   export type Pedidos_vendasCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     itens_pedido_vendas?: boolean | Pedidos_vendasCountOutputTypeCountItens_pedido_vendasArgs
     lancamentos_caixa?: boolean | Pedidos_vendasCountOutputTypeCountLancamentos_caixaArgs
+    movimentacoes?: boolean | Pedidos_vendasCountOutputTypeCountMovimentacoesArgs
   }
 
   // Custom InputTypes
@@ -3603,6 +3886,13 @@ export namespace Prisma {
    */
   export type Pedidos_vendasCountOutputTypeCountLancamentos_caixaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: fluxo_caixaWhereInput
+  }
+
+  /**
+   * Pedidos_vendasCountOutputType without action
+   */
+  export type Pedidos_vendasCountOutputTypeCountMovimentacoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MovimentacaoWhereInput
   }
 
 
@@ -3656,6 +3946,46 @@ export namespace Prisma {
 
 
   /**
+   * Count Type Os_servicos_itensCountOutputType
+   */
+
+  export type Os_servicos_itensCountOutputType = {
+    veiculos: number
+    pedidos: number
+  }
+
+  export type Os_servicos_itensCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    veiculos?: boolean | Os_servicos_itensCountOutputTypeCountVeiculosArgs
+    pedidos?: boolean | Os_servicos_itensCountOutputTypeCountPedidosArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * Os_servicos_itensCountOutputType without action
+   */
+  export type Os_servicos_itensCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Os_servicos_itensCountOutputType
+     */
+    select?: Os_servicos_itensCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * Os_servicos_itensCountOutputType without action
+   */
+  export type Os_servicos_itensCountOutputTypeCountVeiculosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: veiculos_cliente_manutencaoWhereInput
+  }
+
+  /**
+   * Os_servicos_itensCountOutputType without action
+   */
+  export type Os_servicos_itensCountOutputTypeCountPedidosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: pedidos_vendasWhereInput
+  }
+
+
+  /**
    * Count Type Sucata_comprasCountOutputType
    */
 
@@ -3683,6 +4013,37 @@ export namespace Prisma {
    */
   export type Sucata_comprasCountOutputTypeCountLancamentos_caixaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: fluxo_caixaWhereInput
+  }
+
+
+  /**
+   * Count Type CfopsCountOutputType
+   */
+
+  export type CfopsCountOutputType = {
+    dadosFiscaisPecas: number
+  }
+
+  export type CfopsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    dadosFiscaisPecas?: boolean | CfopsCountOutputTypeCountDadosFiscaisPecasArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CfopsCountOutputType without action
+   */
+  export type CfopsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CfopsCountOutputType
+     */
+    select?: CfopsCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CfopsCountOutputType without action
+   */
+  export type CfopsCountOutputTypeCountDadosFiscaisPecasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: dados_fiscais_pecaWhereInput
   }
 
 
@@ -3901,14 +4262,74 @@ export namespace Prisma {
 
 
   /**
+   * Count Type PlanoContasCountOutputType
+   */
+
+  export type PlanoContasCountOutputType = {
+    despesas: number
+    lancamentos_caixa: number
+    pedidos_vendas: number
+    movimentacoes: number
+  }
+
+  export type PlanoContasCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    despesas?: boolean | PlanoContasCountOutputTypeCountDespesasArgs
+    lancamentos_caixa?: boolean | PlanoContasCountOutputTypeCountLancamentos_caixaArgs
+    pedidos_vendas?: boolean | PlanoContasCountOutputTypeCountPedidos_vendasArgs
+    movimentacoes?: boolean | PlanoContasCountOutputTypeCountMovimentacoesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PlanoContasCountOutputType without action
+   */
+  export type PlanoContasCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanoContasCountOutputType
+     */
+    select?: PlanoContasCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PlanoContasCountOutputType without action
+   */
+  export type PlanoContasCountOutputTypeCountDespesasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: despesasWhereInput
+  }
+
+  /**
+   * PlanoContasCountOutputType without action
+   */
+  export type PlanoContasCountOutputTypeCountLancamentos_caixaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: fluxo_caixaWhereInput
+  }
+
+  /**
+   * PlanoContasCountOutputType without action
+   */
+  export type PlanoContasCountOutputTypeCountPedidos_vendasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: pedidos_vendasWhereInput
+  }
+
+  /**
+   * PlanoContasCountOutputType without action
+   */
+  export type PlanoContasCountOutputTypeCountMovimentacoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MovimentacaoWhereInput
+  }
+
+
+  /**
    * Count Type DespesasCountOutputType
    */
 
   export type DespesasCountOutputType = {
+    movimentacoes: number
     fluxo_caixa: number
   }
 
   export type DespesasCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    movimentacoes?: boolean | DespesasCountOutputTypeCountMovimentacoesArgs
     fluxo_caixa?: boolean | DespesasCountOutputTypeCountFluxo_caixaArgs
   }
 
@@ -3921,6 +4342,13 @@ export namespace Prisma {
      * Select specific fields to fetch from the DespesasCountOutputType
      */
     select?: DespesasCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DespesasCountOutputType without action
+   */
+  export type DespesasCountOutputTypeCountMovimentacoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MovimentacaoWhereInput
   }
 
   /**
@@ -3955,7 +4383,7 @@ export namespace Prisma {
     cep_cliente: string | null
     cidade_cliente: string | null
     uf_cliente: string | null
-    codigo_ibge: string | null
+    codigo_IBGE: string | null
     pais_cliente: string | null
     telefone_cliente: string | null
     data_nascimento: Date | null
@@ -3973,7 +4401,7 @@ export namespace Prisma {
     cep_cliente: string | null
     cidade_cliente: string | null
     uf_cliente: string | null
-    codigo_ibge: string | null
+    codigo_IBGE: string | null
     pais_cliente: string | null
     telefone_cliente: string | null
     data_nascimento: Date | null
@@ -3991,7 +4419,7 @@ export namespace Prisma {
     cep_cliente: number
     cidade_cliente: number
     uf_cliente: number
-    codigo_ibge: number
+    codigo_IBGE: number
     pais_cliente: number
     telefone_cliente: number
     data_nascimento: number
@@ -4011,7 +4439,7 @@ export namespace Prisma {
     cep_cliente?: true
     cidade_cliente?: true
     uf_cliente?: true
-    codigo_ibge?: true
+    codigo_IBGE?: true
     pais_cliente?: true
     telefone_cliente?: true
     data_nascimento?: true
@@ -4029,7 +4457,7 @@ export namespace Prisma {
     cep_cliente?: true
     cidade_cliente?: true
     uf_cliente?: true
-    codigo_ibge?: true
+    codigo_IBGE?: true
     pais_cliente?: true
     telefone_cliente?: true
     data_nascimento?: true
@@ -4047,7 +4475,7 @@ export namespace Prisma {
     cep_cliente?: true
     cidade_cliente?: true
     uf_cliente?: true
-    codigo_ibge?: true
+    codigo_IBGE?: true
     pais_cliente?: true
     telefone_cliente?: true
     data_nascimento?: true
@@ -4138,7 +4566,7 @@ export namespace Prisma {
     cep_cliente: string
     cidade_cliente: string | null
     uf_cliente: string
-    codigo_ibge: string
+    codigo_IBGE: string
     pais_cliente: string | null
     telefone_cliente: string | null
     data_nascimento: Date | null
@@ -4173,15 +4601,15 @@ export namespace Prisma {
     cep_cliente?: boolean
     cidade_cliente?: boolean
     uf_cliente?: boolean
-    codigo_ibge?: boolean
+    codigo_IBGE?: boolean
     pais_cliente?: boolean
     telefone_cliente?: boolean
     data_nascimento?: boolean
     email_cliente?: boolean
     data_cadastro?: boolean
-    pedidos_vendas?: boolean | clientes$pedidos_vendasArgs<ExtArgs>
-    sucata_compras?: boolean | clientes$sucata_comprasArgs<ExtArgs>
-    veiculos_cliente_manutencao?: boolean | clientes$veiculos_cliente_manutencaoArgs<ExtArgs>
+    pedidos_venda?: boolean | clientes$pedidos_vendaArgs<ExtArgs>
+    sucata_compra?: boolean | clientes$sucata_compraArgs<ExtArgs>
+    veiculos_cliente?: boolean | clientes$veiculos_clienteArgs<ExtArgs>
     ordens_servico?: boolean | clientes$ordens_servicoArgs<ExtArgs>
     sucatas_compradas_inteiras?: boolean | clientes$sucatas_compradas_inteirasArgs<ExtArgs>
     _count?: boolean | ClientesCountOutputTypeDefaultArgs<ExtArgs>
@@ -4197,7 +4625,7 @@ export namespace Prisma {
     cep_cliente?: boolean
     cidade_cliente?: boolean
     uf_cliente?: boolean
-    codigo_ibge?: boolean
+    codigo_IBGE?: boolean
     pais_cliente?: boolean
     telefone_cliente?: boolean
     data_nascimento?: boolean
@@ -4215,7 +4643,7 @@ export namespace Prisma {
     cep_cliente?: boolean
     cidade_cliente?: boolean
     uf_cliente?: boolean
-    codigo_ibge?: boolean
+    codigo_IBGE?: boolean
     pais_cliente?: boolean
     telefone_cliente?: boolean
     data_nascimento?: boolean
@@ -4233,7 +4661,7 @@ export namespace Prisma {
     cep_cliente?: boolean
     cidade_cliente?: boolean
     uf_cliente?: boolean
-    codigo_ibge?: boolean
+    codigo_IBGE?: boolean
     pais_cliente?: boolean
     telefone_cliente?: boolean
     data_nascimento?: boolean
@@ -4241,11 +4669,11 @@ export namespace Prisma {
     data_cadastro?: boolean
   }
 
-  export type clientesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome_cliente" | "cpf_cliente" | "IE_cliente" | "endereco_cliente" | "bairro_cliente" | "cep_cliente" | "cidade_cliente" | "uf_cliente" | "codigo_ibge" | "pais_cliente" | "telefone_cliente" | "data_nascimento" | "email_cliente" | "data_cadastro", ExtArgs["result"]["clientes"]>
+  export type clientesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome_cliente" | "cpf_cliente" | "IE_cliente" | "endereco_cliente" | "bairro_cliente" | "cep_cliente" | "cidade_cliente" | "uf_cliente" | "codigo_IBGE" | "pais_cliente" | "telefone_cliente" | "data_nascimento" | "email_cliente" | "data_cadastro", ExtArgs["result"]["clientes"]>
   export type clientesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    pedidos_vendas?: boolean | clientes$pedidos_vendasArgs<ExtArgs>
-    sucata_compras?: boolean | clientes$sucata_comprasArgs<ExtArgs>
-    veiculos_cliente_manutencao?: boolean | clientes$veiculos_cliente_manutencaoArgs<ExtArgs>
+    pedidos_venda?: boolean | clientes$pedidos_vendaArgs<ExtArgs>
+    sucata_compra?: boolean | clientes$sucata_compraArgs<ExtArgs>
+    veiculos_cliente?: boolean | clientes$veiculos_clienteArgs<ExtArgs>
     ordens_servico?: boolean | clientes$ordens_servicoArgs<ExtArgs>
     sucatas_compradas_inteiras?: boolean | clientes$sucatas_compradas_inteirasArgs<ExtArgs>
     _count?: boolean | ClientesCountOutputTypeDefaultArgs<ExtArgs>
@@ -4256,9 +4684,9 @@ export namespace Prisma {
   export type $clientesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "clientes"
     objects: {
-      pedidos_vendas: Prisma.$pedidos_vendasPayload<ExtArgs>[]
-      sucata_compras: Prisma.$sucata_comprasPayload<ExtArgs>[]
-      veiculos_cliente_manutencao: Prisma.$veiculos_cliente_manutencaoPayload<ExtArgs>[]
+      pedidos_venda: Prisma.$pedidos_vendasPayload<ExtArgs>[]
+      sucata_compra: Prisma.$sucata_comprasPayload<ExtArgs>[]
+      veiculos_cliente: Prisma.$veiculos_cliente_manutencaoPayload<ExtArgs>[]
       ordens_servico: Prisma.$ordem_servicoPayload<ExtArgs>[]
       sucatas_compradas_inteiras: Prisma.$sucata_estoquePayload<ExtArgs>[]
     }
@@ -4272,7 +4700,7 @@ export namespace Prisma {
       cep_cliente: string
       cidade_cliente: string | null
       uf_cliente: string
-      codigo_ibge: string
+      codigo_IBGE: string
       pais_cliente: string | null
       telefone_cliente: string | null
       data_nascimento: Date | null
@@ -4672,9 +5100,9 @@ export namespace Prisma {
    */
   export interface Prisma__clientesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    pedidos_vendas<T extends clientes$pedidos_vendasArgs<ExtArgs> = {}>(args?: Subset<T, clientes$pedidos_vendasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$pedidos_vendasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    sucata_compras<T extends clientes$sucata_comprasArgs<ExtArgs> = {}>(args?: Subset<T, clientes$sucata_comprasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$sucata_comprasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    veiculos_cliente_manutencao<T extends clientes$veiculos_cliente_manutencaoArgs<ExtArgs> = {}>(args?: Subset<T, clientes$veiculos_cliente_manutencaoArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$veiculos_cliente_manutencaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    pedidos_venda<T extends clientes$pedidos_vendaArgs<ExtArgs> = {}>(args?: Subset<T, clientes$pedidos_vendaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$pedidos_vendasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sucata_compra<T extends clientes$sucata_compraArgs<ExtArgs> = {}>(args?: Subset<T, clientes$sucata_compraArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$sucata_comprasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    veiculos_cliente<T extends clientes$veiculos_clienteArgs<ExtArgs> = {}>(args?: Subset<T, clientes$veiculos_clienteArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$veiculos_cliente_manutencaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ordens_servico<T extends clientes$ordens_servicoArgs<ExtArgs> = {}>(args?: Subset<T, clientes$ordens_servicoArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ordem_servicoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sucatas_compradas_inteiras<T extends clientes$sucatas_compradas_inteirasArgs<ExtArgs> = {}>(args?: Subset<T, clientes$sucatas_compradas_inteirasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$sucata_estoquePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -4715,7 +5143,7 @@ export namespace Prisma {
     readonly cep_cliente: FieldRef<"clientes", 'String'>
     readonly cidade_cliente: FieldRef<"clientes", 'String'>
     readonly uf_cliente: FieldRef<"clientes", 'String'>
-    readonly codigo_ibge: FieldRef<"clientes", 'String'>
+    readonly codigo_IBGE: FieldRef<"clientes", 'String'>
     readonly pais_cliente: FieldRef<"clientes", 'String'>
     readonly telefone_cliente: FieldRef<"clientes", 'String'>
     readonly data_nascimento: FieldRef<"clientes", 'DateTime'>
@@ -5114,9 +5542,9 @@ export namespace Prisma {
   }
 
   /**
-   * clientes.pedidos_vendas
+   * clientes.pedidos_venda
    */
-  export type clientes$pedidos_vendasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type clientes$pedidos_vendaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the pedidos_vendas
      */
@@ -5138,9 +5566,9 @@ export namespace Prisma {
   }
 
   /**
-   * clientes.sucata_compras
+   * clientes.sucata_compra
    */
-  export type clientes$sucata_comprasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type clientes$sucata_compraArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the sucata_compras
      */
@@ -5162,9 +5590,9 @@ export namespace Prisma {
   }
 
   /**
-   * clientes.veiculos_cliente_manutencao
+   * clientes.veiculos_cliente
    */
-  export type clientes$veiculos_cliente_manutencaoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type clientes$veiculos_clienteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the veiculos_cliente_manutencao
      */
@@ -12268,7 +12696,7 @@ export namespace Prisma {
     peca_id: string | null
     ncm: string | null
     cest: string | null
-    cfop_padrao: string | null
+    cfop_id: string | null
     cst_icms: string | null
     cst_ibs_cbs: string | null
     cClassTrib: string | null
@@ -12279,7 +12707,7 @@ export namespace Prisma {
     peca_id: string | null
     ncm: string | null
     cest: string | null
-    cfop_padrao: string | null
+    cfop_id: string | null
     cst_icms: string | null
     cst_ibs_cbs: string | null
     cClassTrib: string | null
@@ -12290,7 +12718,7 @@ export namespace Prisma {
     peca_id: number
     ncm: number
     cest: number
-    cfop_padrao: number
+    cfop_id: number
     cst_icms: number
     cst_ibs_cbs: number
     cClassTrib: number
@@ -12303,7 +12731,7 @@ export namespace Prisma {
     peca_id?: true
     ncm?: true
     cest?: true
-    cfop_padrao?: true
+    cfop_id?: true
     cst_icms?: true
     cst_ibs_cbs?: true
     cClassTrib?: true
@@ -12314,7 +12742,7 @@ export namespace Prisma {
     peca_id?: true
     ncm?: true
     cest?: true
-    cfop_padrao?: true
+    cfop_id?: true
     cst_icms?: true
     cst_ibs_cbs?: true
     cClassTrib?: true
@@ -12325,7 +12753,7 @@ export namespace Prisma {
     peca_id?: true
     ncm?: true
     cest?: true
-    cfop_padrao?: true
+    cfop_id?: true
     cst_icms?: true
     cst_ibs_cbs?: true
     cClassTrib?: true
@@ -12409,7 +12837,7 @@ export namespace Prisma {
     peca_id: string
     ncm: string
     cest: string | null
-    cfop_padrao: string
+    cfop_id: string
     cst_icms: string
     cst_ibs_cbs: string | null
     cClassTrib: string | null
@@ -12437,11 +12865,12 @@ export namespace Prisma {
     peca_id?: boolean
     ncm?: boolean
     cest?: boolean
-    cfop_padrao?: boolean
+    cfop_id?: boolean
     cst_icms?: boolean
     cst_ibs_cbs?: boolean
     cClassTrib?: boolean
     peca_estoque?: boolean | peca_estoqueDefaultArgs<ExtArgs>
+    cfop?: boolean | cfopsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["dados_fiscais_peca"]>
 
   export type dados_fiscais_pecaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -12449,11 +12878,12 @@ export namespace Prisma {
     peca_id?: boolean
     ncm?: boolean
     cest?: boolean
-    cfop_padrao?: boolean
+    cfop_id?: boolean
     cst_icms?: boolean
     cst_ibs_cbs?: boolean
     cClassTrib?: boolean
     peca_estoque?: boolean | peca_estoqueDefaultArgs<ExtArgs>
+    cfop?: boolean | cfopsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["dados_fiscais_peca"]>
 
   export type dados_fiscais_pecaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -12461,11 +12891,12 @@ export namespace Prisma {
     peca_id?: boolean
     ncm?: boolean
     cest?: boolean
-    cfop_padrao?: boolean
+    cfop_id?: boolean
     cst_icms?: boolean
     cst_ibs_cbs?: boolean
     cClassTrib?: boolean
     peca_estoque?: boolean | peca_estoqueDefaultArgs<ExtArgs>
+    cfop?: boolean | cfopsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["dados_fiscais_peca"]>
 
   export type dados_fiscais_pecaSelectScalar = {
@@ -12473,34 +12904,38 @@ export namespace Prisma {
     peca_id?: boolean
     ncm?: boolean
     cest?: boolean
-    cfop_padrao?: boolean
+    cfop_id?: boolean
     cst_icms?: boolean
     cst_ibs_cbs?: boolean
     cClassTrib?: boolean
   }
 
-  export type dados_fiscais_pecaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "peca_id" | "ncm" | "cest" | "cfop_padrao" | "cst_icms" | "cst_ibs_cbs" | "cClassTrib", ExtArgs["result"]["dados_fiscais_peca"]>
+  export type dados_fiscais_pecaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "peca_id" | "ncm" | "cest" | "cfop_id" | "cst_icms" | "cst_ibs_cbs" | "cClassTrib", ExtArgs["result"]["dados_fiscais_peca"]>
   export type dados_fiscais_pecaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     peca_estoque?: boolean | peca_estoqueDefaultArgs<ExtArgs>
+    cfop?: boolean | cfopsDefaultArgs<ExtArgs>
   }
   export type dados_fiscais_pecaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     peca_estoque?: boolean | peca_estoqueDefaultArgs<ExtArgs>
+    cfop?: boolean | cfopsDefaultArgs<ExtArgs>
   }
   export type dados_fiscais_pecaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     peca_estoque?: boolean | peca_estoqueDefaultArgs<ExtArgs>
+    cfop?: boolean | cfopsDefaultArgs<ExtArgs>
   }
 
   export type $dados_fiscais_pecaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "dados_fiscais_peca"
     objects: {
       peca_estoque: Prisma.$peca_estoquePayload<ExtArgs>
+      cfop: Prisma.$cfopsPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       peca_id: string
       ncm: string
       cest: string | null
-      cfop_padrao: string
+      cfop_id: string
       cst_icms: string
       cst_ibs_cbs: string | null
       cClassTrib: string | null
@@ -12899,6 +13334,7 @@ export namespace Prisma {
   export interface Prisma__dados_fiscais_pecaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     peca_estoque<T extends peca_estoqueDefaultArgs<ExtArgs> = {}>(args?: Subset<T, peca_estoqueDefaultArgs<ExtArgs>>): Prisma__peca_estoqueClient<$Result.GetResult<Prisma.$peca_estoquePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    cfop<T extends cfopsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, cfopsDefaultArgs<ExtArgs>>): Prisma__cfopsClient<$Result.GetResult<Prisma.$cfopsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12932,7 +13368,7 @@ export namespace Prisma {
     readonly peca_id: FieldRef<"dados_fiscais_peca", 'String'>
     readonly ncm: FieldRef<"dados_fiscais_peca", 'String'>
     readonly cest: FieldRef<"dados_fiscais_peca", 'String'>
-    readonly cfop_padrao: FieldRef<"dados_fiscais_peca", 'String'>
+    readonly cfop_id: FieldRef<"dados_fiscais_peca", 'String'>
     readonly cst_icms: FieldRef<"dados_fiscais_peca", 'String'>
     readonly cst_ibs_cbs: FieldRef<"dados_fiscais_peca", 'String'>
     readonly cClassTrib: FieldRef<"dados_fiscais_peca", 'String'>
@@ -15642,6 +16078,8 @@ export namespace Prisma {
     observacoes_recibo: string | null
     cliente_comprador_id: string | null
     responsavel_venda_id: string | null
+    os_servicos_itensId: string | null
+    plano_contas_id: string | null
   }
 
   export type Pedidos_vendasMaxAggregateOutputType = {
@@ -15653,6 +16091,8 @@ export namespace Prisma {
     observacoes_recibo: string | null
     cliente_comprador_id: string | null
     responsavel_venda_id: string | null
+    os_servicos_itensId: string | null
+    plano_contas_id: string | null
   }
 
   export type Pedidos_vendasCountAggregateOutputType = {
@@ -15664,6 +16104,8 @@ export namespace Prisma {
     observacoes_recibo: number
     cliente_comprador_id: number
     responsavel_venda_id: number
+    os_servicos_itensId: number
+    plano_contas_id: number
     _all: number
   }
 
@@ -15685,6 +16127,8 @@ export namespace Prisma {
     observacoes_recibo?: true
     cliente_comprador_id?: true
     responsavel_venda_id?: true
+    os_servicos_itensId?: true
+    plano_contas_id?: true
   }
 
   export type Pedidos_vendasMaxAggregateInputType = {
@@ -15696,6 +16140,8 @@ export namespace Prisma {
     observacoes_recibo?: true
     cliente_comprador_id?: true
     responsavel_venda_id?: true
+    os_servicos_itensId?: true
+    plano_contas_id?: true
   }
 
   export type Pedidos_vendasCountAggregateInputType = {
@@ -15707,6 +16153,8 @@ export namespace Prisma {
     observacoes_recibo?: true
     cliente_comprador_id?: true
     responsavel_venda_id?: true
+    os_servicos_itensId?: true
+    plano_contas_id?: true
     _all?: true
   }
 
@@ -15805,6 +16253,8 @@ export namespace Prisma {
     observacoes_recibo: string | null
     cliente_comprador_id: string
     responsavel_venda_id: string
+    os_servicos_itensId: string | null
+    plano_contas_id: string | null
     _count: Pedidos_vendasCountAggregateOutputType | null
     _avg: Pedidos_vendasAvgAggregateOutputType | null
     _sum: Pedidos_vendasSumAggregateOutputType | null
@@ -15835,11 +16285,16 @@ export namespace Prisma {
     observacoes_recibo?: boolean
     cliente_comprador_id?: boolean
     responsavel_venda_id?: boolean
+    os_servicos_itensId?: boolean
+    plano_contas_id?: boolean
     itens_pedido_vendas?: boolean | pedidos_vendas$itens_pedido_vendasArgs<ExtArgs>
     cliente_comprador?: boolean | clientesDefaultArgs<ExtArgs>
     responsavel_venda?: boolean | usuariosDefaultArgs<ExtArgs>
     documento_fiscal?: boolean | pedidos_vendas$documento_fiscalArgs<ExtArgs>
     lancamentos_caixa?: boolean | pedidos_vendas$lancamentos_caixaArgs<ExtArgs>
+    osServicosItens?: boolean | pedidos_vendas$osServicosItensArgs<ExtArgs>
+    plano_contas?: boolean | pedidos_vendas$plano_contasArgs<ExtArgs>
+    movimentacoes?: boolean | pedidos_vendas$movimentacoesArgs<ExtArgs>
     _count?: boolean | Pedidos_vendasCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pedidos_vendas"]>
 
@@ -15852,8 +16307,12 @@ export namespace Prisma {
     observacoes_recibo?: boolean
     cliente_comprador_id?: boolean
     responsavel_venda_id?: boolean
+    os_servicos_itensId?: boolean
+    plano_contas_id?: boolean
     cliente_comprador?: boolean | clientesDefaultArgs<ExtArgs>
     responsavel_venda?: boolean | usuariosDefaultArgs<ExtArgs>
+    osServicosItens?: boolean | pedidos_vendas$osServicosItensArgs<ExtArgs>
+    plano_contas?: boolean | pedidos_vendas$plano_contasArgs<ExtArgs>
   }, ExtArgs["result"]["pedidos_vendas"]>
 
   export type pedidos_vendasSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -15865,8 +16324,12 @@ export namespace Prisma {
     observacoes_recibo?: boolean
     cliente_comprador_id?: boolean
     responsavel_venda_id?: boolean
+    os_servicos_itensId?: boolean
+    plano_contas_id?: boolean
     cliente_comprador?: boolean | clientesDefaultArgs<ExtArgs>
     responsavel_venda?: boolean | usuariosDefaultArgs<ExtArgs>
+    osServicosItens?: boolean | pedidos_vendas$osServicosItensArgs<ExtArgs>
+    plano_contas?: boolean | pedidos_vendas$plano_contasArgs<ExtArgs>
   }, ExtArgs["result"]["pedidos_vendas"]>
 
   export type pedidos_vendasSelectScalar = {
@@ -15878,24 +16341,33 @@ export namespace Prisma {
     observacoes_recibo?: boolean
     cliente_comprador_id?: boolean
     responsavel_venda_id?: boolean
+    os_servicos_itensId?: boolean
+    plano_contas_id?: boolean
   }
 
-  export type pedidos_vendasOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "data_venda" | "valor_total" | "metodo_pagamento" | "status_pedido" | "observacoes_recibo" | "cliente_comprador_id" | "responsavel_venda_id", ExtArgs["result"]["pedidos_vendas"]>
+  export type pedidos_vendasOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "data_venda" | "valor_total" | "metodo_pagamento" | "status_pedido" | "observacoes_recibo" | "cliente_comprador_id" | "responsavel_venda_id" | "os_servicos_itensId" | "plano_contas_id", ExtArgs["result"]["pedidos_vendas"]>
   export type pedidos_vendasInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     itens_pedido_vendas?: boolean | pedidos_vendas$itens_pedido_vendasArgs<ExtArgs>
     cliente_comprador?: boolean | clientesDefaultArgs<ExtArgs>
     responsavel_venda?: boolean | usuariosDefaultArgs<ExtArgs>
     documento_fiscal?: boolean | pedidos_vendas$documento_fiscalArgs<ExtArgs>
     lancamentos_caixa?: boolean | pedidos_vendas$lancamentos_caixaArgs<ExtArgs>
+    osServicosItens?: boolean | pedidos_vendas$osServicosItensArgs<ExtArgs>
+    plano_contas?: boolean | pedidos_vendas$plano_contasArgs<ExtArgs>
+    movimentacoes?: boolean | pedidos_vendas$movimentacoesArgs<ExtArgs>
     _count?: boolean | Pedidos_vendasCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type pedidos_vendasIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     cliente_comprador?: boolean | clientesDefaultArgs<ExtArgs>
     responsavel_venda?: boolean | usuariosDefaultArgs<ExtArgs>
+    osServicosItens?: boolean | pedidos_vendas$osServicosItensArgs<ExtArgs>
+    plano_contas?: boolean | pedidos_vendas$plano_contasArgs<ExtArgs>
   }
   export type pedidos_vendasIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     cliente_comprador?: boolean | clientesDefaultArgs<ExtArgs>
     responsavel_venda?: boolean | usuariosDefaultArgs<ExtArgs>
+    osServicosItens?: boolean | pedidos_vendas$osServicosItensArgs<ExtArgs>
+    plano_contas?: boolean | pedidos_vendas$plano_contasArgs<ExtArgs>
   }
 
   export type $pedidos_vendasPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15906,6 +16378,9 @@ export namespace Prisma {
       responsavel_venda: Prisma.$usuariosPayload<ExtArgs>
       documento_fiscal: Prisma.$documento_fiscalPayload<ExtArgs> | null
       lancamentos_caixa: Prisma.$fluxo_caixaPayload<ExtArgs>[]
+      osServicosItens: Prisma.$os_servicos_itensPayload<ExtArgs> | null
+      plano_contas: Prisma.$PlanoContasPayload<ExtArgs> | null
+      movimentacoes: Prisma.$MovimentacaoPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -15916,6 +16391,8 @@ export namespace Prisma {
       observacoes_recibo: string | null
       cliente_comprador_id: string
       responsavel_venda_id: string
+      os_servicos_itensId: string | null
+      plano_contas_id: string | null
     }, ExtArgs["result"]["pedidos_vendas"]>
     composites: {}
   }
@@ -16315,6 +16792,9 @@ export namespace Prisma {
     responsavel_venda<T extends usuariosDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usuariosDefaultArgs<ExtArgs>>): Prisma__usuariosClient<$Result.GetResult<Prisma.$usuariosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     documento_fiscal<T extends pedidos_vendas$documento_fiscalArgs<ExtArgs> = {}>(args?: Subset<T, pedidos_vendas$documento_fiscalArgs<ExtArgs>>): Prisma__documento_fiscalClient<$Result.GetResult<Prisma.$documento_fiscalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     lancamentos_caixa<T extends pedidos_vendas$lancamentos_caixaArgs<ExtArgs> = {}>(args?: Subset<T, pedidos_vendas$lancamentos_caixaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$fluxo_caixaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    osServicosItens<T extends pedidos_vendas$osServicosItensArgs<ExtArgs> = {}>(args?: Subset<T, pedidos_vendas$osServicosItensArgs<ExtArgs>>): Prisma__os_servicos_itensClient<$Result.GetResult<Prisma.$os_servicos_itensPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    plano_contas<T extends pedidos_vendas$plano_contasArgs<ExtArgs> = {}>(args?: Subset<T, pedidos_vendas$plano_contasArgs<ExtArgs>>): Prisma__PlanoContasClient<$Result.GetResult<Prisma.$PlanoContasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    movimentacoes<T extends pedidos_vendas$movimentacoesArgs<ExtArgs> = {}>(args?: Subset<T, pedidos_vendas$movimentacoesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MovimentacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16352,6 +16832,8 @@ export namespace Prisma {
     readonly observacoes_recibo: FieldRef<"pedidos_vendas", 'String'>
     readonly cliente_comprador_id: FieldRef<"pedidos_vendas", 'String'>
     readonly responsavel_venda_id: FieldRef<"pedidos_vendas", 'String'>
+    readonly os_servicos_itensId: FieldRef<"pedidos_vendas", 'String'>
+    readonly plano_contas_id: FieldRef<"pedidos_vendas", 'String'>
   }
     
 
@@ -16817,6 +17299,68 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Fluxo_caixaScalarFieldEnum | Fluxo_caixaScalarFieldEnum[]
+  }
+
+  /**
+   * pedidos_vendas.osServicosItens
+   */
+  export type pedidos_vendas$osServicosItensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the os_servicos_itens
+     */
+    select?: os_servicos_itensSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the os_servicos_itens
+     */
+    omit?: os_servicos_itensOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: os_servicos_itensInclude<ExtArgs> | null
+    where?: os_servicos_itensWhereInput
+  }
+
+  /**
+   * pedidos_vendas.plano_contas
+   */
+  export type pedidos_vendas$plano_contasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanoContas
+     */
+    select?: PlanoContasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanoContas
+     */
+    omit?: PlanoContasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanoContasInclude<ExtArgs> | null
+    where?: PlanoContasWhereInput
+  }
+
+  /**
+   * pedidos_vendas.movimentacoes
+   */
+  export type pedidos_vendas$movimentacoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Movimentacao
+     */
+    select?: MovimentacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Movimentacao
+     */
+    omit?: MovimentacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoInclude<ExtArgs> | null
+    where?: MovimentacaoWhereInput
+    orderBy?: MovimentacaoOrderByWithRelationInput | MovimentacaoOrderByWithRelationInput[]
+    cursor?: MovimentacaoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MovimentacaoScalarFieldEnum | MovimentacaoScalarFieldEnum[]
   }
 
   /**
@@ -18414,6 +18958,9 @@ export namespace Prisma {
     ordem_servico?: boolean | ordem_servicoDefaultArgs<ExtArgs>
     tipo_servico?: boolean | tipo_servicoDefaultArgs<ExtArgs>
     mecanico?: boolean | usuariosDefaultArgs<ExtArgs>
+    veiculos?: boolean | os_servicos_itens$veiculosArgs<ExtArgs>
+    pedidos?: boolean | os_servicos_itens$pedidosArgs<ExtArgs>
+    _count?: boolean | Os_servicos_itensCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["os_servicos_itens"]>
 
   export type os_servicos_itensSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -18457,6 +19004,9 @@ export namespace Prisma {
     ordem_servico?: boolean | ordem_servicoDefaultArgs<ExtArgs>
     tipo_servico?: boolean | tipo_servicoDefaultArgs<ExtArgs>
     mecanico?: boolean | usuariosDefaultArgs<ExtArgs>
+    veiculos?: boolean | os_servicos_itens$veiculosArgs<ExtArgs>
+    pedidos?: boolean | os_servicos_itens$pedidosArgs<ExtArgs>
+    _count?: boolean | Os_servicos_itensCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type os_servicos_itensIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ordem_servico?: boolean | ordem_servicoDefaultArgs<ExtArgs>
@@ -18475,6 +19025,8 @@ export namespace Prisma {
       ordem_servico: Prisma.$ordem_servicoPayload<ExtArgs>
       tipo_servico: Prisma.$tipo_servicoPayload<ExtArgs>
       mecanico: Prisma.$usuariosPayload<ExtArgs>
+      veiculos: Prisma.$veiculos_cliente_manutencaoPayload<ExtArgs>[]
+      pedidos: Prisma.$pedidos_vendasPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -18881,6 +19433,8 @@ export namespace Prisma {
     ordem_servico<T extends ordem_servicoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ordem_servicoDefaultArgs<ExtArgs>>): Prisma__ordem_servicoClient<$Result.GetResult<Prisma.$ordem_servicoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     tipo_servico<T extends tipo_servicoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, tipo_servicoDefaultArgs<ExtArgs>>): Prisma__tipo_servicoClient<$Result.GetResult<Prisma.$tipo_servicoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     mecanico<T extends usuariosDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usuariosDefaultArgs<ExtArgs>>): Prisma__usuariosClient<$Result.GetResult<Prisma.$usuariosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    veiculos<T extends os_servicos_itens$veiculosArgs<ExtArgs> = {}>(args?: Subset<T, os_servicos_itens$veiculosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$veiculos_cliente_manutencaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    pedidos<T extends os_servicos_itens$pedidosArgs<ExtArgs> = {}>(args?: Subset<T, os_servicos_itens$pedidosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$pedidos_vendasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -19315,6 +19869,54 @@ export namespace Prisma {
      * Limit how many os_servicos_itens to delete.
      */
     limit?: number
+  }
+
+  /**
+   * os_servicos_itens.veiculos
+   */
+  export type os_servicos_itens$veiculosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the veiculos_cliente_manutencao
+     */
+    select?: veiculos_cliente_manutencaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the veiculos_cliente_manutencao
+     */
+    omit?: veiculos_cliente_manutencaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: veiculos_cliente_manutencaoInclude<ExtArgs> | null
+    where?: veiculos_cliente_manutencaoWhereInput
+    orderBy?: veiculos_cliente_manutencaoOrderByWithRelationInput | veiculos_cliente_manutencaoOrderByWithRelationInput[]
+    cursor?: veiculos_cliente_manutencaoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Veiculos_cliente_manutencaoScalarFieldEnum | Veiculos_cliente_manutencaoScalarFieldEnum[]
+  }
+
+  /**
+   * os_servicos_itens.pedidos
+   */
+  export type os_servicos_itens$pedidosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the pedidos_vendas
+     */
+    select?: pedidos_vendasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the pedidos_vendas
+     */
+    omit?: pedidos_vendasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: pedidos_vendasInclude<ExtArgs> | null
+    where?: pedidos_vendasWhereInput
+    orderBy?: pedidos_vendasOrderByWithRelationInput | pedidos_vendasOrderByWithRelationInput[]
+    cursor?: pedidos_vendasWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Pedidos_vendasScalarFieldEnum | Pedidos_vendasScalarFieldEnum[]
   }
 
   /**
@@ -21577,6 +22179,1068 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: sucata_comprasInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model cfops
+   */
+
+  export type AggregateCfops = {
+    _count: CfopsCountAggregateOutputType | null
+    _min: CfopsMinAggregateOutputType | null
+    _max: CfopsMaxAggregateOutputType | null
+  }
+
+  export type CfopsMinAggregateOutputType = {
+    id: string | null
+    codigo: string | null
+    descricao: string | null
+    tipo: string | null
+  }
+
+  export type CfopsMaxAggregateOutputType = {
+    id: string | null
+    codigo: string | null
+    descricao: string | null
+    tipo: string | null
+  }
+
+  export type CfopsCountAggregateOutputType = {
+    id: number
+    codigo: number
+    descricao: number
+    tipo: number
+    _all: number
+  }
+
+
+  export type CfopsMinAggregateInputType = {
+    id?: true
+    codigo?: true
+    descricao?: true
+    tipo?: true
+  }
+
+  export type CfopsMaxAggregateInputType = {
+    id?: true
+    codigo?: true
+    descricao?: true
+    tipo?: true
+  }
+
+  export type CfopsCountAggregateInputType = {
+    id?: true
+    codigo?: true
+    descricao?: true
+    tipo?: true
+    _all?: true
+  }
+
+  export type CfopsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which cfops to aggregate.
+     */
+    where?: cfopsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cfops to fetch.
+     */
+    orderBy?: cfopsOrderByWithRelationInput | cfopsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: cfopsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cfops from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cfops.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned cfops
+    **/
+    _count?: true | CfopsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CfopsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CfopsMaxAggregateInputType
+  }
+
+  export type GetCfopsAggregateType<T extends CfopsAggregateArgs> = {
+        [P in keyof T & keyof AggregateCfops]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCfops[P]>
+      : GetScalarType<T[P], AggregateCfops[P]>
+  }
+
+
+
+
+  export type cfopsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: cfopsWhereInput
+    orderBy?: cfopsOrderByWithAggregationInput | cfopsOrderByWithAggregationInput[]
+    by: CfopsScalarFieldEnum[] | CfopsScalarFieldEnum
+    having?: cfopsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CfopsCountAggregateInputType | true
+    _min?: CfopsMinAggregateInputType
+    _max?: CfopsMaxAggregateInputType
+  }
+
+  export type CfopsGroupByOutputType = {
+    id: string
+    codigo: string
+    descricao: string
+    tipo: string
+    _count: CfopsCountAggregateOutputType | null
+    _min: CfopsMinAggregateOutputType | null
+    _max: CfopsMaxAggregateOutputType | null
+  }
+
+  type GetCfopsGroupByPayload<T extends cfopsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CfopsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CfopsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CfopsGroupByOutputType[P]>
+            : GetScalarType<T[P], CfopsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type cfopsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    codigo?: boolean
+    descricao?: boolean
+    tipo?: boolean
+    dadosFiscaisPecas?: boolean | cfops$dadosFiscaisPecasArgs<ExtArgs>
+    _count?: boolean | CfopsCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["cfops"]>
+
+  export type cfopsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    codigo?: boolean
+    descricao?: boolean
+    tipo?: boolean
+  }, ExtArgs["result"]["cfops"]>
+
+  export type cfopsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    codigo?: boolean
+    descricao?: boolean
+    tipo?: boolean
+  }, ExtArgs["result"]["cfops"]>
+
+  export type cfopsSelectScalar = {
+    id?: boolean
+    codigo?: boolean
+    descricao?: boolean
+    tipo?: boolean
+  }
+
+  export type cfopsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "codigo" | "descricao" | "tipo", ExtArgs["result"]["cfops"]>
+  export type cfopsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    dadosFiscaisPecas?: boolean | cfops$dadosFiscaisPecasArgs<ExtArgs>
+    _count?: boolean | CfopsCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type cfopsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type cfopsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $cfopsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "cfops"
+    objects: {
+      dadosFiscaisPecas: Prisma.$dados_fiscais_pecaPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      codigo: string
+      descricao: string
+      tipo: string
+    }, ExtArgs["result"]["cfops"]>
+    composites: {}
+  }
+
+  type cfopsGetPayload<S extends boolean | null | undefined | cfopsDefaultArgs> = $Result.GetResult<Prisma.$cfopsPayload, S>
+
+  type cfopsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<cfopsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CfopsCountAggregateInputType | true
+    }
+
+  export interface cfopsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['cfops'], meta: { name: 'cfops' } }
+    /**
+     * Find zero or one Cfops that matches the filter.
+     * @param {cfopsFindUniqueArgs} args - Arguments to find a Cfops
+     * @example
+     * // Get one Cfops
+     * const cfops = await prisma.cfops.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends cfopsFindUniqueArgs>(args: SelectSubset<T, cfopsFindUniqueArgs<ExtArgs>>): Prisma__cfopsClient<$Result.GetResult<Prisma.$cfopsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Cfops that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {cfopsFindUniqueOrThrowArgs} args - Arguments to find a Cfops
+     * @example
+     * // Get one Cfops
+     * const cfops = await prisma.cfops.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends cfopsFindUniqueOrThrowArgs>(args: SelectSubset<T, cfopsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__cfopsClient<$Result.GetResult<Prisma.$cfopsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Cfops that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cfopsFindFirstArgs} args - Arguments to find a Cfops
+     * @example
+     * // Get one Cfops
+     * const cfops = await prisma.cfops.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends cfopsFindFirstArgs>(args?: SelectSubset<T, cfopsFindFirstArgs<ExtArgs>>): Prisma__cfopsClient<$Result.GetResult<Prisma.$cfopsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Cfops that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cfopsFindFirstOrThrowArgs} args - Arguments to find a Cfops
+     * @example
+     * // Get one Cfops
+     * const cfops = await prisma.cfops.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends cfopsFindFirstOrThrowArgs>(args?: SelectSubset<T, cfopsFindFirstOrThrowArgs<ExtArgs>>): Prisma__cfopsClient<$Result.GetResult<Prisma.$cfopsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Cfops that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cfopsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Cfops
+     * const cfops = await prisma.cfops.findMany()
+     * 
+     * // Get first 10 Cfops
+     * const cfops = await prisma.cfops.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const cfopsWithIdOnly = await prisma.cfops.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends cfopsFindManyArgs>(args?: SelectSubset<T, cfopsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$cfopsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Cfops.
+     * @param {cfopsCreateArgs} args - Arguments to create a Cfops.
+     * @example
+     * // Create one Cfops
+     * const Cfops = await prisma.cfops.create({
+     *   data: {
+     *     // ... data to create a Cfops
+     *   }
+     * })
+     * 
+     */
+    create<T extends cfopsCreateArgs>(args: SelectSubset<T, cfopsCreateArgs<ExtArgs>>): Prisma__cfopsClient<$Result.GetResult<Prisma.$cfopsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Cfops.
+     * @param {cfopsCreateManyArgs} args - Arguments to create many Cfops.
+     * @example
+     * // Create many Cfops
+     * const cfops = await prisma.cfops.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends cfopsCreateManyArgs>(args?: SelectSubset<T, cfopsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Cfops and returns the data saved in the database.
+     * @param {cfopsCreateManyAndReturnArgs} args - Arguments to create many Cfops.
+     * @example
+     * // Create many Cfops
+     * const cfops = await prisma.cfops.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Cfops and only return the `id`
+     * const cfopsWithIdOnly = await prisma.cfops.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends cfopsCreateManyAndReturnArgs>(args?: SelectSubset<T, cfopsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$cfopsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Cfops.
+     * @param {cfopsDeleteArgs} args - Arguments to delete one Cfops.
+     * @example
+     * // Delete one Cfops
+     * const Cfops = await prisma.cfops.delete({
+     *   where: {
+     *     // ... filter to delete one Cfops
+     *   }
+     * })
+     * 
+     */
+    delete<T extends cfopsDeleteArgs>(args: SelectSubset<T, cfopsDeleteArgs<ExtArgs>>): Prisma__cfopsClient<$Result.GetResult<Prisma.$cfopsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Cfops.
+     * @param {cfopsUpdateArgs} args - Arguments to update one Cfops.
+     * @example
+     * // Update one Cfops
+     * const cfops = await prisma.cfops.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends cfopsUpdateArgs>(args: SelectSubset<T, cfopsUpdateArgs<ExtArgs>>): Prisma__cfopsClient<$Result.GetResult<Prisma.$cfopsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Cfops.
+     * @param {cfopsDeleteManyArgs} args - Arguments to filter Cfops to delete.
+     * @example
+     * // Delete a few Cfops
+     * const { count } = await prisma.cfops.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends cfopsDeleteManyArgs>(args?: SelectSubset<T, cfopsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Cfops.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cfopsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Cfops
+     * const cfops = await prisma.cfops.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends cfopsUpdateManyArgs>(args: SelectSubset<T, cfopsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Cfops and returns the data updated in the database.
+     * @param {cfopsUpdateManyAndReturnArgs} args - Arguments to update many Cfops.
+     * @example
+     * // Update many Cfops
+     * const cfops = await prisma.cfops.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Cfops and only return the `id`
+     * const cfopsWithIdOnly = await prisma.cfops.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends cfopsUpdateManyAndReturnArgs>(args: SelectSubset<T, cfopsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$cfopsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Cfops.
+     * @param {cfopsUpsertArgs} args - Arguments to update or create a Cfops.
+     * @example
+     * // Update or create a Cfops
+     * const cfops = await prisma.cfops.upsert({
+     *   create: {
+     *     // ... data to create a Cfops
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Cfops we want to update
+     *   }
+     * })
+     */
+    upsert<T extends cfopsUpsertArgs>(args: SelectSubset<T, cfopsUpsertArgs<ExtArgs>>): Prisma__cfopsClient<$Result.GetResult<Prisma.$cfopsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Cfops.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cfopsCountArgs} args - Arguments to filter Cfops to count.
+     * @example
+     * // Count the number of Cfops
+     * const count = await prisma.cfops.count({
+     *   where: {
+     *     // ... the filter for the Cfops we want to count
+     *   }
+     * })
+    **/
+    count<T extends cfopsCountArgs>(
+      args?: Subset<T, cfopsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CfopsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Cfops.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CfopsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CfopsAggregateArgs>(args: Subset<T, CfopsAggregateArgs>): Prisma.PrismaPromise<GetCfopsAggregateType<T>>
+
+    /**
+     * Group by Cfops.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cfopsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends cfopsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: cfopsGroupByArgs['orderBy'] }
+        : { orderBy?: cfopsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, cfopsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCfopsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the cfops model
+   */
+  readonly fields: cfopsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for cfops.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__cfopsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    dadosFiscaisPecas<T extends cfops$dadosFiscaisPecasArgs<ExtArgs> = {}>(args?: Subset<T, cfops$dadosFiscaisPecasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$dados_fiscais_pecaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the cfops model
+   */
+  interface cfopsFieldRefs {
+    readonly id: FieldRef<"cfops", 'String'>
+    readonly codigo: FieldRef<"cfops", 'String'>
+    readonly descricao: FieldRef<"cfops", 'String'>
+    readonly tipo: FieldRef<"cfops", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * cfops findUnique
+   */
+  export type cfopsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cfops
+     */
+    select?: cfopsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cfops
+     */
+    omit?: cfopsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: cfopsInclude<ExtArgs> | null
+    /**
+     * Filter, which cfops to fetch.
+     */
+    where: cfopsWhereUniqueInput
+  }
+
+  /**
+   * cfops findUniqueOrThrow
+   */
+  export type cfopsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cfops
+     */
+    select?: cfopsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cfops
+     */
+    omit?: cfopsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: cfopsInclude<ExtArgs> | null
+    /**
+     * Filter, which cfops to fetch.
+     */
+    where: cfopsWhereUniqueInput
+  }
+
+  /**
+   * cfops findFirst
+   */
+  export type cfopsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cfops
+     */
+    select?: cfopsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cfops
+     */
+    omit?: cfopsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: cfopsInclude<ExtArgs> | null
+    /**
+     * Filter, which cfops to fetch.
+     */
+    where?: cfopsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cfops to fetch.
+     */
+    orderBy?: cfopsOrderByWithRelationInput | cfopsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for cfops.
+     */
+    cursor?: cfopsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cfops from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cfops.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of cfops.
+     */
+    distinct?: CfopsScalarFieldEnum | CfopsScalarFieldEnum[]
+  }
+
+  /**
+   * cfops findFirstOrThrow
+   */
+  export type cfopsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cfops
+     */
+    select?: cfopsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cfops
+     */
+    omit?: cfopsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: cfopsInclude<ExtArgs> | null
+    /**
+     * Filter, which cfops to fetch.
+     */
+    where?: cfopsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cfops to fetch.
+     */
+    orderBy?: cfopsOrderByWithRelationInput | cfopsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for cfops.
+     */
+    cursor?: cfopsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cfops from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cfops.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of cfops.
+     */
+    distinct?: CfopsScalarFieldEnum | CfopsScalarFieldEnum[]
+  }
+
+  /**
+   * cfops findMany
+   */
+  export type cfopsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cfops
+     */
+    select?: cfopsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cfops
+     */
+    omit?: cfopsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: cfopsInclude<ExtArgs> | null
+    /**
+     * Filter, which cfops to fetch.
+     */
+    where?: cfopsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cfops to fetch.
+     */
+    orderBy?: cfopsOrderByWithRelationInput | cfopsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing cfops.
+     */
+    cursor?: cfopsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cfops from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cfops.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of cfops.
+     */
+    distinct?: CfopsScalarFieldEnum | CfopsScalarFieldEnum[]
+  }
+
+  /**
+   * cfops create
+   */
+  export type cfopsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cfops
+     */
+    select?: cfopsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cfops
+     */
+    omit?: cfopsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: cfopsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a cfops.
+     */
+    data: XOR<cfopsCreateInput, cfopsUncheckedCreateInput>
+  }
+
+  /**
+   * cfops createMany
+   */
+  export type cfopsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many cfops.
+     */
+    data: cfopsCreateManyInput | cfopsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * cfops createManyAndReturn
+   */
+  export type cfopsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cfops
+     */
+    select?: cfopsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the cfops
+     */
+    omit?: cfopsOmit<ExtArgs> | null
+    /**
+     * The data used to create many cfops.
+     */
+    data: cfopsCreateManyInput | cfopsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * cfops update
+   */
+  export type cfopsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cfops
+     */
+    select?: cfopsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cfops
+     */
+    omit?: cfopsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: cfopsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a cfops.
+     */
+    data: XOR<cfopsUpdateInput, cfopsUncheckedUpdateInput>
+    /**
+     * Choose, which cfops to update.
+     */
+    where: cfopsWhereUniqueInput
+  }
+
+  /**
+   * cfops updateMany
+   */
+  export type cfopsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update cfops.
+     */
+    data: XOR<cfopsUpdateManyMutationInput, cfopsUncheckedUpdateManyInput>
+    /**
+     * Filter which cfops to update
+     */
+    where?: cfopsWhereInput
+    /**
+     * Limit how many cfops to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * cfops updateManyAndReturn
+   */
+  export type cfopsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cfops
+     */
+    select?: cfopsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the cfops
+     */
+    omit?: cfopsOmit<ExtArgs> | null
+    /**
+     * The data used to update cfops.
+     */
+    data: XOR<cfopsUpdateManyMutationInput, cfopsUncheckedUpdateManyInput>
+    /**
+     * Filter which cfops to update
+     */
+    where?: cfopsWhereInput
+    /**
+     * Limit how many cfops to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * cfops upsert
+   */
+  export type cfopsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cfops
+     */
+    select?: cfopsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cfops
+     */
+    omit?: cfopsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: cfopsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the cfops to update in case it exists.
+     */
+    where: cfopsWhereUniqueInput
+    /**
+     * In case the cfops found by the `where` argument doesn't exist, create a new cfops with this data.
+     */
+    create: XOR<cfopsCreateInput, cfopsUncheckedCreateInput>
+    /**
+     * In case the cfops was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<cfopsUpdateInput, cfopsUncheckedUpdateInput>
+  }
+
+  /**
+   * cfops delete
+   */
+  export type cfopsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cfops
+     */
+    select?: cfopsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cfops
+     */
+    omit?: cfopsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: cfopsInclude<ExtArgs> | null
+    /**
+     * Filter which cfops to delete.
+     */
+    where: cfopsWhereUniqueInput
+  }
+
+  /**
+   * cfops deleteMany
+   */
+  export type cfopsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which cfops to delete
+     */
+    where?: cfopsWhereInput
+    /**
+     * Limit how many cfops to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * cfops.dadosFiscaisPecas
+   */
+  export type cfops$dadosFiscaisPecasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the dados_fiscais_peca
+     */
+    select?: dados_fiscais_pecaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the dados_fiscais_peca
+     */
+    omit?: dados_fiscais_pecaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: dados_fiscais_pecaInclude<ExtArgs> | null
+    where?: dados_fiscais_pecaWhereInput
+    orderBy?: dados_fiscais_pecaOrderByWithRelationInput | dados_fiscais_pecaOrderByWithRelationInput[]
+    cursor?: dados_fiscais_pecaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Dados_fiscais_pecaScalarFieldEnum | Dados_fiscais_pecaScalarFieldEnum[]
+  }
+
+  /**
+   * cfops without action
+   */
+  export type cfopsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cfops
+     */
+    select?: cfopsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cfops
+     */
+    omit?: cfopsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: cfopsInclude<ExtArgs> | null
   }
 
 
@@ -25393,6 +27057,7 @@ export namespace Prisma {
     chassi: string | null
     cor: string | null
     ano_fabricacao: number | null
+    os_servicos_itensId: string | null
   }
 
   export type Veiculos_cliente_manutencaoMaxAggregateOutputType = {
@@ -25403,6 +27068,7 @@ export namespace Prisma {
     chassi: string | null
     cor: string | null
     ano_fabricacao: number | null
+    os_servicos_itensId: string | null
   }
 
   export type Veiculos_cliente_manutencaoCountAggregateOutputType = {
@@ -25413,6 +27079,7 @@ export namespace Prisma {
     chassi: number
     cor: number
     ano_fabricacao: number
+    os_servicos_itensId: number
     _all: number
   }
 
@@ -25435,6 +27102,7 @@ export namespace Prisma {
     chassi?: true
     cor?: true
     ano_fabricacao?: true
+    os_servicos_itensId?: true
   }
 
   export type Veiculos_cliente_manutencaoMaxAggregateInputType = {
@@ -25445,6 +27113,7 @@ export namespace Prisma {
     chassi?: true
     cor?: true
     ano_fabricacao?: true
+    os_servicos_itensId?: true
   }
 
   export type Veiculos_cliente_manutencaoCountAggregateInputType = {
@@ -25455,6 +27124,7 @@ export namespace Prisma {
     chassi?: true
     cor?: true
     ano_fabricacao?: true
+    os_servicos_itensId?: true
     _all?: true
   }
 
@@ -25552,6 +27222,7 @@ export namespace Prisma {
     chassi: string | null
     cor: string | null
     ano_fabricacao: number | null
+    os_servicos_itensId: string | null
     _count: Veiculos_cliente_manutencaoCountAggregateOutputType | null
     _avg: Veiculos_cliente_manutencaoAvgAggregateOutputType | null
     _sum: Veiculos_cliente_manutencaoSumAggregateOutputType | null
@@ -25581,9 +27252,11 @@ export namespace Prisma {
     chassi?: boolean
     cor?: boolean
     ano_fabricacao?: boolean
+    os_servicos_itensId?: boolean
     ordem_servico?: boolean | veiculos_cliente_manutencao$ordem_servicoArgs<ExtArgs>
     clientes?: boolean | clientesDefaultArgs<ExtArgs>
     modelos?: boolean | modelosDefaultArgs<ExtArgs>
+    osServicosItens?: boolean | veiculos_cliente_manutencao$osServicosItensArgs<ExtArgs>
     _count?: boolean | Veiculos_cliente_manutencaoCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["veiculos_cliente_manutencao"]>
 
@@ -25595,8 +27268,10 @@ export namespace Prisma {
     chassi?: boolean
     cor?: boolean
     ano_fabricacao?: boolean
+    os_servicos_itensId?: boolean
     clientes?: boolean | clientesDefaultArgs<ExtArgs>
     modelos?: boolean | modelosDefaultArgs<ExtArgs>
+    osServicosItens?: boolean | veiculos_cliente_manutencao$osServicosItensArgs<ExtArgs>
   }, ExtArgs["result"]["veiculos_cliente_manutencao"]>
 
   export type veiculos_cliente_manutencaoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -25607,8 +27282,10 @@ export namespace Prisma {
     chassi?: boolean
     cor?: boolean
     ano_fabricacao?: boolean
+    os_servicos_itensId?: boolean
     clientes?: boolean | clientesDefaultArgs<ExtArgs>
     modelos?: boolean | modelosDefaultArgs<ExtArgs>
+    osServicosItens?: boolean | veiculos_cliente_manutencao$osServicosItensArgs<ExtArgs>
   }, ExtArgs["result"]["veiculos_cliente_manutencao"]>
 
   export type veiculos_cliente_manutencaoSelectScalar = {
@@ -25619,22 +27296,26 @@ export namespace Prisma {
     chassi?: boolean
     cor?: boolean
     ano_fabricacao?: boolean
+    os_servicos_itensId?: boolean
   }
 
-  export type veiculos_cliente_manutencaoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "modelo_id" | "cliente_id" | "placa" | "chassi" | "cor" | "ano_fabricacao", ExtArgs["result"]["veiculos_cliente_manutencao"]>
+  export type veiculos_cliente_manutencaoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "modelo_id" | "cliente_id" | "placa" | "chassi" | "cor" | "ano_fabricacao" | "os_servicos_itensId", ExtArgs["result"]["veiculos_cliente_manutencao"]>
   export type veiculos_cliente_manutencaoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ordem_servico?: boolean | veiculos_cliente_manutencao$ordem_servicoArgs<ExtArgs>
     clientes?: boolean | clientesDefaultArgs<ExtArgs>
     modelos?: boolean | modelosDefaultArgs<ExtArgs>
+    osServicosItens?: boolean | veiculos_cliente_manutencao$osServicosItensArgs<ExtArgs>
     _count?: boolean | Veiculos_cliente_manutencaoCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type veiculos_cliente_manutencaoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     clientes?: boolean | clientesDefaultArgs<ExtArgs>
     modelos?: boolean | modelosDefaultArgs<ExtArgs>
+    osServicosItens?: boolean | veiculos_cliente_manutencao$osServicosItensArgs<ExtArgs>
   }
   export type veiculos_cliente_manutencaoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     clientes?: boolean | clientesDefaultArgs<ExtArgs>
     modelos?: boolean | modelosDefaultArgs<ExtArgs>
+    osServicosItens?: boolean | veiculos_cliente_manutencao$osServicosItensArgs<ExtArgs>
   }
 
   export type $veiculos_cliente_manutencaoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -25643,6 +27324,7 @@ export namespace Prisma {
       ordem_servico: Prisma.$ordem_servicoPayload<ExtArgs>[]
       clientes: Prisma.$clientesPayload<ExtArgs>
       modelos: Prisma.$modelosPayload<ExtArgs>
+      osServicosItens: Prisma.$os_servicos_itensPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -25652,6 +27334,7 @@ export namespace Prisma {
       chassi: string | null
       cor: string | null
       ano_fabricacao: number | null
+      os_servicos_itensId: string | null
     }, ExtArgs["result"]["veiculos_cliente_manutencao"]>
     composites: {}
   }
@@ -26049,6 +27732,7 @@ export namespace Prisma {
     ordem_servico<T extends veiculos_cliente_manutencao$ordem_servicoArgs<ExtArgs> = {}>(args?: Subset<T, veiculos_cliente_manutencao$ordem_servicoArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ordem_servicoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     clientes<T extends clientesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, clientesDefaultArgs<ExtArgs>>): Prisma__clientesClient<$Result.GetResult<Prisma.$clientesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     modelos<T extends modelosDefaultArgs<ExtArgs> = {}>(args?: Subset<T, modelosDefaultArgs<ExtArgs>>): Prisma__modelosClient<$Result.GetResult<Prisma.$modelosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    osServicosItens<T extends veiculos_cliente_manutencao$osServicosItensArgs<ExtArgs> = {}>(args?: Subset<T, veiculos_cliente_manutencao$osServicosItensArgs<ExtArgs>>): Prisma__os_servicos_itensClient<$Result.GetResult<Prisma.$os_servicos_itensPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -26085,6 +27769,7 @@ export namespace Prisma {
     readonly chassi: FieldRef<"veiculos_cliente_manutencao", 'String'>
     readonly cor: FieldRef<"veiculos_cliente_manutencao", 'String'>
     readonly ano_fabricacao: FieldRef<"veiculos_cliente_manutencao", 'Int'>
+    readonly os_servicos_itensId: FieldRef<"veiculos_cliente_manutencao", 'String'>
   }
     
 
@@ -26507,6 +28192,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Ordem_servicoScalarFieldEnum | Ordem_servicoScalarFieldEnum[]
+  }
+
+  /**
+   * veiculos_cliente_manutencao.osServicosItens
+   */
+  export type veiculos_cliente_manutencao$osServicosItensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the os_servicos_itens
+     */
+    select?: os_servicos_itensSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the os_servicos_itens
+     */
+    omit?: os_servicos_itensOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: os_servicos_itensInclude<ExtArgs> | null
+    where?: os_servicos_itensWhereInput
   }
 
   /**
@@ -27669,6 +29373,2355 @@ export namespace Prisma {
 
 
   /**
+   * Model PlanoContas
+   */
+
+  export type AggregatePlanoContas = {
+    _count: PlanoContasCountAggregateOutputType | null
+    _min: PlanoContasMinAggregateOutputType | null
+    _max: PlanoContasMaxAggregateOutputType | null
+  }
+
+  export type PlanoContasMinAggregateOutputType = {
+    id: string | null
+    codigo_contabil: string | null
+    nome_conta: string | null
+    tipo_dre: $Enums.TipoContaPlano | null
+  }
+
+  export type PlanoContasMaxAggregateOutputType = {
+    id: string | null
+    codigo_contabil: string | null
+    nome_conta: string | null
+    tipo_dre: $Enums.TipoContaPlano | null
+  }
+
+  export type PlanoContasCountAggregateOutputType = {
+    id: number
+    codigo_contabil: number
+    nome_conta: number
+    tipo_dre: number
+    _all: number
+  }
+
+
+  export type PlanoContasMinAggregateInputType = {
+    id?: true
+    codigo_contabil?: true
+    nome_conta?: true
+    tipo_dre?: true
+  }
+
+  export type PlanoContasMaxAggregateInputType = {
+    id?: true
+    codigo_contabil?: true
+    nome_conta?: true
+    tipo_dre?: true
+  }
+
+  export type PlanoContasCountAggregateInputType = {
+    id?: true
+    codigo_contabil?: true
+    nome_conta?: true
+    tipo_dre?: true
+    _all?: true
+  }
+
+  export type PlanoContasAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PlanoContas to aggregate.
+     */
+    where?: PlanoContasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlanoContas to fetch.
+     */
+    orderBy?: PlanoContasOrderByWithRelationInput | PlanoContasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PlanoContasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlanoContas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlanoContas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PlanoContas
+    **/
+    _count?: true | PlanoContasCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PlanoContasMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PlanoContasMaxAggregateInputType
+  }
+
+  export type GetPlanoContasAggregateType<T extends PlanoContasAggregateArgs> = {
+        [P in keyof T & keyof AggregatePlanoContas]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePlanoContas[P]>
+      : GetScalarType<T[P], AggregatePlanoContas[P]>
+  }
+
+
+
+
+  export type PlanoContasGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlanoContasWhereInput
+    orderBy?: PlanoContasOrderByWithAggregationInput | PlanoContasOrderByWithAggregationInput[]
+    by: PlanoContasScalarFieldEnum[] | PlanoContasScalarFieldEnum
+    having?: PlanoContasScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PlanoContasCountAggregateInputType | true
+    _min?: PlanoContasMinAggregateInputType
+    _max?: PlanoContasMaxAggregateInputType
+  }
+
+  export type PlanoContasGroupByOutputType = {
+    id: string
+    codigo_contabil: string
+    nome_conta: string
+    tipo_dre: $Enums.TipoContaPlano
+    _count: PlanoContasCountAggregateOutputType | null
+    _min: PlanoContasMinAggregateOutputType | null
+    _max: PlanoContasMaxAggregateOutputType | null
+  }
+
+  type GetPlanoContasGroupByPayload<T extends PlanoContasGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PlanoContasGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PlanoContasGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PlanoContasGroupByOutputType[P]>
+            : GetScalarType<T[P], PlanoContasGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PlanoContasSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    codigo_contabil?: boolean
+    nome_conta?: boolean
+    tipo_dre?: boolean
+    despesas?: boolean | PlanoContas$despesasArgs<ExtArgs>
+    lancamentos_caixa?: boolean | PlanoContas$lancamentos_caixaArgs<ExtArgs>
+    pedidos_vendas?: boolean | PlanoContas$pedidos_vendasArgs<ExtArgs>
+    movimentacoes?: boolean | PlanoContas$movimentacoesArgs<ExtArgs>
+    _count?: boolean | PlanoContasCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["planoContas"]>
+
+  export type PlanoContasSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    codigo_contabil?: boolean
+    nome_conta?: boolean
+    tipo_dre?: boolean
+  }, ExtArgs["result"]["planoContas"]>
+
+  export type PlanoContasSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    codigo_contabil?: boolean
+    nome_conta?: boolean
+    tipo_dre?: boolean
+  }, ExtArgs["result"]["planoContas"]>
+
+  export type PlanoContasSelectScalar = {
+    id?: boolean
+    codigo_contabil?: boolean
+    nome_conta?: boolean
+    tipo_dre?: boolean
+  }
+
+  export type PlanoContasOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "codigo_contabil" | "nome_conta" | "tipo_dre", ExtArgs["result"]["planoContas"]>
+  export type PlanoContasInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    despesas?: boolean | PlanoContas$despesasArgs<ExtArgs>
+    lancamentos_caixa?: boolean | PlanoContas$lancamentos_caixaArgs<ExtArgs>
+    pedidos_vendas?: boolean | PlanoContas$pedidos_vendasArgs<ExtArgs>
+    movimentacoes?: boolean | PlanoContas$movimentacoesArgs<ExtArgs>
+    _count?: boolean | PlanoContasCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type PlanoContasIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type PlanoContasIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $PlanoContasPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PlanoContas"
+    objects: {
+      despesas: Prisma.$despesasPayload<ExtArgs>[]
+      lancamentos_caixa: Prisma.$fluxo_caixaPayload<ExtArgs>[]
+      pedidos_vendas: Prisma.$pedidos_vendasPayload<ExtArgs>[]
+      movimentacoes: Prisma.$MovimentacaoPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      codigo_contabil: string
+      nome_conta: string
+      tipo_dre: $Enums.TipoContaPlano
+    }, ExtArgs["result"]["planoContas"]>
+    composites: {}
+  }
+
+  type PlanoContasGetPayload<S extends boolean | null | undefined | PlanoContasDefaultArgs> = $Result.GetResult<Prisma.$PlanoContasPayload, S>
+
+  type PlanoContasCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PlanoContasFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PlanoContasCountAggregateInputType | true
+    }
+
+  export interface PlanoContasDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PlanoContas'], meta: { name: 'PlanoContas' } }
+    /**
+     * Find zero or one PlanoContas that matches the filter.
+     * @param {PlanoContasFindUniqueArgs} args - Arguments to find a PlanoContas
+     * @example
+     * // Get one PlanoContas
+     * const planoContas = await prisma.planoContas.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PlanoContasFindUniqueArgs>(args: SelectSubset<T, PlanoContasFindUniqueArgs<ExtArgs>>): Prisma__PlanoContasClient<$Result.GetResult<Prisma.$PlanoContasPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PlanoContas that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PlanoContasFindUniqueOrThrowArgs} args - Arguments to find a PlanoContas
+     * @example
+     * // Get one PlanoContas
+     * const planoContas = await prisma.planoContas.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PlanoContasFindUniqueOrThrowArgs>(args: SelectSubset<T, PlanoContasFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PlanoContasClient<$Result.GetResult<Prisma.$PlanoContasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PlanoContas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanoContasFindFirstArgs} args - Arguments to find a PlanoContas
+     * @example
+     * // Get one PlanoContas
+     * const planoContas = await prisma.planoContas.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PlanoContasFindFirstArgs>(args?: SelectSubset<T, PlanoContasFindFirstArgs<ExtArgs>>): Prisma__PlanoContasClient<$Result.GetResult<Prisma.$PlanoContasPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PlanoContas that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanoContasFindFirstOrThrowArgs} args - Arguments to find a PlanoContas
+     * @example
+     * // Get one PlanoContas
+     * const planoContas = await prisma.planoContas.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PlanoContasFindFirstOrThrowArgs>(args?: SelectSubset<T, PlanoContasFindFirstOrThrowArgs<ExtArgs>>): Prisma__PlanoContasClient<$Result.GetResult<Prisma.$PlanoContasPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PlanoContas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanoContasFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PlanoContas
+     * const planoContas = await prisma.planoContas.findMany()
+     * 
+     * // Get first 10 PlanoContas
+     * const planoContas = await prisma.planoContas.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const planoContasWithIdOnly = await prisma.planoContas.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PlanoContasFindManyArgs>(args?: SelectSubset<T, PlanoContasFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlanoContasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PlanoContas.
+     * @param {PlanoContasCreateArgs} args - Arguments to create a PlanoContas.
+     * @example
+     * // Create one PlanoContas
+     * const PlanoContas = await prisma.planoContas.create({
+     *   data: {
+     *     // ... data to create a PlanoContas
+     *   }
+     * })
+     * 
+     */
+    create<T extends PlanoContasCreateArgs>(args: SelectSubset<T, PlanoContasCreateArgs<ExtArgs>>): Prisma__PlanoContasClient<$Result.GetResult<Prisma.$PlanoContasPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PlanoContas.
+     * @param {PlanoContasCreateManyArgs} args - Arguments to create many PlanoContas.
+     * @example
+     * // Create many PlanoContas
+     * const planoContas = await prisma.planoContas.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PlanoContasCreateManyArgs>(args?: SelectSubset<T, PlanoContasCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PlanoContas and returns the data saved in the database.
+     * @param {PlanoContasCreateManyAndReturnArgs} args - Arguments to create many PlanoContas.
+     * @example
+     * // Create many PlanoContas
+     * const planoContas = await prisma.planoContas.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PlanoContas and only return the `id`
+     * const planoContasWithIdOnly = await prisma.planoContas.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PlanoContasCreateManyAndReturnArgs>(args?: SelectSubset<T, PlanoContasCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlanoContasPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PlanoContas.
+     * @param {PlanoContasDeleteArgs} args - Arguments to delete one PlanoContas.
+     * @example
+     * // Delete one PlanoContas
+     * const PlanoContas = await prisma.planoContas.delete({
+     *   where: {
+     *     // ... filter to delete one PlanoContas
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PlanoContasDeleteArgs>(args: SelectSubset<T, PlanoContasDeleteArgs<ExtArgs>>): Prisma__PlanoContasClient<$Result.GetResult<Prisma.$PlanoContasPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PlanoContas.
+     * @param {PlanoContasUpdateArgs} args - Arguments to update one PlanoContas.
+     * @example
+     * // Update one PlanoContas
+     * const planoContas = await prisma.planoContas.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PlanoContasUpdateArgs>(args: SelectSubset<T, PlanoContasUpdateArgs<ExtArgs>>): Prisma__PlanoContasClient<$Result.GetResult<Prisma.$PlanoContasPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PlanoContas.
+     * @param {PlanoContasDeleteManyArgs} args - Arguments to filter PlanoContas to delete.
+     * @example
+     * // Delete a few PlanoContas
+     * const { count } = await prisma.planoContas.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PlanoContasDeleteManyArgs>(args?: SelectSubset<T, PlanoContasDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PlanoContas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanoContasUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PlanoContas
+     * const planoContas = await prisma.planoContas.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PlanoContasUpdateManyArgs>(args: SelectSubset<T, PlanoContasUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PlanoContas and returns the data updated in the database.
+     * @param {PlanoContasUpdateManyAndReturnArgs} args - Arguments to update many PlanoContas.
+     * @example
+     * // Update many PlanoContas
+     * const planoContas = await prisma.planoContas.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PlanoContas and only return the `id`
+     * const planoContasWithIdOnly = await prisma.planoContas.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PlanoContasUpdateManyAndReturnArgs>(args: SelectSubset<T, PlanoContasUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlanoContasPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PlanoContas.
+     * @param {PlanoContasUpsertArgs} args - Arguments to update or create a PlanoContas.
+     * @example
+     * // Update or create a PlanoContas
+     * const planoContas = await prisma.planoContas.upsert({
+     *   create: {
+     *     // ... data to create a PlanoContas
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PlanoContas we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PlanoContasUpsertArgs>(args: SelectSubset<T, PlanoContasUpsertArgs<ExtArgs>>): Prisma__PlanoContasClient<$Result.GetResult<Prisma.$PlanoContasPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PlanoContas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanoContasCountArgs} args - Arguments to filter PlanoContas to count.
+     * @example
+     * // Count the number of PlanoContas
+     * const count = await prisma.planoContas.count({
+     *   where: {
+     *     // ... the filter for the PlanoContas we want to count
+     *   }
+     * })
+    **/
+    count<T extends PlanoContasCountArgs>(
+      args?: Subset<T, PlanoContasCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PlanoContasCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PlanoContas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanoContasAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PlanoContasAggregateArgs>(args: Subset<T, PlanoContasAggregateArgs>): Prisma.PrismaPromise<GetPlanoContasAggregateType<T>>
+
+    /**
+     * Group by PlanoContas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanoContasGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PlanoContasGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PlanoContasGroupByArgs['orderBy'] }
+        : { orderBy?: PlanoContasGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PlanoContasGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPlanoContasGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PlanoContas model
+   */
+  readonly fields: PlanoContasFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PlanoContas.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PlanoContasClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    despesas<T extends PlanoContas$despesasArgs<ExtArgs> = {}>(args?: Subset<T, PlanoContas$despesasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$despesasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    lancamentos_caixa<T extends PlanoContas$lancamentos_caixaArgs<ExtArgs> = {}>(args?: Subset<T, PlanoContas$lancamentos_caixaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$fluxo_caixaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    pedidos_vendas<T extends PlanoContas$pedidos_vendasArgs<ExtArgs> = {}>(args?: Subset<T, PlanoContas$pedidos_vendasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$pedidos_vendasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    movimentacoes<T extends PlanoContas$movimentacoesArgs<ExtArgs> = {}>(args?: Subset<T, PlanoContas$movimentacoesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MovimentacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PlanoContas model
+   */
+  interface PlanoContasFieldRefs {
+    readonly id: FieldRef<"PlanoContas", 'String'>
+    readonly codigo_contabil: FieldRef<"PlanoContas", 'String'>
+    readonly nome_conta: FieldRef<"PlanoContas", 'String'>
+    readonly tipo_dre: FieldRef<"PlanoContas", 'TipoContaPlano'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PlanoContas findUnique
+   */
+  export type PlanoContasFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanoContas
+     */
+    select?: PlanoContasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanoContas
+     */
+    omit?: PlanoContasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanoContasInclude<ExtArgs> | null
+    /**
+     * Filter, which PlanoContas to fetch.
+     */
+    where: PlanoContasWhereUniqueInput
+  }
+
+  /**
+   * PlanoContas findUniqueOrThrow
+   */
+  export type PlanoContasFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanoContas
+     */
+    select?: PlanoContasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanoContas
+     */
+    omit?: PlanoContasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanoContasInclude<ExtArgs> | null
+    /**
+     * Filter, which PlanoContas to fetch.
+     */
+    where: PlanoContasWhereUniqueInput
+  }
+
+  /**
+   * PlanoContas findFirst
+   */
+  export type PlanoContasFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanoContas
+     */
+    select?: PlanoContasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanoContas
+     */
+    omit?: PlanoContasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanoContasInclude<ExtArgs> | null
+    /**
+     * Filter, which PlanoContas to fetch.
+     */
+    where?: PlanoContasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlanoContas to fetch.
+     */
+    orderBy?: PlanoContasOrderByWithRelationInput | PlanoContasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlanoContas.
+     */
+    cursor?: PlanoContasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlanoContas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlanoContas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlanoContas.
+     */
+    distinct?: PlanoContasScalarFieldEnum | PlanoContasScalarFieldEnum[]
+  }
+
+  /**
+   * PlanoContas findFirstOrThrow
+   */
+  export type PlanoContasFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanoContas
+     */
+    select?: PlanoContasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanoContas
+     */
+    omit?: PlanoContasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanoContasInclude<ExtArgs> | null
+    /**
+     * Filter, which PlanoContas to fetch.
+     */
+    where?: PlanoContasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlanoContas to fetch.
+     */
+    orderBy?: PlanoContasOrderByWithRelationInput | PlanoContasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlanoContas.
+     */
+    cursor?: PlanoContasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlanoContas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlanoContas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlanoContas.
+     */
+    distinct?: PlanoContasScalarFieldEnum | PlanoContasScalarFieldEnum[]
+  }
+
+  /**
+   * PlanoContas findMany
+   */
+  export type PlanoContasFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanoContas
+     */
+    select?: PlanoContasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanoContas
+     */
+    omit?: PlanoContasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanoContasInclude<ExtArgs> | null
+    /**
+     * Filter, which PlanoContas to fetch.
+     */
+    where?: PlanoContasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlanoContas to fetch.
+     */
+    orderBy?: PlanoContasOrderByWithRelationInput | PlanoContasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PlanoContas.
+     */
+    cursor?: PlanoContasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlanoContas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlanoContas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlanoContas.
+     */
+    distinct?: PlanoContasScalarFieldEnum | PlanoContasScalarFieldEnum[]
+  }
+
+  /**
+   * PlanoContas create
+   */
+  export type PlanoContasCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanoContas
+     */
+    select?: PlanoContasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanoContas
+     */
+    omit?: PlanoContasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanoContasInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PlanoContas.
+     */
+    data: XOR<PlanoContasCreateInput, PlanoContasUncheckedCreateInput>
+  }
+
+  /**
+   * PlanoContas createMany
+   */
+  export type PlanoContasCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PlanoContas.
+     */
+    data: PlanoContasCreateManyInput | PlanoContasCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PlanoContas createManyAndReturn
+   */
+  export type PlanoContasCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanoContas
+     */
+    select?: PlanoContasSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanoContas
+     */
+    omit?: PlanoContasOmit<ExtArgs> | null
+    /**
+     * The data used to create many PlanoContas.
+     */
+    data: PlanoContasCreateManyInput | PlanoContasCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PlanoContas update
+   */
+  export type PlanoContasUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanoContas
+     */
+    select?: PlanoContasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanoContas
+     */
+    omit?: PlanoContasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanoContasInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PlanoContas.
+     */
+    data: XOR<PlanoContasUpdateInput, PlanoContasUncheckedUpdateInput>
+    /**
+     * Choose, which PlanoContas to update.
+     */
+    where: PlanoContasWhereUniqueInput
+  }
+
+  /**
+   * PlanoContas updateMany
+   */
+  export type PlanoContasUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PlanoContas.
+     */
+    data: XOR<PlanoContasUpdateManyMutationInput, PlanoContasUncheckedUpdateManyInput>
+    /**
+     * Filter which PlanoContas to update
+     */
+    where?: PlanoContasWhereInput
+    /**
+     * Limit how many PlanoContas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PlanoContas updateManyAndReturn
+   */
+  export type PlanoContasUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanoContas
+     */
+    select?: PlanoContasSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanoContas
+     */
+    omit?: PlanoContasOmit<ExtArgs> | null
+    /**
+     * The data used to update PlanoContas.
+     */
+    data: XOR<PlanoContasUpdateManyMutationInput, PlanoContasUncheckedUpdateManyInput>
+    /**
+     * Filter which PlanoContas to update
+     */
+    where?: PlanoContasWhereInput
+    /**
+     * Limit how many PlanoContas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PlanoContas upsert
+   */
+  export type PlanoContasUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanoContas
+     */
+    select?: PlanoContasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanoContas
+     */
+    omit?: PlanoContasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanoContasInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PlanoContas to update in case it exists.
+     */
+    where: PlanoContasWhereUniqueInput
+    /**
+     * In case the PlanoContas found by the `where` argument doesn't exist, create a new PlanoContas with this data.
+     */
+    create: XOR<PlanoContasCreateInput, PlanoContasUncheckedCreateInput>
+    /**
+     * In case the PlanoContas was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PlanoContasUpdateInput, PlanoContasUncheckedUpdateInput>
+  }
+
+  /**
+   * PlanoContas delete
+   */
+  export type PlanoContasDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanoContas
+     */
+    select?: PlanoContasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanoContas
+     */
+    omit?: PlanoContasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanoContasInclude<ExtArgs> | null
+    /**
+     * Filter which PlanoContas to delete.
+     */
+    where: PlanoContasWhereUniqueInput
+  }
+
+  /**
+   * PlanoContas deleteMany
+   */
+  export type PlanoContasDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PlanoContas to delete
+     */
+    where?: PlanoContasWhereInput
+    /**
+     * Limit how many PlanoContas to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PlanoContas.despesas
+   */
+  export type PlanoContas$despesasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the despesas
+     */
+    select?: despesasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the despesas
+     */
+    omit?: despesasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: despesasInclude<ExtArgs> | null
+    where?: despesasWhereInput
+    orderBy?: despesasOrderByWithRelationInput | despesasOrderByWithRelationInput[]
+    cursor?: despesasWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DespesasScalarFieldEnum | DespesasScalarFieldEnum[]
+  }
+
+  /**
+   * PlanoContas.lancamentos_caixa
+   */
+  export type PlanoContas$lancamentos_caixaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the fluxo_caixa
+     */
+    select?: fluxo_caixaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the fluxo_caixa
+     */
+    omit?: fluxo_caixaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: fluxo_caixaInclude<ExtArgs> | null
+    where?: fluxo_caixaWhereInput
+    orderBy?: fluxo_caixaOrderByWithRelationInput | fluxo_caixaOrderByWithRelationInput[]
+    cursor?: fluxo_caixaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Fluxo_caixaScalarFieldEnum | Fluxo_caixaScalarFieldEnum[]
+  }
+
+  /**
+   * PlanoContas.pedidos_vendas
+   */
+  export type PlanoContas$pedidos_vendasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the pedidos_vendas
+     */
+    select?: pedidos_vendasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the pedidos_vendas
+     */
+    omit?: pedidos_vendasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: pedidos_vendasInclude<ExtArgs> | null
+    where?: pedidos_vendasWhereInput
+    orderBy?: pedidos_vendasOrderByWithRelationInput | pedidos_vendasOrderByWithRelationInput[]
+    cursor?: pedidos_vendasWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Pedidos_vendasScalarFieldEnum | Pedidos_vendasScalarFieldEnum[]
+  }
+
+  /**
+   * PlanoContas.movimentacoes
+   */
+  export type PlanoContas$movimentacoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Movimentacao
+     */
+    select?: MovimentacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Movimentacao
+     */
+    omit?: MovimentacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoInclude<ExtArgs> | null
+    where?: MovimentacaoWhereInput
+    orderBy?: MovimentacaoOrderByWithRelationInput | MovimentacaoOrderByWithRelationInput[]
+    cursor?: MovimentacaoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MovimentacaoScalarFieldEnum | MovimentacaoScalarFieldEnum[]
+  }
+
+  /**
+   * PlanoContas without action
+   */
+  export type PlanoContasDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanoContas
+     */
+    select?: PlanoContasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanoContas
+     */
+    omit?: PlanoContasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanoContasInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Movimentacao
+   */
+
+  export type AggregateMovimentacao = {
+    _count: MovimentacaoCountAggregateOutputType | null
+    _avg: MovimentacaoAvgAggregateOutputType | null
+    _sum: MovimentacaoSumAggregateOutputType | null
+    _min: MovimentacaoMinAggregateOutputType | null
+    _max: MovimentacaoMaxAggregateOutputType | null
+  }
+
+  export type MovimentacaoAvgAggregateOutputType = {
+    valor: Decimal | null
+  }
+
+  export type MovimentacaoSumAggregateOutputType = {
+    valor: Decimal | null
+  }
+
+  export type MovimentacaoMinAggregateOutputType = {
+    id: string | null
+    valor: Decimal | null
+    tipo: $Enums.TipoMovimentacaoCaixa | null
+    status: $Enums.StatusMovimentacao | null
+    data_vencimento: Date | null
+    data_pagamento: Date | null
+    plano_contas_id: string | null
+    pedido_venda_id: string | null
+    despesa_id: string | null
+  }
+
+  export type MovimentacaoMaxAggregateOutputType = {
+    id: string | null
+    valor: Decimal | null
+    tipo: $Enums.TipoMovimentacaoCaixa | null
+    status: $Enums.StatusMovimentacao | null
+    data_vencimento: Date | null
+    data_pagamento: Date | null
+    plano_contas_id: string | null
+    pedido_venda_id: string | null
+    despesa_id: string | null
+  }
+
+  export type MovimentacaoCountAggregateOutputType = {
+    id: number
+    valor: number
+    tipo: number
+    status: number
+    data_vencimento: number
+    data_pagamento: number
+    plano_contas_id: number
+    pedido_venda_id: number
+    despesa_id: number
+    _all: number
+  }
+
+
+  export type MovimentacaoAvgAggregateInputType = {
+    valor?: true
+  }
+
+  export type MovimentacaoSumAggregateInputType = {
+    valor?: true
+  }
+
+  export type MovimentacaoMinAggregateInputType = {
+    id?: true
+    valor?: true
+    tipo?: true
+    status?: true
+    data_vencimento?: true
+    data_pagamento?: true
+    plano_contas_id?: true
+    pedido_venda_id?: true
+    despesa_id?: true
+  }
+
+  export type MovimentacaoMaxAggregateInputType = {
+    id?: true
+    valor?: true
+    tipo?: true
+    status?: true
+    data_vencimento?: true
+    data_pagamento?: true
+    plano_contas_id?: true
+    pedido_venda_id?: true
+    despesa_id?: true
+  }
+
+  export type MovimentacaoCountAggregateInputType = {
+    id?: true
+    valor?: true
+    tipo?: true
+    status?: true
+    data_vencimento?: true
+    data_pagamento?: true
+    plano_contas_id?: true
+    pedido_venda_id?: true
+    despesa_id?: true
+    _all?: true
+  }
+
+  export type MovimentacaoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Movimentacao to aggregate.
+     */
+    where?: MovimentacaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Movimentacaos to fetch.
+     */
+    orderBy?: MovimentacaoOrderByWithRelationInput | MovimentacaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MovimentacaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Movimentacaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Movimentacaos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Movimentacaos
+    **/
+    _count?: true | MovimentacaoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MovimentacaoAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MovimentacaoSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MovimentacaoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MovimentacaoMaxAggregateInputType
+  }
+
+  export type GetMovimentacaoAggregateType<T extends MovimentacaoAggregateArgs> = {
+        [P in keyof T & keyof AggregateMovimentacao]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMovimentacao[P]>
+      : GetScalarType<T[P], AggregateMovimentacao[P]>
+  }
+
+
+
+
+  export type MovimentacaoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MovimentacaoWhereInput
+    orderBy?: MovimentacaoOrderByWithAggregationInput | MovimentacaoOrderByWithAggregationInput[]
+    by: MovimentacaoScalarFieldEnum[] | MovimentacaoScalarFieldEnum
+    having?: MovimentacaoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MovimentacaoCountAggregateInputType | true
+    _avg?: MovimentacaoAvgAggregateInputType
+    _sum?: MovimentacaoSumAggregateInputType
+    _min?: MovimentacaoMinAggregateInputType
+    _max?: MovimentacaoMaxAggregateInputType
+  }
+
+  export type MovimentacaoGroupByOutputType = {
+    id: string
+    valor: Decimal
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
+    data_vencimento: Date
+    data_pagamento: Date | null
+    plano_contas_id: string
+    pedido_venda_id: string | null
+    despesa_id: string | null
+    _count: MovimentacaoCountAggregateOutputType | null
+    _avg: MovimentacaoAvgAggregateOutputType | null
+    _sum: MovimentacaoSumAggregateOutputType | null
+    _min: MovimentacaoMinAggregateOutputType | null
+    _max: MovimentacaoMaxAggregateOutputType | null
+  }
+
+  type GetMovimentacaoGroupByPayload<T extends MovimentacaoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MovimentacaoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MovimentacaoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MovimentacaoGroupByOutputType[P]>
+            : GetScalarType<T[P], MovimentacaoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MovimentacaoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    valor?: boolean
+    tipo?: boolean
+    status?: boolean
+    data_vencimento?: boolean
+    data_pagamento?: boolean
+    plano_contas_id?: boolean
+    pedido_venda_id?: boolean
+    despesa_id?: boolean
+    plano_contas?: boolean | PlanoContasDefaultArgs<ExtArgs>
+    pedido_venda?: boolean | Movimentacao$pedido_vendaArgs<ExtArgs>
+    despesa?: boolean | Movimentacao$despesaArgs<ExtArgs>
+  }, ExtArgs["result"]["movimentacao"]>
+
+  export type MovimentacaoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    valor?: boolean
+    tipo?: boolean
+    status?: boolean
+    data_vencimento?: boolean
+    data_pagamento?: boolean
+    plano_contas_id?: boolean
+    pedido_venda_id?: boolean
+    despesa_id?: boolean
+    plano_contas?: boolean | PlanoContasDefaultArgs<ExtArgs>
+    pedido_venda?: boolean | Movimentacao$pedido_vendaArgs<ExtArgs>
+    despesa?: boolean | Movimentacao$despesaArgs<ExtArgs>
+  }, ExtArgs["result"]["movimentacao"]>
+
+  export type MovimentacaoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    valor?: boolean
+    tipo?: boolean
+    status?: boolean
+    data_vencimento?: boolean
+    data_pagamento?: boolean
+    plano_contas_id?: boolean
+    pedido_venda_id?: boolean
+    despesa_id?: boolean
+    plano_contas?: boolean | PlanoContasDefaultArgs<ExtArgs>
+    pedido_venda?: boolean | Movimentacao$pedido_vendaArgs<ExtArgs>
+    despesa?: boolean | Movimentacao$despesaArgs<ExtArgs>
+  }, ExtArgs["result"]["movimentacao"]>
+
+  export type MovimentacaoSelectScalar = {
+    id?: boolean
+    valor?: boolean
+    tipo?: boolean
+    status?: boolean
+    data_vencimento?: boolean
+    data_pagamento?: boolean
+    plano_contas_id?: boolean
+    pedido_venda_id?: boolean
+    despesa_id?: boolean
+  }
+
+  export type MovimentacaoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "valor" | "tipo" | "status" | "data_vencimento" | "data_pagamento" | "plano_contas_id" | "pedido_venda_id" | "despesa_id", ExtArgs["result"]["movimentacao"]>
+  export type MovimentacaoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    plano_contas?: boolean | PlanoContasDefaultArgs<ExtArgs>
+    pedido_venda?: boolean | Movimentacao$pedido_vendaArgs<ExtArgs>
+    despesa?: boolean | Movimentacao$despesaArgs<ExtArgs>
+  }
+  export type MovimentacaoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    plano_contas?: boolean | PlanoContasDefaultArgs<ExtArgs>
+    pedido_venda?: boolean | Movimentacao$pedido_vendaArgs<ExtArgs>
+    despesa?: boolean | Movimentacao$despesaArgs<ExtArgs>
+  }
+  export type MovimentacaoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    plano_contas?: boolean | PlanoContasDefaultArgs<ExtArgs>
+    pedido_venda?: boolean | Movimentacao$pedido_vendaArgs<ExtArgs>
+    despesa?: boolean | Movimentacao$despesaArgs<ExtArgs>
+  }
+
+  export type $MovimentacaoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Movimentacao"
+    objects: {
+      plano_contas: Prisma.$PlanoContasPayload<ExtArgs>
+      pedido_venda: Prisma.$pedidos_vendasPayload<ExtArgs> | null
+      despesa: Prisma.$despesasPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      valor: Prisma.Decimal
+      tipo: $Enums.TipoMovimentacaoCaixa
+      status: $Enums.StatusMovimentacao
+      data_vencimento: Date
+      data_pagamento: Date | null
+      plano_contas_id: string
+      pedido_venda_id: string | null
+      despesa_id: string | null
+    }, ExtArgs["result"]["movimentacao"]>
+    composites: {}
+  }
+
+  type MovimentacaoGetPayload<S extends boolean | null | undefined | MovimentacaoDefaultArgs> = $Result.GetResult<Prisma.$MovimentacaoPayload, S>
+
+  type MovimentacaoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MovimentacaoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MovimentacaoCountAggregateInputType | true
+    }
+
+  export interface MovimentacaoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Movimentacao'], meta: { name: 'Movimentacao' } }
+    /**
+     * Find zero or one Movimentacao that matches the filter.
+     * @param {MovimentacaoFindUniqueArgs} args - Arguments to find a Movimentacao
+     * @example
+     * // Get one Movimentacao
+     * const movimentacao = await prisma.movimentacao.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MovimentacaoFindUniqueArgs>(args: SelectSubset<T, MovimentacaoFindUniqueArgs<ExtArgs>>): Prisma__MovimentacaoClient<$Result.GetResult<Prisma.$MovimentacaoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Movimentacao that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MovimentacaoFindUniqueOrThrowArgs} args - Arguments to find a Movimentacao
+     * @example
+     * // Get one Movimentacao
+     * const movimentacao = await prisma.movimentacao.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MovimentacaoFindUniqueOrThrowArgs>(args: SelectSubset<T, MovimentacaoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MovimentacaoClient<$Result.GetResult<Prisma.$MovimentacaoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Movimentacao that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovimentacaoFindFirstArgs} args - Arguments to find a Movimentacao
+     * @example
+     * // Get one Movimentacao
+     * const movimentacao = await prisma.movimentacao.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MovimentacaoFindFirstArgs>(args?: SelectSubset<T, MovimentacaoFindFirstArgs<ExtArgs>>): Prisma__MovimentacaoClient<$Result.GetResult<Prisma.$MovimentacaoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Movimentacao that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovimentacaoFindFirstOrThrowArgs} args - Arguments to find a Movimentacao
+     * @example
+     * // Get one Movimentacao
+     * const movimentacao = await prisma.movimentacao.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MovimentacaoFindFirstOrThrowArgs>(args?: SelectSubset<T, MovimentacaoFindFirstOrThrowArgs<ExtArgs>>): Prisma__MovimentacaoClient<$Result.GetResult<Prisma.$MovimentacaoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Movimentacaos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovimentacaoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Movimentacaos
+     * const movimentacaos = await prisma.movimentacao.findMany()
+     * 
+     * // Get first 10 Movimentacaos
+     * const movimentacaos = await prisma.movimentacao.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const movimentacaoWithIdOnly = await prisma.movimentacao.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MovimentacaoFindManyArgs>(args?: SelectSubset<T, MovimentacaoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MovimentacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Movimentacao.
+     * @param {MovimentacaoCreateArgs} args - Arguments to create a Movimentacao.
+     * @example
+     * // Create one Movimentacao
+     * const Movimentacao = await prisma.movimentacao.create({
+     *   data: {
+     *     // ... data to create a Movimentacao
+     *   }
+     * })
+     * 
+     */
+    create<T extends MovimentacaoCreateArgs>(args: SelectSubset<T, MovimentacaoCreateArgs<ExtArgs>>): Prisma__MovimentacaoClient<$Result.GetResult<Prisma.$MovimentacaoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Movimentacaos.
+     * @param {MovimentacaoCreateManyArgs} args - Arguments to create many Movimentacaos.
+     * @example
+     * // Create many Movimentacaos
+     * const movimentacao = await prisma.movimentacao.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MovimentacaoCreateManyArgs>(args?: SelectSubset<T, MovimentacaoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Movimentacaos and returns the data saved in the database.
+     * @param {MovimentacaoCreateManyAndReturnArgs} args - Arguments to create many Movimentacaos.
+     * @example
+     * // Create many Movimentacaos
+     * const movimentacao = await prisma.movimentacao.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Movimentacaos and only return the `id`
+     * const movimentacaoWithIdOnly = await prisma.movimentacao.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MovimentacaoCreateManyAndReturnArgs>(args?: SelectSubset<T, MovimentacaoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MovimentacaoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Movimentacao.
+     * @param {MovimentacaoDeleteArgs} args - Arguments to delete one Movimentacao.
+     * @example
+     * // Delete one Movimentacao
+     * const Movimentacao = await prisma.movimentacao.delete({
+     *   where: {
+     *     // ... filter to delete one Movimentacao
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MovimentacaoDeleteArgs>(args: SelectSubset<T, MovimentacaoDeleteArgs<ExtArgs>>): Prisma__MovimentacaoClient<$Result.GetResult<Prisma.$MovimentacaoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Movimentacao.
+     * @param {MovimentacaoUpdateArgs} args - Arguments to update one Movimentacao.
+     * @example
+     * // Update one Movimentacao
+     * const movimentacao = await prisma.movimentacao.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MovimentacaoUpdateArgs>(args: SelectSubset<T, MovimentacaoUpdateArgs<ExtArgs>>): Prisma__MovimentacaoClient<$Result.GetResult<Prisma.$MovimentacaoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Movimentacaos.
+     * @param {MovimentacaoDeleteManyArgs} args - Arguments to filter Movimentacaos to delete.
+     * @example
+     * // Delete a few Movimentacaos
+     * const { count } = await prisma.movimentacao.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MovimentacaoDeleteManyArgs>(args?: SelectSubset<T, MovimentacaoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Movimentacaos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovimentacaoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Movimentacaos
+     * const movimentacao = await prisma.movimentacao.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MovimentacaoUpdateManyArgs>(args: SelectSubset<T, MovimentacaoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Movimentacaos and returns the data updated in the database.
+     * @param {MovimentacaoUpdateManyAndReturnArgs} args - Arguments to update many Movimentacaos.
+     * @example
+     * // Update many Movimentacaos
+     * const movimentacao = await prisma.movimentacao.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Movimentacaos and only return the `id`
+     * const movimentacaoWithIdOnly = await prisma.movimentacao.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MovimentacaoUpdateManyAndReturnArgs>(args: SelectSubset<T, MovimentacaoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MovimentacaoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Movimentacao.
+     * @param {MovimentacaoUpsertArgs} args - Arguments to update or create a Movimentacao.
+     * @example
+     * // Update or create a Movimentacao
+     * const movimentacao = await prisma.movimentacao.upsert({
+     *   create: {
+     *     // ... data to create a Movimentacao
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Movimentacao we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MovimentacaoUpsertArgs>(args: SelectSubset<T, MovimentacaoUpsertArgs<ExtArgs>>): Prisma__MovimentacaoClient<$Result.GetResult<Prisma.$MovimentacaoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Movimentacaos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovimentacaoCountArgs} args - Arguments to filter Movimentacaos to count.
+     * @example
+     * // Count the number of Movimentacaos
+     * const count = await prisma.movimentacao.count({
+     *   where: {
+     *     // ... the filter for the Movimentacaos we want to count
+     *   }
+     * })
+    **/
+    count<T extends MovimentacaoCountArgs>(
+      args?: Subset<T, MovimentacaoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MovimentacaoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Movimentacao.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovimentacaoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MovimentacaoAggregateArgs>(args: Subset<T, MovimentacaoAggregateArgs>): Prisma.PrismaPromise<GetMovimentacaoAggregateType<T>>
+
+    /**
+     * Group by Movimentacao.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovimentacaoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MovimentacaoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MovimentacaoGroupByArgs['orderBy'] }
+        : { orderBy?: MovimentacaoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MovimentacaoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMovimentacaoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Movimentacao model
+   */
+  readonly fields: MovimentacaoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Movimentacao.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MovimentacaoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    plano_contas<T extends PlanoContasDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PlanoContasDefaultArgs<ExtArgs>>): Prisma__PlanoContasClient<$Result.GetResult<Prisma.$PlanoContasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    pedido_venda<T extends Movimentacao$pedido_vendaArgs<ExtArgs> = {}>(args?: Subset<T, Movimentacao$pedido_vendaArgs<ExtArgs>>): Prisma__pedidos_vendasClient<$Result.GetResult<Prisma.$pedidos_vendasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    despesa<T extends Movimentacao$despesaArgs<ExtArgs> = {}>(args?: Subset<T, Movimentacao$despesaArgs<ExtArgs>>): Prisma__despesasClient<$Result.GetResult<Prisma.$despesasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Movimentacao model
+   */
+  interface MovimentacaoFieldRefs {
+    readonly id: FieldRef<"Movimentacao", 'String'>
+    readonly valor: FieldRef<"Movimentacao", 'Decimal'>
+    readonly tipo: FieldRef<"Movimentacao", 'TipoMovimentacaoCaixa'>
+    readonly status: FieldRef<"Movimentacao", 'StatusMovimentacao'>
+    readonly data_vencimento: FieldRef<"Movimentacao", 'DateTime'>
+    readonly data_pagamento: FieldRef<"Movimentacao", 'DateTime'>
+    readonly plano_contas_id: FieldRef<"Movimentacao", 'String'>
+    readonly pedido_venda_id: FieldRef<"Movimentacao", 'String'>
+    readonly despesa_id: FieldRef<"Movimentacao", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Movimentacao findUnique
+   */
+  export type MovimentacaoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Movimentacao
+     */
+    select?: MovimentacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Movimentacao
+     */
+    omit?: MovimentacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoInclude<ExtArgs> | null
+    /**
+     * Filter, which Movimentacao to fetch.
+     */
+    where: MovimentacaoWhereUniqueInput
+  }
+
+  /**
+   * Movimentacao findUniqueOrThrow
+   */
+  export type MovimentacaoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Movimentacao
+     */
+    select?: MovimentacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Movimentacao
+     */
+    omit?: MovimentacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoInclude<ExtArgs> | null
+    /**
+     * Filter, which Movimentacao to fetch.
+     */
+    where: MovimentacaoWhereUniqueInput
+  }
+
+  /**
+   * Movimentacao findFirst
+   */
+  export type MovimentacaoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Movimentacao
+     */
+    select?: MovimentacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Movimentacao
+     */
+    omit?: MovimentacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoInclude<ExtArgs> | null
+    /**
+     * Filter, which Movimentacao to fetch.
+     */
+    where?: MovimentacaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Movimentacaos to fetch.
+     */
+    orderBy?: MovimentacaoOrderByWithRelationInput | MovimentacaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Movimentacaos.
+     */
+    cursor?: MovimentacaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Movimentacaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Movimentacaos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Movimentacaos.
+     */
+    distinct?: MovimentacaoScalarFieldEnum | MovimentacaoScalarFieldEnum[]
+  }
+
+  /**
+   * Movimentacao findFirstOrThrow
+   */
+  export type MovimentacaoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Movimentacao
+     */
+    select?: MovimentacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Movimentacao
+     */
+    omit?: MovimentacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoInclude<ExtArgs> | null
+    /**
+     * Filter, which Movimentacao to fetch.
+     */
+    where?: MovimentacaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Movimentacaos to fetch.
+     */
+    orderBy?: MovimentacaoOrderByWithRelationInput | MovimentacaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Movimentacaos.
+     */
+    cursor?: MovimentacaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Movimentacaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Movimentacaos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Movimentacaos.
+     */
+    distinct?: MovimentacaoScalarFieldEnum | MovimentacaoScalarFieldEnum[]
+  }
+
+  /**
+   * Movimentacao findMany
+   */
+  export type MovimentacaoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Movimentacao
+     */
+    select?: MovimentacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Movimentacao
+     */
+    omit?: MovimentacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoInclude<ExtArgs> | null
+    /**
+     * Filter, which Movimentacaos to fetch.
+     */
+    where?: MovimentacaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Movimentacaos to fetch.
+     */
+    orderBy?: MovimentacaoOrderByWithRelationInput | MovimentacaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Movimentacaos.
+     */
+    cursor?: MovimentacaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Movimentacaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Movimentacaos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Movimentacaos.
+     */
+    distinct?: MovimentacaoScalarFieldEnum | MovimentacaoScalarFieldEnum[]
+  }
+
+  /**
+   * Movimentacao create
+   */
+  export type MovimentacaoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Movimentacao
+     */
+    select?: MovimentacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Movimentacao
+     */
+    omit?: MovimentacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Movimentacao.
+     */
+    data: XOR<MovimentacaoCreateInput, MovimentacaoUncheckedCreateInput>
+  }
+
+  /**
+   * Movimentacao createMany
+   */
+  export type MovimentacaoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Movimentacaos.
+     */
+    data: MovimentacaoCreateManyInput | MovimentacaoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Movimentacao createManyAndReturn
+   */
+  export type MovimentacaoCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Movimentacao
+     */
+    select?: MovimentacaoSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Movimentacao
+     */
+    omit?: MovimentacaoOmit<ExtArgs> | null
+    /**
+     * The data used to create many Movimentacaos.
+     */
+    data: MovimentacaoCreateManyInput | MovimentacaoCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Movimentacao update
+   */
+  export type MovimentacaoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Movimentacao
+     */
+    select?: MovimentacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Movimentacao
+     */
+    omit?: MovimentacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Movimentacao.
+     */
+    data: XOR<MovimentacaoUpdateInput, MovimentacaoUncheckedUpdateInput>
+    /**
+     * Choose, which Movimentacao to update.
+     */
+    where: MovimentacaoWhereUniqueInput
+  }
+
+  /**
+   * Movimentacao updateMany
+   */
+  export type MovimentacaoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Movimentacaos.
+     */
+    data: XOR<MovimentacaoUpdateManyMutationInput, MovimentacaoUncheckedUpdateManyInput>
+    /**
+     * Filter which Movimentacaos to update
+     */
+    where?: MovimentacaoWhereInput
+    /**
+     * Limit how many Movimentacaos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Movimentacao updateManyAndReturn
+   */
+  export type MovimentacaoUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Movimentacao
+     */
+    select?: MovimentacaoSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Movimentacao
+     */
+    omit?: MovimentacaoOmit<ExtArgs> | null
+    /**
+     * The data used to update Movimentacaos.
+     */
+    data: XOR<MovimentacaoUpdateManyMutationInput, MovimentacaoUncheckedUpdateManyInput>
+    /**
+     * Filter which Movimentacaos to update
+     */
+    where?: MovimentacaoWhereInput
+    /**
+     * Limit how many Movimentacaos to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Movimentacao upsert
+   */
+  export type MovimentacaoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Movimentacao
+     */
+    select?: MovimentacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Movimentacao
+     */
+    omit?: MovimentacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Movimentacao to update in case it exists.
+     */
+    where: MovimentacaoWhereUniqueInput
+    /**
+     * In case the Movimentacao found by the `where` argument doesn't exist, create a new Movimentacao with this data.
+     */
+    create: XOR<MovimentacaoCreateInput, MovimentacaoUncheckedCreateInput>
+    /**
+     * In case the Movimentacao was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MovimentacaoUpdateInput, MovimentacaoUncheckedUpdateInput>
+  }
+
+  /**
+   * Movimentacao delete
+   */
+  export type MovimentacaoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Movimentacao
+     */
+    select?: MovimentacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Movimentacao
+     */
+    omit?: MovimentacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoInclude<ExtArgs> | null
+    /**
+     * Filter which Movimentacao to delete.
+     */
+    where: MovimentacaoWhereUniqueInput
+  }
+
+  /**
+   * Movimentacao deleteMany
+   */
+  export type MovimentacaoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Movimentacaos to delete
+     */
+    where?: MovimentacaoWhereInput
+    /**
+     * Limit how many Movimentacaos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Movimentacao.pedido_venda
+   */
+  export type Movimentacao$pedido_vendaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the pedidos_vendas
+     */
+    select?: pedidos_vendasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the pedidos_vendas
+     */
+    omit?: pedidos_vendasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: pedidos_vendasInclude<ExtArgs> | null
+    where?: pedidos_vendasWhereInput
+  }
+
+  /**
+   * Movimentacao.despesa
+   */
+  export type Movimentacao$despesaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the despesas
+     */
+    select?: despesasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the despesas
+     */
+    omit?: despesasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: despesasInclude<ExtArgs> | null
+    where?: despesasWhereInput
+  }
+
+  /**
+   * Movimentacao without action
+   */
+  export type MovimentacaoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Movimentacao
+     */
+    select?: MovimentacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Movimentacao
+     */
+    omit?: MovimentacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model despesas
    */
 
@@ -27697,7 +31750,7 @@ export namespace Prisma {
     valor_despesa: Decimal | null
     data_despesa: Date | null
     responsavel_compra_id: string | null
-    categoria_despesa: string | null
+    plano_contas_id: string | null
   }
 
   export type DespesasMaxAggregateOutputType = {
@@ -27709,7 +31762,7 @@ export namespace Prisma {
     valor_despesa: Decimal | null
     data_despesa: Date | null
     responsavel_compra_id: string | null
-    categoria_despesa: string | null
+    plano_contas_id: string | null
   }
 
   export type DespesasCountAggregateOutputType = {
@@ -27721,7 +31774,7 @@ export namespace Prisma {
     valor_despesa: number
     data_despesa: number
     responsavel_compra_id: number
-    categoria_despesa: number
+    plano_contas_id: number
     _all: number
   }
 
@@ -27743,7 +31796,7 @@ export namespace Prisma {
     valor_despesa?: true
     data_despesa?: true
     responsavel_compra_id?: true
-    categoria_despesa?: true
+    plano_contas_id?: true
   }
 
   export type DespesasMaxAggregateInputType = {
@@ -27755,7 +31808,7 @@ export namespace Prisma {
     valor_despesa?: true
     data_despesa?: true
     responsavel_compra_id?: true
-    categoria_despesa?: true
+    plano_contas_id?: true
   }
 
   export type DespesasCountAggregateInputType = {
@@ -27767,7 +31820,7 @@ export namespace Prisma {
     valor_despesa?: true
     data_despesa?: true
     responsavel_compra_id?: true
-    categoria_despesa?: true
+    plano_contas_id?: true
     _all?: true
   }
 
@@ -27859,14 +31912,14 @@ export namespace Prisma {
 
   export type DespesasGroupByOutputType = {
     id: string
-    descricao_despesa: string
-    tipo_despesa: $Enums.tipo_despesa
-    tipo_despesa_fixa: $Enums.tipo_despesa_fixa
-    tipo_despesa_variavel: $Enums.tipo_despesa_variavel
+    descricao_despesa: string | null
+    tipo_despesa: $Enums.tipo_despesa | null
+    tipo_despesa_fixa: $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel: $Enums.tipo_despesa_variavel | null
     valor_despesa: Decimal
     data_despesa: Date
     responsavel_compra_id: string
-    categoria_despesa: string
+    plano_contas_id: string
     _count: DespesasCountAggregateOutputType | null
     _avg: DespesasAvgAggregateOutputType | null
     _sum: DespesasSumAggregateOutputType | null
@@ -27897,9 +31950,11 @@ export namespace Prisma {
     valor_despesa?: boolean
     data_despesa?: boolean
     responsavel_compra_id?: boolean
-    categoria_despesa?: boolean
-    fluxo_caixa?: boolean | despesas$fluxo_caixaArgs<ExtArgs>
+    plano_contas_id?: boolean
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
+    categoria_plano?: boolean | PlanoContasDefaultArgs<ExtArgs>
+    movimentacoes?: boolean | despesas$movimentacoesArgs<ExtArgs>
+    fluxo_caixa?: boolean | despesas$fluxo_caixaArgs<ExtArgs>
     _count?: boolean | DespesasCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["despesas"]>
 
@@ -27912,8 +31967,9 @@ export namespace Prisma {
     valor_despesa?: boolean
     data_despesa?: boolean
     responsavel_compra_id?: boolean
-    categoria_despesa?: boolean
+    plano_contas_id?: boolean
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
+    categoria_plano?: boolean | PlanoContasDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["despesas"]>
 
   export type despesasSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -27925,8 +31981,9 @@ export namespace Prisma {
     valor_despesa?: boolean
     data_despesa?: boolean
     responsavel_compra_id?: boolean
-    categoria_despesa?: boolean
+    plano_contas_id?: boolean
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
+    categoria_plano?: boolean | PlanoContasDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["despesas"]>
 
   export type despesasSelectScalar = {
@@ -27938,38 +31995,44 @@ export namespace Prisma {
     valor_despesa?: boolean
     data_despesa?: boolean
     responsavel_compra_id?: boolean
-    categoria_despesa?: boolean
+    plano_contas_id?: boolean
   }
 
-  export type despesasOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "descricao_despesa" | "tipo_despesa" | "tipo_despesa_fixa" | "tipo_despesa_variavel" | "valor_despesa" | "data_despesa" | "responsavel_compra_id" | "categoria_despesa", ExtArgs["result"]["despesas"]>
+  export type despesasOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "descricao_despesa" | "tipo_despesa" | "tipo_despesa_fixa" | "tipo_despesa_variavel" | "valor_despesa" | "data_despesa" | "responsavel_compra_id" | "plano_contas_id", ExtArgs["result"]["despesas"]>
   export type despesasInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    fluxo_caixa?: boolean | despesas$fluxo_caixaArgs<ExtArgs>
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
+    categoria_plano?: boolean | PlanoContasDefaultArgs<ExtArgs>
+    movimentacoes?: boolean | despesas$movimentacoesArgs<ExtArgs>
+    fluxo_caixa?: boolean | despesas$fluxo_caixaArgs<ExtArgs>
     _count?: boolean | DespesasCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type despesasIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
+    categoria_plano?: boolean | PlanoContasDefaultArgs<ExtArgs>
   }
   export type despesasIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
+    categoria_plano?: boolean | PlanoContasDefaultArgs<ExtArgs>
   }
 
   export type $despesasPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "despesas"
     objects: {
-      fluxo_caixa: Prisma.$fluxo_caixaPayload<ExtArgs>[]
       usuarios: Prisma.$usuariosPayload<ExtArgs>
+      categoria_plano: Prisma.$PlanoContasPayload<ExtArgs>
+      movimentacoes: Prisma.$MovimentacaoPayload<ExtArgs>[]
+      fluxo_caixa: Prisma.$fluxo_caixaPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      descricao_despesa: string
-      tipo_despesa: $Enums.tipo_despesa
-      tipo_despesa_fixa: $Enums.tipo_despesa_fixa
-      tipo_despesa_variavel: $Enums.tipo_despesa_variavel
+      descricao_despesa: string | null
+      tipo_despesa: $Enums.tipo_despesa | null
+      tipo_despesa_fixa: $Enums.tipo_despesa_fixa | null
+      tipo_despesa_variavel: $Enums.tipo_despesa_variavel | null
       valor_despesa: Prisma.Decimal
       data_despesa: Date
       responsavel_compra_id: string
-      categoria_despesa: string
+      plano_contas_id: string
     }, ExtArgs["result"]["despesas"]>
     composites: {}
   }
@@ -28364,8 +32427,10 @@ export namespace Prisma {
    */
   export interface Prisma__despesasClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    fluxo_caixa<T extends despesas$fluxo_caixaArgs<ExtArgs> = {}>(args?: Subset<T, despesas$fluxo_caixaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$fluxo_caixaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     usuarios<T extends usuariosDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usuariosDefaultArgs<ExtArgs>>): Prisma__usuariosClient<$Result.GetResult<Prisma.$usuariosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    categoria_plano<T extends PlanoContasDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PlanoContasDefaultArgs<ExtArgs>>): Prisma__PlanoContasClient<$Result.GetResult<Prisma.$PlanoContasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    movimentacoes<T extends despesas$movimentacoesArgs<ExtArgs> = {}>(args?: Subset<T, despesas$movimentacoesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MovimentacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    fluxo_caixa<T extends despesas$fluxo_caixaArgs<ExtArgs> = {}>(args?: Subset<T, despesas$fluxo_caixaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$fluxo_caixaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -28403,7 +32468,7 @@ export namespace Prisma {
     readonly valor_despesa: FieldRef<"despesas", 'Decimal'>
     readonly data_despesa: FieldRef<"despesas", 'DateTime'>
     readonly responsavel_compra_id: FieldRef<"despesas", 'String'>
-    readonly categoria_despesa: FieldRef<"despesas", 'String'>
+    readonly plano_contas_id: FieldRef<"despesas", 'String'>
   }
     
 
@@ -28802,6 +32867,30 @@ export namespace Prisma {
      * Limit how many despesas to delete.
      */
     limit?: number
+  }
+
+  /**
+   * despesas.movimentacoes
+   */
+  export type despesas$movimentacoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Movimentacao
+     */
+    select?: MovimentacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Movimentacao
+     */
+    omit?: MovimentacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MovimentacaoInclude<ExtArgs> | null
+    where?: MovimentacaoWhereInput
+    orderBy?: MovimentacaoOrderByWithRelationInput | MovimentacaoOrderByWithRelationInput[]
+    cursor?: MovimentacaoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MovimentacaoScalarFieldEnum | MovimentacaoScalarFieldEnum[]
   }
 
   /**
@@ -30221,7 +34310,8 @@ export namespace Prisma {
   export type Fluxo_caixaMinAggregateOutputType = {
     id: string | null
     descricao: string | null
-    tipo: $Enums.tipo_movimentacao_caixa | null
+    tipo: $Enums.TipoMovimentacaoCaixa | null
+    status: $Enums.StatusMovimentacao | null
     valor: Decimal | null
     metodo_pagamento: $Enums.metodo_pagamento | null
     data_movimentacao: Date | null
@@ -30232,13 +34322,15 @@ export namespace Prisma {
     sucata_venda_id: string | null
     objeto_duravel_id: string | null
     objeto_generico_id: string | null
+    plano_contas_id: string | null
     usuario_caixa_id: string | null
   }
 
   export type Fluxo_caixaMaxAggregateOutputType = {
     id: string | null
     descricao: string | null
-    tipo: $Enums.tipo_movimentacao_caixa | null
+    tipo: $Enums.TipoMovimentacaoCaixa | null
+    status: $Enums.StatusMovimentacao | null
     valor: Decimal | null
     metodo_pagamento: $Enums.metodo_pagamento | null
     data_movimentacao: Date | null
@@ -30249,6 +34341,7 @@ export namespace Prisma {
     sucata_venda_id: string | null
     objeto_duravel_id: string | null
     objeto_generico_id: string | null
+    plano_contas_id: string | null
     usuario_caixa_id: string | null
   }
 
@@ -30256,6 +34349,7 @@ export namespace Prisma {
     id: number
     descricao: number
     tipo: number
+    status: number
     valor: number
     metodo_pagamento: number
     data_movimentacao: number
@@ -30266,6 +34360,7 @@ export namespace Prisma {
     sucata_venda_id: number
     objeto_duravel_id: number
     objeto_generico_id: number
+    plano_contas_id: number
     usuario_caixa_id: number
     _all: number
   }
@@ -30283,6 +34378,7 @@ export namespace Prisma {
     id?: true
     descricao?: true
     tipo?: true
+    status?: true
     valor?: true
     metodo_pagamento?: true
     data_movimentacao?: true
@@ -30293,6 +34389,7 @@ export namespace Prisma {
     sucata_venda_id?: true
     objeto_duravel_id?: true
     objeto_generico_id?: true
+    plano_contas_id?: true
     usuario_caixa_id?: true
   }
 
@@ -30300,6 +34397,7 @@ export namespace Prisma {
     id?: true
     descricao?: true
     tipo?: true
+    status?: true
     valor?: true
     metodo_pagamento?: true
     data_movimentacao?: true
@@ -30310,6 +34408,7 @@ export namespace Prisma {
     sucata_venda_id?: true
     objeto_duravel_id?: true
     objeto_generico_id?: true
+    plano_contas_id?: true
     usuario_caixa_id?: true
   }
 
@@ -30317,6 +34416,7 @@ export namespace Prisma {
     id?: true
     descricao?: true
     tipo?: true
+    status?: true
     valor?: true
     metodo_pagamento?: true
     data_movimentacao?: true
@@ -30327,6 +34427,7 @@ export namespace Prisma {
     sucata_venda_id?: true
     objeto_duravel_id?: true
     objeto_generico_id?: true
+    plano_contas_id?: true
     usuario_caixa_id?: true
     _all?: true
   }
@@ -30420,7 +34521,8 @@ export namespace Prisma {
   export type Fluxo_caixaGroupByOutputType = {
     id: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao: Date
@@ -30431,6 +34533,7 @@ export namespace Prisma {
     sucata_venda_id: string | null
     objeto_duravel_id: string | null
     objeto_generico_id: string | null
+    plano_contas_id: string
     usuario_caixa_id: string
     _count: Fluxo_caixaCountAggregateOutputType | null
     _avg: Fluxo_caixaAvgAggregateOutputType | null
@@ -30457,6 +34560,7 @@ export namespace Prisma {
     id?: boolean
     descricao?: boolean
     tipo?: boolean
+    status?: boolean
     valor?: boolean
     metodo_pagamento?: boolean
     data_movimentacao?: boolean
@@ -30467,6 +34571,7 @@ export namespace Prisma {
     sucata_venda_id?: boolean
     objeto_duravel_id?: boolean
     objeto_generico_id?: boolean
+    plano_contas_id?: boolean
     usuario_caixa_id?: boolean
     pedido_venda?: boolean | fluxo_caixa$pedido_vendaArgs<ExtArgs>
     ordem_servico?: boolean | fluxo_caixa$ordem_servicoArgs<ExtArgs>
@@ -30476,12 +34581,14 @@ export namespace Prisma {
     usuario_caixa?: boolean | usuariosDefaultArgs<ExtArgs>
     estoque_objetos_duraveis?: boolean | fluxo_caixa$estoque_objetos_duraveisArgs<ExtArgs>
     estoque_objetos_genericos?: boolean | fluxo_caixa$estoque_objetos_genericosArgs<ExtArgs>
+    plano_contas?: boolean | PlanoContasDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["fluxo_caixa"]>
 
   export type fluxo_caixaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     descricao?: boolean
     tipo?: boolean
+    status?: boolean
     valor?: boolean
     metodo_pagamento?: boolean
     data_movimentacao?: boolean
@@ -30492,6 +34599,7 @@ export namespace Prisma {
     sucata_venda_id?: boolean
     objeto_duravel_id?: boolean
     objeto_generico_id?: boolean
+    plano_contas_id?: boolean
     usuario_caixa_id?: boolean
     pedido_venda?: boolean | fluxo_caixa$pedido_vendaArgs<ExtArgs>
     ordem_servico?: boolean | fluxo_caixa$ordem_servicoArgs<ExtArgs>
@@ -30501,12 +34609,14 @@ export namespace Prisma {
     usuario_caixa?: boolean | usuariosDefaultArgs<ExtArgs>
     estoque_objetos_duraveis?: boolean | fluxo_caixa$estoque_objetos_duraveisArgs<ExtArgs>
     estoque_objetos_genericos?: boolean | fluxo_caixa$estoque_objetos_genericosArgs<ExtArgs>
+    plano_contas?: boolean | PlanoContasDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["fluxo_caixa"]>
 
   export type fluxo_caixaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     descricao?: boolean
     tipo?: boolean
+    status?: boolean
     valor?: boolean
     metodo_pagamento?: boolean
     data_movimentacao?: boolean
@@ -30517,6 +34627,7 @@ export namespace Prisma {
     sucata_venda_id?: boolean
     objeto_duravel_id?: boolean
     objeto_generico_id?: boolean
+    plano_contas_id?: boolean
     usuario_caixa_id?: boolean
     pedido_venda?: boolean | fluxo_caixa$pedido_vendaArgs<ExtArgs>
     ordem_servico?: boolean | fluxo_caixa$ordem_servicoArgs<ExtArgs>
@@ -30526,12 +34637,14 @@ export namespace Prisma {
     usuario_caixa?: boolean | usuariosDefaultArgs<ExtArgs>
     estoque_objetos_duraveis?: boolean | fluxo_caixa$estoque_objetos_duraveisArgs<ExtArgs>
     estoque_objetos_genericos?: boolean | fluxo_caixa$estoque_objetos_genericosArgs<ExtArgs>
+    plano_contas?: boolean | PlanoContasDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["fluxo_caixa"]>
 
   export type fluxo_caixaSelectScalar = {
     id?: boolean
     descricao?: boolean
     tipo?: boolean
+    status?: boolean
     valor?: boolean
     metodo_pagamento?: boolean
     data_movimentacao?: boolean
@@ -30542,10 +34655,11 @@ export namespace Prisma {
     sucata_venda_id?: boolean
     objeto_duravel_id?: boolean
     objeto_generico_id?: boolean
+    plano_contas_id?: boolean
     usuario_caixa_id?: boolean
   }
 
-  export type fluxo_caixaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "descricao" | "tipo" | "valor" | "metodo_pagamento" | "data_movimentacao" | "pedido_venda_id" | "ordem_servico_id" | "despesa_id" | "sucata_compra_id" | "sucata_venda_id" | "objeto_duravel_id" | "objeto_generico_id" | "usuario_caixa_id", ExtArgs["result"]["fluxo_caixa"]>
+  export type fluxo_caixaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "descricao" | "tipo" | "status" | "valor" | "metodo_pagamento" | "data_movimentacao" | "pedido_venda_id" | "ordem_servico_id" | "despesa_id" | "sucata_compra_id" | "sucata_venda_id" | "objeto_duravel_id" | "objeto_generico_id" | "plano_contas_id" | "usuario_caixa_id", ExtArgs["result"]["fluxo_caixa"]>
   export type fluxo_caixaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     pedido_venda?: boolean | fluxo_caixa$pedido_vendaArgs<ExtArgs>
     ordem_servico?: boolean | fluxo_caixa$ordem_servicoArgs<ExtArgs>
@@ -30555,6 +34669,7 @@ export namespace Prisma {
     usuario_caixa?: boolean | usuariosDefaultArgs<ExtArgs>
     estoque_objetos_duraveis?: boolean | fluxo_caixa$estoque_objetos_duraveisArgs<ExtArgs>
     estoque_objetos_genericos?: boolean | fluxo_caixa$estoque_objetos_genericosArgs<ExtArgs>
+    plano_contas?: boolean | PlanoContasDefaultArgs<ExtArgs>
   }
   export type fluxo_caixaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     pedido_venda?: boolean | fluxo_caixa$pedido_vendaArgs<ExtArgs>
@@ -30565,6 +34680,7 @@ export namespace Prisma {
     usuario_caixa?: boolean | usuariosDefaultArgs<ExtArgs>
     estoque_objetos_duraveis?: boolean | fluxo_caixa$estoque_objetos_duraveisArgs<ExtArgs>
     estoque_objetos_genericos?: boolean | fluxo_caixa$estoque_objetos_genericosArgs<ExtArgs>
+    plano_contas?: boolean | PlanoContasDefaultArgs<ExtArgs>
   }
   export type fluxo_caixaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     pedido_venda?: boolean | fluxo_caixa$pedido_vendaArgs<ExtArgs>
@@ -30575,6 +34691,7 @@ export namespace Prisma {
     usuario_caixa?: boolean | usuariosDefaultArgs<ExtArgs>
     estoque_objetos_duraveis?: boolean | fluxo_caixa$estoque_objetos_duraveisArgs<ExtArgs>
     estoque_objetos_genericos?: boolean | fluxo_caixa$estoque_objetos_genericosArgs<ExtArgs>
+    plano_contas?: boolean | PlanoContasDefaultArgs<ExtArgs>
   }
 
   export type $fluxo_caixaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -30588,11 +34705,13 @@ export namespace Prisma {
       usuario_caixa: Prisma.$usuariosPayload<ExtArgs>
       estoque_objetos_duraveis: Prisma.$estoque_objetos_duraveisPayload<ExtArgs> | null
       estoque_objetos_genericos: Prisma.$estoque_objetos_genericosPayload<ExtArgs> | null
+      plano_contas: Prisma.$PlanoContasPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       descricao: string
-      tipo: $Enums.tipo_movimentacao_caixa
+      tipo: $Enums.TipoMovimentacaoCaixa
+      status: $Enums.StatusMovimentacao
       valor: Prisma.Decimal
       metodo_pagamento: $Enums.metodo_pagamento
       data_movimentacao: Date
@@ -30603,6 +34722,7 @@ export namespace Prisma {
       sucata_venda_id: string | null
       objeto_duravel_id: string | null
       objeto_generico_id: string | null
+      plano_contas_id: string
       usuario_caixa_id: string
     }, ExtArgs["result"]["fluxo_caixa"]>
     composites: {}
@@ -31006,6 +35126,7 @@ export namespace Prisma {
     usuario_caixa<T extends usuariosDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usuariosDefaultArgs<ExtArgs>>): Prisma__usuariosClient<$Result.GetResult<Prisma.$usuariosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     estoque_objetos_duraveis<T extends fluxo_caixa$estoque_objetos_duraveisArgs<ExtArgs> = {}>(args?: Subset<T, fluxo_caixa$estoque_objetos_duraveisArgs<ExtArgs>>): Prisma__estoque_objetos_duraveisClient<$Result.GetResult<Prisma.$estoque_objetos_duraveisPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     estoque_objetos_genericos<T extends fluxo_caixa$estoque_objetos_genericosArgs<ExtArgs> = {}>(args?: Subset<T, fluxo_caixa$estoque_objetos_genericosArgs<ExtArgs>>): Prisma__estoque_objetos_genericosClient<$Result.GetResult<Prisma.$estoque_objetos_genericosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    plano_contas<T extends PlanoContasDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PlanoContasDefaultArgs<ExtArgs>>): Prisma__PlanoContasClient<$Result.GetResult<Prisma.$PlanoContasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -31037,7 +35158,8 @@ export namespace Prisma {
   interface fluxo_caixaFieldRefs {
     readonly id: FieldRef<"fluxo_caixa", 'String'>
     readonly descricao: FieldRef<"fluxo_caixa", 'String'>
-    readonly tipo: FieldRef<"fluxo_caixa", 'tipo_movimentacao_caixa'>
+    readonly tipo: FieldRef<"fluxo_caixa", 'TipoMovimentacaoCaixa'>
+    readonly status: FieldRef<"fluxo_caixa", 'StatusMovimentacao'>
     readonly valor: FieldRef<"fluxo_caixa", 'Decimal'>
     readonly metodo_pagamento: FieldRef<"fluxo_caixa", 'metodo_pagamento'>
     readonly data_movimentacao: FieldRef<"fluxo_caixa", 'DateTime'>
@@ -31048,6 +35170,7 @@ export namespace Prisma {
     readonly sucata_venda_id: FieldRef<"fluxo_caixa", 'String'>
     readonly objeto_duravel_id: FieldRef<"fluxo_caixa", 'String'>
     readonly objeto_generico_id: FieldRef<"fluxo_caixa", 'String'>
+    readonly plano_contas_id: FieldRef<"fluxo_caixa", 'String'>
     readonly usuario_caixa_id: FieldRef<"fluxo_caixa", 'String'>
   }
     
@@ -31625,7 +35748,7 @@ export namespace Prisma {
     cep_cliente: 'cep_cliente',
     cidade_cliente: 'cidade_cliente',
     uf_cliente: 'uf_cliente',
-    codigo_ibge: 'codigo_ibge',
+    codigo_IBGE: 'codigo_IBGE',
     pais_cliente: 'pais_cliente',
     telefone_cliente: 'telefone_cliente',
     data_nascimento: 'data_nascimento',
@@ -31711,7 +35834,7 @@ export namespace Prisma {
     peca_id: 'peca_id',
     ncm: 'ncm',
     cest: 'cest',
-    cfop_padrao: 'cfop_padrao',
+    cfop_id: 'cfop_id',
     cst_icms: 'cst_icms',
     cst_ibs_cbs: 'cst_ibs_cbs',
     cClassTrib: 'cClassTrib'
@@ -31756,7 +35879,9 @@ export namespace Prisma {
     status_pedido: 'status_pedido',
     observacoes_recibo: 'observacoes_recibo',
     cliente_comprador_id: 'cliente_comprador_id',
-    responsavel_venda_id: 'responsavel_venda_id'
+    responsavel_venda_id: 'responsavel_venda_id',
+    os_servicos_itensId: 'os_servicos_itensId',
+    plano_contas_id: 'plano_contas_id'
   };
 
   export type Pedidos_vendasScalarFieldEnum = (typeof Pedidos_vendasScalarFieldEnum)[keyof typeof Pedidos_vendasScalarFieldEnum]
@@ -31817,6 +35942,16 @@ export namespace Prisma {
   export type Sucata_comprasScalarFieldEnum = (typeof Sucata_comprasScalarFieldEnum)[keyof typeof Sucata_comprasScalarFieldEnum]
 
 
+  export const CfopsScalarFieldEnum: {
+    id: 'id',
+    codigo: 'codigo',
+    descricao: 'descricao',
+    tipo: 'tipo'
+  };
+
+  export type CfopsScalarFieldEnum = (typeof CfopsScalarFieldEnum)[keyof typeof CfopsScalarFieldEnum]
+
+
   export const Sucata_estoqueScalarFieldEnum: {
     id: 'id',
     modelo_id: 'modelo_id',
@@ -31869,7 +36004,8 @@ export namespace Prisma {
     placa: 'placa',
     chassi: 'chassi',
     cor: 'cor',
-    ano_fabricacao: 'ano_fabricacao'
+    ano_fabricacao: 'ano_fabricacao',
+    os_servicos_itensId: 'os_servicos_itensId'
   };
 
   export type Veiculos_cliente_manutencaoScalarFieldEnum = (typeof Veiculos_cliente_manutencaoScalarFieldEnum)[keyof typeof Veiculos_cliente_manutencaoScalarFieldEnum]
@@ -31892,6 +36028,31 @@ export namespace Prisma {
   export type Configuracao_impostoScalarFieldEnum = (typeof Configuracao_impostoScalarFieldEnum)[keyof typeof Configuracao_impostoScalarFieldEnum]
 
 
+  export const PlanoContasScalarFieldEnum: {
+    id: 'id',
+    codigo_contabil: 'codigo_contabil',
+    nome_conta: 'nome_conta',
+    tipo_dre: 'tipo_dre'
+  };
+
+  export type PlanoContasScalarFieldEnum = (typeof PlanoContasScalarFieldEnum)[keyof typeof PlanoContasScalarFieldEnum]
+
+
+  export const MovimentacaoScalarFieldEnum: {
+    id: 'id',
+    valor: 'valor',
+    tipo: 'tipo',
+    status: 'status',
+    data_vencimento: 'data_vencimento',
+    data_pagamento: 'data_pagamento',
+    plano_contas_id: 'plano_contas_id',
+    pedido_venda_id: 'pedido_venda_id',
+    despesa_id: 'despesa_id'
+  };
+
+  export type MovimentacaoScalarFieldEnum = (typeof MovimentacaoScalarFieldEnum)[keyof typeof MovimentacaoScalarFieldEnum]
+
+
   export const DespesasScalarFieldEnum: {
     id: 'id',
     descricao_despesa: 'descricao_despesa',
@@ -31901,7 +36062,7 @@ export namespace Prisma {
     valor_despesa: 'valor_despesa',
     data_despesa: 'data_despesa',
     responsavel_compra_id: 'responsavel_compra_id',
-    categoria_despesa: 'categoria_despesa'
+    plano_contas_id: 'plano_contas_id'
   };
 
   export type DespesasScalarFieldEnum = (typeof DespesasScalarFieldEnum)[keyof typeof DespesasScalarFieldEnum]
@@ -31935,6 +36096,7 @@ export namespace Prisma {
     id: 'id',
     descricao: 'descricao',
     tipo: 'tipo',
+    status: 'status',
     valor: 'valor',
     metodo_pagamento: 'metodo_pagamento',
     data_movimentacao: 'data_movimentacao',
@@ -31945,6 +36107,7 @@ export namespace Prisma {
     sucata_venda_id: 'sucata_venda_id',
     objeto_duravel_id: 'objeto_duravel_id',
     objeto_generico_id: 'objeto_generico_id',
+    plano_contas_id: 'plano_contas_id',
     usuario_caixa_id: 'usuario_caixa_id'
   };
 
@@ -32240,6 +36403,48 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'TipoContaPlano'
+   */
+  export type EnumTipoContaPlanoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TipoContaPlano'>
+    
+
+
+  /**
+   * Reference to a field of type 'TipoContaPlano[]'
+   */
+  export type ListEnumTipoContaPlanoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TipoContaPlano[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'TipoMovimentacaoCaixa'
+   */
+  export type EnumTipoMovimentacaoCaixaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TipoMovimentacaoCaixa'>
+    
+
+
+  /**
+   * Reference to a field of type 'TipoMovimentacaoCaixa[]'
+   */
+  export type ListEnumTipoMovimentacaoCaixaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TipoMovimentacaoCaixa[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'StatusMovimentacao'
+   */
+  export type EnumStatusMovimentacaoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusMovimentacao'>
+    
+
+
+  /**
+   * Reference to a field of type 'StatusMovimentacao[]'
+   */
+  export type ListEnumStatusMovimentacaoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusMovimentacao[]'>
+    
+
+
+  /**
    * Reference to a field of type 'tipo_despesa'
    */
   export type Enumtipo_despesaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'tipo_despesa'>
@@ -32310,20 +36515,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'tipo_movimentacao_caixa'
-   */
-  export type Enumtipo_movimentacao_caixaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'tipo_movimentacao_caixa'>
-    
-
-
-  /**
-   * Reference to a field of type 'tipo_movimentacao_caixa[]'
-   */
-  export type ListEnumtipo_movimentacao_caixaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'tipo_movimentacao_caixa[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -32353,15 +36544,15 @@ export namespace Prisma {
     cep_cliente?: StringFilter<"clientes"> | string
     cidade_cliente?: StringNullableFilter<"clientes"> | string | null
     uf_cliente?: StringFilter<"clientes"> | string
-    codigo_ibge?: StringFilter<"clientes"> | string
+    codigo_IBGE?: StringFilter<"clientes"> | string
     pais_cliente?: StringNullableFilter<"clientes"> | string | null
     telefone_cliente?: StringNullableFilter<"clientes"> | string | null
     data_nascimento?: DateTimeNullableFilter<"clientes"> | Date | string | null
     email_cliente?: StringFilter<"clientes"> | string
     data_cadastro?: DateTimeNullableFilter<"clientes"> | Date | string | null
-    pedidos_vendas?: Pedidos_vendasListRelationFilter
-    sucata_compras?: Sucata_comprasListRelationFilter
-    veiculos_cliente_manutencao?: Veiculos_cliente_manutencaoListRelationFilter
+    pedidos_venda?: Pedidos_vendasListRelationFilter
+    sucata_compra?: Sucata_comprasListRelationFilter
+    veiculos_cliente?: Veiculos_cliente_manutencaoListRelationFilter
     ordens_servico?: Ordem_servicoListRelationFilter
     sucatas_compradas_inteiras?: Sucata_estoqueListRelationFilter
   }
@@ -32376,15 +36567,15 @@ export namespace Prisma {
     cep_cliente?: SortOrder
     cidade_cliente?: SortOrderInput | SortOrder
     uf_cliente?: SortOrder
-    codigo_ibge?: SortOrder
+    codigo_IBGE?: SortOrder
     pais_cliente?: SortOrderInput | SortOrder
     telefone_cliente?: SortOrderInput | SortOrder
     data_nascimento?: SortOrderInput | SortOrder
     email_cliente?: SortOrder
     data_cadastro?: SortOrderInput | SortOrder
-    pedidos_vendas?: pedidos_vendasOrderByRelationAggregateInput
-    sucata_compras?: sucata_comprasOrderByRelationAggregateInput
-    veiculos_cliente_manutencao?: veiculos_cliente_manutencaoOrderByRelationAggregateInput
+    pedidos_venda?: pedidos_vendasOrderByRelationAggregateInput
+    sucata_compra?: sucata_comprasOrderByRelationAggregateInput
+    veiculos_cliente?: veiculos_cliente_manutencaoOrderByRelationAggregateInput
     ordens_servico?: ordem_servicoOrderByRelationAggregateInput
     sucatas_compradas_inteiras?: sucata_estoqueOrderByRelationAggregateInput
   }
@@ -32403,14 +36594,14 @@ export namespace Prisma {
     cep_cliente?: StringFilter<"clientes"> | string
     cidade_cliente?: StringNullableFilter<"clientes"> | string | null
     uf_cliente?: StringFilter<"clientes"> | string
-    codigo_ibge?: StringFilter<"clientes"> | string
+    codigo_IBGE?: StringFilter<"clientes"> | string
     pais_cliente?: StringNullableFilter<"clientes"> | string | null
     telefone_cliente?: StringNullableFilter<"clientes"> | string | null
     data_nascimento?: DateTimeNullableFilter<"clientes"> | Date | string | null
     data_cadastro?: DateTimeNullableFilter<"clientes"> | Date | string | null
-    pedidos_vendas?: Pedidos_vendasListRelationFilter
-    sucata_compras?: Sucata_comprasListRelationFilter
-    veiculos_cliente_manutencao?: Veiculos_cliente_manutencaoListRelationFilter
+    pedidos_venda?: Pedidos_vendasListRelationFilter
+    sucata_compra?: Sucata_comprasListRelationFilter
+    veiculos_cliente?: Veiculos_cliente_manutencaoListRelationFilter
     ordens_servico?: Ordem_servicoListRelationFilter
     sucatas_compradas_inteiras?: Sucata_estoqueListRelationFilter
   }, "id" | "nome_cliente" | "cpf_cliente" | "email_cliente">
@@ -32425,7 +36616,7 @@ export namespace Prisma {
     cep_cliente?: SortOrder
     cidade_cliente?: SortOrderInput | SortOrder
     uf_cliente?: SortOrder
-    codigo_ibge?: SortOrder
+    codigo_IBGE?: SortOrder
     pais_cliente?: SortOrderInput | SortOrder
     telefone_cliente?: SortOrderInput | SortOrder
     data_nascimento?: SortOrderInput | SortOrder
@@ -32449,7 +36640,7 @@ export namespace Prisma {
     cep_cliente?: StringWithAggregatesFilter<"clientes"> | string
     cidade_cliente?: StringNullableWithAggregatesFilter<"clientes"> | string | null
     uf_cliente?: StringWithAggregatesFilter<"clientes"> | string
-    codigo_ibge?: StringWithAggregatesFilter<"clientes"> | string
+    codigo_IBGE?: StringWithAggregatesFilter<"clientes"> | string
     pais_cliente?: StringNullableWithAggregatesFilter<"clientes"> | string | null
     telefone_cliente?: StringNullableWithAggregatesFilter<"clientes"> | string | null
     data_nascimento?: DateTimeNullableWithAggregatesFilter<"clientes"> | Date | string | null
@@ -32872,11 +37063,12 @@ export namespace Prisma {
     peca_id?: UuidFilter<"dados_fiscais_peca"> | string
     ncm?: StringFilter<"dados_fiscais_peca"> | string
     cest?: StringNullableFilter<"dados_fiscais_peca"> | string | null
-    cfop_padrao?: StringFilter<"dados_fiscais_peca"> | string
+    cfop_id?: UuidFilter<"dados_fiscais_peca"> | string
     cst_icms?: StringFilter<"dados_fiscais_peca"> | string
     cst_ibs_cbs?: StringNullableFilter<"dados_fiscais_peca"> | string | null
     cClassTrib?: StringNullableFilter<"dados_fiscais_peca"> | string | null
     peca_estoque?: XOR<Peca_estoqueScalarRelationFilter, peca_estoqueWhereInput>
+    cfop?: XOR<CfopsScalarRelationFilter, cfopsWhereInput>
   }
 
   export type dados_fiscais_pecaOrderByWithRelationInput = {
@@ -32884,11 +37076,12 @@ export namespace Prisma {
     peca_id?: SortOrder
     ncm?: SortOrder
     cest?: SortOrderInput | SortOrder
-    cfop_padrao?: SortOrder
+    cfop_id?: SortOrder
     cst_icms?: SortOrder
     cst_ibs_cbs?: SortOrderInput | SortOrder
     cClassTrib?: SortOrderInput | SortOrder
     peca_estoque?: peca_estoqueOrderByWithRelationInput
+    cfop?: cfopsOrderByWithRelationInput
   }
 
   export type dados_fiscais_pecaWhereUniqueInput = Prisma.AtLeast<{
@@ -32899,11 +37092,12 @@ export namespace Prisma {
     NOT?: dados_fiscais_pecaWhereInput | dados_fiscais_pecaWhereInput[]
     ncm?: StringFilter<"dados_fiscais_peca"> | string
     cest?: StringNullableFilter<"dados_fiscais_peca"> | string | null
-    cfop_padrao?: StringFilter<"dados_fiscais_peca"> | string
+    cfop_id?: UuidFilter<"dados_fiscais_peca"> | string
     cst_icms?: StringFilter<"dados_fiscais_peca"> | string
     cst_ibs_cbs?: StringNullableFilter<"dados_fiscais_peca"> | string | null
     cClassTrib?: StringNullableFilter<"dados_fiscais_peca"> | string | null
     peca_estoque?: XOR<Peca_estoqueScalarRelationFilter, peca_estoqueWhereInput>
+    cfop?: XOR<CfopsScalarRelationFilter, cfopsWhereInput>
   }, "id" | "peca_id">
 
   export type dados_fiscais_pecaOrderByWithAggregationInput = {
@@ -32911,7 +37105,7 @@ export namespace Prisma {
     peca_id?: SortOrder
     ncm?: SortOrder
     cest?: SortOrderInput | SortOrder
-    cfop_padrao?: SortOrder
+    cfop_id?: SortOrder
     cst_icms?: SortOrder
     cst_ibs_cbs?: SortOrderInput | SortOrder
     cClassTrib?: SortOrderInput | SortOrder
@@ -32928,7 +37122,7 @@ export namespace Prisma {
     peca_id?: UuidWithAggregatesFilter<"dados_fiscais_peca"> | string
     ncm?: StringWithAggregatesFilter<"dados_fiscais_peca"> | string
     cest?: StringNullableWithAggregatesFilter<"dados_fiscais_peca"> | string | null
-    cfop_padrao?: StringWithAggregatesFilter<"dados_fiscais_peca"> | string
+    cfop_id?: UuidWithAggregatesFilter<"dados_fiscais_peca"> | string
     cst_icms?: StringWithAggregatesFilter<"dados_fiscais_peca"> | string
     cst_ibs_cbs?: StringNullableWithAggregatesFilter<"dados_fiscais_peca"> | string | null
     cClassTrib?: StringNullableWithAggregatesFilter<"dados_fiscais_peca"> | string | null
@@ -33091,11 +37285,16 @@ export namespace Prisma {
     observacoes_recibo?: StringNullableFilter<"pedidos_vendas"> | string | null
     cliente_comprador_id?: UuidFilter<"pedidos_vendas"> | string
     responsavel_venda_id?: UuidFilter<"pedidos_vendas"> | string
+    os_servicos_itensId?: UuidNullableFilter<"pedidos_vendas"> | string | null
+    plano_contas_id?: UuidNullableFilter<"pedidos_vendas"> | string | null
     itens_pedido_vendas?: Itens_pedido_vendasListRelationFilter
     cliente_comprador?: XOR<ClientesScalarRelationFilter, clientesWhereInput>
     responsavel_venda?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
     documento_fiscal?: XOR<Documento_fiscalNullableScalarRelationFilter, documento_fiscalWhereInput> | null
     lancamentos_caixa?: Fluxo_caixaListRelationFilter
+    osServicosItens?: XOR<Os_servicos_itensNullableScalarRelationFilter, os_servicos_itensWhereInput> | null
+    plano_contas?: XOR<PlanoContasNullableScalarRelationFilter, PlanoContasWhereInput> | null
+    movimentacoes?: MovimentacaoListRelationFilter
   }
 
   export type pedidos_vendasOrderByWithRelationInput = {
@@ -33107,11 +37306,16 @@ export namespace Prisma {
     observacoes_recibo?: SortOrderInput | SortOrder
     cliente_comprador_id?: SortOrder
     responsavel_venda_id?: SortOrder
+    os_servicos_itensId?: SortOrderInput | SortOrder
+    plano_contas_id?: SortOrderInput | SortOrder
     itens_pedido_vendas?: itens_pedido_vendasOrderByRelationAggregateInput
     cliente_comprador?: clientesOrderByWithRelationInput
     responsavel_venda?: usuariosOrderByWithRelationInput
     documento_fiscal?: documento_fiscalOrderByWithRelationInput
     lancamentos_caixa?: fluxo_caixaOrderByRelationAggregateInput
+    osServicosItens?: os_servicos_itensOrderByWithRelationInput
+    plano_contas?: PlanoContasOrderByWithRelationInput
+    movimentacoes?: MovimentacaoOrderByRelationAggregateInput
   }
 
   export type pedidos_vendasWhereUniqueInput = Prisma.AtLeast<{
@@ -33126,11 +37330,16 @@ export namespace Prisma {
     observacoes_recibo?: StringNullableFilter<"pedidos_vendas"> | string | null
     cliente_comprador_id?: UuidFilter<"pedidos_vendas"> | string
     responsavel_venda_id?: UuidFilter<"pedidos_vendas"> | string
+    os_servicos_itensId?: UuidNullableFilter<"pedidos_vendas"> | string | null
+    plano_contas_id?: UuidNullableFilter<"pedidos_vendas"> | string | null
     itens_pedido_vendas?: Itens_pedido_vendasListRelationFilter
     cliente_comprador?: XOR<ClientesScalarRelationFilter, clientesWhereInput>
     responsavel_venda?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
     documento_fiscal?: XOR<Documento_fiscalNullableScalarRelationFilter, documento_fiscalWhereInput> | null
     lancamentos_caixa?: Fluxo_caixaListRelationFilter
+    osServicosItens?: XOR<Os_servicos_itensNullableScalarRelationFilter, os_servicos_itensWhereInput> | null
+    plano_contas?: XOR<PlanoContasNullableScalarRelationFilter, PlanoContasWhereInput> | null
+    movimentacoes?: MovimentacaoListRelationFilter
   }, "id">
 
   export type pedidos_vendasOrderByWithAggregationInput = {
@@ -33142,6 +37351,8 @@ export namespace Prisma {
     observacoes_recibo?: SortOrderInput | SortOrder
     cliente_comprador_id?: SortOrder
     responsavel_venda_id?: SortOrder
+    os_servicos_itensId?: SortOrderInput | SortOrder
+    plano_contas_id?: SortOrderInput | SortOrder
     _count?: pedidos_vendasCountOrderByAggregateInput
     _avg?: pedidos_vendasAvgOrderByAggregateInput
     _max?: pedidos_vendasMaxOrderByAggregateInput
@@ -33161,6 +37372,8 @@ export namespace Prisma {
     observacoes_recibo?: StringNullableWithAggregatesFilter<"pedidos_vendas"> | string | null
     cliente_comprador_id?: UuidWithAggregatesFilter<"pedidos_vendas"> | string
     responsavel_venda_id?: UuidWithAggregatesFilter<"pedidos_vendas"> | string
+    os_servicos_itensId?: UuidNullableWithAggregatesFilter<"pedidos_vendas"> | string | null
+    plano_contas_id?: UuidNullableWithAggregatesFilter<"pedidos_vendas"> | string | null
   }
 
   export type ordem_servicoWhereInput = {
@@ -33297,6 +37510,8 @@ export namespace Prisma {
     ordem_servico?: XOR<Ordem_servicoScalarRelationFilter, ordem_servicoWhereInput>
     tipo_servico?: XOR<Tipo_servicoScalarRelationFilter, tipo_servicoWhereInput>
     mecanico?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
+    veiculos?: Veiculos_cliente_manutencaoListRelationFilter
+    pedidos?: Pedidos_vendasListRelationFilter
   }
 
   export type os_servicos_itensOrderByWithRelationInput = {
@@ -33310,6 +37525,8 @@ export namespace Prisma {
     ordem_servico?: ordem_servicoOrderByWithRelationInput
     tipo_servico?: tipo_servicoOrderByWithRelationInput
     mecanico?: usuariosOrderByWithRelationInput
+    veiculos?: veiculos_cliente_manutencaoOrderByRelationAggregateInput
+    pedidos?: pedidos_vendasOrderByRelationAggregateInput
   }
 
   export type os_servicos_itensWhereUniqueInput = Prisma.AtLeast<{
@@ -33326,6 +37543,8 @@ export namespace Prisma {
     ordem_servico?: XOR<Ordem_servicoScalarRelationFilter, ordem_servicoWhereInput>
     tipo_servico?: XOR<Tipo_servicoScalarRelationFilter, tipo_servicoWhereInput>
     mecanico?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
+    veiculos?: Veiculos_cliente_manutencaoListRelationFilter
+    pedidos?: Pedidos_vendasListRelationFilter
   }, "id">
 
   export type os_servicos_itensOrderByWithAggregationInput = {
@@ -33477,6 +37696,56 @@ export namespace Prisma {
     quantidade?: IntWithAggregatesFilter<"sucata_compras"> | number
     responsavel_compra_id?: UuidWithAggregatesFilter<"sucata_compras"> | string
     cliente_vendedor_id?: UuidWithAggregatesFilter<"sucata_compras"> | string
+  }
+
+  export type cfopsWhereInput = {
+    AND?: cfopsWhereInput | cfopsWhereInput[]
+    OR?: cfopsWhereInput[]
+    NOT?: cfopsWhereInput | cfopsWhereInput[]
+    id?: UuidFilter<"cfops"> | string
+    codigo?: StringFilter<"cfops"> | string
+    descricao?: StringFilter<"cfops"> | string
+    tipo?: StringFilter<"cfops"> | string
+    dadosFiscaisPecas?: Dados_fiscais_pecaListRelationFilter
+  }
+
+  export type cfopsOrderByWithRelationInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    descricao?: SortOrder
+    tipo?: SortOrder
+    dadosFiscaisPecas?: dados_fiscais_pecaOrderByRelationAggregateInput
+  }
+
+  export type cfopsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    codigo?: string
+    AND?: cfopsWhereInput | cfopsWhereInput[]
+    OR?: cfopsWhereInput[]
+    NOT?: cfopsWhereInput | cfopsWhereInput[]
+    descricao?: StringFilter<"cfops"> | string
+    tipo?: StringFilter<"cfops"> | string
+    dadosFiscaisPecas?: Dados_fiscais_pecaListRelationFilter
+  }, "id" | "codigo">
+
+  export type cfopsOrderByWithAggregationInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    descricao?: SortOrder
+    tipo?: SortOrder
+    _count?: cfopsCountOrderByAggregateInput
+    _max?: cfopsMaxOrderByAggregateInput
+    _min?: cfopsMinOrderByAggregateInput
+  }
+
+  export type cfopsScalarWhereWithAggregatesInput = {
+    AND?: cfopsScalarWhereWithAggregatesInput | cfopsScalarWhereWithAggregatesInput[]
+    OR?: cfopsScalarWhereWithAggregatesInput[]
+    NOT?: cfopsScalarWhereWithAggregatesInput | cfopsScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"cfops"> | string
+    codigo?: StringWithAggregatesFilter<"cfops"> | string
+    descricao?: StringWithAggregatesFilter<"cfops"> | string
+    tipo?: StringWithAggregatesFilter<"cfops"> | string
   }
 
   export type sucata_estoqueWhereInput = {
@@ -33759,9 +38028,11 @@ export namespace Prisma {
     chassi?: StringNullableFilter<"veiculos_cliente_manutencao"> | string | null
     cor?: StringNullableFilter<"veiculos_cliente_manutencao"> | string | null
     ano_fabricacao?: IntNullableFilter<"veiculos_cliente_manutencao"> | number | null
+    os_servicos_itensId?: UuidNullableFilter<"veiculos_cliente_manutencao"> | string | null
     ordem_servico?: Ordem_servicoListRelationFilter
     clientes?: XOR<ClientesScalarRelationFilter, clientesWhereInput>
     modelos?: XOR<ModelosScalarRelationFilter, modelosWhereInput>
+    osServicosItens?: XOR<Os_servicos_itensNullableScalarRelationFilter, os_servicos_itensWhereInput> | null
   }
 
   export type veiculos_cliente_manutencaoOrderByWithRelationInput = {
@@ -33772,9 +38043,11 @@ export namespace Prisma {
     chassi?: SortOrderInput | SortOrder
     cor?: SortOrderInput | SortOrder
     ano_fabricacao?: SortOrderInput | SortOrder
+    os_servicos_itensId?: SortOrderInput | SortOrder
     ordem_servico?: ordem_servicoOrderByRelationAggregateInput
     clientes?: clientesOrderByWithRelationInput
     modelos?: modelosOrderByWithRelationInput
+    osServicosItens?: os_servicos_itensOrderByWithRelationInput
   }
 
   export type veiculos_cliente_manutencaoWhereUniqueInput = Prisma.AtLeast<{
@@ -33788,9 +38061,11 @@ export namespace Prisma {
     cliente_id?: UuidFilter<"veiculos_cliente_manutencao"> | string
     cor?: StringNullableFilter<"veiculos_cliente_manutencao"> | string | null
     ano_fabricacao?: IntNullableFilter<"veiculos_cliente_manutencao"> | number | null
+    os_servicos_itensId?: UuidNullableFilter<"veiculos_cliente_manutencao"> | string | null
     ordem_servico?: Ordem_servicoListRelationFilter
     clientes?: XOR<ClientesScalarRelationFilter, clientesWhereInput>
     modelos?: XOR<ModelosScalarRelationFilter, modelosWhereInput>
+    osServicosItens?: XOR<Os_servicos_itensNullableScalarRelationFilter, os_servicos_itensWhereInput> | null
   }, "id" | "placa" | "chassi">
 
   export type veiculos_cliente_manutencaoOrderByWithAggregationInput = {
@@ -33801,6 +38076,7 @@ export namespace Prisma {
     chassi?: SortOrderInput | SortOrder
     cor?: SortOrderInput | SortOrder
     ano_fabricacao?: SortOrderInput | SortOrder
+    os_servicos_itensId?: SortOrderInput | SortOrder
     _count?: veiculos_cliente_manutencaoCountOrderByAggregateInput
     _avg?: veiculos_cliente_manutencaoAvgOrderByAggregateInput
     _max?: veiculos_cliente_manutencaoMaxOrderByAggregateInput
@@ -33819,6 +38095,7 @@ export namespace Prisma {
     chassi?: StringNullableWithAggregatesFilter<"veiculos_cliente_manutencao"> | string | null
     cor?: StringNullableWithAggregatesFilter<"veiculos_cliente_manutencao"> | string | null
     ano_fabricacao?: IntNullableWithAggregatesFilter<"veiculos_cliente_manutencao"> | number | null
+    os_servicos_itensId?: UuidNullableWithAggregatesFilter<"veiculos_cliente_manutencao"> | string | null
   }
 
   export type configuracao_impostoWhereInput = {
@@ -33905,35 +38182,181 @@ export namespace Prisma {
     data_atualizacao?: DateTimeWithAggregatesFilter<"configuracao_imposto"> | Date | string
   }
 
+  export type PlanoContasWhereInput = {
+    AND?: PlanoContasWhereInput | PlanoContasWhereInput[]
+    OR?: PlanoContasWhereInput[]
+    NOT?: PlanoContasWhereInput | PlanoContasWhereInput[]
+    id?: UuidFilter<"PlanoContas"> | string
+    codigo_contabil?: StringFilter<"PlanoContas"> | string
+    nome_conta?: StringFilter<"PlanoContas"> | string
+    tipo_dre?: EnumTipoContaPlanoFilter<"PlanoContas"> | $Enums.TipoContaPlano
+    despesas?: DespesasListRelationFilter
+    lancamentos_caixa?: Fluxo_caixaListRelationFilter
+    pedidos_vendas?: Pedidos_vendasListRelationFilter
+    movimentacoes?: MovimentacaoListRelationFilter
+  }
+
+  export type PlanoContasOrderByWithRelationInput = {
+    id?: SortOrder
+    codigo_contabil?: SortOrder
+    nome_conta?: SortOrder
+    tipo_dre?: SortOrder
+    despesas?: despesasOrderByRelationAggregateInput
+    lancamentos_caixa?: fluxo_caixaOrderByRelationAggregateInput
+    pedidos_vendas?: pedidos_vendasOrderByRelationAggregateInput
+    movimentacoes?: MovimentacaoOrderByRelationAggregateInput
+  }
+
+  export type PlanoContasWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    codigo_contabil?: string
+    AND?: PlanoContasWhereInput | PlanoContasWhereInput[]
+    OR?: PlanoContasWhereInput[]
+    NOT?: PlanoContasWhereInput | PlanoContasWhereInput[]
+    nome_conta?: StringFilter<"PlanoContas"> | string
+    tipo_dre?: EnumTipoContaPlanoFilter<"PlanoContas"> | $Enums.TipoContaPlano
+    despesas?: DespesasListRelationFilter
+    lancamentos_caixa?: Fluxo_caixaListRelationFilter
+    pedidos_vendas?: Pedidos_vendasListRelationFilter
+    movimentacoes?: MovimentacaoListRelationFilter
+  }, "id" | "codigo_contabil">
+
+  export type PlanoContasOrderByWithAggregationInput = {
+    id?: SortOrder
+    codigo_contabil?: SortOrder
+    nome_conta?: SortOrder
+    tipo_dre?: SortOrder
+    _count?: PlanoContasCountOrderByAggregateInput
+    _max?: PlanoContasMaxOrderByAggregateInput
+    _min?: PlanoContasMinOrderByAggregateInput
+  }
+
+  export type PlanoContasScalarWhereWithAggregatesInput = {
+    AND?: PlanoContasScalarWhereWithAggregatesInput | PlanoContasScalarWhereWithAggregatesInput[]
+    OR?: PlanoContasScalarWhereWithAggregatesInput[]
+    NOT?: PlanoContasScalarWhereWithAggregatesInput | PlanoContasScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"PlanoContas"> | string
+    codigo_contabil?: StringWithAggregatesFilter<"PlanoContas"> | string
+    nome_conta?: StringWithAggregatesFilter<"PlanoContas"> | string
+    tipo_dre?: EnumTipoContaPlanoWithAggregatesFilter<"PlanoContas"> | $Enums.TipoContaPlano
+  }
+
+  export type MovimentacaoWhereInput = {
+    AND?: MovimentacaoWhereInput | MovimentacaoWhereInput[]
+    OR?: MovimentacaoWhereInput[]
+    NOT?: MovimentacaoWhereInput | MovimentacaoWhereInput[]
+    id?: UuidFilter<"Movimentacao"> | string
+    valor?: DecimalFilter<"Movimentacao"> | Decimal | DecimalJsLike | number | string
+    tipo?: EnumTipoMovimentacaoCaixaFilter<"Movimentacao"> | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFilter<"Movimentacao"> | $Enums.StatusMovimentacao
+    data_vencimento?: DateTimeFilter<"Movimentacao"> | Date | string
+    data_pagamento?: DateTimeNullableFilter<"Movimentacao"> | Date | string | null
+    plano_contas_id?: UuidFilter<"Movimentacao"> | string
+    pedido_venda_id?: UuidNullableFilter<"Movimentacao"> | string | null
+    despesa_id?: UuidNullableFilter<"Movimentacao"> | string | null
+    plano_contas?: XOR<PlanoContasScalarRelationFilter, PlanoContasWhereInput>
+    pedido_venda?: XOR<Pedidos_vendasNullableScalarRelationFilter, pedidos_vendasWhereInput> | null
+    despesa?: XOR<DespesasNullableScalarRelationFilter, despesasWhereInput> | null
+  }
+
+  export type MovimentacaoOrderByWithRelationInput = {
+    id?: SortOrder
+    valor?: SortOrder
+    tipo?: SortOrder
+    status?: SortOrder
+    data_vencimento?: SortOrder
+    data_pagamento?: SortOrderInput | SortOrder
+    plano_contas_id?: SortOrder
+    pedido_venda_id?: SortOrderInput | SortOrder
+    despesa_id?: SortOrderInput | SortOrder
+    plano_contas?: PlanoContasOrderByWithRelationInput
+    pedido_venda?: pedidos_vendasOrderByWithRelationInput
+    despesa?: despesasOrderByWithRelationInput
+  }
+
+  export type MovimentacaoWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MovimentacaoWhereInput | MovimentacaoWhereInput[]
+    OR?: MovimentacaoWhereInput[]
+    NOT?: MovimentacaoWhereInput | MovimentacaoWhereInput[]
+    valor?: DecimalFilter<"Movimentacao"> | Decimal | DecimalJsLike | number | string
+    tipo?: EnumTipoMovimentacaoCaixaFilter<"Movimentacao"> | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFilter<"Movimentacao"> | $Enums.StatusMovimentacao
+    data_vencimento?: DateTimeFilter<"Movimentacao"> | Date | string
+    data_pagamento?: DateTimeNullableFilter<"Movimentacao"> | Date | string | null
+    plano_contas_id?: UuidFilter<"Movimentacao"> | string
+    pedido_venda_id?: UuidNullableFilter<"Movimentacao"> | string | null
+    despesa_id?: UuidNullableFilter<"Movimentacao"> | string | null
+    plano_contas?: XOR<PlanoContasScalarRelationFilter, PlanoContasWhereInput>
+    pedido_venda?: XOR<Pedidos_vendasNullableScalarRelationFilter, pedidos_vendasWhereInput> | null
+    despesa?: XOR<DespesasNullableScalarRelationFilter, despesasWhereInput> | null
+  }, "id">
+
+  export type MovimentacaoOrderByWithAggregationInput = {
+    id?: SortOrder
+    valor?: SortOrder
+    tipo?: SortOrder
+    status?: SortOrder
+    data_vencimento?: SortOrder
+    data_pagamento?: SortOrderInput | SortOrder
+    plano_contas_id?: SortOrder
+    pedido_venda_id?: SortOrderInput | SortOrder
+    despesa_id?: SortOrderInput | SortOrder
+    _count?: MovimentacaoCountOrderByAggregateInput
+    _avg?: MovimentacaoAvgOrderByAggregateInput
+    _max?: MovimentacaoMaxOrderByAggregateInput
+    _min?: MovimentacaoMinOrderByAggregateInput
+    _sum?: MovimentacaoSumOrderByAggregateInput
+  }
+
+  export type MovimentacaoScalarWhereWithAggregatesInput = {
+    AND?: MovimentacaoScalarWhereWithAggregatesInput | MovimentacaoScalarWhereWithAggregatesInput[]
+    OR?: MovimentacaoScalarWhereWithAggregatesInput[]
+    NOT?: MovimentacaoScalarWhereWithAggregatesInput | MovimentacaoScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Movimentacao"> | string
+    valor?: DecimalWithAggregatesFilter<"Movimentacao"> | Decimal | DecimalJsLike | number | string
+    tipo?: EnumTipoMovimentacaoCaixaWithAggregatesFilter<"Movimentacao"> | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoWithAggregatesFilter<"Movimentacao"> | $Enums.StatusMovimentacao
+    data_vencimento?: DateTimeWithAggregatesFilter<"Movimentacao"> | Date | string
+    data_pagamento?: DateTimeNullableWithAggregatesFilter<"Movimentacao"> | Date | string | null
+    plano_contas_id?: UuidWithAggregatesFilter<"Movimentacao"> | string
+    pedido_venda_id?: UuidNullableWithAggregatesFilter<"Movimentacao"> | string | null
+    despesa_id?: UuidNullableWithAggregatesFilter<"Movimentacao"> | string | null
+  }
+
   export type despesasWhereInput = {
     AND?: despesasWhereInput | despesasWhereInput[]
     OR?: despesasWhereInput[]
     NOT?: despesasWhereInput | despesasWhereInput[]
     id?: UuidFilter<"despesas"> | string
-    descricao_despesa?: StringFilter<"despesas"> | string
-    tipo_despesa?: Enumtipo_despesaFilter<"despesas"> | $Enums.tipo_despesa
-    tipo_despesa_fixa?: Enumtipo_despesa_fixaFilter<"despesas"> | $Enums.tipo_despesa_fixa
-    tipo_despesa_variavel?: Enumtipo_despesa_variavelFilter<"despesas"> | $Enums.tipo_despesa_variavel
+    descricao_despesa?: StringNullableFilter<"despesas"> | string | null
+    tipo_despesa?: Enumtipo_despesaNullableFilter<"despesas"> | $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: Enumtipo_despesa_fixaNullableFilter<"despesas"> | $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: Enumtipo_despesa_variavelNullableFilter<"despesas"> | $Enums.tipo_despesa_variavel | null
     valor_despesa?: DecimalFilter<"despesas"> | Decimal | DecimalJsLike | number | string
     data_despesa?: DateTimeFilter<"despesas"> | Date | string
     responsavel_compra_id?: UuidFilter<"despesas"> | string
-    categoria_despesa?: StringFilter<"despesas"> | string
-    fluxo_caixa?: Fluxo_caixaListRelationFilter
+    plano_contas_id?: UuidFilter<"despesas"> | string
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
+    categoria_plano?: XOR<PlanoContasScalarRelationFilter, PlanoContasWhereInput>
+    movimentacoes?: MovimentacaoListRelationFilter
+    fluxo_caixa?: Fluxo_caixaListRelationFilter
   }
 
   export type despesasOrderByWithRelationInput = {
     id?: SortOrder
-    descricao_despesa?: SortOrder
-    tipo_despesa?: SortOrder
-    tipo_despesa_fixa?: SortOrder
-    tipo_despesa_variavel?: SortOrder
+    descricao_despesa?: SortOrderInput | SortOrder
+    tipo_despesa?: SortOrderInput | SortOrder
+    tipo_despesa_fixa?: SortOrderInput | SortOrder
+    tipo_despesa_variavel?: SortOrderInput | SortOrder
     valor_despesa?: SortOrder
     data_despesa?: SortOrder
     responsavel_compra_id?: SortOrder
-    categoria_despesa?: SortOrder
-    fluxo_caixa?: fluxo_caixaOrderByRelationAggregateInput
+    plano_contas_id?: SortOrder
     usuarios?: usuariosOrderByWithRelationInput
+    categoria_plano?: PlanoContasOrderByWithRelationInput
+    movimentacoes?: MovimentacaoOrderByRelationAggregateInput
+    fluxo_caixa?: fluxo_caixaOrderByRelationAggregateInput
   }
 
   export type despesasWhereUniqueInput = Prisma.AtLeast<{
@@ -33941,28 +38364,30 @@ export namespace Prisma {
     AND?: despesasWhereInput | despesasWhereInput[]
     OR?: despesasWhereInput[]
     NOT?: despesasWhereInput | despesasWhereInput[]
-    descricao_despesa?: StringFilter<"despesas"> | string
-    tipo_despesa?: Enumtipo_despesaFilter<"despesas"> | $Enums.tipo_despesa
-    tipo_despesa_fixa?: Enumtipo_despesa_fixaFilter<"despesas"> | $Enums.tipo_despesa_fixa
-    tipo_despesa_variavel?: Enumtipo_despesa_variavelFilter<"despesas"> | $Enums.tipo_despesa_variavel
+    descricao_despesa?: StringNullableFilter<"despesas"> | string | null
+    tipo_despesa?: Enumtipo_despesaNullableFilter<"despesas"> | $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: Enumtipo_despesa_fixaNullableFilter<"despesas"> | $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: Enumtipo_despesa_variavelNullableFilter<"despesas"> | $Enums.tipo_despesa_variavel | null
     valor_despesa?: DecimalFilter<"despesas"> | Decimal | DecimalJsLike | number | string
     data_despesa?: DateTimeFilter<"despesas"> | Date | string
     responsavel_compra_id?: UuidFilter<"despesas"> | string
-    categoria_despesa?: StringFilter<"despesas"> | string
-    fluxo_caixa?: Fluxo_caixaListRelationFilter
+    plano_contas_id?: UuidFilter<"despesas"> | string
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
+    categoria_plano?: XOR<PlanoContasScalarRelationFilter, PlanoContasWhereInput>
+    movimentacoes?: MovimentacaoListRelationFilter
+    fluxo_caixa?: Fluxo_caixaListRelationFilter
   }, "id">
 
   export type despesasOrderByWithAggregationInput = {
     id?: SortOrder
-    descricao_despesa?: SortOrder
-    tipo_despesa?: SortOrder
-    tipo_despesa_fixa?: SortOrder
-    tipo_despesa_variavel?: SortOrder
+    descricao_despesa?: SortOrderInput | SortOrder
+    tipo_despesa?: SortOrderInput | SortOrder
+    tipo_despesa_fixa?: SortOrderInput | SortOrder
+    tipo_despesa_variavel?: SortOrderInput | SortOrder
     valor_despesa?: SortOrder
     data_despesa?: SortOrder
     responsavel_compra_id?: SortOrder
-    categoria_despesa?: SortOrder
+    plano_contas_id?: SortOrder
     _count?: despesasCountOrderByAggregateInput
     _avg?: despesasAvgOrderByAggregateInput
     _max?: despesasMaxOrderByAggregateInput
@@ -33975,14 +38400,14 @@ export namespace Prisma {
     OR?: despesasScalarWhereWithAggregatesInput[]
     NOT?: despesasScalarWhereWithAggregatesInput | despesasScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"despesas"> | string
-    descricao_despesa?: StringWithAggregatesFilter<"despesas"> | string
-    tipo_despesa?: Enumtipo_despesaWithAggregatesFilter<"despesas"> | $Enums.tipo_despesa
-    tipo_despesa_fixa?: Enumtipo_despesa_fixaWithAggregatesFilter<"despesas"> | $Enums.tipo_despesa_fixa
-    tipo_despesa_variavel?: Enumtipo_despesa_variavelWithAggregatesFilter<"despesas"> | $Enums.tipo_despesa_variavel
+    descricao_despesa?: StringNullableWithAggregatesFilter<"despesas"> | string | null
+    tipo_despesa?: Enumtipo_despesaNullableWithAggregatesFilter<"despesas"> | $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: Enumtipo_despesa_fixaNullableWithAggregatesFilter<"despesas"> | $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: Enumtipo_despesa_variavelNullableWithAggregatesFilter<"despesas"> | $Enums.tipo_despesa_variavel | null
     valor_despesa?: DecimalWithAggregatesFilter<"despesas"> | Decimal | DecimalJsLike | number | string
     data_despesa?: DateTimeWithAggregatesFilter<"despesas"> | Date | string
     responsavel_compra_id?: UuidWithAggregatesFilter<"despesas"> | string
-    categoria_despesa?: StringWithAggregatesFilter<"despesas"> | string
+    plano_contas_id?: UuidWithAggregatesFilter<"despesas"> | string
   }
 
   export type documento_fiscalWhereInput = {
@@ -34119,7 +38544,8 @@ export namespace Prisma {
     NOT?: fluxo_caixaWhereInput | fluxo_caixaWhereInput[]
     id?: UuidFilter<"fluxo_caixa"> | string
     descricao?: StringFilter<"fluxo_caixa"> | string
-    tipo?: Enumtipo_movimentacao_caixaFilter<"fluxo_caixa"> | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFilter<"fluxo_caixa"> | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFilter<"fluxo_caixa"> | $Enums.StatusMovimentacao
     valor?: DecimalFilter<"fluxo_caixa"> | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFilter<"fluxo_caixa"> | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFilter<"fluxo_caixa"> | Date | string
@@ -34130,6 +38556,7 @@ export namespace Prisma {
     sucata_venda_id?: UuidNullableFilter<"fluxo_caixa"> | string | null
     objeto_duravel_id?: UuidNullableFilter<"fluxo_caixa"> | string | null
     objeto_generico_id?: UuidNullableFilter<"fluxo_caixa"> | string | null
+    plano_contas_id?: UuidFilter<"fluxo_caixa"> | string
     usuario_caixa_id?: UuidFilter<"fluxo_caixa"> | string
     pedido_venda?: XOR<Pedidos_vendasNullableScalarRelationFilter, pedidos_vendasWhereInput> | null
     ordem_servico?: XOR<Ordem_servicoNullableScalarRelationFilter, ordem_servicoWhereInput> | null
@@ -34139,12 +38566,14 @@ export namespace Prisma {
     usuario_caixa?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
     estoque_objetos_duraveis?: XOR<Estoque_objetos_duraveisNullableScalarRelationFilter, estoque_objetos_duraveisWhereInput> | null
     estoque_objetos_genericos?: XOR<Estoque_objetos_genericosNullableScalarRelationFilter, estoque_objetos_genericosWhereInput> | null
+    plano_contas?: XOR<PlanoContasScalarRelationFilter, PlanoContasWhereInput>
   }
 
   export type fluxo_caixaOrderByWithRelationInput = {
     id?: SortOrder
     descricao?: SortOrder
     tipo?: SortOrder
+    status?: SortOrder
     valor?: SortOrder
     metodo_pagamento?: SortOrder
     data_movimentacao?: SortOrder
@@ -34155,6 +38584,7 @@ export namespace Prisma {
     sucata_venda_id?: SortOrderInput | SortOrder
     objeto_duravel_id?: SortOrderInput | SortOrder
     objeto_generico_id?: SortOrderInput | SortOrder
+    plano_contas_id?: SortOrder
     usuario_caixa_id?: SortOrder
     pedido_venda?: pedidos_vendasOrderByWithRelationInput
     ordem_servico?: ordem_servicoOrderByWithRelationInput
@@ -34164,6 +38594,7 @@ export namespace Prisma {
     usuario_caixa?: usuariosOrderByWithRelationInput
     estoque_objetos_duraveis?: estoque_objetos_duraveisOrderByWithRelationInput
     estoque_objetos_genericos?: estoque_objetos_genericosOrderByWithRelationInput
+    plano_contas?: PlanoContasOrderByWithRelationInput
   }
 
   export type fluxo_caixaWhereUniqueInput = Prisma.AtLeast<{
@@ -34172,7 +38603,8 @@ export namespace Prisma {
     OR?: fluxo_caixaWhereInput[]
     NOT?: fluxo_caixaWhereInput | fluxo_caixaWhereInput[]
     descricao?: StringFilter<"fluxo_caixa"> | string
-    tipo?: Enumtipo_movimentacao_caixaFilter<"fluxo_caixa"> | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFilter<"fluxo_caixa"> | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFilter<"fluxo_caixa"> | $Enums.StatusMovimentacao
     valor?: DecimalFilter<"fluxo_caixa"> | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFilter<"fluxo_caixa"> | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFilter<"fluxo_caixa"> | Date | string
@@ -34183,6 +38615,7 @@ export namespace Prisma {
     sucata_venda_id?: UuidNullableFilter<"fluxo_caixa"> | string | null
     objeto_duravel_id?: UuidNullableFilter<"fluxo_caixa"> | string | null
     objeto_generico_id?: UuidNullableFilter<"fluxo_caixa"> | string | null
+    plano_contas_id?: UuidFilter<"fluxo_caixa"> | string
     usuario_caixa_id?: UuidFilter<"fluxo_caixa"> | string
     pedido_venda?: XOR<Pedidos_vendasNullableScalarRelationFilter, pedidos_vendasWhereInput> | null
     ordem_servico?: XOR<Ordem_servicoNullableScalarRelationFilter, ordem_servicoWhereInput> | null
@@ -34192,12 +38625,14 @@ export namespace Prisma {
     usuario_caixa?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
     estoque_objetos_duraveis?: XOR<Estoque_objetos_duraveisNullableScalarRelationFilter, estoque_objetos_duraveisWhereInput> | null
     estoque_objetos_genericos?: XOR<Estoque_objetos_genericosNullableScalarRelationFilter, estoque_objetos_genericosWhereInput> | null
+    plano_contas?: XOR<PlanoContasScalarRelationFilter, PlanoContasWhereInput>
   }, "id">
 
   export type fluxo_caixaOrderByWithAggregationInput = {
     id?: SortOrder
     descricao?: SortOrder
     tipo?: SortOrder
+    status?: SortOrder
     valor?: SortOrder
     metodo_pagamento?: SortOrder
     data_movimentacao?: SortOrder
@@ -34208,6 +38643,7 @@ export namespace Prisma {
     sucata_venda_id?: SortOrderInput | SortOrder
     objeto_duravel_id?: SortOrderInput | SortOrder
     objeto_generico_id?: SortOrderInput | SortOrder
+    plano_contas_id?: SortOrder
     usuario_caixa_id?: SortOrder
     _count?: fluxo_caixaCountOrderByAggregateInput
     _avg?: fluxo_caixaAvgOrderByAggregateInput
@@ -34222,7 +38658,8 @@ export namespace Prisma {
     NOT?: fluxo_caixaScalarWhereWithAggregatesInput | fluxo_caixaScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"fluxo_caixa"> | string
     descricao?: StringWithAggregatesFilter<"fluxo_caixa"> | string
-    tipo?: Enumtipo_movimentacao_caixaWithAggregatesFilter<"fluxo_caixa"> | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaWithAggregatesFilter<"fluxo_caixa"> | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoWithAggregatesFilter<"fluxo_caixa"> | $Enums.StatusMovimentacao
     valor?: DecimalWithAggregatesFilter<"fluxo_caixa"> | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoWithAggregatesFilter<"fluxo_caixa"> | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeWithAggregatesFilter<"fluxo_caixa"> | Date | string
@@ -34233,6 +38670,7 @@ export namespace Prisma {
     sucata_venda_id?: UuidNullableWithAggregatesFilter<"fluxo_caixa"> | string | null
     objeto_duravel_id?: UuidNullableWithAggregatesFilter<"fluxo_caixa"> | string | null
     objeto_generico_id?: UuidNullableWithAggregatesFilter<"fluxo_caixa"> | string | null
+    plano_contas_id?: UuidWithAggregatesFilter<"fluxo_caixa"> | string
     usuario_caixa_id?: UuidWithAggregatesFilter<"fluxo_caixa"> | string
   }
 
@@ -34246,15 +38684,15 @@ export namespace Prisma {
     cep_cliente?: string
     cidade_cliente?: string | null
     uf_cliente?: string
-    codigo_ibge?: string
+    codigo_IBGE?: string
     pais_cliente?: string | null
     telefone_cliente?: string | null
     data_nascimento?: Date | string | null
     email_cliente: string
     data_cadastro?: Date | string | null
-    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutCliente_compradorInput
-    sucata_compras?: sucata_comprasCreateNestedManyWithoutClientesInput
-    veiculos_cliente_manutencao?: veiculos_cliente_manutencaoCreateNestedManyWithoutClientesInput
+    pedidos_venda?: pedidos_vendasCreateNestedManyWithoutCliente_compradorInput
+    sucata_compra?: sucata_comprasCreateNestedManyWithoutClientesInput
+    veiculos_cliente?: veiculos_cliente_manutencaoCreateNestedManyWithoutClientesInput
     ordens_servico?: ordem_servicoCreateNestedManyWithoutClientesInput
     sucatas_compradas_inteiras?: sucata_estoqueCreateNestedManyWithoutCliente_compradorInput
   }
@@ -34269,15 +38707,15 @@ export namespace Prisma {
     cep_cliente?: string
     cidade_cliente?: string | null
     uf_cliente?: string
-    codigo_ibge?: string
+    codigo_IBGE?: string
     pais_cliente?: string | null
     telefone_cliente?: string | null
     data_nascimento?: Date | string | null
     email_cliente: string
     data_cadastro?: Date | string | null
-    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutCliente_compradorInput
-    sucata_compras?: sucata_comprasUncheckedCreateNestedManyWithoutClientesInput
-    veiculos_cliente_manutencao?: veiculos_cliente_manutencaoUncheckedCreateNestedManyWithoutClientesInput
+    pedidos_venda?: pedidos_vendasUncheckedCreateNestedManyWithoutCliente_compradorInput
+    sucata_compra?: sucata_comprasUncheckedCreateNestedManyWithoutClientesInput
+    veiculos_cliente?: veiculos_cliente_manutencaoUncheckedCreateNestedManyWithoutClientesInput
     ordens_servico?: ordem_servicoUncheckedCreateNestedManyWithoutClientesInput
     sucatas_compradas_inteiras?: sucata_estoqueUncheckedCreateNestedManyWithoutCliente_compradorInput
   }
@@ -34292,15 +38730,15 @@ export namespace Prisma {
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     uf_cliente?: StringFieldUpdateOperationsInput | string
-    codigo_ibge?: StringFieldUpdateOperationsInput | string
+    codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email_cliente?: StringFieldUpdateOperationsInput | string
     data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    pedidos_vendas?: pedidos_vendasUpdateManyWithoutCliente_compradorNestedInput
-    sucata_compras?: sucata_comprasUpdateManyWithoutClientesNestedInput
-    veiculos_cliente_manutencao?: veiculos_cliente_manutencaoUpdateManyWithoutClientesNestedInput
+    pedidos_venda?: pedidos_vendasUpdateManyWithoutCliente_compradorNestedInput
+    sucata_compra?: sucata_comprasUpdateManyWithoutClientesNestedInput
+    veiculos_cliente?: veiculos_cliente_manutencaoUpdateManyWithoutClientesNestedInput
     ordens_servico?: ordem_servicoUpdateManyWithoutClientesNestedInput
     sucatas_compradas_inteiras?: sucata_estoqueUpdateManyWithoutCliente_compradorNestedInput
   }
@@ -34315,15 +38753,15 @@ export namespace Prisma {
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     uf_cliente?: StringFieldUpdateOperationsInput | string
-    codigo_ibge?: StringFieldUpdateOperationsInput | string
+    codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email_cliente?: StringFieldUpdateOperationsInput | string
     data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutCliente_compradorNestedInput
-    sucata_compras?: sucata_comprasUncheckedUpdateManyWithoutClientesNestedInput
-    veiculos_cliente_manutencao?: veiculos_cliente_manutencaoUncheckedUpdateManyWithoutClientesNestedInput
+    pedidos_venda?: pedidos_vendasUncheckedUpdateManyWithoutCliente_compradorNestedInput
+    sucata_compra?: sucata_comprasUncheckedUpdateManyWithoutClientesNestedInput
+    veiculos_cliente?: veiculos_cliente_manutencaoUncheckedUpdateManyWithoutClientesNestedInput
     ordens_servico?: ordem_servicoUncheckedUpdateManyWithoutClientesNestedInput
     sucatas_compradas_inteiras?: sucata_estoqueUncheckedUpdateManyWithoutCliente_compradorNestedInput
   }
@@ -34338,7 +38776,7 @@ export namespace Prisma {
     cep_cliente?: string
     cidade_cliente?: string | null
     uf_cliente?: string
-    codigo_ibge?: string
+    codigo_IBGE?: string
     pais_cliente?: string | null
     telefone_cliente?: string | null
     data_nascimento?: Date | string | null
@@ -34356,7 +38794,7 @@ export namespace Prisma {
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     uf_cliente?: StringFieldUpdateOperationsInput | string
-    codigo_ibge?: StringFieldUpdateOperationsInput | string
+    codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -34374,7 +38812,7 @@ export namespace Prisma {
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     uf_cliente?: StringFieldUpdateOperationsInput | string
-    codigo_ibge?: StringFieldUpdateOperationsInput | string
+    codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -34784,11 +39222,11 @@ export namespace Prisma {
     id?: string
     ncm: string
     cest?: string | null
-    cfop_padrao?: string
     cst_icms?: string
     cst_ibs_cbs?: string | null
     cClassTrib?: string | null
     peca_estoque: peca_estoqueCreateNestedOneWithoutDados_fiscaisInput
+    cfop?: cfopsCreateNestedOneWithoutDadosFiscaisPecasInput
   }
 
   export type dados_fiscais_pecaUncheckedCreateInput = {
@@ -34796,7 +39234,7 @@ export namespace Prisma {
     peca_id: string
     ncm: string
     cest?: string | null
-    cfop_padrao?: string
+    cfop_id?: string
     cst_icms?: string
     cst_ibs_cbs?: string | null
     cClassTrib?: string | null
@@ -34806,11 +39244,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     ncm?: StringFieldUpdateOperationsInput | string
     cest?: NullableStringFieldUpdateOperationsInput | string | null
-    cfop_padrao?: StringFieldUpdateOperationsInput | string
     cst_icms?: StringFieldUpdateOperationsInput | string
     cst_ibs_cbs?: NullableStringFieldUpdateOperationsInput | string | null
     cClassTrib?: NullableStringFieldUpdateOperationsInput | string | null
     peca_estoque?: peca_estoqueUpdateOneRequiredWithoutDados_fiscaisNestedInput
+    cfop?: cfopsUpdateOneRequiredWithoutDadosFiscaisPecasNestedInput
   }
 
   export type dados_fiscais_pecaUncheckedUpdateInput = {
@@ -34818,7 +39256,7 @@ export namespace Prisma {
     peca_id?: StringFieldUpdateOperationsInput | string
     ncm?: StringFieldUpdateOperationsInput | string
     cest?: NullableStringFieldUpdateOperationsInput | string | null
-    cfop_padrao?: StringFieldUpdateOperationsInput | string
+    cfop_id?: StringFieldUpdateOperationsInput | string
     cst_icms?: StringFieldUpdateOperationsInput | string
     cst_ibs_cbs?: NullableStringFieldUpdateOperationsInput | string | null
     cClassTrib?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34829,7 +39267,7 @@ export namespace Prisma {
     peca_id: string
     ncm: string
     cest?: string | null
-    cfop_padrao?: string
+    cfop_id?: string
     cst_icms?: string
     cst_ibs_cbs?: string | null
     cClassTrib?: string | null
@@ -34839,7 +39277,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     ncm?: StringFieldUpdateOperationsInput | string
     cest?: NullableStringFieldUpdateOperationsInput | string | null
-    cfop_padrao?: StringFieldUpdateOperationsInput | string
     cst_icms?: StringFieldUpdateOperationsInput | string
     cst_ibs_cbs?: NullableStringFieldUpdateOperationsInput | string | null
     cClassTrib?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34850,7 +39287,7 @@ export namespace Prisma {
     peca_id?: StringFieldUpdateOperationsInput | string
     ncm?: StringFieldUpdateOperationsInput | string
     cest?: NullableStringFieldUpdateOperationsInput | string | null
-    cfop_padrao?: StringFieldUpdateOperationsInput | string
+    cfop_id?: StringFieldUpdateOperationsInput | string
     cst_icms?: StringFieldUpdateOperationsInput | string
     cst_ibs_cbs?: NullableStringFieldUpdateOperationsInput | string | null
     cClassTrib?: NullableStringFieldUpdateOperationsInput | string | null
@@ -35015,10 +39452,13 @@ export namespace Prisma {
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
     itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
-    cliente_comprador: clientesCreateNestedOneWithoutPedidos_vendasInput
+    cliente_comprador: clientesCreateNestedOneWithoutPedidos_vendaInput
     responsavel_venda: usuariosCreateNestedOneWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalCreateNestedOneWithoutPedido_vendaInput
     lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutPedido_vendaInput
+    osServicosItens?: os_servicos_itensCreateNestedOneWithoutPedidosInput
+    plano_contas?: PlanoContasCreateNestedOneWithoutPedidos_vendasInput
+    movimentacoes?: MovimentacaoCreateNestedManyWithoutPedido_vendaInput
   }
 
   export type pedidos_vendasUncheckedCreateInput = {
@@ -35030,9 +39470,12 @@ export namespace Prisma {
     observacoes_recibo?: string | null
     cliente_comprador_id: string
     responsavel_venda_id: string
+    os_servicos_itensId?: string | null
+    plano_contas_id?: string | null
     itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalUncheckedCreateNestedOneWithoutPedido_vendaInput
     lancamentos_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutPedido_vendaInput
+    movimentacoes?: MovimentacaoUncheckedCreateNestedManyWithoutPedido_vendaInput
   }
 
   export type pedidos_vendasUpdateInput = {
@@ -35043,10 +39486,13 @@ export namespace Prisma {
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
     itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
-    cliente_comprador?: clientesUpdateOneRequiredWithoutPedidos_vendasNestedInput
+    cliente_comprador?: clientesUpdateOneRequiredWithoutPedidos_vendaNestedInput
     responsavel_venda?: usuariosUpdateOneRequiredWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUpdateOneWithoutPedido_vendaNestedInput
     lancamentos_caixa?: fluxo_caixaUpdateManyWithoutPedido_vendaNestedInput
+    osServicosItens?: os_servicos_itensUpdateOneWithoutPedidosNestedInput
+    plano_contas?: PlanoContasUpdateOneWithoutPedidos_vendasNestedInput
+    movimentacoes?: MovimentacaoUpdateManyWithoutPedido_vendaNestedInput
   }
 
   export type pedidos_vendasUncheckedUpdateInput = {
@@ -35058,9 +39504,12 @@ export namespace Prisma {
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
     cliente_comprador_id?: StringFieldUpdateOperationsInput | string
     responsavel_venda_id?: StringFieldUpdateOperationsInput | string
+    os_servicos_itensId?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: NullableStringFieldUpdateOperationsInput | string | null
     itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUncheckedUpdateOneWithoutPedido_vendaNestedInput
     lancamentos_caixa?: fluxo_caixaUncheckedUpdateManyWithoutPedido_vendaNestedInput
+    movimentacoes?: MovimentacaoUncheckedUpdateManyWithoutPedido_vendaNestedInput
   }
 
   export type pedidos_vendasCreateManyInput = {
@@ -35072,6 +39521,8 @@ export namespace Prisma {
     observacoes_recibo?: string | null
     cliente_comprador_id: string
     responsavel_venda_id: string
+    os_servicos_itensId?: string | null
+    plano_contas_id?: string | null
   }
 
   export type pedidos_vendasUpdateManyMutationInput = {
@@ -35092,6 +39543,8 @@ export namespace Prisma {
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
     cliente_comprador_id?: StringFieldUpdateOperationsInput | string
     responsavel_venda_id?: StringFieldUpdateOperationsInput | string
+    os_servicos_itensId?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ordem_servicoCreateInput = {
@@ -35234,6 +39687,8 @@ export namespace Prisma {
     ordem_servico: ordem_servicoCreateNestedOneWithoutServicos_itensInput
     tipo_servico: tipo_servicoCreateNestedOneWithoutOs_servicos_itensInput
     mecanico: usuariosCreateNestedOneWithoutServicos_executadosInput
+    veiculos?: veiculos_cliente_manutencaoCreateNestedManyWithoutOsServicosItensInput
+    pedidos?: pedidos_vendasCreateNestedManyWithoutOsServicosItensInput
   }
 
   export type os_servicos_itensUncheckedCreateInput = {
@@ -35244,6 +39699,8 @@ export namespace Prisma {
     quantidade?: number
     preco_unitario: Decimal | DecimalJsLike | number | string
     preco_total: Decimal | DecimalJsLike | number | string
+    veiculos?: veiculos_cliente_manutencaoUncheckedCreateNestedManyWithoutOsServicosItensInput
+    pedidos?: pedidos_vendasUncheckedCreateNestedManyWithoutOsServicosItensInput
   }
 
   export type os_servicos_itensUpdateInput = {
@@ -35254,6 +39711,8 @@ export namespace Prisma {
     ordem_servico?: ordem_servicoUpdateOneRequiredWithoutServicos_itensNestedInput
     tipo_servico?: tipo_servicoUpdateOneRequiredWithoutOs_servicos_itensNestedInput
     mecanico?: usuariosUpdateOneRequiredWithoutServicos_executadosNestedInput
+    veiculos?: veiculos_cliente_manutencaoUpdateManyWithoutOsServicosItensNestedInput
+    pedidos?: pedidos_vendasUpdateManyWithoutOsServicosItensNestedInput
   }
 
   export type os_servicos_itensUncheckedUpdateInput = {
@@ -35264,6 +39723,8 @@ export namespace Prisma {
     quantidade?: IntFieldUpdateOperationsInput | number
     preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    veiculos?: veiculos_cliente_manutencaoUncheckedUpdateManyWithoutOsServicosItensNestedInput
+    pedidos?: pedidos_vendasUncheckedUpdateManyWithoutOsServicosItensNestedInput
   }
 
   export type os_servicos_itensCreateManyInput = {
@@ -35345,7 +39806,7 @@ export namespace Prisma {
     data_compra?: Date | string | null
     valor_compra: Decimal | DecimalJsLike | number | string
     quantidade?: number
-    clientes: clientesCreateNestedOneWithoutSucata_comprasInput
+    clientes: clientesCreateNestedOneWithoutSucata_compraInput
     usuarios: usuariosCreateNestedOneWithoutSucata_comprasInput
     lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutSucata_compraInput
   }
@@ -35365,7 +39826,7 @@ export namespace Prisma {
     data_compra?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     valor_compra?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantidade?: IntFieldUpdateOperationsInput | number
-    clientes?: clientesUpdateOneRequiredWithoutSucata_comprasNestedInput
+    clientes?: clientesUpdateOneRequiredWithoutSucata_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutSucata_comprasNestedInput
     lancamentos_caixa?: fluxo_caixaUpdateManyWithoutSucata_compraNestedInput
   }
@@ -35403,6 +39864,59 @@ export namespace Prisma {
     quantidade?: IntFieldUpdateOperationsInput | number
     responsavel_compra_id?: StringFieldUpdateOperationsInput | string
     cliente_vendedor_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cfopsCreateInput = {
+    id?: string
+    codigo: string
+    descricao: string
+    tipo: string
+    dadosFiscaisPecas?: dados_fiscais_pecaCreateNestedManyWithoutCfopInput
+  }
+
+  export type cfopsUncheckedCreateInput = {
+    id?: string
+    codigo: string
+    descricao: string
+    tipo: string
+    dadosFiscaisPecas?: dados_fiscais_pecaUncheckedCreateNestedManyWithoutCfopInput
+  }
+
+  export type cfopsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigo?: StringFieldUpdateOperationsInput | string
+    descricao?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    dadosFiscaisPecas?: dados_fiscais_pecaUpdateManyWithoutCfopNestedInput
+  }
+
+  export type cfopsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigo?: StringFieldUpdateOperationsInput | string
+    descricao?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    dadosFiscaisPecas?: dados_fiscais_pecaUncheckedUpdateManyWithoutCfopNestedInput
+  }
+
+  export type cfopsCreateManyInput = {
+    id?: string
+    codigo: string
+    descricao: string
+    tipo: string
+  }
+
+  export type cfopsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigo?: StringFieldUpdateOperationsInput | string
+    descricao?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cfopsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigo?: StringFieldUpdateOperationsInput | string
+    descricao?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
   }
 
   export type sucata_estoqueCreateInput = {
@@ -35717,8 +40231,9 @@ export namespace Prisma {
     cor?: string | null
     ano_fabricacao?: number | null
     ordem_servico?: ordem_servicoCreateNestedManyWithoutVeiculoInput
-    clientes: clientesCreateNestedOneWithoutVeiculos_cliente_manutencaoInput
+    clientes: clientesCreateNestedOneWithoutVeiculos_clienteInput
     modelos: modelosCreateNestedOneWithoutVeiculos_cliente_manutencaoInput
+    osServicosItens?: os_servicos_itensCreateNestedOneWithoutVeiculosInput
   }
 
   export type veiculos_cliente_manutencaoUncheckedCreateInput = {
@@ -35729,6 +40244,7 @@ export namespace Prisma {
     chassi?: string | null
     cor?: string | null
     ano_fabricacao?: number | null
+    os_servicos_itensId?: string | null
     ordem_servico?: ordem_servicoUncheckedCreateNestedManyWithoutVeiculoInput
   }
 
@@ -35739,8 +40255,9 @@ export namespace Prisma {
     cor?: NullableStringFieldUpdateOperationsInput | string | null
     ano_fabricacao?: NullableIntFieldUpdateOperationsInput | number | null
     ordem_servico?: ordem_servicoUpdateManyWithoutVeiculoNestedInput
-    clientes?: clientesUpdateOneRequiredWithoutVeiculos_cliente_manutencaoNestedInput
+    clientes?: clientesUpdateOneRequiredWithoutVeiculos_clienteNestedInput
     modelos?: modelosUpdateOneRequiredWithoutVeiculos_cliente_manutencaoNestedInput
+    osServicosItens?: os_servicos_itensUpdateOneWithoutVeiculosNestedInput
   }
 
   export type veiculos_cliente_manutencaoUncheckedUpdateInput = {
@@ -35751,6 +40268,7 @@ export namespace Prisma {
     chassi?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: NullableStringFieldUpdateOperationsInput | string | null
     ano_fabricacao?: NullableIntFieldUpdateOperationsInput | number | null
+    os_servicos_itensId?: NullableStringFieldUpdateOperationsInput | string | null
     ordem_servico?: ordem_servicoUncheckedUpdateManyWithoutVeiculoNestedInput
   }
 
@@ -35762,6 +40280,7 @@ export namespace Prisma {
     chassi?: string | null
     cor?: string | null
     ano_fabricacao?: number | null
+    os_servicos_itensId?: string | null
   }
 
   export type veiculos_cliente_manutencaoUpdateManyMutationInput = {
@@ -35780,6 +40299,7 @@ export namespace Prisma {
     chassi?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: NullableStringFieldUpdateOperationsInput | string | null
     ano_fabricacao?: NullableIntFieldUpdateOperationsInput | number | null
+    os_servicos_itensId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type configuracao_impostoCreateInput = {
@@ -35880,91 +40400,240 @@ export namespace Prisma {
     data_atualizacao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PlanoContasCreateInput = {
+    id?: string
+    codigo_contabil: string
+    nome_conta: string
+    tipo_dre: $Enums.TipoContaPlano
+    despesas?: despesasCreateNestedManyWithoutCategoria_planoInput
+    lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutPlano_contasInput
+    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutPlano_contasInput
+    movimentacoes?: MovimentacaoCreateNestedManyWithoutPlano_contasInput
+  }
+
+  export type PlanoContasUncheckedCreateInput = {
+    id?: string
+    codigo_contabil: string
+    nome_conta: string
+    tipo_dre: $Enums.TipoContaPlano
+    despesas?: despesasUncheckedCreateNestedManyWithoutCategoria_planoInput
+    lancamentos_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutPlano_contasInput
+    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutPlano_contasInput
+    movimentacoes?: MovimentacaoUncheckedCreateNestedManyWithoutPlano_contasInput
+  }
+
+  export type PlanoContasUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigo_contabil?: StringFieldUpdateOperationsInput | string
+    nome_conta?: StringFieldUpdateOperationsInput | string
+    tipo_dre?: EnumTipoContaPlanoFieldUpdateOperationsInput | $Enums.TipoContaPlano
+    despesas?: despesasUpdateManyWithoutCategoria_planoNestedInput
+    lancamentos_caixa?: fluxo_caixaUpdateManyWithoutPlano_contasNestedInput
+    pedidos_vendas?: pedidos_vendasUpdateManyWithoutPlano_contasNestedInput
+    movimentacoes?: MovimentacaoUpdateManyWithoutPlano_contasNestedInput
+  }
+
+  export type PlanoContasUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigo_contabil?: StringFieldUpdateOperationsInput | string
+    nome_conta?: StringFieldUpdateOperationsInput | string
+    tipo_dre?: EnumTipoContaPlanoFieldUpdateOperationsInput | $Enums.TipoContaPlano
+    despesas?: despesasUncheckedUpdateManyWithoutCategoria_planoNestedInput
+    lancamentos_caixa?: fluxo_caixaUncheckedUpdateManyWithoutPlano_contasNestedInput
+    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutPlano_contasNestedInput
+    movimentacoes?: MovimentacaoUncheckedUpdateManyWithoutPlano_contasNestedInput
+  }
+
+  export type PlanoContasCreateManyInput = {
+    id?: string
+    codigo_contabil: string
+    nome_conta: string
+    tipo_dre: $Enums.TipoContaPlano
+  }
+
+  export type PlanoContasUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigo_contabil?: StringFieldUpdateOperationsInput | string
+    nome_conta?: StringFieldUpdateOperationsInput | string
+    tipo_dre?: EnumTipoContaPlanoFieldUpdateOperationsInput | $Enums.TipoContaPlano
+  }
+
+  export type PlanoContasUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigo_contabil?: StringFieldUpdateOperationsInput | string
+    nome_conta?: StringFieldUpdateOperationsInput | string
+    tipo_dre?: EnumTipoContaPlanoFieldUpdateOperationsInput | $Enums.TipoContaPlano
+  }
+
+  export type MovimentacaoCreateInput = {
+    id?: string
+    valor: Decimal | DecimalJsLike | number | string
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
+    data_vencimento: Date | string
+    data_pagamento?: Date | string | null
+    plano_contas: PlanoContasCreateNestedOneWithoutMovimentacoesInput
+    pedido_venda?: pedidos_vendasCreateNestedOneWithoutMovimentacoesInput
+    despesa?: despesasCreateNestedOneWithoutMovimentacoesInput
+  }
+
+  export type MovimentacaoUncheckedCreateInput = {
+    id?: string
+    valor: Decimal | DecimalJsLike | number | string
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
+    data_vencimento: Date | string
+    data_pagamento?: Date | string | null
+    plano_contas_id: string
+    pedido_venda_id?: string | null
+    despesa_id?: string | null
+  }
+
+  export type MovimentacaoUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
+    data_vencimento?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_pagamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    plano_contas?: PlanoContasUpdateOneRequiredWithoutMovimentacoesNestedInput
+    pedido_venda?: pedidos_vendasUpdateOneWithoutMovimentacoesNestedInput
+    despesa?: despesasUpdateOneWithoutMovimentacoesNestedInput
+  }
+
+  export type MovimentacaoUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
+    data_vencimento?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_pagamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
+    pedido_venda_id?: NullableStringFieldUpdateOperationsInput | string | null
+    despesa_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MovimentacaoCreateManyInput = {
+    id?: string
+    valor: Decimal | DecimalJsLike | number | string
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
+    data_vencimento: Date | string
+    data_pagamento?: Date | string | null
+    plano_contas_id: string
+    pedido_venda_id?: string | null
+    despesa_id?: string | null
+  }
+
+  export type MovimentacaoUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
+    data_vencimento?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_pagamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type MovimentacaoUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
+    data_vencimento?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_pagamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
+    pedido_venda_id?: NullableStringFieldUpdateOperationsInput | string | null
+    despesa_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type despesasCreateInput = {
     id?: string
-    descricao_despesa: string
-    tipo_despesa: $Enums.tipo_despesa
-    tipo_despesa_fixa: $Enums.tipo_despesa_fixa
-    tipo_despesa_variavel: $Enums.tipo_despesa_variavel
+    descricao_despesa?: string | null
+    tipo_despesa?: $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: $Enums.tipo_despesa_variavel | null
     valor_despesa: Decimal | DecimalJsLike | number | string
     data_despesa?: Date | string
-    categoria_despesa: string
-    fluxo_caixa?: fluxo_caixaCreateNestedManyWithoutDespesaInput
     usuarios: usuariosCreateNestedOneWithoutDespesasInput
+    categoria_plano: PlanoContasCreateNestedOneWithoutDespesasInput
+    movimentacoes?: MovimentacaoCreateNestedManyWithoutDespesaInput
+    fluxo_caixa?: fluxo_caixaCreateNestedManyWithoutDespesaInput
   }
 
   export type despesasUncheckedCreateInput = {
     id?: string
-    descricao_despesa: string
-    tipo_despesa: $Enums.tipo_despesa
-    tipo_despesa_fixa: $Enums.tipo_despesa_fixa
-    tipo_despesa_variavel: $Enums.tipo_despesa_variavel
+    descricao_despesa?: string | null
+    tipo_despesa?: $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: $Enums.tipo_despesa_variavel | null
     valor_despesa: Decimal | DecimalJsLike | number | string
     data_despesa?: Date | string
     responsavel_compra_id: string
-    categoria_despesa: string
+    plano_contas_id: string
+    movimentacoes?: MovimentacaoUncheckedCreateNestedManyWithoutDespesaInput
     fluxo_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutDespesaInput
   }
 
   export type despesasUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    descricao_despesa?: StringFieldUpdateOperationsInput | string
-    tipo_despesa?: Enumtipo_despesaFieldUpdateOperationsInput | $Enums.tipo_despesa
-    tipo_despesa_fixa?: Enumtipo_despesa_fixaFieldUpdateOperationsInput | $Enums.tipo_despesa_fixa
-    tipo_despesa_variavel?: Enumtipo_despesa_variavelFieldUpdateOperationsInput | $Enums.tipo_despesa_variavel
+    descricao_despesa?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_despesa?: NullableEnumtipo_despesaFieldUpdateOperationsInput | $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: NullableEnumtipo_despesa_fixaFieldUpdateOperationsInput | $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: NullableEnumtipo_despesa_variavelFieldUpdateOperationsInput | $Enums.tipo_despesa_variavel | null
     valor_despesa?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     data_despesa?: DateTimeFieldUpdateOperationsInput | Date | string
-    categoria_despesa?: StringFieldUpdateOperationsInput | string
-    fluxo_caixa?: fluxo_caixaUpdateManyWithoutDespesaNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutDespesasNestedInput
+    categoria_plano?: PlanoContasUpdateOneRequiredWithoutDespesasNestedInput
+    movimentacoes?: MovimentacaoUpdateManyWithoutDespesaNestedInput
+    fluxo_caixa?: fluxo_caixaUpdateManyWithoutDespesaNestedInput
   }
 
   export type despesasUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    descricao_despesa?: StringFieldUpdateOperationsInput | string
-    tipo_despesa?: Enumtipo_despesaFieldUpdateOperationsInput | $Enums.tipo_despesa
-    tipo_despesa_fixa?: Enumtipo_despesa_fixaFieldUpdateOperationsInput | $Enums.tipo_despesa_fixa
-    tipo_despesa_variavel?: Enumtipo_despesa_variavelFieldUpdateOperationsInput | $Enums.tipo_despesa_variavel
+    descricao_despesa?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_despesa?: NullableEnumtipo_despesaFieldUpdateOperationsInput | $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: NullableEnumtipo_despesa_fixaFieldUpdateOperationsInput | $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: NullableEnumtipo_despesa_variavelFieldUpdateOperationsInput | $Enums.tipo_despesa_variavel | null
     valor_despesa?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     data_despesa?: DateTimeFieldUpdateOperationsInput | Date | string
     responsavel_compra_id?: StringFieldUpdateOperationsInput | string
-    categoria_despesa?: StringFieldUpdateOperationsInput | string
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
+    movimentacoes?: MovimentacaoUncheckedUpdateManyWithoutDespesaNestedInput
     fluxo_caixa?: fluxo_caixaUncheckedUpdateManyWithoutDespesaNestedInput
   }
 
   export type despesasCreateManyInput = {
     id?: string
-    descricao_despesa: string
-    tipo_despesa: $Enums.tipo_despesa
-    tipo_despesa_fixa: $Enums.tipo_despesa_fixa
-    tipo_despesa_variavel: $Enums.tipo_despesa_variavel
+    descricao_despesa?: string | null
+    tipo_despesa?: $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: $Enums.tipo_despesa_variavel | null
     valor_despesa: Decimal | DecimalJsLike | number | string
     data_despesa?: Date | string
     responsavel_compra_id: string
-    categoria_despesa: string
+    plano_contas_id: string
   }
 
   export type despesasUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    descricao_despesa?: StringFieldUpdateOperationsInput | string
-    tipo_despesa?: Enumtipo_despesaFieldUpdateOperationsInput | $Enums.tipo_despesa
-    tipo_despesa_fixa?: Enumtipo_despesa_fixaFieldUpdateOperationsInput | $Enums.tipo_despesa_fixa
-    tipo_despesa_variavel?: Enumtipo_despesa_variavelFieldUpdateOperationsInput | $Enums.tipo_despesa_variavel
+    descricao_despesa?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_despesa?: NullableEnumtipo_despesaFieldUpdateOperationsInput | $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: NullableEnumtipo_despesa_fixaFieldUpdateOperationsInput | $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: NullableEnumtipo_despesa_variavelFieldUpdateOperationsInput | $Enums.tipo_despesa_variavel | null
     valor_despesa?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     data_despesa?: DateTimeFieldUpdateOperationsInput | Date | string
-    categoria_despesa?: StringFieldUpdateOperationsInput | string
   }
 
   export type despesasUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    descricao_despesa?: StringFieldUpdateOperationsInput | string
-    tipo_despesa?: Enumtipo_despesaFieldUpdateOperationsInput | $Enums.tipo_despesa
-    tipo_despesa_fixa?: Enumtipo_despesa_fixaFieldUpdateOperationsInput | $Enums.tipo_despesa_fixa
-    tipo_despesa_variavel?: Enumtipo_despesa_variavelFieldUpdateOperationsInput | $Enums.tipo_despesa_variavel
+    descricao_despesa?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_despesa?: NullableEnumtipo_despesaFieldUpdateOperationsInput | $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: NullableEnumtipo_despesa_fixaFieldUpdateOperationsInput | $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: NullableEnumtipo_despesa_variavelFieldUpdateOperationsInput | $Enums.tipo_despesa_variavel | null
     valor_despesa?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     data_despesa?: DateTimeFieldUpdateOperationsInput | Date | string
     responsavel_compra_id?: StringFieldUpdateOperationsInput | string
-    categoria_despesa?: StringFieldUpdateOperationsInput | string
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type documento_fiscalCreateInput = {
@@ -36114,7 +40783,8 @@ export namespace Prisma {
   export type fluxo_caixaCreateInput = {
     id?: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal | DecimalJsLike | number | string
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao?: Date | string
@@ -36126,12 +40796,14 @@ export namespace Prisma {
     usuario_caixa: usuariosCreateNestedOneWithoutMovimentacoes_caixaInput
     estoque_objetos_duraveis?: estoque_objetos_duraveisCreateNestedOneWithoutLancamentos_caixaInput
     estoque_objetos_genericos?: estoque_objetos_genericosCreateNestedOneWithoutLancamentos_caixaInput
+    plano_contas: PlanoContasCreateNestedOneWithoutLancamentos_caixaInput
   }
 
   export type fluxo_caixaUncheckedCreateInput = {
     id?: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal | DecimalJsLike | number | string
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao?: Date | string
@@ -36142,13 +40814,15 @@ export namespace Prisma {
     sucata_venda_id?: string | null
     objeto_duravel_id?: string | null
     objeto_generico_id?: string | null
+    plano_contas_id: string
     usuario_caixa_id: string
   }
 
   export type fluxo_caixaUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36160,12 +40834,14 @@ export namespace Prisma {
     usuario_caixa?: usuariosUpdateOneRequiredWithoutMovimentacoes_caixaNestedInput
     estoque_objetos_duraveis?: estoque_objetos_duraveisUpdateOneWithoutLancamentos_caixaNestedInput
     estoque_objetos_genericos?: estoque_objetos_genericosUpdateOneWithoutLancamentos_caixaNestedInput
+    plano_contas?: PlanoContasUpdateOneRequiredWithoutLancamentos_caixaNestedInput
   }
 
   export type fluxo_caixaUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36176,13 +40852,15 @@ export namespace Prisma {
     sucata_venda_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_duravel_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_generico_id?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
     usuario_caixa_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type fluxo_caixaCreateManyInput = {
     id?: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal | DecimalJsLike | number | string
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao?: Date | string
@@ -36193,13 +40871,15 @@ export namespace Prisma {
     sucata_venda_id?: string | null
     objeto_duravel_id?: string | null
     objeto_generico_id?: string | null
+    plano_contas_id: string
     usuario_caixa_id: string
   }
 
   export type fluxo_caixaUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36208,7 +40888,8 @@ export namespace Prisma {
   export type fluxo_caixaUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36219,6 +40900,7 @@ export namespace Prisma {
     sucata_venda_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_duravel_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_generico_id?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
     usuario_caixa_id?: StringFieldUpdateOperationsInput | string
   }
 
@@ -36340,7 +41022,7 @@ export namespace Prisma {
     cep_cliente?: SortOrder
     cidade_cliente?: SortOrder
     uf_cliente?: SortOrder
-    codigo_ibge?: SortOrder
+    codigo_IBGE?: SortOrder
     pais_cliente?: SortOrder
     telefone_cliente?: SortOrder
     data_nascimento?: SortOrder
@@ -36358,7 +41040,7 @@ export namespace Prisma {
     cep_cliente?: SortOrder
     cidade_cliente?: SortOrder
     uf_cliente?: SortOrder
-    codigo_ibge?: SortOrder
+    codigo_IBGE?: SortOrder
     pais_cliente?: SortOrder
     telefone_cliente?: SortOrder
     data_nascimento?: SortOrder
@@ -36376,7 +41058,7 @@ export namespace Prisma {
     cep_cliente?: SortOrder
     cidade_cliente?: SortOrder
     uf_cliente?: SortOrder
-    codigo_ibge?: SortOrder
+    codigo_IBGE?: SortOrder
     pais_cliente?: SortOrder
     telefone_cliente?: SortOrder
     data_nascimento?: SortOrder
@@ -36929,12 +41611,17 @@ export namespace Prisma {
     _max?: NestedEnumsetor_prateleiraFilter<$PrismaModel>
   }
 
+  export type CfopsScalarRelationFilter = {
+    is?: cfopsWhereInput
+    isNot?: cfopsWhereInput
+  }
+
   export type dados_fiscais_pecaCountOrderByAggregateInput = {
     id?: SortOrder
     peca_id?: SortOrder
     ncm?: SortOrder
     cest?: SortOrder
-    cfop_padrao?: SortOrder
+    cfop_id?: SortOrder
     cst_icms?: SortOrder
     cst_ibs_cbs?: SortOrder
     cClassTrib?: SortOrder
@@ -36945,7 +41632,7 @@ export namespace Prisma {
     peca_id?: SortOrder
     ncm?: SortOrder
     cest?: SortOrder
-    cfop_padrao?: SortOrder
+    cfop_id?: SortOrder
     cst_icms?: SortOrder
     cst_ibs_cbs?: SortOrder
     cClassTrib?: SortOrder
@@ -36956,7 +41643,7 @@ export namespace Prisma {
     peca_id?: SortOrder
     ncm?: SortOrder
     cest?: SortOrder
-    cfop_padrao?: SortOrder
+    cfop_id?: SortOrder
     cst_icms?: SortOrder
     cst_ibs_cbs?: SortOrder
     cClassTrib?: SortOrder
@@ -37099,6 +41786,18 @@ export namespace Prisma {
     not?: NestedEnumstatus_pedidoFilter<$PrismaModel> | $Enums.status_pedido
   }
 
+  export type UuidNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedUuidNullableFilter<$PrismaModel> | string | null
+  }
+
   export type ClientesScalarRelationFilter = {
     is?: clientesWhereInput
     isNot?: clientesWhereInput
@@ -37107,6 +41806,26 @@ export namespace Prisma {
   export type Documento_fiscalNullableScalarRelationFilter = {
     is?: documento_fiscalWhereInput | null
     isNot?: documento_fiscalWhereInput | null
+  }
+
+  export type Os_servicos_itensNullableScalarRelationFilter = {
+    is?: os_servicos_itensWhereInput | null
+    isNot?: os_servicos_itensWhereInput | null
+  }
+
+  export type PlanoContasNullableScalarRelationFilter = {
+    is?: PlanoContasWhereInput | null
+    isNot?: PlanoContasWhereInput | null
+  }
+
+  export type MovimentacaoListRelationFilter = {
+    every?: MovimentacaoWhereInput
+    some?: MovimentacaoWhereInput
+    none?: MovimentacaoWhereInput
+  }
+
+  export type MovimentacaoOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type pedidos_vendasCountOrderByAggregateInput = {
@@ -37118,6 +41837,8 @@ export namespace Prisma {
     observacoes_recibo?: SortOrder
     cliente_comprador_id?: SortOrder
     responsavel_venda_id?: SortOrder
+    os_servicos_itensId?: SortOrder
+    plano_contas_id?: SortOrder
   }
 
   export type pedidos_vendasAvgOrderByAggregateInput = {
@@ -37133,6 +41854,8 @@ export namespace Prisma {
     observacoes_recibo?: SortOrder
     cliente_comprador_id?: SortOrder
     responsavel_venda_id?: SortOrder
+    os_servicos_itensId?: SortOrder
+    plano_contas_id?: SortOrder
   }
 
   export type pedidos_vendasMinOrderByAggregateInput = {
@@ -37144,6 +41867,8 @@ export namespace Prisma {
     observacoes_recibo?: SortOrder
     cliente_comprador_id?: SortOrder
     responsavel_venda_id?: SortOrder
+    os_servicos_itensId?: SortOrder
+    plano_contas_id?: SortOrder
   }
 
   export type pedidos_vendasSumOrderByAggregateInput = {
@@ -37168,6 +41893,21 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumstatus_pedidoFilter<$PrismaModel>
     _max?: NestedEnumstatus_pedidoFilter<$PrismaModel>
+  }
+
+  export type UuidNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedUuidNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type Enumstatus_manutencaoFilter<$PrismaModel = never> = {
@@ -37385,6 +42125,37 @@ export namespace Prisma {
     quantidade?: SortOrder
   }
 
+  export type Dados_fiscais_pecaListRelationFilter = {
+    every?: dados_fiscais_pecaWhereInput
+    some?: dados_fiscais_pecaWhereInput
+    none?: dados_fiscais_pecaWhereInput
+  }
+
+  export type dados_fiscais_pecaOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type cfopsCountOrderByAggregateInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    descricao?: SortOrder
+    tipo?: SortOrder
+  }
+
+  export type cfopsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    descricao?: SortOrder
+    tipo?: SortOrder
+  }
+
+  export type cfopsMinOrderByAggregateInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    descricao?: SortOrder
+    tipo?: SortOrder
+  }
+
   export type EnumcorNullableFilter<$PrismaModel = never> = {
     equals?: $Enums.cor | EnumcorFieldRefInput<$PrismaModel> | null
     in?: $Enums.cor[] | ListEnumcorFieldRefInput<$PrismaModel> | null
@@ -37408,18 +42179,6 @@ export namespace Prisma {
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
-  }
-
-  export type UuidNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedUuidNullableFilter<$PrismaModel> | string | null
   }
 
   export type ClientesNullableScalarRelationFilter = {
@@ -37526,21 +42285,6 @@ export namespace Prisma {
     _sum?: NestedDecimalNullableFilter<$PrismaModel>
     _min?: NestedDecimalNullableFilter<$PrismaModel>
     _max?: NestedDecimalNullableFilter<$PrismaModel>
-  }
-
-  export type UuidNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedUuidNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type tipo_servicoCountOrderByAggregateInput = {
@@ -37706,6 +42450,7 @@ export namespace Prisma {
     chassi?: SortOrder
     cor?: SortOrder
     ano_fabricacao?: SortOrder
+    os_servicos_itensId?: SortOrder
   }
 
   export type veiculos_cliente_manutencaoAvgOrderByAggregateInput = {
@@ -37721,6 +42466,7 @@ export namespace Prisma {
     chassi?: SortOrder
     cor?: SortOrder
     ano_fabricacao?: SortOrder
+    os_servicos_itensId?: SortOrder
   }
 
   export type veiculos_cliente_manutencaoMinOrderByAggregateInput = {
@@ -37731,6 +42477,7 @@ export namespace Prisma {
     chassi?: SortOrder
     cor?: SortOrder
     ano_fabricacao?: SortOrder
+    os_servicos_itensId?: SortOrder
   }
 
   export type veiculos_cliente_manutencaoSumOrderByAggregateInput = {
@@ -37819,25 +42566,156 @@ export namespace Prisma {
     _max?: NestedEnumtipo_objeto_receitaFilter<$PrismaModel>
   }
 
-  export type Enumtipo_despesaFilter<$PrismaModel = never> = {
-    equals?: $Enums.tipo_despesa | Enumtipo_despesaFieldRefInput<$PrismaModel>
-    in?: $Enums.tipo_despesa[] | ListEnumtipo_despesaFieldRefInput<$PrismaModel>
-    notIn?: $Enums.tipo_despesa[] | ListEnumtipo_despesaFieldRefInput<$PrismaModel>
-    not?: NestedEnumtipo_despesaFilter<$PrismaModel> | $Enums.tipo_despesa
+  export type EnumTipoContaPlanoFilter<$PrismaModel = never> = {
+    equals?: $Enums.TipoContaPlano | EnumTipoContaPlanoFieldRefInput<$PrismaModel>
+    in?: $Enums.TipoContaPlano[] | ListEnumTipoContaPlanoFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TipoContaPlano[] | ListEnumTipoContaPlanoFieldRefInput<$PrismaModel>
+    not?: NestedEnumTipoContaPlanoFilter<$PrismaModel> | $Enums.TipoContaPlano
   }
 
-  export type Enumtipo_despesa_fixaFilter<$PrismaModel = never> = {
-    equals?: $Enums.tipo_despesa_fixa | Enumtipo_despesa_fixaFieldRefInput<$PrismaModel>
-    in?: $Enums.tipo_despesa_fixa[] | ListEnumtipo_despesa_fixaFieldRefInput<$PrismaModel>
-    notIn?: $Enums.tipo_despesa_fixa[] | ListEnumtipo_despesa_fixaFieldRefInput<$PrismaModel>
-    not?: NestedEnumtipo_despesa_fixaFilter<$PrismaModel> | $Enums.tipo_despesa_fixa
+  export type PlanoContasCountOrderByAggregateInput = {
+    id?: SortOrder
+    codigo_contabil?: SortOrder
+    nome_conta?: SortOrder
+    tipo_dre?: SortOrder
   }
 
-  export type Enumtipo_despesa_variavelFilter<$PrismaModel = never> = {
-    equals?: $Enums.tipo_despesa_variavel | Enumtipo_despesa_variavelFieldRefInput<$PrismaModel>
-    in?: $Enums.tipo_despesa_variavel[] | ListEnumtipo_despesa_variavelFieldRefInput<$PrismaModel>
-    notIn?: $Enums.tipo_despesa_variavel[] | ListEnumtipo_despesa_variavelFieldRefInput<$PrismaModel>
-    not?: NestedEnumtipo_despesa_variavelFilter<$PrismaModel> | $Enums.tipo_despesa_variavel
+  export type PlanoContasMaxOrderByAggregateInput = {
+    id?: SortOrder
+    codigo_contabil?: SortOrder
+    nome_conta?: SortOrder
+    tipo_dre?: SortOrder
+  }
+
+  export type PlanoContasMinOrderByAggregateInput = {
+    id?: SortOrder
+    codigo_contabil?: SortOrder
+    nome_conta?: SortOrder
+    tipo_dre?: SortOrder
+  }
+
+  export type EnumTipoContaPlanoWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TipoContaPlano | EnumTipoContaPlanoFieldRefInput<$PrismaModel>
+    in?: $Enums.TipoContaPlano[] | ListEnumTipoContaPlanoFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TipoContaPlano[] | ListEnumTipoContaPlanoFieldRefInput<$PrismaModel>
+    not?: NestedEnumTipoContaPlanoWithAggregatesFilter<$PrismaModel> | $Enums.TipoContaPlano
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTipoContaPlanoFilter<$PrismaModel>
+    _max?: NestedEnumTipoContaPlanoFilter<$PrismaModel>
+  }
+
+  export type EnumTipoMovimentacaoCaixaFilter<$PrismaModel = never> = {
+    equals?: $Enums.TipoMovimentacaoCaixa | EnumTipoMovimentacaoCaixaFieldRefInput<$PrismaModel>
+    in?: $Enums.TipoMovimentacaoCaixa[] | ListEnumTipoMovimentacaoCaixaFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TipoMovimentacaoCaixa[] | ListEnumTipoMovimentacaoCaixaFieldRefInput<$PrismaModel>
+    not?: NestedEnumTipoMovimentacaoCaixaFilter<$PrismaModel> | $Enums.TipoMovimentacaoCaixa
+  }
+
+  export type EnumStatusMovimentacaoFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatusMovimentacao | EnumStatusMovimentacaoFieldRefInput<$PrismaModel>
+    in?: $Enums.StatusMovimentacao[] | ListEnumStatusMovimentacaoFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatusMovimentacao[] | ListEnumStatusMovimentacaoFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusMovimentacaoFilter<$PrismaModel> | $Enums.StatusMovimentacao
+  }
+
+  export type PlanoContasScalarRelationFilter = {
+    is?: PlanoContasWhereInput
+    isNot?: PlanoContasWhereInput
+  }
+
+  export type Pedidos_vendasNullableScalarRelationFilter = {
+    is?: pedidos_vendasWhereInput | null
+    isNot?: pedidos_vendasWhereInput | null
+  }
+
+  export type DespesasNullableScalarRelationFilter = {
+    is?: despesasWhereInput | null
+    isNot?: despesasWhereInput | null
+  }
+
+  export type MovimentacaoCountOrderByAggregateInput = {
+    id?: SortOrder
+    valor?: SortOrder
+    tipo?: SortOrder
+    status?: SortOrder
+    data_vencimento?: SortOrder
+    data_pagamento?: SortOrder
+    plano_contas_id?: SortOrder
+    pedido_venda_id?: SortOrder
+    despesa_id?: SortOrder
+  }
+
+  export type MovimentacaoAvgOrderByAggregateInput = {
+    valor?: SortOrder
+  }
+
+  export type MovimentacaoMaxOrderByAggregateInput = {
+    id?: SortOrder
+    valor?: SortOrder
+    tipo?: SortOrder
+    status?: SortOrder
+    data_vencimento?: SortOrder
+    data_pagamento?: SortOrder
+    plano_contas_id?: SortOrder
+    pedido_venda_id?: SortOrder
+    despesa_id?: SortOrder
+  }
+
+  export type MovimentacaoMinOrderByAggregateInput = {
+    id?: SortOrder
+    valor?: SortOrder
+    tipo?: SortOrder
+    status?: SortOrder
+    data_vencimento?: SortOrder
+    data_pagamento?: SortOrder
+    plano_contas_id?: SortOrder
+    pedido_venda_id?: SortOrder
+    despesa_id?: SortOrder
+  }
+
+  export type MovimentacaoSumOrderByAggregateInput = {
+    valor?: SortOrder
+  }
+
+  export type EnumTipoMovimentacaoCaixaWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TipoMovimentacaoCaixa | EnumTipoMovimentacaoCaixaFieldRefInput<$PrismaModel>
+    in?: $Enums.TipoMovimentacaoCaixa[] | ListEnumTipoMovimentacaoCaixaFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TipoMovimentacaoCaixa[] | ListEnumTipoMovimentacaoCaixaFieldRefInput<$PrismaModel>
+    not?: NestedEnumTipoMovimentacaoCaixaWithAggregatesFilter<$PrismaModel> | $Enums.TipoMovimentacaoCaixa
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTipoMovimentacaoCaixaFilter<$PrismaModel>
+    _max?: NestedEnumTipoMovimentacaoCaixaFilter<$PrismaModel>
+  }
+
+  export type EnumStatusMovimentacaoWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatusMovimentacao | EnumStatusMovimentacaoFieldRefInput<$PrismaModel>
+    in?: $Enums.StatusMovimentacao[] | ListEnumStatusMovimentacaoFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatusMovimentacao[] | ListEnumStatusMovimentacaoFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusMovimentacaoWithAggregatesFilter<$PrismaModel> | $Enums.StatusMovimentacao
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStatusMovimentacaoFilter<$PrismaModel>
+    _max?: NestedEnumStatusMovimentacaoFilter<$PrismaModel>
+  }
+
+  export type Enumtipo_despesaNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.tipo_despesa | Enumtipo_despesaFieldRefInput<$PrismaModel> | null
+    in?: $Enums.tipo_despesa[] | ListEnumtipo_despesaFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.tipo_despesa[] | ListEnumtipo_despesaFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumtipo_despesaNullableFilter<$PrismaModel> | $Enums.tipo_despesa | null
+  }
+
+  export type Enumtipo_despesa_fixaNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.tipo_despesa_fixa | Enumtipo_despesa_fixaFieldRefInput<$PrismaModel> | null
+    in?: $Enums.tipo_despesa_fixa[] | ListEnumtipo_despesa_fixaFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.tipo_despesa_fixa[] | ListEnumtipo_despesa_fixaFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumtipo_despesa_fixaNullableFilter<$PrismaModel> | $Enums.tipo_despesa_fixa | null
+  }
+
+  export type Enumtipo_despesa_variavelNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.tipo_despesa_variavel | Enumtipo_despesa_variavelFieldRefInput<$PrismaModel> | null
+    in?: $Enums.tipo_despesa_variavel[] | ListEnumtipo_despesa_variavelFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.tipo_despesa_variavel[] | ListEnumtipo_despesa_variavelFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumtipo_despesa_variavelNullableFilter<$PrismaModel> | $Enums.tipo_despesa_variavel | null
   }
 
   export type despesasCountOrderByAggregateInput = {
@@ -37849,7 +42727,7 @@ export namespace Prisma {
     valor_despesa?: SortOrder
     data_despesa?: SortOrder
     responsavel_compra_id?: SortOrder
-    categoria_despesa?: SortOrder
+    plano_contas_id?: SortOrder
   }
 
   export type despesasAvgOrderByAggregateInput = {
@@ -37865,7 +42743,7 @@ export namespace Prisma {
     valor_despesa?: SortOrder
     data_despesa?: SortOrder
     responsavel_compra_id?: SortOrder
-    categoria_despesa?: SortOrder
+    plano_contas_id?: SortOrder
   }
 
   export type despesasMinOrderByAggregateInput = {
@@ -37877,41 +42755,41 @@ export namespace Prisma {
     valor_despesa?: SortOrder
     data_despesa?: SortOrder
     responsavel_compra_id?: SortOrder
-    categoria_despesa?: SortOrder
+    plano_contas_id?: SortOrder
   }
 
   export type despesasSumOrderByAggregateInput = {
     valor_despesa?: SortOrder
   }
 
-  export type Enumtipo_despesaWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.tipo_despesa | Enumtipo_despesaFieldRefInput<$PrismaModel>
-    in?: $Enums.tipo_despesa[] | ListEnumtipo_despesaFieldRefInput<$PrismaModel>
-    notIn?: $Enums.tipo_despesa[] | ListEnumtipo_despesaFieldRefInput<$PrismaModel>
-    not?: NestedEnumtipo_despesaWithAggregatesFilter<$PrismaModel> | $Enums.tipo_despesa
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumtipo_despesaFilter<$PrismaModel>
-    _max?: NestedEnumtipo_despesaFilter<$PrismaModel>
+  export type Enumtipo_despesaNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.tipo_despesa | Enumtipo_despesaFieldRefInput<$PrismaModel> | null
+    in?: $Enums.tipo_despesa[] | ListEnumtipo_despesaFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.tipo_despesa[] | ListEnumtipo_despesaFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumtipo_despesaNullableWithAggregatesFilter<$PrismaModel> | $Enums.tipo_despesa | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumtipo_despesaNullableFilter<$PrismaModel>
+    _max?: NestedEnumtipo_despesaNullableFilter<$PrismaModel>
   }
 
-  export type Enumtipo_despesa_fixaWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.tipo_despesa_fixa | Enumtipo_despesa_fixaFieldRefInput<$PrismaModel>
-    in?: $Enums.tipo_despesa_fixa[] | ListEnumtipo_despesa_fixaFieldRefInput<$PrismaModel>
-    notIn?: $Enums.tipo_despesa_fixa[] | ListEnumtipo_despesa_fixaFieldRefInput<$PrismaModel>
-    not?: NestedEnumtipo_despesa_fixaWithAggregatesFilter<$PrismaModel> | $Enums.tipo_despesa_fixa
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumtipo_despesa_fixaFilter<$PrismaModel>
-    _max?: NestedEnumtipo_despesa_fixaFilter<$PrismaModel>
+  export type Enumtipo_despesa_fixaNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.tipo_despesa_fixa | Enumtipo_despesa_fixaFieldRefInput<$PrismaModel> | null
+    in?: $Enums.tipo_despesa_fixa[] | ListEnumtipo_despesa_fixaFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.tipo_despesa_fixa[] | ListEnumtipo_despesa_fixaFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumtipo_despesa_fixaNullableWithAggregatesFilter<$PrismaModel> | $Enums.tipo_despesa_fixa | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumtipo_despesa_fixaNullableFilter<$PrismaModel>
+    _max?: NestedEnumtipo_despesa_fixaNullableFilter<$PrismaModel>
   }
 
-  export type Enumtipo_despesa_variavelWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.tipo_despesa_variavel | Enumtipo_despesa_variavelFieldRefInput<$PrismaModel>
-    in?: $Enums.tipo_despesa_variavel[] | ListEnumtipo_despesa_variavelFieldRefInput<$PrismaModel>
-    notIn?: $Enums.tipo_despesa_variavel[] | ListEnumtipo_despesa_variavelFieldRefInput<$PrismaModel>
-    not?: NestedEnumtipo_despesa_variavelWithAggregatesFilter<$PrismaModel> | $Enums.tipo_despesa_variavel
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumtipo_despesa_variavelFilter<$PrismaModel>
-    _max?: NestedEnumtipo_despesa_variavelFilter<$PrismaModel>
+  export type Enumtipo_despesa_variavelNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.tipo_despesa_variavel | Enumtipo_despesa_variavelFieldRefInput<$PrismaModel> | null
+    in?: $Enums.tipo_despesa_variavel[] | ListEnumtipo_despesa_variavelFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.tipo_despesa_variavel[] | ListEnumtipo_despesa_variavelFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumtipo_despesa_variavelNullableWithAggregatesFilter<$PrismaModel> | $Enums.tipo_despesa_variavel | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumtipo_despesa_variavelNullableFilter<$PrismaModel>
+    _max?: NestedEnumtipo_despesa_variavelNullableFilter<$PrismaModel>
   }
 
   export type Enummodelo_documento_fiscalFilter<$PrismaModel = never> = {
@@ -37926,11 +42804,6 @@ export namespace Prisma {
     in?: $Enums.status_fiscal[] | ListEnumstatus_fiscalFieldRefInput<$PrismaModel>
     notIn?: $Enums.status_fiscal[] | ListEnumstatus_fiscalFieldRefInput<$PrismaModel>
     not?: NestedEnumstatus_fiscalFilter<$PrismaModel> | $Enums.status_fiscal
-  }
-
-  export type Pedidos_vendasNullableScalarRelationFilter = {
-    is?: pedidos_vendasWhereInput | null
-    isNot?: pedidos_vendasWhereInput | null
   }
 
   export type Ordem_servicoNullableScalarRelationFilter = {
@@ -38040,18 +42913,6 @@ export namespace Prisma {
     _max?: NestedEnumstatus_fiscalFilter<$PrismaModel>
   }
 
-  export type Enumtipo_movimentacao_caixaFilter<$PrismaModel = never> = {
-    equals?: $Enums.tipo_movimentacao_caixa | Enumtipo_movimentacao_caixaFieldRefInput<$PrismaModel>
-    in?: $Enums.tipo_movimentacao_caixa[] | ListEnumtipo_movimentacao_caixaFieldRefInput<$PrismaModel>
-    notIn?: $Enums.tipo_movimentacao_caixa[] | ListEnumtipo_movimentacao_caixaFieldRefInput<$PrismaModel>
-    not?: NestedEnumtipo_movimentacao_caixaFilter<$PrismaModel> | $Enums.tipo_movimentacao_caixa
-  }
-
-  export type DespesasNullableScalarRelationFilter = {
-    is?: despesasWhereInput | null
-    isNot?: despesasWhereInput | null
-  }
-
   export type Sucata_comprasNullableScalarRelationFilter = {
     is?: sucata_comprasWhereInput | null
     isNot?: sucata_comprasWhereInput | null
@@ -38071,6 +42932,7 @@ export namespace Prisma {
     id?: SortOrder
     descricao?: SortOrder
     tipo?: SortOrder
+    status?: SortOrder
     valor?: SortOrder
     metodo_pagamento?: SortOrder
     data_movimentacao?: SortOrder
@@ -38081,6 +42943,7 @@ export namespace Prisma {
     sucata_venda_id?: SortOrder
     objeto_duravel_id?: SortOrder
     objeto_generico_id?: SortOrder
+    plano_contas_id?: SortOrder
     usuario_caixa_id?: SortOrder
   }
 
@@ -38092,6 +42955,7 @@ export namespace Prisma {
     id?: SortOrder
     descricao?: SortOrder
     tipo?: SortOrder
+    status?: SortOrder
     valor?: SortOrder
     metodo_pagamento?: SortOrder
     data_movimentacao?: SortOrder
@@ -38102,6 +42966,7 @@ export namespace Prisma {
     sucata_venda_id?: SortOrder
     objeto_duravel_id?: SortOrder
     objeto_generico_id?: SortOrder
+    plano_contas_id?: SortOrder
     usuario_caixa_id?: SortOrder
   }
 
@@ -38109,6 +42974,7 @@ export namespace Prisma {
     id?: SortOrder
     descricao?: SortOrder
     tipo?: SortOrder
+    status?: SortOrder
     valor?: SortOrder
     metodo_pagamento?: SortOrder
     data_movimentacao?: SortOrder
@@ -38119,21 +42985,12 @@ export namespace Prisma {
     sucata_venda_id?: SortOrder
     objeto_duravel_id?: SortOrder
     objeto_generico_id?: SortOrder
+    plano_contas_id?: SortOrder
     usuario_caixa_id?: SortOrder
   }
 
   export type fluxo_caixaSumOrderByAggregateInput = {
     valor?: SortOrder
-  }
-
-  export type Enumtipo_movimentacao_caixaWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.tipo_movimentacao_caixa | Enumtipo_movimentacao_caixaFieldRefInput<$PrismaModel>
-    in?: $Enums.tipo_movimentacao_caixa[] | ListEnumtipo_movimentacao_caixaFieldRefInput<$PrismaModel>
-    notIn?: $Enums.tipo_movimentacao_caixa[] | ListEnumtipo_movimentacao_caixaFieldRefInput<$PrismaModel>
-    not?: NestedEnumtipo_movimentacao_caixaWithAggregatesFilter<$PrismaModel> | $Enums.tipo_movimentacao_caixa
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumtipo_movimentacao_caixaFilter<$PrismaModel>
-    _max?: NestedEnumtipo_movimentacao_caixaFilter<$PrismaModel>
   }
 
   export type pedidos_vendasCreateNestedManyWithoutCliente_compradorInput = {
@@ -39010,12 +43867,26 @@ export namespace Prisma {
     connect?: peca_estoqueWhereUniqueInput
   }
 
+  export type cfopsCreateNestedOneWithoutDadosFiscaisPecasInput = {
+    create?: XOR<cfopsCreateWithoutDadosFiscaisPecasInput, cfopsUncheckedCreateWithoutDadosFiscaisPecasInput>
+    connectOrCreate?: cfopsCreateOrConnectWithoutDadosFiscaisPecasInput
+    connect?: cfopsWhereUniqueInput
+  }
+
   export type peca_estoqueUpdateOneRequiredWithoutDados_fiscaisNestedInput = {
     create?: XOR<peca_estoqueCreateWithoutDados_fiscaisInput, peca_estoqueUncheckedCreateWithoutDados_fiscaisInput>
     connectOrCreate?: peca_estoqueCreateOrConnectWithoutDados_fiscaisInput
     upsert?: peca_estoqueUpsertWithoutDados_fiscaisInput
     connect?: peca_estoqueWhereUniqueInput
     update?: XOR<XOR<peca_estoqueUpdateToOneWithWhereWithoutDados_fiscaisInput, peca_estoqueUpdateWithoutDados_fiscaisInput>, peca_estoqueUncheckedUpdateWithoutDados_fiscaisInput>
+  }
+
+  export type cfopsUpdateOneRequiredWithoutDadosFiscaisPecasNestedInput = {
+    create?: XOR<cfopsCreateWithoutDadosFiscaisPecasInput, cfopsUncheckedCreateWithoutDadosFiscaisPecasInput>
+    connectOrCreate?: cfopsCreateOrConnectWithoutDadosFiscaisPecasInput
+    upsert?: cfopsUpsertWithoutDadosFiscaisPecasInput
+    connect?: cfopsWhereUniqueInput
+    update?: XOR<XOR<cfopsUpdateToOneWithWhereWithoutDadosFiscaisPecasInput, cfopsUpdateWithoutDadosFiscaisPecasInput>, cfopsUncheckedUpdateWithoutDadosFiscaisPecasInput>
   }
 
   export type peca_estoqueCreateNestedOneWithoutPeca_imagensInput = {
@@ -39075,9 +43946,9 @@ export namespace Prisma {
     connect?: itens_pedido_vendasWhereUniqueInput | itens_pedido_vendasWhereUniqueInput[]
   }
 
-  export type clientesCreateNestedOneWithoutPedidos_vendasInput = {
-    create?: XOR<clientesCreateWithoutPedidos_vendasInput, clientesUncheckedCreateWithoutPedidos_vendasInput>
-    connectOrCreate?: clientesCreateOrConnectWithoutPedidos_vendasInput
+  export type clientesCreateNestedOneWithoutPedidos_vendaInput = {
+    create?: XOR<clientesCreateWithoutPedidos_vendaInput, clientesUncheckedCreateWithoutPedidos_vendaInput>
+    connectOrCreate?: clientesCreateOrConnectWithoutPedidos_vendaInput
     connect?: clientesWhereUniqueInput
   }
 
@@ -39100,6 +43971,25 @@ export namespace Prisma {
     connect?: fluxo_caixaWhereUniqueInput | fluxo_caixaWhereUniqueInput[]
   }
 
+  export type os_servicos_itensCreateNestedOneWithoutPedidosInput = {
+    create?: XOR<os_servicos_itensCreateWithoutPedidosInput, os_servicos_itensUncheckedCreateWithoutPedidosInput>
+    connectOrCreate?: os_servicos_itensCreateOrConnectWithoutPedidosInput
+    connect?: os_servicos_itensWhereUniqueInput
+  }
+
+  export type PlanoContasCreateNestedOneWithoutPedidos_vendasInput = {
+    create?: XOR<PlanoContasCreateWithoutPedidos_vendasInput, PlanoContasUncheckedCreateWithoutPedidos_vendasInput>
+    connectOrCreate?: PlanoContasCreateOrConnectWithoutPedidos_vendasInput
+    connect?: PlanoContasWhereUniqueInput
+  }
+
+  export type MovimentacaoCreateNestedManyWithoutPedido_vendaInput = {
+    create?: XOR<MovimentacaoCreateWithoutPedido_vendaInput, MovimentacaoUncheckedCreateWithoutPedido_vendaInput> | MovimentacaoCreateWithoutPedido_vendaInput[] | MovimentacaoUncheckedCreateWithoutPedido_vendaInput[]
+    connectOrCreate?: MovimentacaoCreateOrConnectWithoutPedido_vendaInput | MovimentacaoCreateOrConnectWithoutPedido_vendaInput[]
+    createMany?: MovimentacaoCreateManyPedido_vendaInputEnvelope
+    connect?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+  }
+
   export type itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput = {
     create?: XOR<itens_pedido_vendasCreateWithoutPedidos_vendasInput, itens_pedido_vendasUncheckedCreateWithoutPedidos_vendasInput> | itens_pedido_vendasCreateWithoutPedidos_vendasInput[] | itens_pedido_vendasUncheckedCreateWithoutPedidos_vendasInput[]
     connectOrCreate?: itens_pedido_vendasCreateOrConnectWithoutPedidos_vendasInput | itens_pedido_vendasCreateOrConnectWithoutPedidos_vendasInput[]
@@ -39118,6 +44008,13 @@ export namespace Prisma {
     connectOrCreate?: fluxo_caixaCreateOrConnectWithoutPedido_vendaInput | fluxo_caixaCreateOrConnectWithoutPedido_vendaInput[]
     createMany?: fluxo_caixaCreateManyPedido_vendaInputEnvelope
     connect?: fluxo_caixaWhereUniqueInput | fluxo_caixaWhereUniqueInput[]
+  }
+
+  export type MovimentacaoUncheckedCreateNestedManyWithoutPedido_vendaInput = {
+    create?: XOR<MovimentacaoCreateWithoutPedido_vendaInput, MovimentacaoUncheckedCreateWithoutPedido_vendaInput> | MovimentacaoCreateWithoutPedido_vendaInput[] | MovimentacaoUncheckedCreateWithoutPedido_vendaInput[]
+    connectOrCreate?: MovimentacaoCreateOrConnectWithoutPedido_vendaInput | MovimentacaoCreateOrConnectWithoutPedido_vendaInput[]
+    createMany?: MovimentacaoCreateManyPedido_vendaInputEnvelope
+    connect?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
   }
 
   export type Enummetodo_pagamentoFieldUpdateOperationsInput = {
@@ -39142,12 +44039,12 @@ export namespace Prisma {
     deleteMany?: itens_pedido_vendasScalarWhereInput | itens_pedido_vendasScalarWhereInput[]
   }
 
-  export type clientesUpdateOneRequiredWithoutPedidos_vendasNestedInput = {
-    create?: XOR<clientesCreateWithoutPedidos_vendasInput, clientesUncheckedCreateWithoutPedidos_vendasInput>
-    connectOrCreate?: clientesCreateOrConnectWithoutPedidos_vendasInput
-    upsert?: clientesUpsertWithoutPedidos_vendasInput
+  export type clientesUpdateOneRequiredWithoutPedidos_vendaNestedInput = {
+    create?: XOR<clientesCreateWithoutPedidos_vendaInput, clientesUncheckedCreateWithoutPedidos_vendaInput>
+    connectOrCreate?: clientesCreateOrConnectWithoutPedidos_vendaInput
+    upsert?: clientesUpsertWithoutPedidos_vendaInput
     connect?: clientesWhereUniqueInput
-    update?: XOR<XOR<clientesUpdateToOneWithWhereWithoutPedidos_vendasInput, clientesUpdateWithoutPedidos_vendasInput>, clientesUncheckedUpdateWithoutPedidos_vendasInput>
+    update?: XOR<XOR<clientesUpdateToOneWithWhereWithoutPedidos_vendaInput, clientesUpdateWithoutPedidos_vendaInput>, clientesUncheckedUpdateWithoutPedidos_vendaInput>
   }
 
   export type usuariosUpdateOneRequiredWithoutPedidos_vendasNestedInput = {
@@ -39180,6 +44077,40 @@ export namespace Prisma {
     update?: fluxo_caixaUpdateWithWhereUniqueWithoutPedido_vendaInput | fluxo_caixaUpdateWithWhereUniqueWithoutPedido_vendaInput[]
     updateMany?: fluxo_caixaUpdateManyWithWhereWithoutPedido_vendaInput | fluxo_caixaUpdateManyWithWhereWithoutPedido_vendaInput[]
     deleteMany?: fluxo_caixaScalarWhereInput | fluxo_caixaScalarWhereInput[]
+  }
+
+  export type os_servicos_itensUpdateOneWithoutPedidosNestedInput = {
+    create?: XOR<os_servicos_itensCreateWithoutPedidosInput, os_servicos_itensUncheckedCreateWithoutPedidosInput>
+    connectOrCreate?: os_servicos_itensCreateOrConnectWithoutPedidosInput
+    upsert?: os_servicos_itensUpsertWithoutPedidosInput
+    disconnect?: os_servicos_itensWhereInput | boolean
+    delete?: os_servicos_itensWhereInput | boolean
+    connect?: os_servicos_itensWhereUniqueInput
+    update?: XOR<XOR<os_servicos_itensUpdateToOneWithWhereWithoutPedidosInput, os_servicos_itensUpdateWithoutPedidosInput>, os_servicos_itensUncheckedUpdateWithoutPedidosInput>
+  }
+
+  export type PlanoContasUpdateOneWithoutPedidos_vendasNestedInput = {
+    create?: XOR<PlanoContasCreateWithoutPedidos_vendasInput, PlanoContasUncheckedCreateWithoutPedidos_vendasInput>
+    connectOrCreate?: PlanoContasCreateOrConnectWithoutPedidos_vendasInput
+    upsert?: PlanoContasUpsertWithoutPedidos_vendasInput
+    disconnect?: PlanoContasWhereInput | boolean
+    delete?: PlanoContasWhereInput | boolean
+    connect?: PlanoContasWhereUniqueInput
+    update?: XOR<XOR<PlanoContasUpdateToOneWithWhereWithoutPedidos_vendasInput, PlanoContasUpdateWithoutPedidos_vendasInput>, PlanoContasUncheckedUpdateWithoutPedidos_vendasInput>
+  }
+
+  export type MovimentacaoUpdateManyWithoutPedido_vendaNestedInput = {
+    create?: XOR<MovimentacaoCreateWithoutPedido_vendaInput, MovimentacaoUncheckedCreateWithoutPedido_vendaInput> | MovimentacaoCreateWithoutPedido_vendaInput[] | MovimentacaoUncheckedCreateWithoutPedido_vendaInput[]
+    connectOrCreate?: MovimentacaoCreateOrConnectWithoutPedido_vendaInput | MovimentacaoCreateOrConnectWithoutPedido_vendaInput[]
+    upsert?: MovimentacaoUpsertWithWhereUniqueWithoutPedido_vendaInput | MovimentacaoUpsertWithWhereUniqueWithoutPedido_vendaInput[]
+    createMany?: MovimentacaoCreateManyPedido_vendaInputEnvelope
+    set?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+    disconnect?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+    delete?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+    connect?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+    update?: MovimentacaoUpdateWithWhereUniqueWithoutPedido_vendaInput | MovimentacaoUpdateWithWhereUniqueWithoutPedido_vendaInput[]
+    updateMany?: MovimentacaoUpdateManyWithWhereWithoutPedido_vendaInput | MovimentacaoUpdateManyWithWhereWithoutPedido_vendaInput[]
+    deleteMany?: MovimentacaoScalarWhereInput | MovimentacaoScalarWhereInput[]
   }
 
   export type itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput = {
@@ -39218,6 +44149,20 @@ export namespace Prisma {
     update?: fluxo_caixaUpdateWithWhereUniqueWithoutPedido_vendaInput | fluxo_caixaUpdateWithWhereUniqueWithoutPedido_vendaInput[]
     updateMany?: fluxo_caixaUpdateManyWithWhereWithoutPedido_vendaInput | fluxo_caixaUpdateManyWithWhereWithoutPedido_vendaInput[]
     deleteMany?: fluxo_caixaScalarWhereInput | fluxo_caixaScalarWhereInput[]
+  }
+
+  export type MovimentacaoUncheckedUpdateManyWithoutPedido_vendaNestedInput = {
+    create?: XOR<MovimentacaoCreateWithoutPedido_vendaInput, MovimentacaoUncheckedCreateWithoutPedido_vendaInput> | MovimentacaoCreateWithoutPedido_vendaInput[] | MovimentacaoUncheckedCreateWithoutPedido_vendaInput[]
+    connectOrCreate?: MovimentacaoCreateOrConnectWithoutPedido_vendaInput | MovimentacaoCreateOrConnectWithoutPedido_vendaInput[]
+    upsert?: MovimentacaoUpsertWithWhereUniqueWithoutPedido_vendaInput | MovimentacaoUpsertWithWhereUniqueWithoutPedido_vendaInput[]
+    createMany?: MovimentacaoCreateManyPedido_vendaInputEnvelope
+    set?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+    disconnect?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+    delete?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+    connect?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+    update?: MovimentacaoUpdateWithWhereUniqueWithoutPedido_vendaInput | MovimentacaoUpdateWithWhereUniqueWithoutPedido_vendaInput[]
+    updateMany?: MovimentacaoUpdateManyWithWhereWithoutPedido_vendaInput | MovimentacaoUpdateManyWithWhereWithoutPedido_vendaInput[]
+    deleteMany?: MovimentacaoScalarWhereInput | MovimentacaoScalarWhereInput[]
   }
 
   export type clientesCreateNestedOneWithoutOrdens_servicoInput = {
@@ -39442,6 +44387,34 @@ export namespace Prisma {
     connect?: usuariosWhereUniqueInput
   }
 
+  export type veiculos_cliente_manutencaoCreateNestedManyWithoutOsServicosItensInput = {
+    create?: XOR<veiculos_cliente_manutencaoCreateWithoutOsServicosItensInput, veiculos_cliente_manutencaoUncheckedCreateWithoutOsServicosItensInput> | veiculos_cliente_manutencaoCreateWithoutOsServicosItensInput[] | veiculos_cliente_manutencaoUncheckedCreateWithoutOsServicosItensInput[]
+    connectOrCreate?: veiculos_cliente_manutencaoCreateOrConnectWithoutOsServicosItensInput | veiculos_cliente_manutencaoCreateOrConnectWithoutOsServicosItensInput[]
+    createMany?: veiculos_cliente_manutencaoCreateManyOsServicosItensInputEnvelope
+    connect?: veiculos_cliente_manutencaoWhereUniqueInput | veiculos_cliente_manutencaoWhereUniqueInput[]
+  }
+
+  export type pedidos_vendasCreateNestedManyWithoutOsServicosItensInput = {
+    create?: XOR<pedidos_vendasCreateWithoutOsServicosItensInput, pedidos_vendasUncheckedCreateWithoutOsServicosItensInput> | pedidos_vendasCreateWithoutOsServicosItensInput[] | pedidos_vendasUncheckedCreateWithoutOsServicosItensInput[]
+    connectOrCreate?: pedidos_vendasCreateOrConnectWithoutOsServicosItensInput | pedidos_vendasCreateOrConnectWithoutOsServicosItensInput[]
+    createMany?: pedidos_vendasCreateManyOsServicosItensInputEnvelope
+    connect?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
+  }
+
+  export type veiculos_cliente_manutencaoUncheckedCreateNestedManyWithoutOsServicosItensInput = {
+    create?: XOR<veiculos_cliente_manutencaoCreateWithoutOsServicosItensInput, veiculos_cliente_manutencaoUncheckedCreateWithoutOsServicosItensInput> | veiculos_cliente_manutencaoCreateWithoutOsServicosItensInput[] | veiculos_cliente_manutencaoUncheckedCreateWithoutOsServicosItensInput[]
+    connectOrCreate?: veiculos_cliente_manutencaoCreateOrConnectWithoutOsServicosItensInput | veiculos_cliente_manutencaoCreateOrConnectWithoutOsServicosItensInput[]
+    createMany?: veiculos_cliente_manutencaoCreateManyOsServicosItensInputEnvelope
+    connect?: veiculos_cliente_manutencaoWhereUniqueInput | veiculos_cliente_manutencaoWhereUniqueInput[]
+  }
+
+  export type pedidos_vendasUncheckedCreateNestedManyWithoutOsServicosItensInput = {
+    create?: XOR<pedidos_vendasCreateWithoutOsServicosItensInput, pedidos_vendasUncheckedCreateWithoutOsServicosItensInput> | pedidos_vendasCreateWithoutOsServicosItensInput[] | pedidos_vendasUncheckedCreateWithoutOsServicosItensInput[]
+    connectOrCreate?: pedidos_vendasCreateOrConnectWithoutOsServicosItensInput | pedidos_vendasCreateOrConnectWithoutOsServicosItensInput[]
+    createMany?: pedidos_vendasCreateManyOsServicosItensInputEnvelope
+    connect?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
+  }
+
   export type ordem_servicoUpdateOneRequiredWithoutServicos_itensNestedInput = {
     create?: XOR<ordem_servicoCreateWithoutServicos_itensInput, ordem_servicoUncheckedCreateWithoutServicos_itensInput>
     connectOrCreate?: ordem_servicoCreateOrConnectWithoutServicos_itensInput
@@ -39464,6 +44437,62 @@ export namespace Prisma {
     upsert?: usuariosUpsertWithoutServicos_executadosInput
     connect?: usuariosWhereUniqueInput
     update?: XOR<XOR<usuariosUpdateToOneWithWhereWithoutServicos_executadosInput, usuariosUpdateWithoutServicos_executadosInput>, usuariosUncheckedUpdateWithoutServicos_executadosInput>
+  }
+
+  export type veiculos_cliente_manutencaoUpdateManyWithoutOsServicosItensNestedInput = {
+    create?: XOR<veiculos_cliente_manutencaoCreateWithoutOsServicosItensInput, veiculos_cliente_manutencaoUncheckedCreateWithoutOsServicosItensInput> | veiculos_cliente_manutencaoCreateWithoutOsServicosItensInput[] | veiculos_cliente_manutencaoUncheckedCreateWithoutOsServicosItensInput[]
+    connectOrCreate?: veiculos_cliente_manutencaoCreateOrConnectWithoutOsServicosItensInput | veiculos_cliente_manutencaoCreateOrConnectWithoutOsServicosItensInput[]
+    upsert?: veiculos_cliente_manutencaoUpsertWithWhereUniqueWithoutOsServicosItensInput | veiculos_cliente_manutencaoUpsertWithWhereUniqueWithoutOsServicosItensInput[]
+    createMany?: veiculos_cliente_manutencaoCreateManyOsServicosItensInputEnvelope
+    set?: veiculos_cliente_manutencaoWhereUniqueInput | veiculos_cliente_manutencaoWhereUniqueInput[]
+    disconnect?: veiculos_cliente_manutencaoWhereUniqueInput | veiculos_cliente_manutencaoWhereUniqueInput[]
+    delete?: veiculos_cliente_manutencaoWhereUniqueInput | veiculos_cliente_manutencaoWhereUniqueInput[]
+    connect?: veiculos_cliente_manutencaoWhereUniqueInput | veiculos_cliente_manutencaoWhereUniqueInput[]
+    update?: veiculos_cliente_manutencaoUpdateWithWhereUniqueWithoutOsServicosItensInput | veiculos_cliente_manutencaoUpdateWithWhereUniqueWithoutOsServicosItensInput[]
+    updateMany?: veiculos_cliente_manutencaoUpdateManyWithWhereWithoutOsServicosItensInput | veiculos_cliente_manutencaoUpdateManyWithWhereWithoutOsServicosItensInput[]
+    deleteMany?: veiculos_cliente_manutencaoScalarWhereInput | veiculos_cliente_manutencaoScalarWhereInput[]
+  }
+
+  export type pedidos_vendasUpdateManyWithoutOsServicosItensNestedInput = {
+    create?: XOR<pedidos_vendasCreateWithoutOsServicosItensInput, pedidos_vendasUncheckedCreateWithoutOsServicosItensInput> | pedidos_vendasCreateWithoutOsServicosItensInput[] | pedidos_vendasUncheckedCreateWithoutOsServicosItensInput[]
+    connectOrCreate?: pedidos_vendasCreateOrConnectWithoutOsServicosItensInput | pedidos_vendasCreateOrConnectWithoutOsServicosItensInput[]
+    upsert?: pedidos_vendasUpsertWithWhereUniqueWithoutOsServicosItensInput | pedidos_vendasUpsertWithWhereUniqueWithoutOsServicosItensInput[]
+    createMany?: pedidos_vendasCreateManyOsServicosItensInputEnvelope
+    set?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
+    disconnect?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
+    delete?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
+    connect?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
+    update?: pedidos_vendasUpdateWithWhereUniqueWithoutOsServicosItensInput | pedidos_vendasUpdateWithWhereUniqueWithoutOsServicosItensInput[]
+    updateMany?: pedidos_vendasUpdateManyWithWhereWithoutOsServicosItensInput | pedidos_vendasUpdateManyWithWhereWithoutOsServicosItensInput[]
+    deleteMany?: pedidos_vendasScalarWhereInput | pedidos_vendasScalarWhereInput[]
+  }
+
+  export type veiculos_cliente_manutencaoUncheckedUpdateManyWithoutOsServicosItensNestedInput = {
+    create?: XOR<veiculos_cliente_manutencaoCreateWithoutOsServicosItensInput, veiculos_cliente_manutencaoUncheckedCreateWithoutOsServicosItensInput> | veiculos_cliente_manutencaoCreateWithoutOsServicosItensInput[] | veiculos_cliente_manutencaoUncheckedCreateWithoutOsServicosItensInput[]
+    connectOrCreate?: veiculos_cliente_manutencaoCreateOrConnectWithoutOsServicosItensInput | veiculos_cliente_manutencaoCreateOrConnectWithoutOsServicosItensInput[]
+    upsert?: veiculos_cliente_manutencaoUpsertWithWhereUniqueWithoutOsServicosItensInput | veiculos_cliente_manutencaoUpsertWithWhereUniqueWithoutOsServicosItensInput[]
+    createMany?: veiculos_cliente_manutencaoCreateManyOsServicosItensInputEnvelope
+    set?: veiculos_cliente_manutencaoWhereUniqueInput | veiculos_cliente_manutencaoWhereUniqueInput[]
+    disconnect?: veiculos_cliente_manutencaoWhereUniqueInput | veiculos_cliente_manutencaoWhereUniqueInput[]
+    delete?: veiculos_cliente_manutencaoWhereUniqueInput | veiculos_cliente_manutencaoWhereUniqueInput[]
+    connect?: veiculos_cliente_manutencaoWhereUniqueInput | veiculos_cliente_manutencaoWhereUniqueInput[]
+    update?: veiculos_cliente_manutencaoUpdateWithWhereUniqueWithoutOsServicosItensInput | veiculos_cliente_manutencaoUpdateWithWhereUniqueWithoutOsServicosItensInput[]
+    updateMany?: veiculos_cliente_manutencaoUpdateManyWithWhereWithoutOsServicosItensInput | veiculos_cliente_manutencaoUpdateManyWithWhereWithoutOsServicosItensInput[]
+    deleteMany?: veiculos_cliente_manutencaoScalarWhereInput | veiculos_cliente_manutencaoScalarWhereInput[]
+  }
+
+  export type pedidos_vendasUncheckedUpdateManyWithoutOsServicosItensNestedInput = {
+    create?: XOR<pedidos_vendasCreateWithoutOsServicosItensInput, pedidos_vendasUncheckedCreateWithoutOsServicosItensInput> | pedidos_vendasCreateWithoutOsServicosItensInput[] | pedidos_vendasUncheckedCreateWithoutOsServicosItensInput[]
+    connectOrCreate?: pedidos_vendasCreateOrConnectWithoutOsServicosItensInput | pedidos_vendasCreateOrConnectWithoutOsServicosItensInput[]
+    upsert?: pedidos_vendasUpsertWithWhereUniqueWithoutOsServicosItensInput | pedidos_vendasUpsertWithWhereUniqueWithoutOsServicosItensInput[]
+    createMany?: pedidos_vendasCreateManyOsServicosItensInputEnvelope
+    set?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
+    disconnect?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
+    delete?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
+    connect?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
+    update?: pedidos_vendasUpdateWithWhereUniqueWithoutOsServicosItensInput | pedidos_vendasUpdateWithWhereUniqueWithoutOsServicosItensInput[]
+    updateMany?: pedidos_vendasUpdateManyWithWhereWithoutOsServicosItensInput | pedidos_vendasUpdateManyWithWhereWithoutOsServicosItensInput[]
+    deleteMany?: pedidos_vendasScalarWhereInput | pedidos_vendasScalarWhereInput[]
   }
 
   export type ordem_servicoCreateNestedOneWithoutPecas_itensInput = {
@@ -39494,9 +44523,9 @@ export namespace Prisma {
     update?: XOR<XOR<peca_estoqueUpdateToOneWithWhereWithoutOs_pecas_itensInput, peca_estoqueUpdateWithoutOs_pecas_itensInput>, peca_estoqueUncheckedUpdateWithoutOs_pecas_itensInput>
   }
 
-  export type clientesCreateNestedOneWithoutSucata_comprasInput = {
-    create?: XOR<clientesCreateWithoutSucata_comprasInput, clientesUncheckedCreateWithoutSucata_comprasInput>
-    connectOrCreate?: clientesCreateOrConnectWithoutSucata_comprasInput
+  export type clientesCreateNestedOneWithoutSucata_compraInput = {
+    create?: XOR<clientesCreateWithoutSucata_compraInput, clientesUncheckedCreateWithoutSucata_compraInput>
+    connectOrCreate?: clientesCreateOrConnectWithoutSucata_compraInput
     connect?: clientesWhereUniqueInput
   }
 
@@ -39520,12 +44549,12 @@ export namespace Prisma {
     connect?: fluxo_caixaWhereUniqueInput | fluxo_caixaWhereUniqueInput[]
   }
 
-  export type clientesUpdateOneRequiredWithoutSucata_comprasNestedInput = {
-    create?: XOR<clientesCreateWithoutSucata_comprasInput, clientesUncheckedCreateWithoutSucata_comprasInput>
-    connectOrCreate?: clientesCreateOrConnectWithoutSucata_comprasInput
-    upsert?: clientesUpsertWithoutSucata_comprasInput
+  export type clientesUpdateOneRequiredWithoutSucata_compraNestedInput = {
+    create?: XOR<clientesCreateWithoutSucata_compraInput, clientesUncheckedCreateWithoutSucata_compraInput>
+    connectOrCreate?: clientesCreateOrConnectWithoutSucata_compraInput
+    upsert?: clientesUpsertWithoutSucata_compraInput
     connect?: clientesWhereUniqueInput
-    update?: XOR<XOR<clientesUpdateToOneWithWhereWithoutSucata_comprasInput, clientesUpdateWithoutSucata_comprasInput>, clientesUncheckedUpdateWithoutSucata_comprasInput>
+    update?: XOR<XOR<clientesUpdateToOneWithWhereWithoutSucata_compraInput, clientesUpdateWithoutSucata_compraInput>, clientesUncheckedUpdateWithoutSucata_compraInput>
   }
 
   export type usuariosUpdateOneRequiredWithoutSucata_comprasNestedInput = {
@@ -39562,6 +44591,48 @@ export namespace Prisma {
     update?: fluxo_caixaUpdateWithWhereUniqueWithoutSucata_compraInput | fluxo_caixaUpdateWithWhereUniqueWithoutSucata_compraInput[]
     updateMany?: fluxo_caixaUpdateManyWithWhereWithoutSucata_compraInput | fluxo_caixaUpdateManyWithWhereWithoutSucata_compraInput[]
     deleteMany?: fluxo_caixaScalarWhereInput | fluxo_caixaScalarWhereInput[]
+  }
+
+  export type dados_fiscais_pecaCreateNestedManyWithoutCfopInput = {
+    create?: XOR<dados_fiscais_pecaCreateWithoutCfopInput, dados_fiscais_pecaUncheckedCreateWithoutCfopInput> | dados_fiscais_pecaCreateWithoutCfopInput[] | dados_fiscais_pecaUncheckedCreateWithoutCfopInput[]
+    connectOrCreate?: dados_fiscais_pecaCreateOrConnectWithoutCfopInput | dados_fiscais_pecaCreateOrConnectWithoutCfopInput[]
+    createMany?: dados_fiscais_pecaCreateManyCfopInputEnvelope
+    connect?: dados_fiscais_pecaWhereUniqueInput | dados_fiscais_pecaWhereUniqueInput[]
+  }
+
+  export type dados_fiscais_pecaUncheckedCreateNestedManyWithoutCfopInput = {
+    create?: XOR<dados_fiscais_pecaCreateWithoutCfopInput, dados_fiscais_pecaUncheckedCreateWithoutCfopInput> | dados_fiscais_pecaCreateWithoutCfopInput[] | dados_fiscais_pecaUncheckedCreateWithoutCfopInput[]
+    connectOrCreate?: dados_fiscais_pecaCreateOrConnectWithoutCfopInput | dados_fiscais_pecaCreateOrConnectWithoutCfopInput[]
+    createMany?: dados_fiscais_pecaCreateManyCfopInputEnvelope
+    connect?: dados_fiscais_pecaWhereUniqueInput | dados_fiscais_pecaWhereUniqueInput[]
+  }
+
+  export type dados_fiscais_pecaUpdateManyWithoutCfopNestedInput = {
+    create?: XOR<dados_fiscais_pecaCreateWithoutCfopInput, dados_fiscais_pecaUncheckedCreateWithoutCfopInput> | dados_fiscais_pecaCreateWithoutCfopInput[] | dados_fiscais_pecaUncheckedCreateWithoutCfopInput[]
+    connectOrCreate?: dados_fiscais_pecaCreateOrConnectWithoutCfopInput | dados_fiscais_pecaCreateOrConnectWithoutCfopInput[]
+    upsert?: dados_fiscais_pecaUpsertWithWhereUniqueWithoutCfopInput | dados_fiscais_pecaUpsertWithWhereUniqueWithoutCfopInput[]
+    createMany?: dados_fiscais_pecaCreateManyCfopInputEnvelope
+    set?: dados_fiscais_pecaWhereUniqueInput | dados_fiscais_pecaWhereUniqueInput[]
+    disconnect?: dados_fiscais_pecaWhereUniqueInput | dados_fiscais_pecaWhereUniqueInput[]
+    delete?: dados_fiscais_pecaWhereUniqueInput | dados_fiscais_pecaWhereUniqueInput[]
+    connect?: dados_fiscais_pecaWhereUniqueInput | dados_fiscais_pecaWhereUniqueInput[]
+    update?: dados_fiscais_pecaUpdateWithWhereUniqueWithoutCfopInput | dados_fiscais_pecaUpdateWithWhereUniqueWithoutCfopInput[]
+    updateMany?: dados_fiscais_pecaUpdateManyWithWhereWithoutCfopInput | dados_fiscais_pecaUpdateManyWithWhereWithoutCfopInput[]
+    deleteMany?: dados_fiscais_pecaScalarWhereInput | dados_fiscais_pecaScalarWhereInput[]
+  }
+
+  export type dados_fiscais_pecaUncheckedUpdateManyWithoutCfopNestedInput = {
+    create?: XOR<dados_fiscais_pecaCreateWithoutCfopInput, dados_fiscais_pecaUncheckedCreateWithoutCfopInput> | dados_fiscais_pecaCreateWithoutCfopInput[] | dados_fiscais_pecaUncheckedCreateWithoutCfopInput[]
+    connectOrCreate?: dados_fiscais_pecaCreateOrConnectWithoutCfopInput | dados_fiscais_pecaCreateOrConnectWithoutCfopInput[]
+    upsert?: dados_fiscais_pecaUpsertWithWhereUniqueWithoutCfopInput | dados_fiscais_pecaUpsertWithWhereUniqueWithoutCfopInput[]
+    createMany?: dados_fiscais_pecaCreateManyCfopInputEnvelope
+    set?: dados_fiscais_pecaWhereUniqueInput | dados_fiscais_pecaWhereUniqueInput[]
+    disconnect?: dados_fiscais_pecaWhereUniqueInput | dados_fiscais_pecaWhereUniqueInput[]
+    delete?: dados_fiscais_pecaWhereUniqueInput | dados_fiscais_pecaWhereUniqueInput[]
+    connect?: dados_fiscais_pecaWhereUniqueInput | dados_fiscais_pecaWhereUniqueInput[]
+    update?: dados_fiscais_pecaUpdateWithWhereUniqueWithoutCfopInput | dados_fiscais_pecaUpdateWithWhereUniqueWithoutCfopInput[]
+    updateMany?: dados_fiscais_pecaUpdateManyWithWhereWithoutCfopInput | dados_fiscais_pecaUpdateManyWithWhereWithoutCfopInput[]
+    deleteMany?: dados_fiscais_pecaScalarWhereInput | dados_fiscais_pecaScalarWhereInput[]
   }
 
   export type peca_estoqueCreateNestedManyWithoutSucata_estoqueInput = {
@@ -40225,9 +45296,9 @@ export namespace Prisma {
     connect?: ordem_servicoWhereUniqueInput | ordem_servicoWhereUniqueInput[]
   }
 
-  export type clientesCreateNestedOneWithoutVeiculos_cliente_manutencaoInput = {
-    create?: XOR<clientesCreateWithoutVeiculos_cliente_manutencaoInput, clientesUncheckedCreateWithoutVeiculos_cliente_manutencaoInput>
-    connectOrCreate?: clientesCreateOrConnectWithoutVeiculos_cliente_manutencaoInput
+  export type clientesCreateNestedOneWithoutVeiculos_clienteInput = {
+    create?: XOR<clientesCreateWithoutVeiculos_clienteInput, clientesUncheckedCreateWithoutVeiculos_clienteInput>
+    connectOrCreate?: clientesCreateOrConnectWithoutVeiculos_clienteInput
     connect?: clientesWhereUniqueInput
   }
 
@@ -40235,6 +45306,12 @@ export namespace Prisma {
     create?: XOR<modelosCreateWithoutVeiculos_cliente_manutencaoInput, modelosUncheckedCreateWithoutVeiculos_cliente_manutencaoInput>
     connectOrCreate?: modelosCreateOrConnectWithoutVeiculos_cliente_manutencaoInput
     connect?: modelosWhereUniqueInput
+  }
+
+  export type os_servicos_itensCreateNestedOneWithoutVeiculosInput = {
+    create?: XOR<os_servicos_itensCreateWithoutVeiculosInput, os_servicos_itensUncheckedCreateWithoutVeiculosInput>
+    connectOrCreate?: os_servicos_itensCreateOrConnectWithoutVeiculosInput
+    connect?: os_servicos_itensWhereUniqueInput
   }
 
   export type ordem_servicoUncheckedCreateNestedManyWithoutVeiculoInput = {
@@ -40258,12 +45335,12 @@ export namespace Prisma {
     deleteMany?: ordem_servicoScalarWhereInput | ordem_servicoScalarWhereInput[]
   }
 
-  export type clientesUpdateOneRequiredWithoutVeiculos_cliente_manutencaoNestedInput = {
-    create?: XOR<clientesCreateWithoutVeiculos_cliente_manutencaoInput, clientesUncheckedCreateWithoutVeiculos_cliente_manutencaoInput>
-    connectOrCreate?: clientesCreateOrConnectWithoutVeiculos_cliente_manutencaoInput
-    upsert?: clientesUpsertWithoutVeiculos_cliente_manutencaoInput
+  export type clientesUpdateOneRequiredWithoutVeiculos_clienteNestedInput = {
+    create?: XOR<clientesCreateWithoutVeiculos_clienteInput, clientesUncheckedCreateWithoutVeiculos_clienteInput>
+    connectOrCreate?: clientesCreateOrConnectWithoutVeiculos_clienteInput
+    upsert?: clientesUpsertWithoutVeiculos_clienteInput
     connect?: clientesWhereUniqueInput
-    update?: XOR<XOR<clientesUpdateToOneWithWhereWithoutVeiculos_cliente_manutencaoInput, clientesUpdateWithoutVeiculos_cliente_manutencaoInput>, clientesUncheckedUpdateWithoutVeiculos_cliente_manutencaoInput>
+    update?: XOR<XOR<clientesUpdateToOneWithWhereWithoutVeiculos_clienteInput, clientesUpdateWithoutVeiculos_clienteInput>, clientesUncheckedUpdateWithoutVeiculos_clienteInput>
   }
 
   export type modelosUpdateOneRequiredWithoutVeiculos_cliente_manutencaoNestedInput = {
@@ -40272,6 +45349,16 @@ export namespace Prisma {
     upsert?: modelosUpsertWithoutVeiculos_cliente_manutencaoInput
     connect?: modelosWhereUniqueInput
     update?: XOR<XOR<modelosUpdateToOneWithWhereWithoutVeiculos_cliente_manutencaoInput, modelosUpdateWithoutVeiculos_cliente_manutencaoInput>, modelosUncheckedUpdateWithoutVeiculos_cliente_manutencaoInput>
+  }
+
+  export type os_servicos_itensUpdateOneWithoutVeiculosNestedInput = {
+    create?: XOR<os_servicos_itensCreateWithoutVeiculosInput, os_servicos_itensUncheckedCreateWithoutVeiculosInput>
+    connectOrCreate?: os_servicos_itensCreateOrConnectWithoutVeiculosInput
+    upsert?: os_servicos_itensUpsertWithoutVeiculosInput
+    disconnect?: os_servicos_itensWhereInput | boolean
+    delete?: os_servicos_itensWhereInput | boolean
+    connect?: os_servicos_itensWhereUniqueInput
+    update?: XOR<XOR<os_servicos_itensUpdateToOneWithWhereWithoutVeiculosInput, os_servicos_itensUpdateWithoutVeiculosInput>, os_servicos_itensUncheckedUpdateWithoutVeiculosInput>
   }
 
   export type ordem_servicoUncheckedUpdateManyWithoutVeiculoNestedInput = {
@@ -40292,6 +45379,251 @@ export namespace Prisma {
     set?: $Enums.tipo_objeto_receita
   }
 
+  export type despesasCreateNestedManyWithoutCategoria_planoInput = {
+    create?: XOR<despesasCreateWithoutCategoria_planoInput, despesasUncheckedCreateWithoutCategoria_planoInput> | despesasCreateWithoutCategoria_planoInput[] | despesasUncheckedCreateWithoutCategoria_planoInput[]
+    connectOrCreate?: despesasCreateOrConnectWithoutCategoria_planoInput | despesasCreateOrConnectWithoutCategoria_planoInput[]
+    createMany?: despesasCreateManyCategoria_planoInputEnvelope
+    connect?: despesasWhereUniqueInput | despesasWhereUniqueInput[]
+  }
+
+  export type fluxo_caixaCreateNestedManyWithoutPlano_contasInput = {
+    create?: XOR<fluxo_caixaCreateWithoutPlano_contasInput, fluxo_caixaUncheckedCreateWithoutPlano_contasInput> | fluxo_caixaCreateWithoutPlano_contasInput[] | fluxo_caixaUncheckedCreateWithoutPlano_contasInput[]
+    connectOrCreate?: fluxo_caixaCreateOrConnectWithoutPlano_contasInput | fluxo_caixaCreateOrConnectWithoutPlano_contasInput[]
+    createMany?: fluxo_caixaCreateManyPlano_contasInputEnvelope
+    connect?: fluxo_caixaWhereUniqueInput | fluxo_caixaWhereUniqueInput[]
+  }
+
+  export type pedidos_vendasCreateNestedManyWithoutPlano_contasInput = {
+    create?: XOR<pedidos_vendasCreateWithoutPlano_contasInput, pedidos_vendasUncheckedCreateWithoutPlano_contasInput> | pedidos_vendasCreateWithoutPlano_contasInput[] | pedidos_vendasUncheckedCreateWithoutPlano_contasInput[]
+    connectOrCreate?: pedidos_vendasCreateOrConnectWithoutPlano_contasInput | pedidos_vendasCreateOrConnectWithoutPlano_contasInput[]
+    createMany?: pedidos_vendasCreateManyPlano_contasInputEnvelope
+    connect?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
+  }
+
+  export type MovimentacaoCreateNestedManyWithoutPlano_contasInput = {
+    create?: XOR<MovimentacaoCreateWithoutPlano_contasInput, MovimentacaoUncheckedCreateWithoutPlano_contasInput> | MovimentacaoCreateWithoutPlano_contasInput[] | MovimentacaoUncheckedCreateWithoutPlano_contasInput[]
+    connectOrCreate?: MovimentacaoCreateOrConnectWithoutPlano_contasInput | MovimentacaoCreateOrConnectWithoutPlano_contasInput[]
+    createMany?: MovimentacaoCreateManyPlano_contasInputEnvelope
+    connect?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+  }
+
+  export type despesasUncheckedCreateNestedManyWithoutCategoria_planoInput = {
+    create?: XOR<despesasCreateWithoutCategoria_planoInput, despesasUncheckedCreateWithoutCategoria_planoInput> | despesasCreateWithoutCategoria_planoInput[] | despesasUncheckedCreateWithoutCategoria_planoInput[]
+    connectOrCreate?: despesasCreateOrConnectWithoutCategoria_planoInput | despesasCreateOrConnectWithoutCategoria_planoInput[]
+    createMany?: despesasCreateManyCategoria_planoInputEnvelope
+    connect?: despesasWhereUniqueInput | despesasWhereUniqueInput[]
+  }
+
+  export type fluxo_caixaUncheckedCreateNestedManyWithoutPlano_contasInput = {
+    create?: XOR<fluxo_caixaCreateWithoutPlano_contasInput, fluxo_caixaUncheckedCreateWithoutPlano_contasInput> | fluxo_caixaCreateWithoutPlano_contasInput[] | fluxo_caixaUncheckedCreateWithoutPlano_contasInput[]
+    connectOrCreate?: fluxo_caixaCreateOrConnectWithoutPlano_contasInput | fluxo_caixaCreateOrConnectWithoutPlano_contasInput[]
+    createMany?: fluxo_caixaCreateManyPlano_contasInputEnvelope
+    connect?: fluxo_caixaWhereUniqueInput | fluxo_caixaWhereUniqueInput[]
+  }
+
+  export type pedidos_vendasUncheckedCreateNestedManyWithoutPlano_contasInput = {
+    create?: XOR<pedidos_vendasCreateWithoutPlano_contasInput, pedidos_vendasUncheckedCreateWithoutPlano_contasInput> | pedidos_vendasCreateWithoutPlano_contasInput[] | pedidos_vendasUncheckedCreateWithoutPlano_contasInput[]
+    connectOrCreate?: pedidos_vendasCreateOrConnectWithoutPlano_contasInput | pedidos_vendasCreateOrConnectWithoutPlano_contasInput[]
+    createMany?: pedidos_vendasCreateManyPlano_contasInputEnvelope
+    connect?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
+  }
+
+  export type MovimentacaoUncheckedCreateNestedManyWithoutPlano_contasInput = {
+    create?: XOR<MovimentacaoCreateWithoutPlano_contasInput, MovimentacaoUncheckedCreateWithoutPlano_contasInput> | MovimentacaoCreateWithoutPlano_contasInput[] | MovimentacaoUncheckedCreateWithoutPlano_contasInput[]
+    connectOrCreate?: MovimentacaoCreateOrConnectWithoutPlano_contasInput | MovimentacaoCreateOrConnectWithoutPlano_contasInput[]
+    createMany?: MovimentacaoCreateManyPlano_contasInputEnvelope
+    connect?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+  }
+
+  export type EnumTipoContaPlanoFieldUpdateOperationsInput = {
+    set?: $Enums.TipoContaPlano
+  }
+
+  export type despesasUpdateManyWithoutCategoria_planoNestedInput = {
+    create?: XOR<despesasCreateWithoutCategoria_planoInput, despesasUncheckedCreateWithoutCategoria_planoInput> | despesasCreateWithoutCategoria_planoInput[] | despesasUncheckedCreateWithoutCategoria_planoInput[]
+    connectOrCreate?: despesasCreateOrConnectWithoutCategoria_planoInput | despesasCreateOrConnectWithoutCategoria_planoInput[]
+    upsert?: despesasUpsertWithWhereUniqueWithoutCategoria_planoInput | despesasUpsertWithWhereUniqueWithoutCategoria_planoInput[]
+    createMany?: despesasCreateManyCategoria_planoInputEnvelope
+    set?: despesasWhereUniqueInput | despesasWhereUniqueInput[]
+    disconnect?: despesasWhereUniqueInput | despesasWhereUniqueInput[]
+    delete?: despesasWhereUniqueInput | despesasWhereUniqueInput[]
+    connect?: despesasWhereUniqueInput | despesasWhereUniqueInput[]
+    update?: despesasUpdateWithWhereUniqueWithoutCategoria_planoInput | despesasUpdateWithWhereUniqueWithoutCategoria_planoInput[]
+    updateMany?: despesasUpdateManyWithWhereWithoutCategoria_planoInput | despesasUpdateManyWithWhereWithoutCategoria_planoInput[]
+    deleteMany?: despesasScalarWhereInput | despesasScalarWhereInput[]
+  }
+
+  export type fluxo_caixaUpdateManyWithoutPlano_contasNestedInput = {
+    create?: XOR<fluxo_caixaCreateWithoutPlano_contasInput, fluxo_caixaUncheckedCreateWithoutPlano_contasInput> | fluxo_caixaCreateWithoutPlano_contasInput[] | fluxo_caixaUncheckedCreateWithoutPlano_contasInput[]
+    connectOrCreate?: fluxo_caixaCreateOrConnectWithoutPlano_contasInput | fluxo_caixaCreateOrConnectWithoutPlano_contasInput[]
+    upsert?: fluxo_caixaUpsertWithWhereUniqueWithoutPlano_contasInput | fluxo_caixaUpsertWithWhereUniqueWithoutPlano_contasInput[]
+    createMany?: fluxo_caixaCreateManyPlano_contasInputEnvelope
+    set?: fluxo_caixaWhereUniqueInput | fluxo_caixaWhereUniqueInput[]
+    disconnect?: fluxo_caixaWhereUniqueInput | fluxo_caixaWhereUniqueInput[]
+    delete?: fluxo_caixaWhereUniqueInput | fluxo_caixaWhereUniqueInput[]
+    connect?: fluxo_caixaWhereUniqueInput | fluxo_caixaWhereUniqueInput[]
+    update?: fluxo_caixaUpdateWithWhereUniqueWithoutPlano_contasInput | fluxo_caixaUpdateWithWhereUniqueWithoutPlano_contasInput[]
+    updateMany?: fluxo_caixaUpdateManyWithWhereWithoutPlano_contasInput | fluxo_caixaUpdateManyWithWhereWithoutPlano_contasInput[]
+    deleteMany?: fluxo_caixaScalarWhereInput | fluxo_caixaScalarWhereInput[]
+  }
+
+  export type pedidos_vendasUpdateManyWithoutPlano_contasNestedInput = {
+    create?: XOR<pedidos_vendasCreateWithoutPlano_contasInput, pedidos_vendasUncheckedCreateWithoutPlano_contasInput> | pedidos_vendasCreateWithoutPlano_contasInput[] | pedidos_vendasUncheckedCreateWithoutPlano_contasInput[]
+    connectOrCreate?: pedidos_vendasCreateOrConnectWithoutPlano_contasInput | pedidos_vendasCreateOrConnectWithoutPlano_contasInput[]
+    upsert?: pedidos_vendasUpsertWithWhereUniqueWithoutPlano_contasInput | pedidos_vendasUpsertWithWhereUniqueWithoutPlano_contasInput[]
+    createMany?: pedidos_vendasCreateManyPlano_contasInputEnvelope
+    set?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
+    disconnect?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
+    delete?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
+    connect?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
+    update?: pedidos_vendasUpdateWithWhereUniqueWithoutPlano_contasInput | pedidos_vendasUpdateWithWhereUniqueWithoutPlano_contasInput[]
+    updateMany?: pedidos_vendasUpdateManyWithWhereWithoutPlano_contasInput | pedidos_vendasUpdateManyWithWhereWithoutPlano_contasInput[]
+    deleteMany?: pedidos_vendasScalarWhereInput | pedidos_vendasScalarWhereInput[]
+  }
+
+  export type MovimentacaoUpdateManyWithoutPlano_contasNestedInput = {
+    create?: XOR<MovimentacaoCreateWithoutPlano_contasInput, MovimentacaoUncheckedCreateWithoutPlano_contasInput> | MovimentacaoCreateWithoutPlano_contasInput[] | MovimentacaoUncheckedCreateWithoutPlano_contasInput[]
+    connectOrCreate?: MovimentacaoCreateOrConnectWithoutPlano_contasInput | MovimentacaoCreateOrConnectWithoutPlano_contasInput[]
+    upsert?: MovimentacaoUpsertWithWhereUniqueWithoutPlano_contasInput | MovimentacaoUpsertWithWhereUniqueWithoutPlano_contasInput[]
+    createMany?: MovimentacaoCreateManyPlano_contasInputEnvelope
+    set?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+    disconnect?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+    delete?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+    connect?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+    update?: MovimentacaoUpdateWithWhereUniqueWithoutPlano_contasInput | MovimentacaoUpdateWithWhereUniqueWithoutPlano_contasInput[]
+    updateMany?: MovimentacaoUpdateManyWithWhereWithoutPlano_contasInput | MovimentacaoUpdateManyWithWhereWithoutPlano_contasInput[]
+    deleteMany?: MovimentacaoScalarWhereInput | MovimentacaoScalarWhereInput[]
+  }
+
+  export type despesasUncheckedUpdateManyWithoutCategoria_planoNestedInput = {
+    create?: XOR<despesasCreateWithoutCategoria_planoInput, despesasUncheckedCreateWithoutCategoria_planoInput> | despesasCreateWithoutCategoria_planoInput[] | despesasUncheckedCreateWithoutCategoria_planoInput[]
+    connectOrCreate?: despesasCreateOrConnectWithoutCategoria_planoInput | despesasCreateOrConnectWithoutCategoria_planoInput[]
+    upsert?: despesasUpsertWithWhereUniqueWithoutCategoria_planoInput | despesasUpsertWithWhereUniqueWithoutCategoria_planoInput[]
+    createMany?: despesasCreateManyCategoria_planoInputEnvelope
+    set?: despesasWhereUniqueInput | despesasWhereUniqueInput[]
+    disconnect?: despesasWhereUniqueInput | despesasWhereUniqueInput[]
+    delete?: despesasWhereUniqueInput | despesasWhereUniqueInput[]
+    connect?: despesasWhereUniqueInput | despesasWhereUniqueInput[]
+    update?: despesasUpdateWithWhereUniqueWithoutCategoria_planoInput | despesasUpdateWithWhereUniqueWithoutCategoria_planoInput[]
+    updateMany?: despesasUpdateManyWithWhereWithoutCategoria_planoInput | despesasUpdateManyWithWhereWithoutCategoria_planoInput[]
+    deleteMany?: despesasScalarWhereInput | despesasScalarWhereInput[]
+  }
+
+  export type fluxo_caixaUncheckedUpdateManyWithoutPlano_contasNestedInput = {
+    create?: XOR<fluxo_caixaCreateWithoutPlano_contasInput, fluxo_caixaUncheckedCreateWithoutPlano_contasInput> | fluxo_caixaCreateWithoutPlano_contasInput[] | fluxo_caixaUncheckedCreateWithoutPlano_contasInput[]
+    connectOrCreate?: fluxo_caixaCreateOrConnectWithoutPlano_contasInput | fluxo_caixaCreateOrConnectWithoutPlano_contasInput[]
+    upsert?: fluxo_caixaUpsertWithWhereUniqueWithoutPlano_contasInput | fluxo_caixaUpsertWithWhereUniqueWithoutPlano_contasInput[]
+    createMany?: fluxo_caixaCreateManyPlano_contasInputEnvelope
+    set?: fluxo_caixaWhereUniqueInput | fluxo_caixaWhereUniqueInput[]
+    disconnect?: fluxo_caixaWhereUniqueInput | fluxo_caixaWhereUniqueInput[]
+    delete?: fluxo_caixaWhereUniqueInput | fluxo_caixaWhereUniqueInput[]
+    connect?: fluxo_caixaWhereUniqueInput | fluxo_caixaWhereUniqueInput[]
+    update?: fluxo_caixaUpdateWithWhereUniqueWithoutPlano_contasInput | fluxo_caixaUpdateWithWhereUniqueWithoutPlano_contasInput[]
+    updateMany?: fluxo_caixaUpdateManyWithWhereWithoutPlano_contasInput | fluxo_caixaUpdateManyWithWhereWithoutPlano_contasInput[]
+    deleteMany?: fluxo_caixaScalarWhereInput | fluxo_caixaScalarWhereInput[]
+  }
+
+  export type pedidos_vendasUncheckedUpdateManyWithoutPlano_contasNestedInput = {
+    create?: XOR<pedidos_vendasCreateWithoutPlano_contasInput, pedidos_vendasUncheckedCreateWithoutPlano_contasInput> | pedidos_vendasCreateWithoutPlano_contasInput[] | pedidos_vendasUncheckedCreateWithoutPlano_contasInput[]
+    connectOrCreate?: pedidos_vendasCreateOrConnectWithoutPlano_contasInput | pedidos_vendasCreateOrConnectWithoutPlano_contasInput[]
+    upsert?: pedidos_vendasUpsertWithWhereUniqueWithoutPlano_contasInput | pedidos_vendasUpsertWithWhereUniqueWithoutPlano_contasInput[]
+    createMany?: pedidos_vendasCreateManyPlano_contasInputEnvelope
+    set?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
+    disconnect?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
+    delete?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
+    connect?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
+    update?: pedidos_vendasUpdateWithWhereUniqueWithoutPlano_contasInput | pedidos_vendasUpdateWithWhereUniqueWithoutPlano_contasInput[]
+    updateMany?: pedidos_vendasUpdateManyWithWhereWithoutPlano_contasInput | pedidos_vendasUpdateManyWithWhereWithoutPlano_contasInput[]
+    deleteMany?: pedidos_vendasScalarWhereInput | pedidos_vendasScalarWhereInput[]
+  }
+
+  export type MovimentacaoUncheckedUpdateManyWithoutPlano_contasNestedInput = {
+    create?: XOR<MovimentacaoCreateWithoutPlano_contasInput, MovimentacaoUncheckedCreateWithoutPlano_contasInput> | MovimentacaoCreateWithoutPlano_contasInput[] | MovimentacaoUncheckedCreateWithoutPlano_contasInput[]
+    connectOrCreate?: MovimentacaoCreateOrConnectWithoutPlano_contasInput | MovimentacaoCreateOrConnectWithoutPlano_contasInput[]
+    upsert?: MovimentacaoUpsertWithWhereUniqueWithoutPlano_contasInput | MovimentacaoUpsertWithWhereUniqueWithoutPlano_contasInput[]
+    createMany?: MovimentacaoCreateManyPlano_contasInputEnvelope
+    set?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+    disconnect?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+    delete?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+    connect?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+    update?: MovimentacaoUpdateWithWhereUniqueWithoutPlano_contasInput | MovimentacaoUpdateWithWhereUniqueWithoutPlano_contasInput[]
+    updateMany?: MovimentacaoUpdateManyWithWhereWithoutPlano_contasInput | MovimentacaoUpdateManyWithWhereWithoutPlano_contasInput[]
+    deleteMany?: MovimentacaoScalarWhereInput | MovimentacaoScalarWhereInput[]
+  }
+
+  export type PlanoContasCreateNestedOneWithoutMovimentacoesInput = {
+    create?: XOR<PlanoContasCreateWithoutMovimentacoesInput, PlanoContasUncheckedCreateWithoutMovimentacoesInput>
+    connectOrCreate?: PlanoContasCreateOrConnectWithoutMovimentacoesInput
+    connect?: PlanoContasWhereUniqueInput
+  }
+
+  export type pedidos_vendasCreateNestedOneWithoutMovimentacoesInput = {
+    create?: XOR<pedidos_vendasCreateWithoutMovimentacoesInput, pedidos_vendasUncheckedCreateWithoutMovimentacoesInput>
+    connectOrCreate?: pedidos_vendasCreateOrConnectWithoutMovimentacoesInput
+    connect?: pedidos_vendasWhereUniqueInput
+  }
+
+  export type despesasCreateNestedOneWithoutMovimentacoesInput = {
+    create?: XOR<despesasCreateWithoutMovimentacoesInput, despesasUncheckedCreateWithoutMovimentacoesInput>
+    connectOrCreate?: despesasCreateOrConnectWithoutMovimentacoesInput
+    connect?: despesasWhereUniqueInput
+  }
+
+  export type EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput = {
+    set?: $Enums.TipoMovimentacaoCaixa
+  }
+
+  export type EnumStatusMovimentacaoFieldUpdateOperationsInput = {
+    set?: $Enums.StatusMovimentacao
+  }
+
+  export type PlanoContasUpdateOneRequiredWithoutMovimentacoesNestedInput = {
+    create?: XOR<PlanoContasCreateWithoutMovimentacoesInput, PlanoContasUncheckedCreateWithoutMovimentacoesInput>
+    connectOrCreate?: PlanoContasCreateOrConnectWithoutMovimentacoesInput
+    upsert?: PlanoContasUpsertWithoutMovimentacoesInput
+    connect?: PlanoContasWhereUniqueInput
+    update?: XOR<XOR<PlanoContasUpdateToOneWithWhereWithoutMovimentacoesInput, PlanoContasUpdateWithoutMovimentacoesInput>, PlanoContasUncheckedUpdateWithoutMovimentacoesInput>
+  }
+
+  export type pedidos_vendasUpdateOneWithoutMovimentacoesNestedInput = {
+    create?: XOR<pedidos_vendasCreateWithoutMovimentacoesInput, pedidos_vendasUncheckedCreateWithoutMovimentacoesInput>
+    connectOrCreate?: pedidos_vendasCreateOrConnectWithoutMovimentacoesInput
+    upsert?: pedidos_vendasUpsertWithoutMovimentacoesInput
+    disconnect?: pedidos_vendasWhereInput | boolean
+    delete?: pedidos_vendasWhereInput | boolean
+    connect?: pedidos_vendasWhereUniqueInput
+    update?: XOR<XOR<pedidos_vendasUpdateToOneWithWhereWithoutMovimentacoesInput, pedidos_vendasUpdateWithoutMovimentacoesInput>, pedidos_vendasUncheckedUpdateWithoutMovimentacoesInput>
+  }
+
+  export type despesasUpdateOneWithoutMovimentacoesNestedInput = {
+    create?: XOR<despesasCreateWithoutMovimentacoesInput, despesasUncheckedCreateWithoutMovimentacoesInput>
+    connectOrCreate?: despesasCreateOrConnectWithoutMovimentacoesInput
+    upsert?: despesasUpsertWithoutMovimentacoesInput
+    disconnect?: despesasWhereInput | boolean
+    delete?: despesasWhereInput | boolean
+    connect?: despesasWhereUniqueInput
+    update?: XOR<XOR<despesasUpdateToOneWithWhereWithoutMovimentacoesInput, despesasUpdateWithoutMovimentacoesInput>, despesasUncheckedUpdateWithoutMovimentacoesInput>
+  }
+
+  export type usuariosCreateNestedOneWithoutDespesasInput = {
+    create?: XOR<usuariosCreateWithoutDespesasInput, usuariosUncheckedCreateWithoutDespesasInput>
+    connectOrCreate?: usuariosCreateOrConnectWithoutDespesasInput
+    connect?: usuariosWhereUniqueInput
+  }
+
+  export type PlanoContasCreateNestedOneWithoutDespesasInput = {
+    create?: XOR<PlanoContasCreateWithoutDespesasInput, PlanoContasUncheckedCreateWithoutDespesasInput>
+    connectOrCreate?: PlanoContasCreateOrConnectWithoutDespesasInput
+    connect?: PlanoContasWhereUniqueInput
+  }
+
+  export type MovimentacaoCreateNestedManyWithoutDespesaInput = {
+    create?: XOR<MovimentacaoCreateWithoutDespesaInput, MovimentacaoUncheckedCreateWithoutDespesaInput> | MovimentacaoCreateWithoutDespesaInput[] | MovimentacaoUncheckedCreateWithoutDespesaInput[]
+    connectOrCreate?: MovimentacaoCreateOrConnectWithoutDespesaInput | MovimentacaoCreateOrConnectWithoutDespesaInput[]
+    createMany?: MovimentacaoCreateManyDespesaInputEnvelope
+    connect?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+  }
+
   export type fluxo_caixaCreateNestedManyWithoutDespesaInput = {
     create?: XOR<fluxo_caixaCreateWithoutDespesaInput, fluxo_caixaUncheckedCreateWithoutDespesaInput> | fluxo_caixaCreateWithoutDespesaInput[] | fluxo_caixaUncheckedCreateWithoutDespesaInput[]
     connectOrCreate?: fluxo_caixaCreateOrConnectWithoutDespesaInput | fluxo_caixaCreateOrConnectWithoutDespesaInput[]
@@ -40299,10 +45631,11 @@ export namespace Prisma {
     connect?: fluxo_caixaWhereUniqueInput | fluxo_caixaWhereUniqueInput[]
   }
 
-  export type usuariosCreateNestedOneWithoutDespesasInput = {
-    create?: XOR<usuariosCreateWithoutDespesasInput, usuariosUncheckedCreateWithoutDespesasInput>
-    connectOrCreate?: usuariosCreateOrConnectWithoutDespesasInput
-    connect?: usuariosWhereUniqueInput
+  export type MovimentacaoUncheckedCreateNestedManyWithoutDespesaInput = {
+    create?: XOR<MovimentacaoCreateWithoutDespesaInput, MovimentacaoUncheckedCreateWithoutDespesaInput> | MovimentacaoCreateWithoutDespesaInput[] | MovimentacaoUncheckedCreateWithoutDespesaInput[]
+    connectOrCreate?: MovimentacaoCreateOrConnectWithoutDespesaInput | MovimentacaoCreateOrConnectWithoutDespesaInput[]
+    createMany?: MovimentacaoCreateManyDespesaInputEnvelope
+    connect?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
   }
 
   export type fluxo_caixaUncheckedCreateNestedManyWithoutDespesaInput = {
@@ -40312,16 +45645,46 @@ export namespace Prisma {
     connect?: fluxo_caixaWhereUniqueInput | fluxo_caixaWhereUniqueInput[]
   }
 
-  export type Enumtipo_despesaFieldUpdateOperationsInput = {
-    set?: $Enums.tipo_despesa
+  export type NullableEnumtipo_despesaFieldUpdateOperationsInput = {
+    set?: $Enums.tipo_despesa | null
   }
 
-  export type Enumtipo_despesa_fixaFieldUpdateOperationsInput = {
-    set?: $Enums.tipo_despesa_fixa
+  export type NullableEnumtipo_despesa_fixaFieldUpdateOperationsInput = {
+    set?: $Enums.tipo_despesa_fixa | null
   }
 
-  export type Enumtipo_despesa_variavelFieldUpdateOperationsInput = {
-    set?: $Enums.tipo_despesa_variavel
+  export type NullableEnumtipo_despesa_variavelFieldUpdateOperationsInput = {
+    set?: $Enums.tipo_despesa_variavel | null
+  }
+
+  export type usuariosUpdateOneRequiredWithoutDespesasNestedInput = {
+    create?: XOR<usuariosCreateWithoutDespesasInput, usuariosUncheckedCreateWithoutDespesasInput>
+    connectOrCreate?: usuariosCreateOrConnectWithoutDespesasInput
+    upsert?: usuariosUpsertWithoutDespesasInput
+    connect?: usuariosWhereUniqueInput
+    update?: XOR<XOR<usuariosUpdateToOneWithWhereWithoutDespesasInput, usuariosUpdateWithoutDespesasInput>, usuariosUncheckedUpdateWithoutDespesasInput>
+  }
+
+  export type PlanoContasUpdateOneRequiredWithoutDespesasNestedInput = {
+    create?: XOR<PlanoContasCreateWithoutDespesasInput, PlanoContasUncheckedCreateWithoutDespesasInput>
+    connectOrCreate?: PlanoContasCreateOrConnectWithoutDespesasInput
+    upsert?: PlanoContasUpsertWithoutDespesasInput
+    connect?: PlanoContasWhereUniqueInput
+    update?: XOR<XOR<PlanoContasUpdateToOneWithWhereWithoutDespesasInput, PlanoContasUpdateWithoutDespesasInput>, PlanoContasUncheckedUpdateWithoutDespesasInput>
+  }
+
+  export type MovimentacaoUpdateManyWithoutDespesaNestedInput = {
+    create?: XOR<MovimentacaoCreateWithoutDespesaInput, MovimentacaoUncheckedCreateWithoutDespesaInput> | MovimentacaoCreateWithoutDespesaInput[] | MovimentacaoUncheckedCreateWithoutDespesaInput[]
+    connectOrCreate?: MovimentacaoCreateOrConnectWithoutDespesaInput | MovimentacaoCreateOrConnectWithoutDespesaInput[]
+    upsert?: MovimentacaoUpsertWithWhereUniqueWithoutDespesaInput | MovimentacaoUpsertWithWhereUniqueWithoutDespesaInput[]
+    createMany?: MovimentacaoCreateManyDespesaInputEnvelope
+    set?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+    disconnect?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+    delete?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+    connect?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+    update?: MovimentacaoUpdateWithWhereUniqueWithoutDespesaInput | MovimentacaoUpdateWithWhereUniqueWithoutDespesaInput[]
+    updateMany?: MovimentacaoUpdateManyWithWhereWithoutDespesaInput | MovimentacaoUpdateManyWithWhereWithoutDespesaInput[]
+    deleteMany?: MovimentacaoScalarWhereInput | MovimentacaoScalarWhereInput[]
   }
 
   export type fluxo_caixaUpdateManyWithoutDespesaNestedInput = {
@@ -40338,12 +45701,18 @@ export namespace Prisma {
     deleteMany?: fluxo_caixaScalarWhereInput | fluxo_caixaScalarWhereInput[]
   }
 
-  export type usuariosUpdateOneRequiredWithoutDespesasNestedInput = {
-    create?: XOR<usuariosCreateWithoutDespesasInput, usuariosUncheckedCreateWithoutDespesasInput>
-    connectOrCreate?: usuariosCreateOrConnectWithoutDespesasInput
-    upsert?: usuariosUpsertWithoutDespesasInput
-    connect?: usuariosWhereUniqueInput
-    update?: XOR<XOR<usuariosUpdateToOneWithWhereWithoutDespesasInput, usuariosUpdateWithoutDespesasInput>, usuariosUncheckedUpdateWithoutDespesasInput>
+  export type MovimentacaoUncheckedUpdateManyWithoutDespesaNestedInput = {
+    create?: XOR<MovimentacaoCreateWithoutDespesaInput, MovimentacaoUncheckedCreateWithoutDespesaInput> | MovimentacaoCreateWithoutDespesaInput[] | MovimentacaoUncheckedCreateWithoutDespesaInput[]
+    connectOrCreate?: MovimentacaoCreateOrConnectWithoutDespesaInput | MovimentacaoCreateOrConnectWithoutDespesaInput[]
+    upsert?: MovimentacaoUpsertWithWhereUniqueWithoutDespesaInput | MovimentacaoUpsertWithWhereUniqueWithoutDespesaInput[]
+    createMany?: MovimentacaoCreateManyDespesaInputEnvelope
+    set?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+    disconnect?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+    delete?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+    connect?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
+    update?: MovimentacaoUpdateWithWhereUniqueWithoutDespesaInput | MovimentacaoUpdateWithWhereUniqueWithoutDespesaInput[]
+    updateMany?: MovimentacaoUpdateManyWithWhereWithoutDespesaInput | MovimentacaoUpdateManyWithWhereWithoutDespesaInput[]
+    deleteMany?: MovimentacaoScalarWhereInput | MovimentacaoScalarWhereInput[]
   }
 
   export type fluxo_caixaUncheckedUpdateManyWithoutDespesaNestedInput = {
@@ -40464,8 +45833,10 @@ export namespace Prisma {
     connect?: estoque_objetos_genericosWhereUniqueInput
   }
 
-  export type Enumtipo_movimentacao_caixaFieldUpdateOperationsInput = {
-    set?: $Enums.tipo_movimentacao_caixa
+  export type PlanoContasCreateNestedOneWithoutLancamentos_caixaInput = {
+    create?: XOR<PlanoContasCreateWithoutLancamentos_caixaInput, PlanoContasUncheckedCreateWithoutLancamentos_caixaInput>
+    connectOrCreate?: PlanoContasCreateOrConnectWithoutLancamentos_caixaInput
+    connect?: PlanoContasWhereUniqueInput
   }
 
   export type pedidos_vendasUpdateOneWithoutLancamentos_caixaNestedInput = {
@@ -40544,6 +45915,14 @@ export namespace Prisma {
     delete?: estoque_objetos_genericosWhereInput | boolean
     connect?: estoque_objetos_genericosWhereUniqueInput
     update?: XOR<XOR<estoque_objetos_genericosUpdateToOneWithWhereWithoutLancamentos_caixaInput, estoque_objetos_genericosUpdateWithoutLancamentos_caixaInput>, estoque_objetos_genericosUncheckedUpdateWithoutLancamentos_caixaInput>
+  }
+
+  export type PlanoContasUpdateOneRequiredWithoutLancamentos_caixaNestedInput = {
+    create?: XOR<PlanoContasCreateWithoutLancamentos_caixaInput, PlanoContasUncheckedCreateWithoutLancamentos_caixaInput>
+    connectOrCreate?: PlanoContasCreateOrConnectWithoutLancamentos_caixaInput
+    upsert?: PlanoContasUpsertWithoutLancamentos_caixaInput
+    connect?: PlanoContasWhereUniqueInput
+    update?: XOR<XOR<PlanoContasUpdateToOneWithWhereWithoutLancamentos_caixaInput, PlanoContasUpdateWithoutLancamentos_caixaInput>, PlanoContasUncheckedUpdateWithoutLancamentos_caixaInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -40881,6 +46260,17 @@ export namespace Prisma {
     not?: NestedEnumstatus_pedidoFilter<$PrismaModel> | $Enums.status_pedido
   }
 
+  export type NestedUuidNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedUuidNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedEnummetodo_pagamentoWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.metodo_pagamento | Enummetodo_pagamentoFieldRefInput<$PrismaModel>
     in?: $Enums.metodo_pagamento[] | ListEnummetodo_pagamentoFieldRefInput<$PrismaModel>
@@ -40899,6 +46289,20 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumstatus_pedidoFilter<$PrismaModel>
     _max?: NestedEnumstatus_pedidoFilter<$PrismaModel>
+  }
+
+  export type NestedUuidNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedUuidNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumstatus_manutencaoFilter<$PrismaModel = never> = {
@@ -40943,17 +46347,6 @@ export namespace Prisma {
     not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
   }
 
-  export type NestedUuidNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedUuidNullableFilter<$PrismaModel> | string | null
-  }
-
   export type NestedEnumcorNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.cor | EnumcorFieldRefInput<$PrismaModel> | null
     in?: $Enums.cor[] | ListEnumcorFieldRefInput<$PrismaModel> | null
@@ -40988,20 +46381,6 @@ export namespace Prisma {
     _sum?: NestedDecimalNullableFilter<$PrismaModel>
     _min?: NestedDecimalNullableFilter<$PrismaModel>
     _max?: NestedDecimalNullableFilter<$PrismaModel>
-  }
-
-  export type NestedUuidNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedUuidNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumcargo_usuarioFilter<$PrismaModel = never> = {
@@ -41089,55 +46468,106 @@ export namespace Prisma {
     _max?: NestedEnumtipo_objeto_receitaFilter<$PrismaModel>
   }
 
-  export type NestedEnumtipo_despesaFilter<$PrismaModel = never> = {
-    equals?: $Enums.tipo_despesa | Enumtipo_despesaFieldRefInput<$PrismaModel>
-    in?: $Enums.tipo_despesa[] | ListEnumtipo_despesaFieldRefInput<$PrismaModel>
-    notIn?: $Enums.tipo_despesa[] | ListEnumtipo_despesaFieldRefInput<$PrismaModel>
-    not?: NestedEnumtipo_despesaFilter<$PrismaModel> | $Enums.tipo_despesa
+  export type NestedEnumTipoContaPlanoFilter<$PrismaModel = never> = {
+    equals?: $Enums.TipoContaPlano | EnumTipoContaPlanoFieldRefInput<$PrismaModel>
+    in?: $Enums.TipoContaPlano[] | ListEnumTipoContaPlanoFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TipoContaPlano[] | ListEnumTipoContaPlanoFieldRefInput<$PrismaModel>
+    not?: NestedEnumTipoContaPlanoFilter<$PrismaModel> | $Enums.TipoContaPlano
   }
 
-  export type NestedEnumtipo_despesa_fixaFilter<$PrismaModel = never> = {
-    equals?: $Enums.tipo_despesa_fixa | Enumtipo_despesa_fixaFieldRefInput<$PrismaModel>
-    in?: $Enums.tipo_despesa_fixa[] | ListEnumtipo_despesa_fixaFieldRefInput<$PrismaModel>
-    notIn?: $Enums.tipo_despesa_fixa[] | ListEnumtipo_despesa_fixaFieldRefInput<$PrismaModel>
-    not?: NestedEnumtipo_despesa_fixaFilter<$PrismaModel> | $Enums.tipo_despesa_fixa
-  }
-
-  export type NestedEnumtipo_despesa_variavelFilter<$PrismaModel = never> = {
-    equals?: $Enums.tipo_despesa_variavel | Enumtipo_despesa_variavelFieldRefInput<$PrismaModel>
-    in?: $Enums.tipo_despesa_variavel[] | ListEnumtipo_despesa_variavelFieldRefInput<$PrismaModel>
-    notIn?: $Enums.tipo_despesa_variavel[] | ListEnumtipo_despesa_variavelFieldRefInput<$PrismaModel>
-    not?: NestedEnumtipo_despesa_variavelFilter<$PrismaModel> | $Enums.tipo_despesa_variavel
-  }
-
-  export type NestedEnumtipo_despesaWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.tipo_despesa | Enumtipo_despesaFieldRefInput<$PrismaModel>
-    in?: $Enums.tipo_despesa[] | ListEnumtipo_despesaFieldRefInput<$PrismaModel>
-    notIn?: $Enums.tipo_despesa[] | ListEnumtipo_despesaFieldRefInput<$PrismaModel>
-    not?: NestedEnumtipo_despesaWithAggregatesFilter<$PrismaModel> | $Enums.tipo_despesa
+  export type NestedEnumTipoContaPlanoWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TipoContaPlano | EnumTipoContaPlanoFieldRefInput<$PrismaModel>
+    in?: $Enums.TipoContaPlano[] | ListEnumTipoContaPlanoFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TipoContaPlano[] | ListEnumTipoContaPlanoFieldRefInput<$PrismaModel>
+    not?: NestedEnumTipoContaPlanoWithAggregatesFilter<$PrismaModel> | $Enums.TipoContaPlano
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumtipo_despesaFilter<$PrismaModel>
-    _max?: NestedEnumtipo_despesaFilter<$PrismaModel>
+    _min?: NestedEnumTipoContaPlanoFilter<$PrismaModel>
+    _max?: NestedEnumTipoContaPlanoFilter<$PrismaModel>
   }
 
-  export type NestedEnumtipo_despesa_fixaWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.tipo_despesa_fixa | Enumtipo_despesa_fixaFieldRefInput<$PrismaModel>
-    in?: $Enums.tipo_despesa_fixa[] | ListEnumtipo_despesa_fixaFieldRefInput<$PrismaModel>
-    notIn?: $Enums.tipo_despesa_fixa[] | ListEnumtipo_despesa_fixaFieldRefInput<$PrismaModel>
-    not?: NestedEnumtipo_despesa_fixaWithAggregatesFilter<$PrismaModel> | $Enums.tipo_despesa_fixa
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumtipo_despesa_fixaFilter<$PrismaModel>
-    _max?: NestedEnumtipo_despesa_fixaFilter<$PrismaModel>
+  export type NestedEnumTipoMovimentacaoCaixaFilter<$PrismaModel = never> = {
+    equals?: $Enums.TipoMovimentacaoCaixa | EnumTipoMovimentacaoCaixaFieldRefInput<$PrismaModel>
+    in?: $Enums.TipoMovimentacaoCaixa[] | ListEnumTipoMovimentacaoCaixaFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TipoMovimentacaoCaixa[] | ListEnumTipoMovimentacaoCaixaFieldRefInput<$PrismaModel>
+    not?: NestedEnumTipoMovimentacaoCaixaFilter<$PrismaModel> | $Enums.TipoMovimentacaoCaixa
   }
 
-  export type NestedEnumtipo_despesa_variavelWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.tipo_despesa_variavel | Enumtipo_despesa_variavelFieldRefInput<$PrismaModel>
-    in?: $Enums.tipo_despesa_variavel[] | ListEnumtipo_despesa_variavelFieldRefInput<$PrismaModel>
-    notIn?: $Enums.tipo_despesa_variavel[] | ListEnumtipo_despesa_variavelFieldRefInput<$PrismaModel>
-    not?: NestedEnumtipo_despesa_variavelWithAggregatesFilter<$PrismaModel> | $Enums.tipo_despesa_variavel
+  export type NestedEnumStatusMovimentacaoFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatusMovimentacao | EnumStatusMovimentacaoFieldRefInput<$PrismaModel>
+    in?: $Enums.StatusMovimentacao[] | ListEnumStatusMovimentacaoFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatusMovimentacao[] | ListEnumStatusMovimentacaoFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusMovimentacaoFilter<$PrismaModel> | $Enums.StatusMovimentacao
+  }
+
+  export type NestedEnumTipoMovimentacaoCaixaWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TipoMovimentacaoCaixa | EnumTipoMovimentacaoCaixaFieldRefInput<$PrismaModel>
+    in?: $Enums.TipoMovimentacaoCaixa[] | ListEnumTipoMovimentacaoCaixaFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TipoMovimentacaoCaixa[] | ListEnumTipoMovimentacaoCaixaFieldRefInput<$PrismaModel>
+    not?: NestedEnumTipoMovimentacaoCaixaWithAggregatesFilter<$PrismaModel> | $Enums.TipoMovimentacaoCaixa
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumtipo_despesa_variavelFilter<$PrismaModel>
-    _max?: NestedEnumtipo_despesa_variavelFilter<$PrismaModel>
+    _min?: NestedEnumTipoMovimentacaoCaixaFilter<$PrismaModel>
+    _max?: NestedEnumTipoMovimentacaoCaixaFilter<$PrismaModel>
+  }
+
+  export type NestedEnumStatusMovimentacaoWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatusMovimentacao | EnumStatusMovimentacaoFieldRefInput<$PrismaModel>
+    in?: $Enums.StatusMovimentacao[] | ListEnumStatusMovimentacaoFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatusMovimentacao[] | ListEnumStatusMovimentacaoFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusMovimentacaoWithAggregatesFilter<$PrismaModel> | $Enums.StatusMovimentacao
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStatusMovimentacaoFilter<$PrismaModel>
+    _max?: NestedEnumStatusMovimentacaoFilter<$PrismaModel>
+  }
+
+  export type NestedEnumtipo_despesaNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.tipo_despesa | Enumtipo_despesaFieldRefInput<$PrismaModel> | null
+    in?: $Enums.tipo_despesa[] | ListEnumtipo_despesaFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.tipo_despesa[] | ListEnumtipo_despesaFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumtipo_despesaNullableFilter<$PrismaModel> | $Enums.tipo_despesa | null
+  }
+
+  export type NestedEnumtipo_despesa_fixaNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.tipo_despesa_fixa | Enumtipo_despesa_fixaFieldRefInput<$PrismaModel> | null
+    in?: $Enums.tipo_despesa_fixa[] | ListEnumtipo_despesa_fixaFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.tipo_despesa_fixa[] | ListEnumtipo_despesa_fixaFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumtipo_despesa_fixaNullableFilter<$PrismaModel> | $Enums.tipo_despesa_fixa | null
+  }
+
+  export type NestedEnumtipo_despesa_variavelNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.tipo_despesa_variavel | Enumtipo_despesa_variavelFieldRefInput<$PrismaModel> | null
+    in?: $Enums.tipo_despesa_variavel[] | ListEnumtipo_despesa_variavelFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.tipo_despesa_variavel[] | ListEnumtipo_despesa_variavelFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumtipo_despesa_variavelNullableFilter<$PrismaModel> | $Enums.tipo_despesa_variavel | null
+  }
+
+  export type NestedEnumtipo_despesaNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.tipo_despesa | Enumtipo_despesaFieldRefInput<$PrismaModel> | null
+    in?: $Enums.tipo_despesa[] | ListEnumtipo_despesaFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.tipo_despesa[] | ListEnumtipo_despesaFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumtipo_despesaNullableWithAggregatesFilter<$PrismaModel> | $Enums.tipo_despesa | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumtipo_despesaNullableFilter<$PrismaModel>
+    _max?: NestedEnumtipo_despesaNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumtipo_despesa_fixaNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.tipo_despesa_fixa | Enumtipo_despesa_fixaFieldRefInput<$PrismaModel> | null
+    in?: $Enums.tipo_despesa_fixa[] | ListEnumtipo_despesa_fixaFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.tipo_despesa_fixa[] | ListEnumtipo_despesa_fixaFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumtipo_despesa_fixaNullableWithAggregatesFilter<$PrismaModel> | $Enums.tipo_despesa_fixa | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumtipo_despesa_fixaNullableFilter<$PrismaModel>
+    _max?: NestedEnumtipo_despesa_fixaNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumtipo_despesa_variavelNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.tipo_despesa_variavel | Enumtipo_despesa_variavelFieldRefInput<$PrismaModel> | null
+    in?: $Enums.tipo_despesa_variavel[] | ListEnumtipo_despesa_variavelFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.tipo_despesa_variavel[] | ListEnumtipo_despesa_variavelFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumtipo_despesa_variavelNullableWithAggregatesFilter<$PrismaModel> | $Enums.tipo_despesa_variavel | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumtipo_despesa_variavelNullableFilter<$PrismaModel>
+    _max?: NestedEnumtipo_despesa_variavelNullableFilter<$PrismaModel>
   }
 
   export type NestedEnummodelo_documento_fiscalFilter<$PrismaModel = never> = {
@@ -41174,23 +46604,6 @@ export namespace Prisma {
     _max?: NestedEnumstatus_fiscalFilter<$PrismaModel>
   }
 
-  export type NestedEnumtipo_movimentacao_caixaFilter<$PrismaModel = never> = {
-    equals?: $Enums.tipo_movimentacao_caixa | Enumtipo_movimentacao_caixaFieldRefInput<$PrismaModel>
-    in?: $Enums.tipo_movimentacao_caixa[] | ListEnumtipo_movimentacao_caixaFieldRefInput<$PrismaModel>
-    notIn?: $Enums.tipo_movimentacao_caixa[] | ListEnumtipo_movimentacao_caixaFieldRefInput<$PrismaModel>
-    not?: NestedEnumtipo_movimentacao_caixaFilter<$PrismaModel> | $Enums.tipo_movimentacao_caixa
-  }
-
-  export type NestedEnumtipo_movimentacao_caixaWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.tipo_movimentacao_caixa | Enumtipo_movimentacao_caixaFieldRefInput<$PrismaModel>
-    in?: $Enums.tipo_movimentacao_caixa[] | ListEnumtipo_movimentacao_caixaFieldRefInput<$PrismaModel>
-    notIn?: $Enums.tipo_movimentacao_caixa[] | ListEnumtipo_movimentacao_caixaFieldRefInput<$PrismaModel>
-    not?: NestedEnumtipo_movimentacao_caixaWithAggregatesFilter<$PrismaModel> | $Enums.tipo_movimentacao_caixa
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumtipo_movimentacao_caixaFilter<$PrismaModel>
-    _max?: NestedEnumtipo_movimentacao_caixaFilter<$PrismaModel>
-  }
-
   export type pedidos_vendasCreateWithoutCliente_compradorInput = {
     id?: string
     data_venda?: Date | string
@@ -41202,6 +46615,9 @@ export namespace Prisma {
     responsavel_venda: usuariosCreateNestedOneWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalCreateNestedOneWithoutPedido_vendaInput
     lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutPedido_vendaInput
+    osServicosItens?: os_servicos_itensCreateNestedOneWithoutPedidosInput
+    plano_contas?: PlanoContasCreateNestedOneWithoutPedidos_vendasInput
+    movimentacoes?: MovimentacaoCreateNestedManyWithoutPedido_vendaInput
   }
 
   export type pedidos_vendasUncheckedCreateWithoutCliente_compradorInput = {
@@ -41212,9 +46628,12 @@ export namespace Prisma {
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
     responsavel_venda_id: string
+    os_servicos_itensId?: string | null
+    plano_contas_id?: string | null
     itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalUncheckedCreateNestedOneWithoutPedido_vendaInput
     lancamentos_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutPedido_vendaInput
+    movimentacoes?: MovimentacaoUncheckedCreateNestedManyWithoutPedido_vendaInput
   }
 
   export type pedidos_vendasCreateOrConnectWithoutCliente_compradorInput = {
@@ -41263,6 +46682,7 @@ export namespace Prisma {
     ano_fabricacao?: number | null
     ordem_servico?: ordem_servicoCreateNestedManyWithoutVeiculoInput
     modelos: modelosCreateNestedOneWithoutVeiculos_cliente_manutencaoInput
+    osServicosItens?: os_servicos_itensCreateNestedOneWithoutVeiculosInput
   }
 
   export type veiculos_cliente_manutencaoUncheckedCreateWithoutClientesInput = {
@@ -41272,6 +46692,7 @@ export namespace Prisma {
     chassi?: string | null
     cor?: string | null
     ano_fabricacao?: number | null
+    os_servicos_itensId?: string | null
     ordem_servico?: ordem_servicoUncheckedCreateNestedManyWithoutVeiculoInput
   }
 
@@ -41411,6 +46832,8 @@ export namespace Prisma {
     observacoes_recibo?: StringNullableFilter<"pedidos_vendas"> | string | null
     cliente_comprador_id?: UuidFilter<"pedidos_vendas"> | string
     responsavel_venda_id?: UuidFilter<"pedidos_vendas"> | string
+    os_servicos_itensId?: UuidNullableFilter<"pedidos_vendas"> | string | null
+    plano_contas_id?: UuidNullableFilter<"pedidos_vendas"> | string | null
   }
 
   export type sucata_comprasUpsertWithWhereUniqueWithoutClientesInput = {
@@ -41468,6 +46891,7 @@ export namespace Prisma {
     chassi?: StringNullableFilter<"veiculos_cliente_manutencao"> | string | null
     cor?: StringNullableFilter<"veiculos_cliente_manutencao"> | string | null
     ano_fabricacao?: IntNullableFilter<"veiculos_cliente_manutencao"> | number | null
+    os_servicos_itensId?: UuidNullableFilter<"veiculos_cliente_manutencao"> | string | null
   }
 
   export type ordem_servicoUpsertWithWhereUniqueWithoutClientesInput = {
@@ -41732,7 +47156,8 @@ export namespace Prisma {
   export type fluxo_caixaCreateWithoutEstoque_objetos_duraveisInput = {
     id?: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal | DecimalJsLike | number | string
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao?: Date | string
@@ -41743,12 +47168,14 @@ export namespace Prisma {
     sucata_venda?: sucata_estoqueCreateNestedOneWithoutLancamentos_caixaInput
     usuario_caixa: usuariosCreateNestedOneWithoutMovimentacoes_caixaInput
     estoque_objetos_genericos?: estoque_objetos_genericosCreateNestedOneWithoutLancamentos_caixaInput
+    plano_contas: PlanoContasCreateNestedOneWithoutLancamentos_caixaInput
   }
 
   export type fluxo_caixaUncheckedCreateWithoutEstoque_objetos_duraveisInput = {
     id?: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal | DecimalJsLike | number | string
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao?: Date | string
@@ -41758,6 +47185,7 @@ export namespace Prisma {
     sucata_compra_id?: string | null
     sucata_venda_id?: string | null
     objeto_generico_id?: string | null
+    plano_contas_id: string
     usuario_caixa_id: string
   }
 
@@ -41848,7 +47276,8 @@ export namespace Prisma {
     NOT?: fluxo_caixaScalarWhereInput | fluxo_caixaScalarWhereInput[]
     id?: UuidFilter<"fluxo_caixa"> | string
     descricao?: StringFilter<"fluxo_caixa"> | string
-    tipo?: Enumtipo_movimentacao_caixaFilter<"fluxo_caixa"> | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFilter<"fluxo_caixa"> | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFilter<"fluxo_caixa"> | $Enums.StatusMovimentacao
     valor?: DecimalFilter<"fluxo_caixa"> | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFilter<"fluxo_caixa"> | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFilter<"fluxo_caixa"> | Date | string
@@ -41859,6 +47288,7 @@ export namespace Prisma {
     sucata_venda_id?: UuidNullableFilter<"fluxo_caixa"> | string | null
     objeto_duravel_id?: UuidNullableFilter<"fluxo_caixa"> | string | null
     objeto_generico_id?: UuidNullableFilter<"fluxo_caixa"> | string | null
+    plano_contas_id?: UuidFilter<"fluxo_caixa"> | string
     usuario_caixa_id?: UuidFilter<"fluxo_caixa"> | string
   }
 
@@ -41914,7 +47344,8 @@ export namespace Prisma {
   export type fluxo_caixaCreateWithoutEstoque_objetos_genericosInput = {
     id?: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal | DecimalJsLike | number | string
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao?: Date | string
@@ -41925,12 +47356,14 @@ export namespace Prisma {
     sucata_venda?: sucata_estoqueCreateNestedOneWithoutLancamentos_caixaInput
     usuario_caixa: usuariosCreateNestedOneWithoutMovimentacoes_caixaInput
     estoque_objetos_duraveis?: estoque_objetos_duraveisCreateNestedOneWithoutLancamentos_caixaInput
+    plano_contas: PlanoContasCreateNestedOneWithoutLancamentos_caixaInput
   }
 
   export type fluxo_caixaUncheckedCreateWithoutEstoque_objetos_genericosInput = {
     id?: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal | DecimalJsLike | number | string
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao?: Date | string
@@ -41940,6 +47373,7 @@ export namespace Prisma {
     sucata_compra_id?: string | null
     sucata_venda_id?: string | null
     objeto_duravel_id?: string | null
+    plano_contas_id: string
     usuario_caixa_id: string
   }
 
@@ -42215,7 +47649,8 @@ export namespace Prisma {
     cor?: string | null
     ano_fabricacao?: number | null
     ordem_servico?: ordem_servicoCreateNestedManyWithoutVeiculoInput
-    clientes: clientesCreateNestedOneWithoutVeiculos_cliente_manutencaoInput
+    clientes: clientesCreateNestedOneWithoutVeiculos_clienteInput
+    osServicosItens?: os_servicos_itensCreateNestedOneWithoutVeiculosInput
   }
 
   export type veiculos_cliente_manutencaoUncheckedCreateWithoutModelosInput = {
@@ -42225,6 +47660,7 @@ export namespace Prisma {
     chassi?: string | null
     cor?: string | null
     ano_fabricacao?: number | null
+    os_servicos_itensId?: string | null
     ordem_servico?: ordem_servicoUncheckedCreateNestedManyWithoutVeiculoInput
   }
 
@@ -42354,17 +47790,17 @@ export namespace Prisma {
     id?: string
     ncm: string
     cest?: string | null
-    cfop_padrao?: string
     cst_icms?: string
     cst_ibs_cbs?: string | null
     cClassTrib?: string | null
+    cfop?: cfopsCreateNestedOneWithoutDadosFiscaisPecasInput
   }
 
   export type dados_fiscais_pecaUncheckedCreateWithoutPeca_estoqueInput = {
     id?: string
     ncm: string
     cest?: string | null
-    cfop_padrao?: string
+    cfop_id?: string
     cst_icms?: string
     cst_ibs_cbs?: string | null
     cClassTrib?: string | null
@@ -42610,17 +48046,17 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     ncm?: StringFieldUpdateOperationsInput | string
     cest?: NullableStringFieldUpdateOperationsInput | string | null
-    cfop_padrao?: StringFieldUpdateOperationsInput | string
     cst_icms?: StringFieldUpdateOperationsInput | string
     cst_ibs_cbs?: NullableStringFieldUpdateOperationsInput | string | null
     cClassTrib?: NullableStringFieldUpdateOperationsInput | string | null
+    cfop?: cfopsUpdateOneRequiredWithoutDadosFiscaisPecasNestedInput
   }
 
   export type dados_fiscais_pecaUncheckedUpdateWithoutPeca_estoqueInput = {
     id?: StringFieldUpdateOperationsInput | string
     ncm?: StringFieldUpdateOperationsInput | string
     cest?: NullableStringFieldUpdateOperationsInput | string | null
-    cfop_padrao?: StringFieldUpdateOperationsInput | string
+    cfop_id?: StringFieldUpdateOperationsInput | string
     cst_icms?: StringFieldUpdateOperationsInput | string
     cst_ibs_cbs?: NullableStringFieldUpdateOperationsInput | string | null
     cClassTrib?: NullableStringFieldUpdateOperationsInput | string | null
@@ -42901,6 +48337,25 @@ export namespace Prisma {
     create: XOR<peca_estoqueCreateWithoutDados_fiscaisInput, peca_estoqueUncheckedCreateWithoutDados_fiscaisInput>
   }
 
+  export type cfopsCreateWithoutDadosFiscaisPecasInput = {
+    id?: string
+    codigo: string
+    descricao: string
+    tipo: string
+  }
+
+  export type cfopsUncheckedCreateWithoutDadosFiscaisPecasInput = {
+    id?: string
+    codigo: string
+    descricao: string
+    tipo: string
+  }
+
+  export type cfopsCreateOrConnectWithoutDadosFiscaisPecasInput = {
+    where: cfopsWhereUniqueInput
+    create: XOR<cfopsCreateWithoutDadosFiscaisPecasInput, cfopsUncheckedCreateWithoutDadosFiscaisPecasInput>
+  }
+
   export type peca_estoqueUpsertWithoutDados_fiscaisInput = {
     update: XOR<peca_estoqueUpdateWithoutDados_fiscaisInput, peca_estoqueUncheckedUpdateWithoutDados_fiscaisInput>
     create: XOR<peca_estoqueCreateWithoutDados_fiscaisInput, peca_estoqueUncheckedCreateWithoutDados_fiscaisInput>
@@ -42946,6 +48401,31 @@ export namespace Prisma {
     os_pecas_itens?: os_pecas_itensUncheckedUpdateManyWithoutPeca_estoqueNestedInput
     compatibilidade_pecas?: compatibilidade_pecasUncheckedUpdateManyWithoutPeca_estoqueNestedInput
     peca_imagens?: peca_imagensUncheckedUpdateManyWithoutPeca_estoqueNestedInput
+  }
+
+  export type cfopsUpsertWithoutDadosFiscaisPecasInput = {
+    update: XOR<cfopsUpdateWithoutDadosFiscaisPecasInput, cfopsUncheckedUpdateWithoutDadosFiscaisPecasInput>
+    create: XOR<cfopsCreateWithoutDadosFiscaisPecasInput, cfopsUncheckedCreateWithoutDadosFiscaisPecasInput>
+    where?: cfopsWhereInput
+  }
+
+  export type cfopsUpdateToOneWithWhereWithoutDadosFiscaisPecasInput = {
+    where?: cfopsWhereInput
+    data: XOR<cfopsUpdateWithoutDadosFiscaisPecasInput, cfopsUncheckedUpdateWithoutDadosFiscaisPecasInput>
+  }
+
+  export type cfopsUpdateWithoutDadosFiscaisPecasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigo?: StringFieldUpdateOperationsInput | string
+    descricao?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cfopsUncheckedUpdateWithoutDadosFiscaisPecasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigo?: StringFieldUpdateOperationsInput | string
+    descricao?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
   }
 
   export type peca_estoqueCreateWithoutPeca_imagensInput = {
@@ -43084,10 +48564,13 @@ export namespace Prisma {
     metodo_pagamento?: $Enums.metodo_pagamento
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
-    cliente_comprador: clientesCreateNestedOneWithoutPedidos_vendasInput
+    cliente_comprador: clientesCreateNestedOneWithoutPedidos_vendaInput
     responsavel_venda: usuariosCreateNestedOneWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalCreateNestedOneWithoutPedido_vendaInput
     lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutPedido_vendaInput
+    osServicosItens?: os_servicos_itensCreateNestedOneWithoutPedidosInput
+    plano_contas?: PlanoContasCreateNestedOneWithoutPedidos_vendasInput
+    movimentacoes?: MovimentacaoCreateNestedManyWithoutPedido_vendaInput
   }
 
   export type pedidos_vendasUncheckedCreateWithoutItens_pedido_vendasInput = {
@@ -43099,8 +48582,11 @@ export namespace Prisma {
     observacoes_recibo?: string | null
     cliente_comprador_id: string
     responsavel_venda_id: string
+    os_servicos_itensId?: string | null
+    plano_contas_id?: string | null
     documento_fiscal?: documento_fiscalUncheckedCreateNestedOneWithoutPedido_vendaInput
     lancamentos_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutPedido_vendaInput
+    movimentacoes?: MovimentacaoUncheckedCreateNestedManyWithoutPedido_vendaInput
   }
 
   export type pedidos_vendasCreateOrConnectWithoutItens_pedido_vendasInput = {
@@ -43173,10 +48659,13 @@ export namespace Prisma {
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
-    cliente_comprador?: clientesUpdateOneRequiredWithoutPedidos_vendasNestedInput
+    cliente_comprador?: clientesUpdateOneRequiredWithoutPedidos_vendaNestedInput
     responsavel_venda?: usuariosUpdateOneRequiredWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUpdateOneWithoutPedido_vendaNestedInput
     lancamentos_caixa?: fluxo_caixaUpdateManyWithoutPedido_vendaNestedInput
+    osServicosItens?: os_servicos_itensUpdateOneWithoutPedidosNestedInput
+    plano_contas?: PlanoContasUpdateOneWithoutPedidos_vendasNestedInput
+    movimentacoes?: MovimentacaoUpdateManyWithoutPedido_vendaNestedInput
   }
 
   export type pedidos_vendasUncheckedUpdateWithoutItens_pedido_vendasInput = {
@@ -43188,8 +48677,11 @@ export namespace Prisma {
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
     cliente_comprador_id?: StringFieldUpdateOperationsInput | string
     responsavel_venda_id?: StringFieldUpdateOperationsInput | string
+    os_servicos_itensId?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: NullableStringFieldUpdateOperationsInput | string | null
     documento_fiscal?: documento_fiscalUncheckedUpdateOneWithoutPedido_vendaNestedInput
     lancamentos_caixa?: fluxo_caixaUncheckedUpdateManyWithoutPedido_vendaNestedInput
+    movimentacoes?: MovimentacaoUncheckedUpdateManyWithoutPedido_vendaNestedInput
   }
 
   export type itens_pedido_vendasCreateWithoutPedidos_vendasInput = {
@@ -43228,7 +48720,7 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type clientesCreateWithoutPedidos_vendasInput = {
+  export type clientesCreateWithoutPedidos_vendaInput = {
     id?: string
     nome_cliente: string
     cpf_cliente: string
@@ -43238,19 +48730,19 @@ export namespace Prisma {
     cep_cliente?: string
     cidade_cliente?: string | null
     uf_cliente?: string
-    codigo_ibge?: string
+    codigo_IBGE?: string
     pais_cliente?: string | null
     telefone_cliente?: string | null
     data_nascimento?: Date | string | null
     email_cliente: string
     data_cadastro?: Date | string | null
-    sucata_compras?: sucata_comprasCreateNestedManyWithoutClientesInput
-    veiculos_cliente_manutencao?: veiculos_cliente_manutencaoCreateNestedManyWithoutClientesInput
+    sucata_compra?: sucata_comprasCreateNestedManyWithoutClientesInput
+    veiculos_cliente?: veiculos_cliente_manutencaoCreateNestedManyWithoutClientesInput
     ordens_servico?: ordem_servicoCreateNestedManyWithoutClientesInput
     sucatas_compradas_inteiras?: sucata_estoqueCreateNestedManyWithoutCliente_compradorInput
   }
 
-  export type clientesUncheckedCreateWithoutPedidos_vendasInput = {
+  export type clientesUncheckedCreateWithoutPedidos_vendaInput = {
     id?: string
     nome_cliente: string
     cpf_cliente: string
@@ -43260,21 +48752,21 @@ export namespace Prisma {
     cep_cliente?: string
     cidade_cliente?: string | null
     uf_cliente?: string
-    codigo_ibge?: string
+    codigo_IBGE?: string
     pais_cliente?: string | null
     telefone_cliente?: string | null
     data_nascimento?: Date | string | null
     email_cliente: string
     data_cadastro?: Date | string | null
-    sucata_compras?: sucata_comprasUncheckedCreateNestedManyWithoutClientesInput
-    veiculos_cliente_manutencao?: veiculos_cliente_manutencaoUncheckedCreateNestedManyWithoutClientesInput
+    sucata_compra?: sucata_comprasUncheckedCreateNestedManyWithoutClientesInput
+    veiculos_cliente?: veiculos_cliente_manutencaoUncheckedCreateNestedManyWithoutClientesInput
     ordens_servico?: ordem_servicoUncheckedCreateNestedManyWithoutClientesInput
     sucatas_compradas_inteiras?: sucata_estoqueUncheckedCreateNestedManyWithoutCliente_compradorInput
   }
 
-  export type clientesCreateOrConnectWithoutPedidos_vendasInput = {
+  export type clientesCreateOrConnectWithoutPedidos_vendaInput = {
     where: clientesWhereUniqueInput
-    create: XOR<clientesCreateWithoutPedidos_vendasInput, clientesUncheckedCreateWithoutPedidos_vendasInput>
+    create: XOR<clientesCreateWithoutPedidos_vendaInput, clientesUncheckedCreateWithoutPedidos_vendaInput>
   }
 
   export type usuariosCreateWithoutPedidos_vendasInput = {
@@ -43374,7 +48866,8 @@ export namespace Prisma {
   export type fluxo_caixaCreateWithoutPedido_vendaInput = {
     id?: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal | DecimalJsLike | number | string
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao?: Date | string
@@ -43385,12 +48878,14 @@ export namespace Prisma {
     usuario_caixa: usuariosCreateNestedOneWithoutMovimentacoes_caixaInput
     estoque_objetos_duraveis?: estoque_objetos_duraveisCreateNestedOneWithoutLancamentos_caixaInput
     estoque_objetos_genericos?: estoque_objetos_genericosCreateNestedOneWithoutLancamentos_caixaInput
+    plano_contas: PlanoContasCreateNestedOneWithoutLancamentos_caixaInput
   }
 
   export type fluxo_caixaUncheckedCreateWithoutPedido_vendaInput = {
     id?: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal | DecimalJsLike | number | string
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao?: Date | string
@@ -43400,6 +48895,7 @@ export namespace Prisma {
     sucata_venda_id?: string | null
     objeto_duravel_id?: string | null
     objeto_generico_id?: string | null
+    plano_contas_id: string
     usuario_caixa_id: string
   }
 
@@ -43410,6 +48906,90 @@ export namespace Prisma {
 
   export type fluxo_caixaCreateManyPedido_vendaInputEnvelope = {
     data: fluxo_caixaCreateManyPedido_vendaInput | fluxo_caixaCreateManyPedido_vendaInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type os_servicos_itensCreateWithoutPedidosInput = {
+    id?: string
+    quantidade?: number
+    preco_unitario: Decimal | DecimalJsLike | number | string
+    preco_total: Decimal | DecimalJsLike | number | string
+    ordem_servico: ordem_servicoCreateNestedOneWithoutServicos_itensInput
+    tipo_servico: tipo_servicoCreateNestedOneWithoutOs_servicos_itensInput
+    mecanico: usuariosCreateNestedOneWithoutServicos_executadosInput
+    veiculos?: veiculos_cliente_manutencaoCreateNestedManyWithoutOsServicosItensInput
+  }
+
+  export type os_servicos_itensUncheckedCreateWithoutPedidosInput = {
+    id?: string
+    ordem_servico_id: string
+    tipo_servico_id: string
+    mecanico_id: string
+    quantidade?: number
+    preco_unitario: Decimal | DecimalJsLike | number | string
+    preco_total: Decimal | DecimalJsLike | number | string
+    veiculos?: veiculos_cliente_manutencaoUncheckedCreateNestedManyWithoutOsServicosItensInput
+  }
+
+  export type os_servicos_itensCreateOrConnectWithoutPedidosInput = {
+    where: os_servicos_itensWhereUniqueInput
+    create: XOR<os_servicos_itensCreateWithoutPedidosInput, os_servicos_itensUncheckedCreateWithoutPedidosInput>
+  }
+
+  export type PlanoContasCreateWithoutPedidos_vendasInput = {
+    id?: string
+    codigo_contabil: string
+    nome_conta: string
+    tipo_dre: $Enums.TipoContaPlano
+    despesas?: despesasCreateNestedManyWithoutCategoria_planoInput
+    lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutPlano_contasInput
+    movimentacoes?: MovimentacaoCreateNestedManyWithoutPlano_contasInput
+  }
+
+  export type PlanoContasUncheckedCreateWithoutPedidos_vendasInput = {
+    id?: string
+    codigo_contabil: string
+    nome_conta: string
+    tipo_dre: $Enums.TipoContaPlano
+    despesas?: despesasUncheckedCreateNestedManyWithoutCategoria_planoInput
+    lancamentos_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutPlano_contasInput
+    movimentacoes?: MovimentacaoUncheckedCreateNestedManyWithoutPlano_contasInput
+  }
+
+  export type PlanoContasCreateOrConnectWithoutPedidos_vendasInput = {
+    where: PlanoContasWhereUniqueInput
+    create: XOR<PlanoContasCreateWithoutPedidos_vendasInput, PlanoContasUncheckedCreateWithoutPedidos_vendasInput>
+  }
+
+  export type MovimentacaoCreateWithoutPedido_vendaInput = {
+    id?: string
+    valor: Decimal | DecimalJsLike | number | string
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
+    data_vencimento: Date | string
+    data_pagamento?: Date | string | null
+    plano_contas: PlanoContasCreateNestedOneWithoutMovimentacoesInput
+    despesa?: despesasCreateNestedOneWithoutMovimentacoesInput
+  }
+
+  export type MovimentacaoUncheckedCreateWithoutPedido_vendaInput = {
+    id?: string
+    valor: Decimal | DecimalJsLike | number | string
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
+    data_vencimento: Date | string
+    data_pagamento?: Date | string | null
+    plano_contas_id: string
+    despesa_id?: string | null
+  }
+
+  export type MovimentacaoCreateOrConnectWithoutPedido_vendaInput = {
+    where: MovimentacaoWhereUniqueInput
+    create: XOR<MovimentacaoCreateWithoutPedido_vendaInput, MovimentacaoUncheckedCreateWithoutPedido_vendaInput>
+  }
+
+  export type MovimentacaoCreateManyPedido_vendaInputEnvelope = {
+    data: MovimentacaoCreateManyPedido_vendaInput | MovimentacaoCreateManyPedido_vendaInput[]
     skipDuplicates?: boolean
   }
 
@@ -43429,18 +49009,18 @@ export namespace Prisma {
     data: XOR<itens_pedido_vendasUpdateManyMutationInput, itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasInput>
   }
 
-  export type clientesUpsertWithoutPedidos_vendasInput = {
-    update: XOR<clientesUpdateWithoutPedidos_vendasInput, clientesUncheckedUpdateWithoutPedidos_vendasInput>
-    create: XOR<clientesCreateWithoutPedidos_vendasInput, clientesUncheckedCreateWithoutPedidos_vendasInput>
+  export type clientesUpsertWithoutPedidos_vendaInput = {
+    update: XOR<clientesUpdateWithoutPedidos_vendaInput, clientesUncheckedUpdateWithoutPedidos_vendaInput>
+    create: XOR<clientesCreateWithoutPedidos_vendaInput, clientesUncheckedCreateWithoutPedidos_vendaInput>
     where?: clientesWhereInput
   }
 
-  export type clientesUpdateToOneWithWhereWithoutPedidos_vendasInput = {
+  export type clientesUpdateToOneWithWhereWithoutPedidos_vendaInput = {
     where?: clientesWhereInput
-    data: XOR<clientesUpdateWithoutPedidos_vendasInput, clientesUncheckedUpdateWithoutPedidos_vendasInput>
+    data: XOR<clientesUpdateWithoutPedidos_vendaInput, clientesUncheckedUpdateWithoutPedidos_vendaInput>
   }
 
-  export type clientesUpdateWithoutPedidos_vendasInput = {
+  export type clientesUpdateWithoutPedidos_vendaInput = {
     id?: StringFieldUpdateOperationsInput | string
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
@@ -43450,19 +49030,19 @@ export namespace Prisma {
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     uf_cliente?: StringFieldUpdateOperationsInput | string
-    codigo_ibge?: StringFieldUpdateOperationsInput | string
+    codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email_cliente?: StringFieldUpdateOperationsInput | string
     data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    sucata_compras?: sucata_comprasUpdateManyWithoutClientesNestedInput
-    veiculos_cliente_manutencao?: veiculos_cliente_manutencaoUpdateManyWithoutClientesNestedInput
+    sucata_compra?: sucata_comprasUpdateManyWithoutClientesNestedInput
+    veiculos_cliente?: veiculos_cliente_manutencaoUpdateManyWithoutClientesNestedInput
     ordens_servico?: ordem_servicoUpdateManyWithoutClientesNestedInput
     sucatas_compradas_inteiras?: sucata_estoqueUpdateManyWithoutCliente_compradorNestedInput
   }
 
-  export type clientesUncheckedUpdateWithoutPedidos_vendasInput = {
+  export type clientesUncheckedUpdateWithoutPedidos_vendaInput = {
     id?: StringFieldUpdateOperationsInput | string
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
@@ -43472,14 +49052,14 @@ export namespace Prisma {
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     uf_cliente?: StringFieldUpdateOperationsInput | string
-    codigo_ibge?: StringFieldUpdateOperationsInput | string
+    codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email_cliente?: StringFieldUpdateOperationsInput | string
     data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    sucata_compras?: sucata_comprasUncheckedUpdateManyWithoutClientesNestedInput
-    veiculos_cliente_manutencao?: veiculos_cliente_manutencaoUncheckedUpdateManyWithoutClientesNestedInput
+    sucata_compra?: sucata_comprasUncheckedUpdateManyWithoutClientesNestedInput
+    veiculos_cliente?: veiculos_cliente_manutencaoUncheckedUpdateManyWithoutClientesNestedInput
     ordens_servico?: ordem_servicoUncheckedUpdateManyWithoutClientesNestedInput
     sucatas_compradas_inteiras?: sucata_estoqueUncheckedUpdateManyWithoutCliente_compradorNestedInput
   }
@@ -43606,6 +49186,101 @@ export namespace Prisma {
     data: XOR<fluxo_caixaUpdateManyMutationInput, fluxo_caixaUncheckedUpdateManyWithoutPedido_vendaInput>
   }
 
+  export type os_servicos_itensUpsertWithoutPedidosInput = {
+    update: XOR<os_servicos_itensUpdateWithoutPedidosInput, os_servicos_itensUncheckedUpdateWithoutPedidosInput>
+    create: XOR<os_servicos_itensCreateWithoutPedidosInput, os_servicos_itensUncheckedCreateWithoutPedidosInput>
+    where?: os_servicos_itensWhereInput
+  }
+
+  export type os_servicos_itensUpdateToOneWithWhereWithoutPedidosInput = {
+    where?: os_servicos_itensWhereInput
+    data: XOR<os_servicos_itensUpdateWithoutPedidosInput, os_servicos_itensUncheckedUpdateWithoutPedidosInput>
+  }
+
+  export type os_servicos_itensUpdateWithoutPedidosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantidade?: IntFieldUpdateOperationsInput | number
+    preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    ordem_servico?: ordem_servicoUpdateOneRequiredWithoutServicos_itensNestedInput
+    tipo_servico?: tipo_servicoUpdateOneRequiredWithoutOs_servicos_itensNestedInput
+    mecanico?: usuariosUpdateOneRequiredWithoutServicos_executadosNestedInput
+    veiculos?: veiculos_cliente_manutencaoUpdateManyWithoutOsServicosItensNestedInput
+  }
+
+  export type os_servicos_itensUncheckedUpdateWithoutPedidosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ordem_servico_id?: StringFieldUpdateOperationsInput | string
+    tipo_servico_id?: StringFieldUpdateOperationsInput | string
+    mecanico_id?: StringFieldUpdateOperationsInput | string
+    quantidade?: IntFieldUpdateOperationsInput | number
+    preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    veiculos?: veiculos_cliente_manutencaoUncheckedUpdateManyWithoutOsServicosItensNestedInput
+  }
+
+  export type PlanoContasUpsertWithoutPedidos_vendasInput = {
+    update: XOR<PlanoContasUpdateWithoutPedidos_vendasInput, PlanoContasUncheckedUpdateWithoutPedidos_vendasInput>
+    create: XOR<PlanoContasCreateWithoutPedidos_vendasInput, PlanoContasUncheckedCreateWithoutPedidos_vendasInput>
+    where?: PlanoContasWhereInput
+  }
+
+  export type PlanoContasUpdateToOneWithWhereWithoutPedidos_vendasInput = {
+    where?: PlanoContasWhereInput
+    data: XOR<PlanoContasUpdateWithoutPedidos_vendasInput, PlanoContasUncheckedUpdateWithoutPedidos_vendasInput>
+  }
+
+  export type PlanoContasUpdateWithoutPedidos_vendasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigo_contabil?: StringFieldUpdateOperationsInput | string
+    nome_conta?: StringFieldUpdateOperationsInput | string
+    tipo_dre?: EnumTipoContaPlanoFieldUpdateOperationsInput | $Enums.TipoContaPlano
+    despesas?: despesasUpdateManyWithoutCategoria_planoNestedInput
+    lancamentos_caixa?: fluxo_caixaUpdateManyWithoutPlano_contasNestedInput
+    movimentacoes?: MovimentacaoUpdateManyWithoutPlano_contasNestedInput
+  }
+
+  export type PlanoContasUncheckedUpdateWithoutPedidos_vendasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigo_contabil?: StringFieldUpdateOperationsInput | string
+    nome_conta?: StringFieldUpdateOperationsInput | string
+    tipo_dre?: EnumTipoContaPlanoFieldUpdateOperationsInput | $Enums.TipoContaPlano
+    despesas?: despesasUncheckedUpdateManyWithoutCategoria_planoNestedInput
+    lancamentos_caixa?: fluxo_caixaUncheckedUpdateManyWithoutPlano_contasNestedInput
+    movimentacoes?: MovimentacaoUncheckedUpdateManyWithoutPlano_contasNestedInput
+  }
+
+  export type MovimentacaoUpsertWithWhereUniqueWithoutPedido_vendaInput = {
+    where: MovimentacaoWhereUniqueInput
+    update: XOR<MovimentacaoUpdateWithoutPedido_vendaInput, MovimentacaoUncheckedUpdateWithoutPedido_vendaInput>
+    create: XOR<MovimentacaoCreateWithoutPedido_vendaInput, MovimentacaoUncheckedCreateWithoutPedido_vendaInput>
+  }
+
+  export type MovimentacaoUpdateWithWhereUniqueWithoutPedido_vendaInput = {
+    where: MovimentacaoWhereUniqueInput
+    data: XOR<MovimentacaoUpdateWithoutPedido_vendaInput, MovimentacaoUncheckedUpdateWithoutPedido_vendaInput>
+  }
+
+  export type MovimentacaoUpdateManyWithWhereWithoutPedido_vendaInput = {
+    where: MovimentacaoScalarWhereInput
+    data: XOR<MovimentacaoUpdateManyMutationInput, MovimentacaoUncheckedUpdateManyWithoutPedido_vendaInput>
+  }
+
+  export type MovimentacaoScalarWhereInput = {
+    AND?: MovimentacaoScalarWhereInput | MovimentacaoScalarWhereInput[]
+    OR?: MovimentacaoScalarWhereInput[]
+    NOT?: MovimentacaoScalarWhereInput | MovimentacaoScalarWhereInput[]
+    id?: UuidFilter<"Movimentacao"> | string
+    valor?: DecimalFilter<"Movimentacao"> | Decimal | DecimalJsLike | number | string
+    tipo?: EnumTipoMovimentacaoCaixaFilter<"Movimentacao"> | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFilter<"Movimentacao"> | $Enums.StatusMovimentacao
+    data_vencimento?: DateTimeFilter<"Movimentacao"> | Date | string
+    data_pagamento?: DateTimeNullableFilter<"Movimentacao"> | Date | string | null
+    plano_contas_id?: UuidFilter<"Movimentacao"> | string
+    pedido_venda_id?: UuidNullableFilter<"Movimentacao"> | string | null
+    despesa_id?: UuidNullableFilter<"Movimentacao"> | string | null
+  }
+
   export type clientesCreateWithoutOrdens_servicoInput = {
     id?: string
     nome_cliente: string
@@ -43616,15 +49291,15 @@ export namespace Prisma {
     cep_cliente?: string
     cidade_cliente?: string | null
     uf_cliente?: string
-    codigo_ibge?: string
+    codigo_IBGE?: string
     pais_cliente?: string | null
     telefone_cliente?: string | null
     data_nascimento?: Date | string | null
     email_cliente: string
     data_cadastro?: Date | string | null
-    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutCliente_compradorInput
-    sucata_compras?: sucata_comprasCreateNestedManyWithoutClientesInput
-    veiculos_cliente_manutencao?: veiculos_cliente_manutencaoCreateNestedManyWithoutClientesInput
+    pedidos_venda?: pedidos_vendasCreateNestedManyWithoutCliente_compradorInput
+    sucata_compra?: sucata_comprasCreateNestedManyWithoutClientesInput
+    veiculos_cliente?: veiculos_cliente_manutencaoCreateNestedManyWithoutClientesInput
     sucatas_compradas_inteiras?: sucata_estoqueCreateNestedManyWithoutCliente_compradorInput
   }
 
@@ -43638,15 +49313,15 @@ export namespace Prisma {
     cep_cliente?: string
     cidade_cliente?: string | null
     uf_cliente?: string
-    codigo_ibge?: string
+    codigo_IBGE?: string
     pais_cliente?: string | null
     telefone_cliente?: string | null
     data_nascimento?: Date | string | null
     email_cliente: string
     data_cadastro?: Date | string | null
-    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutCliente_compradorInput
-    sucata_compras?: sucata_comprasUncheckedCreateNestedManyWithoutClientesInput
-    veiculos_cliente_manutencao?: veiculos_cliente_manutencaoUncheckedCreateNestedManyWithoutClientesInput
+    pedidos_venda?: pedidos_vendasUncheckedCreateNestedManyWithoutCliente_compradorInput
+    sucata_compra?: sucata_comprasUncheckedCreateNestedManyWithoutClientesInput
+    veiculos_cliente?: veiculos_cliente_manutencaoUncheckedCreateNestedManyWithoutClientesInput
     sucatas_compradas_inteiras?: sucata_estoqueUncheckedCreateNestedManyWithoutCliente_compradorInput
   }
 
@@ -43661,8 +49336,9 @@ export namespace Prisma {
     chassi?: string | null
     cor?: string | null
     ano_fabricacao?: number | null
-    clientes: clientesCreateNestedOneWithoutVeiculos_cliente_manutencaoInput
+    clientes: clientesCreateNestedOneWithoutVeiculos_clienteInput
     modelos: modelosCreateNestedOneWithoutVeiculos_cliente_manutencaoInput
+    osServicosItens?: os_servicos_itensCreateNestedOneWithoutVeiculosInput
   }
 
   export type veiculos_cliente_manutencaoUncheckedCreateWithoutOrdem_servicoInput = {
@@ -43673,6 +49349,7 @@ export namespace Prisma {
     chassi?: string | null
     cor?: string | null
     ano_fabricacao?: number | null
+    os_servicos_itensId?: string | null
   }
 
   export type veiculos_cliente_manutencaoCreateOrConnectWithoutOrdem_servicoInput = {
@@ -43736,6 +49413,8 @@ export namespace Prisma {
     preco_total: Decimal | DecimalJsLike | number | string
     tipo_servico: tipo_servicoCreateNestedOneWithoutOs_servicos_itensInput
     mecanico: usuariosCreateNestedOneWithoutServicos_executadosInput
+    veiculos?: veiculos_cliente_manutencaoCreateNestedManyWithoutOsServicosItensInput
+    pedidos?: pedidos_vendasCreateNestedManyWithoutOsServicosItensInput
   }
 
   export type os_servicos_itensUncheckedCreateWithoutOrdem_servicoInput = {
@@ -43745,6 +49424,8 @@ export namespace Prisma {
     quantidade?: number
     preco_unitario: Decimal | DecimalJsLike | number | string
     preco_total: Decimal | DecimalJsLike | number | string
+    veiculos?: veiculos_cliente_manutencaoUncheckedCreateNestedManyWithoutOsServicosItensInput
+    pedidos?: pedidos_vendasUncheckedCreateNestedManyWithoutOsServicosItensInput
   }
 
   export type os_servicos_itensCreateOrConnectWithoutOrdem_servicoInput = {
@@ -43827,7 +49508,8 @@ export namespace Prisma {
   export type fluxo_caixaCreateWithoutOrdem_servicoInput = {
     id?: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal | DecimalJsLike | number | string
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao?: Date | string
@@ -43838,12 +49520,14 @@ export namespace Prisma {
     usuario_caixa: usuariosCreateNestedOneWithoutMovimentacoes_caixaInput
     estoque_objetos_duraveis?: estoque_objetos_duraveisCreateNestedOneWithoutLancamentos_caixaInput
     estoque_objetos_genericos?: estoque_objetos_genericosCreateNestedOneWithoutLancamentos_caixaInput
+    plano_contas: PlanoContasCreateNestedOneWithoutLancamentos_caixaInput
   }
 
   export type fluxo_caixaUncheckedCreateWithoutOrdem_servicoInput = {
     id?: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal | DecimalJsLike | number | string
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao?: Date | string
@@ -43853,6 +49537,7 @@ export namespace Prisma {
     sucata_venda_id?: string | null
     objeto_duravel_id?: string | null
     objeto_generico_id?: string | null
+    plano_contas_id: string
     usuario_caixa_id: string
   }
 
@@ -43887,15 +49572,15 @@ export namespace Prisma {
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     uf_cliente?: StringFieldUpdateOperationsInput | string
-    codigo_ibge?: StringFieldUpdateOperationsInput | string
+    codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email_cliente?: StringFieldUpdateOperationsInput | string
     data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    pedidos_vendas?: pedidos_vendasUpdateManyWithoutCliente_compradorNestedInput
-    sucata_compras?: sucata_comprasUpdateManyWithoutClientesNestedInput
-    veiculos_cliente_manutencao?: veiculos_cliente_manutencaoUpdateManyWithoutClientesNestedInput
+    pedidos_venda?: pedidos_vendasUpdateManyWithoutCliente_compradorNestedInput
+    sucata_compra?: sucata_comprasUpdateManyWithoutClientesNestedInput
+    veiculos_cliente?: veiculos_cliente_manutencaoUpdateManyWithoutClientesNestedInput
     sucatas_compradas_inteiras?: sucata_estoqueUpdateManyWithoutCliente_compradorNestedInput
   }
 
@@ -43909,15 +49594,15 @@ export namespace Prisma {
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     uf_cliente?: StringFieldUpdateOperationsInput | string
-    codigo_ibge?: StringFieldUpdateOperationsInput | string
+    codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email_cliente?: StringFieldUpdateOperationsInput | string
     data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutCliente_compradorNestedInput
-    sucata_compras?: sucata_comprasUncheckedUpdateManyWithoutClientesNestedInput
-    veiculos_cliente_manutencao?: veiculos_cliente_manutencaoUncheckedUpdateManyWithoutClientesNestedInput
+    pedidos_venda?: pedidos_vendasUncheckedUpdateManyWithoutCliente_compradorNestedInput
+    sucata_compra?: sucata_comprasUncheckedUpdateManyWithoutClientesNestedInput
+    veiculos_cliente?: veiculos_cliente_manutencaoUncheckedUpdateManyWithoutClientesNestedInput
     sucatas_compradas_inteiras?: sucata_estoqueUncheckedUpdateManyWithoutCliente_compradorNestedInput
   }
 
@@ -43938,8 +49623,9 @@ export namespace Prisma {
     chassi?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: NullableStringFieldUpdateOperationsInput | string | null
     ano_fabricacao?: NullableIntFieldUpdateOperationsInput | number | null
-    clientes?: clientesUpdateOneRequiredWithoutVeiculos_cliente_manutencaoNestedInput
+    clientes?: clientesUpdateOneRequiredWithoutVeiculos_clienteNestedInput
     modelos?: modelosUpdateOneRequiredWithoutVeiculos_cliente_manutencaoNestedInput
+    osServicosItens?: os_servicos_itensUpdateOneWithoutVeiculosNestedInput
   }
 
   export type veiculos_cliente_manutencaoUncheckedUpdateWithoutOrdem_servicoInput = {
@@ -43950,6 +49636,7 @@ export namespace Prisma {
     chassi?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: NullableStringFieldUpdateOperationsInput | string | null
     ano_fabricacao?: NullableIntFieldUpdateOperationsInput | number | null
+    os_servicos_itensId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type usuariosUpsertWithoutOrdens_servico_abertasInput = {
@@ -44230,6 +49917,80 @@ export namespace Prisma {
     create: XOR<usuariosCreateWithoutServicos_executadosInput, usuariosUncheckedCreateWithoutServicos_executadosInput>
   }
 
+  export type veiculos_cliente_manutencaoCreateWithoutOsServicosItensInput = {
+    id?: string
+    placa: string
+    chassi?: string | null
+    cor?: string | null
+    ano_fabricacao?: number | null
+    ordem_servico?: ordem_servicoCreateNestedManyWithoutVeiculoInput
+    clientes: clientesCreateNestedOneWithoutVeiculos_clienteInput
+    modelos: modelosCreateNestedOneWithoutVeiculos_cliente_manutencaoInput
+  }
+
+  export type veiculos_cliente_manutencaoUncheckedCreateWithoutOsServicosItensInput = {
+    id?: string
+    modelo_id: number
+    cliente_id: string
+    placa: string
+    chassi?: string | null
+    cor?: string | null
+    ano_fabricacao?: number | null
+    ordem_servico?: ordem_servicoUncheckedCreateNestedManyWithoutVeiculoInput
+  }
+
+  export type veiculos_cliente_manutencaoCreateOrConnectWithoutOsServicosItensInput = {
+    where: veiculos_cliente_manutencaoWhereUniqueInput
+    create: XOR<veiculos_cliente_manutencaoCreateWithoutOsServicosItensInput, veiculos_cliente_manutencaoUncheckedCreateWithoutOsServicosItensInput>
+  }
+
+  export type veiculos_cliente_manutencaoCreateManyOsServicosItensInputEnvelope = {
+    data: veiculos_cliente_manutencaoCreateManyOsServicosItensInput | veiculos_cliente_manutencaoCreateManyOsServicosItensInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type pedidos_vendasCreateWithoutOsServicosItensInput = {
+    id?: string
+    data_venda?: Date | string
+    valor_total?: Decimal | DecimalJsLike | number | string
+    metodo_pagamento?: $Enums.metodo_pagamento
+    status_pedido?: $Enums.status_pedido
+    observacoes_recibo?: string | null
+    itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
+    cliente_comprador: clientesCreateNestedOneWithoutPedidos_vendaInput
+    responsavel_venda: usuariosCreateNestedOneWithoutPedidos_vendasInput
+    documento_fiscal?: documento_fiscalCreateNestedOneWithoutPedido_vendaInput
+    lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutPedido_vendaInput
+    plano_contas?: PlanoContasCreateNestedOneWithoutPedidos_vendasInput
+    movimentacoes?: MovimentacaoCreateNestedManyWithoutPedido_vendaInput
+  }
+
+  export type pedidos_vendasUncheckedCreateWithoutOsServicosItensInput = {
+    id?: string
+    data_venda?: Date | string
+    valor_total?: Decimal | DecimalJsLike | number | string
+    metodo_pagamento?: $Enums.metodo_pagamento
+    status_pedido?: $Enums.status_pedido
+    observacoes_recibo?: string | null
+    cliente_comprador_id: string
+    responsavel_venda_id: string
+    plano_contas_id?: string | null
+    itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
+    documento_fiscal?: documento_fiscalUncheckedCreateNestedOneWithoutPedido_vendaInput
+    lancamentos_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutPedido_vendaInput
+    movimentacoes?: MovimentacaoUncheckedCreateNestedManyWithoutPedido_vendaInput
+  }
+
+  export type pedidos_vendasCreateOrConnectWithoutOsServicosItensInput = {
+    where: pedidos_vendasWhereUniqueInput
+    create: XOR<pedidos_vendasCreateWithoutOsServicosItensInput, pedidos_vendasUncheckedCreateWithoutOsServicosItensInput>
+  }
+
+  export type pedidos_vendasCreateManyOsServicosItensInputEnvelope = {
+    data: pedidos_vendasCreateManyOsServicosItensInput | pedidos_vendasCreateManyOsServicosItensInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ordem_servicoUpsertWithoutServicos_itensInput = {
     update: XOR<ordem_servicoUpdateWithoutServicos_itensInput, ordem_servicoUncheckedUpdateWithoutServicos_itensInput>
     create: XOR<ordem_servicoCreateWithoutServicos_itensInput, ordem_servicoUncheckedCreateWithoutServicos_itensInput>
@@ -44357,6 +50118,38 @@ export namespace Prisma {
     sucata_estoque?: sucata_estoqueUncheckedUpdateManyWithoutUsuariosNestedInput
     ordens_servico_abertas?: ordem_servicoUncheckedUpdateManyWithoutUsuario_responsavelNestedInput
     movimentacoes_caixa?: fluxo_caixaUncheckedUpdateManyWithoutUsuario_caixaNestedInput
+  }
+
+  export type veiculos_cliente_manutencaoUpsertWithWhereUniqueWithoutOsServicosItensInput = {
+    where: veiculos_cliente_manutencaoWhereUniqueInput
+    update: XOR<veiculos_cliente_manutencaoUpdateWithoutOsServicosItensInput, veiculos_cliente_manutencaoUncheckedUpdateWithoutOsServicosItensInput>
+    create: XOR<veiculos_cliente_manutencaoCreateWithoutOsServicosItensInput, veiculos_cliente_manutencaoUncheckedCreateWithoutOsServicosItensInput>
+  }
+
+  export type veiculos_cliente_manutencaoUpdateWithWhereUniqueWithoutOsServicosItensInput = {
+    where: veiculos_cliente_manutencaoWhereUniqueInput
+    data: XOR<veiculos_cliente_manutencaoUpdateWithoutOsServicosItensInput, veiculos_cliente_manutencaoUncheckedUpdateWithoutOsServicosItensInput>
+  }
+
+  export type veiculos_cliente_manutencaoUpdateManyWithWhereWithoutOsServicosItensInput = {
+    where: veiculos_cliente_manutencaoScalarWhereInput
+    data: XOR<veiculos_cliente_manutencaoUpdateManyMutationInput, veiculos_cliente_manutencaoUncheckedUpdateManyWithoutOsServicosItensInput>
+  }
+
+  export type pedidos_vendasUpsertWithWhereUniqueWithoutOsServicosItensInput = {
+    where: pedidos_vendasWhereUniqueInput
+    update: XOR<pedidos_vendasUpdateWithoutOsServicosItensInput, pedidos_vendasUncheckedUpdateWithoutOsServicosItensInput>
+    create: XOR<pedidos_vendasCreateWithoutOsServicosItensInput, pedidos_vendasUncheckedCreateWithoutOsServicosItensInput>
+  }
+
+  export type pedidos_vendasUpdateWithWhereUniqueWithoutOsServicosItensInput = {
+    where: pedidos_vendasWhereUniqueInput
+    data: XOR<pedidos_vendasUpdateWithoutOsServicosItensInput, pedidos_vendasUncheckedUpdateWithoutOsServicosItensInput>
+  }
+
+  export type pedidos_vendasUpdateManyWithWhereWithoutOsServicosItensInput = {
+    where: pedidos_vendasScalarWhereInput
+    data: XOR<pedidos_vendasUpdateManyMutationInput, pedidos_vendasUncheckedUpdateManyWithoutOsServicosItensInput>
   }
 
   export type ordem_servicoCreateWithoutPecas_itensInput = {
@@ -44543,7 +50336,7 @@ export namespace Prisma {
     peca_imagens?: peca_imagensUncheckedUpdateManyWithoutPeca_estoqueNestedInput
   }
 
-  export type clientesCreateWithoutSucata_comprasInput = {
+  export type clientesCreateWithoutSucata_compraInput = {
     id?: string
     nome_cliente: string
     cpf_cliente: string
@@ -44553,19 +50346,19 @@ export namespace Prisma {
     cep_cliente?: string
     cidade_cliente?: string | null
     uf_cliente?: string
-    codigo_ibge?: string
+    codigo_IBGE?: string
     pais_cliente?: string | null
     telefone_cliente?: string | null
     data_nascimento?: Date | string | null
     email_cliente: string
     data_cadastro?: Date | string | null
-    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutCliente_compradorInput
-    veiculos_cliente_manutencao?: veiculos_cliente_manutencaoCreateNestedManyWithoutClientesInput
+    pedidos_venda?: pedidos_vendasCreateNestedManyWithoutCliente_compradorInput
+    veiculos_cliente?: veiculos_cliente_manutencaoCreateNestedManyWithoutClientesInput
     ordens_servico?: ordem_servicoCreateNestedManyWithoutClientesInput
     sucatas_compradas_inteiras?: sucata_estoqueCreateNestedManyWithoutCliente_compradorInput
   }
 
-  export type clientesUncheckedCreateWithoutSucata_comprasInput = {
+  export type clientesUncheckedCreateWithoutSucata_compraInput = {
     id?: string
     nome_cliente: string
     cpf_cliente: string
@@ -44575,21 +50368,21 @@ export namespace Prisma {
     cep_cliente?: string
     cidade_cliente?: string | null
     uf_cliente?: string
-    codigo_ibge?: string
+    codigo_IBGE?: string
     pais_cliente?: string | null
     telefone_cliente?: string | null
     data_nascimento?: Date | string | null
     email_cliente: string
     data_cadastro?: Date | string | null
-    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutCliente_compradorInput
-    veiculos_cliente_manutencao?: veiculos_cliente_manutencaoUncheckedCreateNestedManyWithoutClientesInput
+    pedidos_venda?: pedidos_vendasUncheckedCreateNestedManyWithoutCliente_compradorInput
+    veiculos_cliente?: veiculos_cliente_manutencaoUncheckedCreateNestedManyWithoutClientesInput
     ordens_servico?: ordem_servicoUncheckedCreateNestedManyWithoutClientesInput
     sucatas_compradas_inteiras?: sucata_estoqueUncheckedCreateNestedManyWithoutCliente_compradorInput
   }
 
-  export type clientesCreateOrConnectWithoutSucata_comprasInput = {
+  export type clientesCreateOrConnectWithoutSucata_compraInput = {
     where: clientesWhereUniqueInput
-    create: XOR<clientesCreateWithoutSucata_comprasInput, clientesUncheckedCreateWithoutSucata_comprasInput>
+    create: XOR<clientesCreateWithoutSucata_compraInput, clientesUncheckedCreateWithoutSucata_compraInput>
   }
 
   export type usuariosCreateWithoutSucata_comprasInput = {
@@ -44644,7 +50437,8 @@ export namespace Prisma {
   export type fluxo_caixaCreateWithoutSucata_compraInput = {
     id?: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal | DecimalJsLike | number | string
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao?: Date | string
@@ -44655,12 +50449,14 @@ export namespace Prisma {
     usuario_caixa: usuariosCreateNestedOneWithoutMovimentacoes_caixaInput
     estoque_objetos_duraveis?: estoque_objetos_duraveisCreateNestedOneWithoutLancamentos_caixaInput
     estoque_objetos_genericos?: estoque_objetos_genericosCreateNestedOneWithoutLancamentos_caixaInput
+    plano_contas: PlanoContasCreateNestedOneWithoutLancamentos_caixaInput
   }
 
   export type fluxo_caixaUncheckedCreateWithoutSucata_compraInput = {
     id?: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal | DecimalJsLike | number | string
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao?: Date | string
@@ -44670,6 +50466,7 @@ export namespace Prisma {
     sucata_venda_id?: string | null
     objeto_duravel_id?: string | null
     objeto_generico_id?: string | null
+    plano_contas_id: string
     usuario_caixa_id: string
   }
 
@@ -44683,18 +50480,18 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type clientesUpsertWithoutSucata_comprasInput = {
-    update: XOR<clientesUpdateWithoutSucata_comprasInput, clientesUncheckedUpdateWithoutSucata_comprasInput>
-    create: XOR<clientesCreateWithoutSucata_comprasInput, clientesUncheckedCreateWithoutSucata_comprasInput>
+  export type clientesUpsertWithoutSucata_compraInput = {
+    update: XOR<clientesUpdateWithoutSucata_compraInput, clientesUncheckedUpdateWithoutSucata_compraInput>
+    create: XOR<clientesCreateWithoutSucata_compraInput, clientesUncheckedCreateWithoutSucata_compraInput>
     where?: clientesWhereInput
   }
 
-  export type clientesUpdateToOneWithWhereWithoutSucata_comprasInput = {
+  export type clientesUpdateToOneWithWhereWithoutSucata_compraInput = {
     where?: clientesWhereInput
-    data: XOR<clientesUpdateWithoutSucata_comprasInput, clientesUncheckedUpdateWithoutSucata_comprasInput>
+    data: XOR<clientesUpdateWithoutSucata_compraInput, clientesUncheckedUpdateWithoutSucata_compraInput>
   }
 
-  export type clientesUpdateWithoutSucata_comprasInput = {
+  export type clientesUpdateWithoutSucata_compraInput = {
     id?: StringFieldUpdateOperationsInput | string
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
@@ -44704,19 +50501,19 @@ export namespace Prisma {
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     uf_cliente?: StringFieldUpdateOperationsInput | string
-    codigo_ibge?: StringFieldUpdateOperationsInput | string
+    codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email_cliente?: StringFieldUpdateOperationsInput | string
     data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    pedidos_vendas?: pedidos_vendasUpdateManyWithoutCliente_compradorNestedInput
-    veiculos_cliente_manutencao?: veiculos_cliente_manutencaoUpdateManyWithoutClientesNestedInput
+    pedidos_venda?: pedidos_vendasUpdateManyWithoutCliente_compradorNestedInput
+    veiculos_cliente?: veiculos_cliente_manutencaoUpdateManyWithoutClientesNestedInput
     ordens_servico?: ordem_servicoUpdateManyWithoutClientesNestedInput
     sucatas_compradas_inteiras?: sucata_estoqueUpdateManyWithoutCliente_compradorNestedInput
   }
 
-  export type clientesUncheckedUpdateWithoutSucata_comprasInput = {
+  export type clientesUncheckedUpdateWithoutSucata_compraInput = {
     id?: StringFieldUpdateOperationsInput | string
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
@@ -44726,14 +50523,14 @@ export namespace Prisma {
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     uf_cliente?: StringFieldUpdateOperationsInput | string
-    codigo_ibge?: StringFieldUpdateOperationsInput | string
+    codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email_cliente?: StringFieldUpdateOperationsInput | string
     data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutCliente_compradorNestedInput
-    veiculos_cliente_manutencao?: veiculos_cliente_manutencaoUncheckedUpdateManyWithoutClientesNestedInput
+    pedidos_venda?: pedidos_vendasUncheckedUpdateManyWithoutCliente_compradorNestedInput
+    veiculos_cliente?: veiculos_cliente_manutencaoUncheckedUpdateManyWithoutClientesNestedInput
     ordens_servico?: ordem_servicoUncheckedUpdateManyWithoutClientesNestedInput
     sucatas_compradas_inteiras?: sucata_estoqueUncheckedUpdateManyWithoutCliente_compradorNestedInput
   }
@@ -44807,6 +50604,66 @@ export namespace Prisma {
   export type fluxo_caixaUpdateManyWithWhereWithoutSucata_compraInput = {
     where: fluxo_caixaScalarWhereInput
     data: XOR<fluxo_caixaUpdateManyMutationInput, fluxo_caixaUncheckedUpdateManyWithoutSucata_compraInput>
+  }
+
+  export type dados_fiscais_pecaCreateWithoutCfopInput = {
+    id?: string
+    ncm: string
+    cest?: string | null
+    cst_icms?: string
+    cst_ibs_cbs?: string | null
+    cClassTrib?: string | null
+    peca_estoque: peca_estoqueCreateNestedOneWithoutDados_fiscaisInput
+  }
+
+  export type dados_fiscais_pecaUncheckedCreateWithoutCfopInput = {
+    id?: string
+    peca_id: string
+    ncm: string
+    cest?: string | null
+    cst_icms?: string
+    cst_ibs_cbs?: string | null
+    cClassTrib?: string | null
+  }
+
+  export type dados_fiscais_pecaCreateOrConnectWithoutCfopInput = {
+    where: dados_fiscais_pecaWhereUniqueInput
+    create: XOR<dados_fiscais_pecaCreateWithoutCfopInput, dados_fiscais_pecaUncheckedCreateWithoutCfopInput>
+  }
+
+  export type dados_fiscais_pecaCreateManyCfopInputEnvelope = {
+    data: dados_fiscais_pecaCreateManyCfopInput | dados_fiscais_pecaCreateManyCfopInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type dados_fiscais_pecaUpsertWithWhereUniqueWithoutCfopInput = {
+    where: dados_fiscais_pecaWhereUniqueInput
+    update: XOR<dados_fiscais_pecaUpdateWithoutCfopInput, dados_fiscais_pecaUncheckedUpdateWithoutCfopInput>
+    create: XOR<dados_fiscais_pecaCreateWithoutCfopInput, dados_fiscais_pecaUncheckedCreateWithoutCfopInput>
+  }
+
+  export type dados_fiscais_pecaUpdateWithWhereUniqueWithoutCfopInput = {
+    where: dados_fiscais_pecaWhereUniqueInput
+    data: XOR<dados_fiscais_pecaUpdateWithoutCfopInput, dados_fiscais_pecaUncheckedUpdateWithoutCfopInput>
+  }
+
+  export type dados_fiscais_pecaUpdateManyWithWhereWithoutCfopInput = {
+    where: dados_fiscais_pecaScalarWhereInput
+    data: XOR<dados_fiscais_pecaUpdateManyMutationInput, dados_fiscais_pecaUncheckedUpdateManyWithoutCfopInput>
+  }
+
+  export type dados_fiscais_pecaScalarWhereInput = {
+    AND?: dados_fiscais_pecaScalarWhereInput | dados_fiscais_pecaScalarWhereInput[]
+    OR?: dados_fiscais_pecaScalarWhereInput[]
+    NOT?: dados_fiscais_pecaScalarWhereInput | dados_fiscais_pecaScalarWhereInput[]
+    id?: UuidFilter<"dados_fiscais_peca"> | string
+    peca_id?: UuidFilter<"dados_fiscais_peca"> | string
+    ncm?: StringFilter<"dados_fiscais_peca"> | string
+    cest?: StringNullableFilter<"dados_fiscais_peca"> | string | null
+    cfop_id?: UuidFilter<"dados_fiscais_peca"> | string
+    cst_icms?: StringFilter<"dados_fiscais_peca"> | string
+    cst_ibs_cbs?: StringNullableFilter<"dados_fiscais_peca"> | string | null
+    cClassTrib?: StringNullableFilter<"dados_fiscais_peca"> | string | null
   }
 
   export type peca_estoqueCreateWithoutSucata_estoqueInput = {
@@ -44936,15 +50793,15 @@ export namespace Prisma {
     cep_cliente?: string
     cidade_cliente?: string | null
     uf_cliente?: string
-    codigo_ibge?: string
+    codigo_IBGE?: string
     pais_cliente?: string | null
     telefone_cliente?: string | null
     data_nascimento?: Date | string | null
     email_cliente: string
     data_cadastro?: Date | string | null
-    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutCliente_compradorInput
-    sucata_compras?: sucata_comprasCreateNestedManyWithoutClientesInput
-    veiculos_cliente_manutencao?: veiculos_cliente_manutencaoCreateNestedManyWithoutClientesInput
+    pedidos_venda?: pedidos_vendasCreateNestedManyWithoutCliente_compradorInput
+    sucata_compra?: sucata_comprasCreateNestedManyWithoutClientesInput
+    veiculos_cliente?: veiculos_cliente_manutencaoCreateNestedManyWithoutClientesInput
     ordens_servico?: ordem_servicoCreateNestedManyWithoutClientesInput
   }
 
@@ -44958,15 +50815,15 @@ export namespace Prisma {
     cep_cliente?: string
     cidade_cliente?: string | null
     uf_cliente?: string
-    codigo_ibge?: string
+    codigo_IBGE?: string
     pais_cliente?: string | null
     telefone_cliente?: string | null
     data_nascimento?: Date | string | null
     email_cliente: string
     data_cadastro?: Date | string | null
-    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutCliente_compradorInput
-    sucata_compras?: sucata_comprasUncheckedCreateNestedManyWithoutClientesInput
-    veiculos_cliente_manutencao?: veiculos_cliente_manutencaoUncheckedCreateNestedManyWithoutClientesInput
+    pedidos_venda?: pedidos_vendasUncheckedCreateNestedManyWithoutCliente_compradorInput
+    sucata_compra?: sucata_comprasUncheckedCreateNestedManyWithoutClientesInput
+    veiculos_cliente?: veiculos_cliente_manutencaoUncheckedCreateNestedManyWithoutClientesInput
     ordens_servico?: ordem_servicoUncheckedCreateNestedManyWithoutClientesInput
   }
 
@@ -45023,7 +50880,8 @@ export namespace Prisma {
   export type fluxo_caixaCreateWithoutSucata_vendaInput = {
     id?: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal | DecimalJsLike | number | string
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao?: Date | string
@@ -45034,12 +50892,14 @@ export namespace Prisma {
     usuario_caixa: usuariosCreateNestedOneWithoutMovimentacoes_caixaInput
     estoque_objetos_duraveis?: estoque_objetos_duraveisCreateNestedOneWithoutLancamentos_caixaInput
     estoque_objetos_genericos?: estoque_objetos_genericosCreateNestedOneWithoutLancamentos_caixaInput
+    plano_contas: PlanoContasCreateNestedOneWithoutLancamentos_caixaInput
   }
 
   export type fluxo_caixaUncheckedCreateWithoutSucata_vendaInput = {
     id?: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal | DecimalJsLike | number | string
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao?: Date | string
@@ -45049,6 +50909,7 @@ export namespace Prisma {
     sucata_compra_id?: string | null
     objeto_duravel_id?: string | null
     objeto_generico_id?: string | null
+    plano_contas_id: string
     usuario_caixa_id: string
   }
 
@@ -45182,15 +51043,15 @@ export namespace Prisma {
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     uf_cliente?: StringFieldUpdateOperationsInput | string
-    codigo_ibge?: StringFieldUpdateOperationsInput | string
+    codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email_cliente?: StringFieldUpdateOperationsInput | string
     data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    pedidos_vendas?: pedidos_vendasUpdateManyWithoutCliente_compradorNestedInput
-    sucata_compras?: sucata_comprasUpdateManyWithoutClientesNestedInput
-    veiculos_cliente_manutencao?: veiculos_cliente_manutencaoUpdateManyWithoutClientesNestedInput
+    pedidos_venda?: pedidos_vendasUpdateManyWithoutCliente_compradorNestedInput
+    sucata_compra?: sucata_comprasUpdateManyWithoutClientesNestedInput
+    veiculos_cliente?: veiculos_cliente_manutencaoUpdateManyWithoutClientesNestedInput
     ordens_servico?: ordem_servicoUpdateManyWithoutClientesNestedInput
   }
 
@@ -45204,15 +51065,15 @@ export namespace Prisma {
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     uf_cliente?: StringFieldUpdateOperationsInput | string
-    codigo_ibge?: StringFieldUpdateOperationsInput | string
+    codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email_cliente?: StringFieldUpdateOperationsInput | string
     data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutCliente_compradorNestedInput
-    sucata_compras?: sucata_comprasUncheckedUpdateManyWithoutClientesNestedInput
-    veiculos_cliente_manutencao?: veiculos_cliente_manutencaoUncheckedUpdateManyWithoutClientesNestedInput
+    pedidos_venda?: pedidos_vendasUncheckedUpdateManyWithoutCliente_compradorNestedInput
+    sucata_compra?: sucata_comprasUncheckedUpdateManyWithoutClientesNestedInput
+    veiculos_cliente?: veiculos_cliente_manutencaoUncheckedUpdateManyWithoutClientesNestedInput
     ordens_servico?: ordem_servicoUncheckedUpdateManyWithoutClientesNestedInput
   }
 
@@ -45290,6 +51151,8 @@ export namespace Prisma {
     preco_total: Decimal | DecimalJsLike | number | string
     ordem_servico: ordem_servicoCreateNestedOneWithoutServicos_itensInput
     mecanico: usuariosCreateNestedOneWithoutServicos_executadosInput
+    veiculos?: veiculos_cliente_manutencaoCreateNestedManyWithoutOsServicosItensInput
+    pedidos?: pedidos_vendasCreateNestedManyWithoutOsServicosItensInput
   }
 
   export type os_servicos_itensUncheckedCreateWithoutTipo_servicoInput = {
@@ -45299,6 +51162,8 @@ export namespace Prisma {
     quantidade?: number
     preco_unitario: Decimal | DecimalJsLike | number | string
     preco_total: Decimal | DecimalJsLike | number | string
+    veiculos?: veiculos_cliente_manutencaoUncheckedCreateNestedManyWithoutOsServicosItensInput
+    pedidos?: pedidos_vendasUncheckedCreateNestedManyWithoutOsServicosItensInput
   }
 
   export type os_servicos_itensCreateOrConnectWithoutTipo_servicoInput = {
@@ -45329,25 +51194,27 @@ export namespace Prisma {
 
   export type despesasCreateWithoutUsuariosInput = {
     id?: string
-    descricao_despesa: string
-    tipo_despesa: $Enums.tipo_despesa
-    tipo_despesa_fixa: $Enums.tipo_despesa_fixa
-    tipo_despesa_variavel: $Enums.tipo_despesa_variavel
+    descricao_despesa?: string | null
+    tipo_despesa?: $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: $Enums.tipo_despesa_variavel | null
     valor_despesa: Decimal | DecimalJsLike | number | string
     data_despesa?: Date | string
-    categoria_despesa: string
+    categoria_plano: PlanoContasCreateNestedOneWithoutDespesasInput
+    movimentacoes?: MovimentacaoCreateNestedManyWithoutDespesaInput
     fluxo_caixa?: fluxo_caixaCreateNestedManyWithoutDespesaInput
   }
 
   export type despesasUncheckedCreateWithoutUsuariosInput = {
     id?: string
-    descricao_despesa: string
-    tipo_despesa: $Enums.tipo_despesa
-    tipo_despesa_fixa: $Enums.tipo_despesa_fixa
-    tipo_despesa_variavel: $Enums.tipo_despesa_variavel
+    descricao_despesa?: string | null
+    tipo_despesa?: $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: $Enums.tipo_despesa_variavel | null
     valor_despesa: Decimal | DecimalJsLike | number | string
     data_despesa?: Date | string
-    categoria_despesa: string
+    plano_contas_id: string
+    movimentacoes?: MovimentacaoUncheckedCreateNestedManyWithoutDespesaInput
     fluxo_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutDespesaInput
   }
 
@@ -45473,9 +51340,12 @@ export namespace Prisma {
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
     itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
-    cliente_comprador: clientesCreateNestedOneWithoutPedidos_vendasInput
+    cliente_comprador: clientesCreateNestedOneWithoutPedidos_vendaInput
     documento_fiscal?: documento_fiscalCreateNestedOneWithoutPedido_vendaInput
     lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutPedido_vendaInput
+    osServicosItens?: os_servicos_itensCreateNestedOneWithoutPedidosInput
+    plano_contas?: PlanoContasCreateNestedOneWithoutPedidos_vendasInput
+    movimentacoes?: MovimentacaoCreateNestedManyWithoutPedido_vendaInput
   }
 
   export type pedidos_vendasUncheckedCreateWithoutResponsavel_vendaInput = {
@@ -45486,9 +51356,12 @@ export namespace Prisma {
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
     cliente_comprador_id: string
+    os_servicos_itensId?: string | null
+    plano_contas_id?: string | null
     itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalUncheckedCreateNestedOneWithoutPedido_vendaInput
     lancamentos_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutPedido_vendaInput
+    movimentacoes?: MovimentacaoUncheckedCreateNestedManyWithoutPedido_vendaInput
   }
 
   export type pedidos_vendasCreateOrConnectWithoutResponsavel_vendaInput = {
@@ -45506,7 +51379,7 @@ export namespace Prisma {
     data_compra?: Date | string | null
     valor_compra: Decimal | DecimalJsLike | number | string
     quantidade?: number
-    clientes: clientesCreateNestedOneWithoutSucata_comprasInput
+    clientes: clientesCreateNestedOneWithoutSucata_compraInput
     lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutSucata_compraInput
   }
 
@@ -45634,6 +51507,8 @@ export namespace Prisma {
     preco_total: Decimal | DecimalJsLike | number | string
     ordem_servico: ordem_servicoCreateNestedOneWithoutServicos_itensInput
     tipo_servico: tipo_servicoCreateNestedOneWithoutOs_servicos_itensInput
+    veiculos?: veiculos_cliente_manutencaoCreateNestedManyWithoutOsServicosItensInput
+    pedidos?: pedidos_vendasCreateNestedManyWithoutOsServicosItensInput
   }
 
   export type os_servicos_itensUncheckedCreateWithoutMecanicoInput = {
@@ -45643,6 +51518,8 @@ export namespace Prisma {
     quantidade?: number
     preco_unitario: Decimal | DecimalJsLike | number | string
     preco_total: Decimal | DecimalJsLike | number | string
+    veiculos?: veiculos_cliente_manutencaoUncheckedCreateNestedManyWithoutOsServicosItensInput
+    pedidos?: pedidos_vendasUncheckedCreateNestedManyWithoutOsServicosItensInput
   }
 
   export type os_servicos_itensCreateOrConnectWithoutMecanicoInput = {
@@ -45658,7 +51535,8 @@ export namespace Prisma {
   export type fluxo_caixaCreateWithoutUsuario_caixaInput = {
     id?: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal | DecimalJsLike | number | string
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao?: Date | string
@@ -45669,12 +51547,14 @@ export namespace Prisma {
     sucata_venda?: sucata_estoqueCreateNestedOneWithoutLancamentos_caixaInput
     estoque_objetos_duraveis?: estoque_objetos_duraveisCreateNestedOneWithoutLancamentos_caixaInput
     estoque_objetos_genericos?: estoque_objetos_genericosCreateNestedOneWithoutLancamentos_caixaInput
+    plano_contas: PlanoContasCreateNestedOneWithoutLancamentos_caixaInput
   }
 
   export type fluxo_caixaUncheckedCreateWithoutUsuario_caixaInput = {
     id?: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal | DecimalJsLike | number | string
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao?: Date | string
@@ -45685,6 +51565,7 @@ export namespace Prisma {
     sucata_venda_id?: string | null
     objeto_duravel_id?: string | null
     objeto_generico_id?: string | null
+    plano_contas_id: string
   }
 
   export type fluxo_caixaCreateOrConnectWithoutUsuario_caixaInput = {
@@ -45718,14 +51599,14 @@ export namespace Prisma {
     OR?: despesasScalarWhereInput[]
     NOT?: despesasScalarWhereInput | despesasScalarWhereInput[]
     id?: UuidFilter<"despesas"> | string
-    descricao_despesa?: StringFilter<"despesas"> | string
-    tipo_despesa?: Enumtipo_despesaFilter<"despesas"> | $Enums.tipo_despesa
-    tipo_despesa_fixa?: Enumtipo_despesa_fixaFilter<"despesas"> | $Enums.tipo_despesa_fixa
-    tipo_despesa_variavel?: Enumtipo_despesa_variavelFilter<"despesas"> | $Enums.tipo_despesa_variavel
+    descricao_despesa?: StringNullableFilter<"despesas"> | string | null
+    tipo_despesa?: Enumtipo_despesaNullableFilter<"despesas"> | $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: Enumtipo_despesa_fixaNullableFilter<"despesas"> | $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: Enumtipo_despesa_variavelNullableFilter<"despesas"> | $Enums.tipo_despesa_variavel | null
     valor_despesa?: DecimalFilter<"despesas"> | Decimal | DecimalJsLike | number | string
     data_despesa?: DateTimeFilter<"despesas"> | Date | string
     responsavel_compra_id?: UuidFilter<"despesas"> | string
-    categoria_despesa?: StringFilter<"despesas"> | string
+    plano_contas_id?: UuidFilter<"despesas"> | string
   }
 
   export type estoque_objetos_duraveisUpsertWithWhereUniqueWithoutUsuariosInput = {
@@ -45947,7 +51828,7 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type clientesCreateWithoutVeiculos_cliente_manutencaoInput = {
+  export type clientesCreateWithoutVeiculos_clienteInput = {
     id?: string
     nome_cliente: string
     cpf_cliente: string
@@ -45957,19 +51838,19 @@ export namespace Prisma {
     cep_cliente?: string
     cidade_cliente?: string | null
     uf_cliente?: string
-    codigo_ibge?: string
+    codigo_IBGE?: string
     pais_cliente?: string | null
     telefone_cliente?: string | null
     data_nascimento?: Date | string | null
     email_cliente: string
     data_cadastro?: Date | string | null
-    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutCliente_compradorInput
-    sucata_compras?: sucata_comprasCreateNestedManyWithoutClientesInput
+    pedidos_venda?: pedidos_vendasCreateNestedManyWithoutCliente_compradorInput
+    sucata_compra?: sucata_comprasCreateNestedManyWithoutClientesInput
     ordens_servico?: ordem_servicoCreateNestedManyWithoutClientesInput
     sucatas_compradas_inteiras?: sucata_estoqueCreateNestedManyWithoutCliente_compradorInput
   }
 
-  export type clientesUncheckedCreateWithoutVeiculos_cliente_manutencaoInput = {
+  export type clientesUncheckedCreateWithoutVeiculos_clienteInput = {
     id?: string
     nome_cliente: string
     cpf_cliente: string
@@ -45979,21 +51860,21 @@ export namespace Prisma {
     cep_cliente?: string
     cidade_cliente?: string | null
     uf_cliente?: string
-    codigo_ibge?: string
+    codigo_IBGE?: string
     pais_cliente?: string | null
     telefone_cliente?: string | null
     data_nascimento?: Date | string | null
     email_cliente: string
     data_cadastro?: Date | string | null
-    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutCliente_compradorInput
-    sucata_compras?: sucata_comprasUncheckedCreateNestedManyWithoutClientesInput
+    pedidos_venda?: pedidos_vendasUncheckedCreateNestedManyWithoutCliente_compradorInput
+    sucata_compra?: sucata_comprasUncheckedCreateNestedManyWithoutClientesInput
     ordens_servico?: ordem_servicoUncheckedCreateNestedManyWithoutClientesInput
     sucatas_compradas_inteiras?: sucata_estoqueUncheckedCreateNestedManyWithoutCliente_compradorInput
   }
 
-  export type clientesCreateOrConnectWithoutVeiculos_cliente_manutencaoInput = {
+  export type clientesCreateOrConnectWithoutVeiculos_clienteInput = {
     where: clientesWhereUniqueInput
-    create: XOR<clientesCreateWithoutVeiculos_cliente_manutencaoInput, clientesUncheckedCreateWithoutVeiculos_cliente_manutencaoInput>
+    create: XOR<clientesCreateWithoutVeiculos_clienteInput, clientesUncheckedCreateWithoutVeiculos_clienteInput>
   }
 
   export type modelosCreateWithoutVeiculos_cliente_manutencaoInput = {
@@ -46018,6 +51899,33 @@ export namespace Prisma {
     create: XOR<modelosCreateWithoutVeiculos_cliente_manutencaoInput, modelosUncheckedCreateWithoutVeiculos_cliente_manutencaoInput>
   }
 
+  export type os_servicos_itensCreateWithoutVeiculosInput = {
+    id?: string
+    quantidade?: number
+    preco_unitario: Decimal | DecimalJsLike | number | string
+    preco_total: Decimal | DecimalJsLike | number | string
+    ordem_servico: ordem_servicoCreateNestedOneWithoutServicos_itensInput
+    tipo_servico: tipo_servicoCreateNestedOneWithoutOs_servicos_itensInput
+    mecanico: usuariosCreateNestedOneWithoutServicos_executadosInput
+    pedidos?: pedidos_vendasCreateNestedManyWithoutOsServicosItensInput
+  }
+
+  export type os_servicos_itensUncheckedCreateWithoutVeiculosInput = {
+    id?: string
+    ordem_servico_id: string
+    tipo_servico_id: string
+    mecanico_id: string
+    quantidade?: number
+    preco_unitario: Decimal | DecimalJsLike | number | string
+    preco_total: Decimal | DecimalJsLike | number | string
+    pedidos?: pedidos_vendasUncheckedCreateNestedManyWithoutOsServicosItensInput
+  }
+
+  export type os_servicos_itensCreateOrConnectWithoutVeiculosInput = {
+    where: os_servicos_itensWhereUniqueInput
+    create: XOR<os_servicos_itensCreateWithoutVeiculosInput, os_servicos_itensUncheckedCreateWithoutVeiculosInput>
+  }
+
   export type ordem_servicoUpsertWithWhereUniqueWithoutVeiculoInput = {
     where: ordem_servicoWhereUniqueInput
     update: XOR<ordem_servicoUpdateWithoutVeiculoInput, ordem_servicoUncheckedUpdateWithoutVeiculoInput>
@@ -46034,18 +51942,18 @@ export namespace Prisma {
     data: XOR<ordem_servicoUpdateManyMutationInput, ordem_servicoUncheckedUpdateManyWithoutVeiculoInput>
   }
 
-  export type clientesUpsertWithoutVeiculos_cliente_manutencaoInput = {
-    update: XOR<clientesUpdateWithoutVeiculos_cliente_manutencaoInput, clientesUncheckedUpdateWithoutVeiculos_cliente_manutencaoInput>
-    create: XOR<clientesCreateWithoutVeiculos_cliente_manutencaoInput, clientesUncheckedCreateWithoutVeiculos_cliente_manutencaoInput>
+  export type clientesUpsertWithoutVeiculos_clienteInput = {
+    update: XOR<clientesUpdateWithoutVeiculos_clienteInput, clientesUncheckedUpdateWithoutVeiculos_clienteInput>
+    create: XOR<clientesCreateWithoutVeiculos_clienteInput, clientesUncheckedCreateWithoutVeiculos_clienteInput>
     where?: clientesWhereInput
   }
 
-  export type clientesUpdateToOneWithWhereWithoutVeiculos_cliente_manutencaoInput = {
+  export type clientesUpdateToOneWithWhereWithoutVeiculos_clienteInput = {
     where?: clientesWhereInput
-    data: XOR<clientesUpdateWithoutVeiculos_cliente_manutencaoInput, clientesUncheckedUpdateWithoutVeiculos_cliente_manutencaoInput>
+    data: XOR<clientesUpdateWithoutVeiculos_clienteInput, clientesUncheckedUpdateWithoutVeiculos_clienteInput>
   }
 
-  export type clientesUpdateWithoutVeiculos_cliente_manutencaoInput = {
+  export type clientesUpdateWithoutVeiculos_clienteInput = {
     id?: StringFieldUpdateOperationsInput | string
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
@@ -46055,19 +51963,19 @@ export namespace Prisma {
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     uf_cliente?: StringFieldUpdateOperationsInput | string
-    codigo_ibge?: StringFieldUpdateOperationsInput | string
+    codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email_cliente?: StringFieldUpdateOperationsInput | string
     data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    pedidos_vendas?: pedidos_vendasUpdateManyWithoutCliente_compradorNestedInput
-    sucata_compras?: sucata_comprasUpdateManyWithoutClientesNestedInput
+    pedidos_venda?: pedidos_vendasUpdateManyWithoutCliente_compradorNestedInput
+    sucata_compra?: sucata_comprasUpdateManyWithoutClientesNestedInput
     ordens_servico?: ordem_servicoUpdateManyWithoutClientesNestedInput
     sucatas_compradas_inteiras?: sucata_estoqueUpdateManyWithoutCliente_compradorNestedInput
   }
 
-  export type clientesUncheckedUpdateWithoutVeiculos_cliente_manutencaoInput = {
+  export type clientesUncheckedUpdateWithoutVeiculos_clienteInput = {
     id?: StringFieldUpdateOperationsInput | string
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
@@ -46077,14 +51985,14 @@ export namespace Prisma {
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     uf_cliente?: StringFieldUpdateOperationsInput | string
-    codigo_ibge?: StringFieldUpdateOperationsInput | string
+    codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email_cliente?: StringFieldUpdateOperationsInput | string
     data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutCliente_compradorNestedInput
-    sucata_compras?: sucata_comprasUncheckedUpdateManyWithoutClientesNestedInput
+    pedidos_venda?: pedidos_vendasUncheckedUpdateManyWithoutCliente_compradorNestedInput
+    sucata_compra?: sucata_comprasUncheckedUpdateManyWithoutClientesNestedInput
     ordens_servico?: ordem_servicoUncheckedUpdateManyWithoutClientesNestedInput
     sucatas_compradas_inteiras?: sucata_estoqueUncheckedUpdateManyWithoutCliente_compradorNestedInput
   }
@@ -46117,15 +52025,86 @@ export namespace Prisma {
     sucata_estoque?: sucata_estoqueUncheckedUpdateManyWithoutModelosNestedInput
   }
 
-  export type fluxo_caixaCreateWithoutDespesaInput = {
+  export type os_servicos_itensUpsertWithoutVeiculosInput = {
+    update: XOR<os_servicos_itensUpdateWithoutVeiculosInput, os_servicos_itensUncheckedUpdateWithoutVeiculosInput>
+    create: XOR<os_servicos_itensCreateWithoutVeiculosInput, os_servicos_itensUncheckedCreateWithoutVeiculosInput>
+    where?: os_servicos_itensWhereInput
+  }
+
+  export type os_servicos_itensUpdateToOneWithWhereWithoutVeiculosInput = {
+    where?: os_servicos_itensWhereInput
+    data: XOR<os_servicos_itensUpdateWithoutVeiculosInput, os_servicos_itensUncheckedUpdateWithoutVeiculosInput>
+  }
+
+  export type os_servicos_itensUpdateWithoutVeiculosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantidade?: IntFieldUpdateOperationsInput | number
+    preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    ordem_servico?: ordem_servicoUpdateOneRequiredWithoutServicos_itensNestedInput
+    tipo_servico?: tipo_servicoUpdateOneRequiredWithoutOs_servicos_itensNestedInput
+    mecanico?: usuariosUpdateOneRequiredWithoutServicos_executadosNestedInput
+    pedidos?: pedidos_vendasUpdateManyWithoutOsServicosItensNestedInput
+  }
+
+  export type os_servicos_itensUncheckedUpdateWithoutVeiculosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ordem_servico_id?: StringFieldUpdateOperationsInput | string
+    tipo_servico_id?: StringFieldUpdateOperationsInput | string
+    mecanico_id?: StringFieldUpdateOperationsInput | string
+    quantidade?: IntFieldUpdateOperationsInput | number
+    preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    pedidos?: pedidos_vendasUncheckedUpdateManyWithoutOsServicosItensNestedInput
+  }
+
+  export type despesasCreateWithoutCategoria_planoInput = {
+    id?: string
+    descricao_despesa?: string | null
+    tipo_despesa?: $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: $Enums.tipo_despesa_variavel | null
+    valor_despesa: Decimal | DecimalJsLike | number | string
+    data_despesa?: Date | string
+    usuarios: usuariosCreateNestedOneWithoutDespesasInput
+    movimentacoes?: MovimentacaoCreateNestedManyWithoutDespesaInput
+    fluxo_caixa?: fluxo_caixaCreateNestedManyWithoutDespesaInput
+  }
+
+  export type despesasUncheckedCreateWithoutCategoria_planoInput = {
+    id?: string
+    descricao_despesa?: string | null
+    tipo_despesa?: $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: $Enums.tipo_despesa_variavel | null
+    valor_despesa: Decimal | DecimalJsLike | number | string
+    data_despesa?: Date | string
+    responsavel_compra_id: string
+    movimentacoes?: MovimentacaoUncheckedCreateNestedManyWithoutDespesaInput
+    fluxo_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutDespesaInput
+  }
+
+  export type despesasCreateOrConnectWithoutCategoria_planoInput = {
+    where: despesasWhereUniqueInput
+    create: XOR<despesasCreateWithoutCategoria_planoInput, despesasUncheckedCreateWithoutCategoria_planoInput>
+  }
+
+  export type despesasCreateManyCategoria_planoInputEnvelope = {
+    data: despesasCreateManyCategoria_planoInput | despesasCreateManyCategoria_planoInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type fluxo_caixaCreateWithoutPlano_contasInput = {
     id?: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal | DecimalJsLike | number | string
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao?: Date | string
     pedido_venda?: pedidos_vendasCreateNestedOneWithoutLancamentos_caixaInput
     ordem_servico?: ordem_servicoCreateNestedOneWithoutLancamentos_caixaInput
+    despesa?: despesasCreateNestedOneWithoutFluxo_caixaInput
     sucata_compra?: sucata_comprasCreateNestedOneWithoutLancamentos_caixaInput
     sucata_venda?: sucata_estoqueCreateNestedOneWithoutLancamentos_caixaInput
     usuario_caixa: usuariosCreateNestedOneWithoutMovimentacoes_caixaInput
@@ -46133,15 +52112,17 @@ export namespace Prisma {
     estoque_objetos_genericos?: estoque_objetos_genericosCreateNestedOneWithoutLancamentos_caixaInput
   }
 
-  export type fluxo_caixaUncheckedCreateWithoutDespesaInput = {
+  export type fluxo_caixaUncheckedCreateWithoutPlano_contasInput = {
     id?: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal | DecimalJsLike | number | string
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao?: Date | string
     pedido_venda_id?: string | null
     ordem_servico_id?: string | null
+    despesa_id?: string | null
     sucata_compra_id?: string | null
     sucata_venda_id?: string | null
     objeto_duravel_id?: string | null
@@ -46149,14 +52130,356 @@ export namespace Prisma {
     usuario_caixa_id: string
   }
 
-  export type fluxo_caixaCreateOrConnectWithoutDespesaInput = {
+  export type fluxo_caixaCreateOrConnectWithoutPlano_contasInput = {
     where: fluxo_caixaWhereUniqueInput
-    create: XOR<fluxo_caixaCreateWithoutDespesaInput, fluxo_caixaUncheckedCreateWithoutDespesaInput>
+    create: XOR<fluxo_caixaCreateWithoutPlano_contasInput, fluxo_caixaUncheckedCreateWithoutPlano_contasInput>
   }
 
-  export type fluxo_caixaCreateManyDespesaInputEnvelope = {
-    data: fluxo_caixaCreateManyDespesaInput | fluxo_caixaCreateManyDespesaInput[]
+  export type fluxo_caixaCreateManyPlano_contasInputEnvelope = {
+    data: fluxo_caixaCreateManyPlano_contasInput | fluxo_caixaCreateManyPlano_contasInput[]
     skipDuplicates?: boolean
+  }
+
+  export type pedidos_vendasCreateWithoutPlano_contasInput = {
+    id?: string
+    data_venda?: Date | string
+    valor_total?: Decimal | DecimalJsLike | number | string
+    metodo_pagamento?: $Enums.metodo_pagamento
+    status_pedido?: $Enums.status_pedido
+    observacoes_recibo?: string | null
+    itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
+    cliente_comprador: clientesCreateNestedOneWithoutPedidos_vendaInput
+    responsavel_venda: usuariosCreateNestedOneWithoutPedidos_vendasInput
+    documento_fiscal?: documento_fiscalCreateNestedOneWithoutPedido_vendaInput
+    lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutPedido_vendaInput
+    osServicosItens?: os_servicos_itensCreateNestedOneWithoutPedidosInput
+    movimentacoes?: MovimentacaoCreateNestedManyWithoutPedido_vendaInput
+  }
+
+  export type pedidos_vendasUncheckedCreateWithoutPlano_contasInput = {
+    id?: string
+    data_venda?: Date | string
+    valor_total?: Decimal | DecimalJsLike | number | string
+    metodo_pagamento?: $Enums.metodo_pagamento
+    status_pedido?: $Enums.status_pedido
+    observacoes_recibo?: string | null
+    cliente_comprador_id: string
+    responsavel_venda_id: string
+    os_servicos_itensId?: string | null
+    itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
+    documento_fiscal?: documento_fiscalUncheckedCreateNestedOneWithoutPedido_vendaInput
+    lancamentos_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutPedido_vendaInput
+    movimentacoes?: MovimentacaoUncheckedCreateNestedManyWithoutPedido_vendaInput
+  }
+
+  export type pedidos_vendasCreateOrConnectWithoutPlano_contasInput = {
+    where: pedidos_vendasWhereUniqueInput
+    create: XOR<pedidos_vendasCreateWithoutPlano_contasInput, pedidos_vendasUncheckedCreateWithoutPlano_contasInput>
+  }
+
+  export type pedidos_vendasCreateManyPlano_contasInputEnvelope = {
+    data: pedidos_vendasCreateManyPlano_contasInput | pedidos_vendasCreateManyPlano_contasInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MovimentacaoCreateWithoutPlano_contasInput = {
+    id?: string
+    valor: Decimal | DecimalJsLike | number | string
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
+    data_vencimento: Date | string
+    data_pagamento?: Date | string | null
+    pedido_venda?: pedidos_vendasCreateNestedOneWithoutMovimentacoesInput
+    despesa?: despesasCreateNestedOneWithoutMovimentacoesInput
+  }
+
+  export type MovimentacaoUncheckedCreateWithoutPlano_contasInput = {
+    id?: string
+    valor: Decimal | DecimalJsLike | number | string
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
+    data_vencimento: Date | string
+    data_pagamento?: Date | string | null
+    pedido_venda_id?: string | null
+    despesa_id?: string | null
+  }
+
+  export type MovimentacaoCreateOrConnectWithoutPlano_contasInput = {
+    where: MovimentacaoWhereUniqueInput
+    create: XOR<MovimentacaoCreateWithoutPlano_contasInput, MovimentacaoUncheckedCreateWithoutPlano_contasInput>
+  }
+
+  export type MovimentacaoCreateManyPlano_contasInputEnvelope = {
+    data: MovimentacaoCreateManyPlano_contasInput | MovimentacaoCreateManyPlano_contasInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type despesasUpsertWithWhereUniqueWithoutCategoria_planoInput = {
+    where: despesasWhereUniqueInput
+    update: XOR<despesasUpdateWithoutCategoria_planoInput, despesasUncheckedUpdateWithoutCategoria_planoInput>
+    create: XOR<despesasCreateWithoutCategoria_planoInput, despesasUncheckedCreateWithoutCategoria_planoInput>
+  }
+
+  export type despesasUpdateWithWhereUniqueWithoutCategoria_planoInput = {
+    where: despesasWhereUniqueInput
+    data: XOR<despesasUpdateWithoutCategoria_planoInput, despesasUncheckedUpdateWithoutCategoria_planoInput>
+  }
+
+  export type despesasUpdateManyWithWhereWithoutCategoria_planoInput = {
+    where: despesasScalarWhereInput
+    data: XOR<despesasUpdateManyMutationInput, despesasUncheckedUpdateManyWithoutCategoria_planoInput>
+  }
+
+  export type fluxo_caixaUpsertWithWhereUniqueWithoutPlano_contasInput = {
+    where: fluxo_caixaWhereUniqueInput
+    update: XOR<fluxo_caixaUpdateWithoutPlano_contasInput, fluxo_caixaUncheckedUpdateWithoutPlano_contasInput>
+    create: XOR<fluxo_caixaCreateWithoutPlano_contasInput, fluxo_caixaUncheckedCreateWithoutPlano_contasInput>
+  }
+
+  export type fluxo_caixaUpdateWithWhereUniqueWithoutPlano_contasInput = {
+    where: fluxo_caixaWhereUniqueInput
+    data: XOR<fluxo_caixaUpdateWithoutPlano_contasInput, fluxo_caixaUncheckedUpdateWithoutPlano_contasInput>
+  }
+
+  export type fluxo_caixaUpdateManyWithWhereWithoutPlano_contasInput = {
+    where: fluxo_caixaScalarWhereInput
+    data: XOR<fluxo_caixaUpdateManyMutationInput, fluxo_caixaUncheckedUpdateManyWithoutPlano_contasInput>
+  }
+
+  export type pedidos_vendasUpsertWithWhereUniqueWithoutPlano_contasInput = {
+    where: pedidos_vendasWhereUniqueInput
+    update: XOR<pedidos_vendasUpdateWithoutPlano_contasInput, pedidos_vendasUncheckedUpdateWithoutPlano_contasInput>
+    create: XOR<pedidos_vendasCreateWithoutPlano_contasInput, pedidos_vendasUncheckedCreateWithoutPlano_contasInput>
+  }
+
+  export type pedidos_vendasUpdateWithWhereUniqueWithoutPlano_contasInput = {
+    where: pedidos_vendasWhereUniqueInput
+    data: XOR<pedidos_vendasUpdateWithoutPlano_contasInput, pedidos_vendasUncheckedUpdateWithoutPlano_contasInput>
+  }
+
+  export type pedidos_vendasUpdateManyWithWhereWithoutPlano_contasInput = {
+    where: pedidos_vendasScalarWhereInput
+    data: XOR<pedidos_vendasUpdateManyMutationInput, pedidos_vendasUncheckedUpdateManyWithoutPlano_contasInput>
+  }
+
+  export type MovimentacaoUpsertWithWhereUniqueWithoutPlano_contasInput = {
+    where: MovimentacaoWhereUniqueInput
+    update: XOR<MovimentacaoUpdateWithoutPlano_contasInput, MovimentacaoUncheckedUpdateWithoutPlano_contasInput>
+    create: XOR<MovimentacaoCreateWithoutPlano_contasInput, MovimentacaoUncheckedCreateWithoutPlano_contasInput>
+  }
+
+  export type MovimentacaoUpdateWithWhereUniqueWithoutPlano_contasInput = {
+    where: MovimentacaoWhereUniqueInput
+    data: XOR<MovimentacaoUpdateWithoutPlano_contasInput, MovimentacaoUncheckedUpdateWithoutPlano_contasInput>
+  }
+
+  export type MovimentacaoUpdateManyWithWhereWithoutPlano_contasInput = {
+    where: MovimentacaoScalarWhereInput
+    data: XOR<MovimentacaoUpdateManyMutationInput, MovimentacaoUncheckedUpdateManyWithoutPlano_contasInput>
+  }
+
+  export type PlanoContasCreateWithoutMovimentacoesInput = {
+    id?: string
+    codigo_contabil: string
+    nome_conta: string
+    tipo_dre: $Enums.TipoContaPlano
+    despesas?: despesasCreateNestedManyWithoutCategoria_planoInput
+    lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutPlano_contasInput
+    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutPlano_contasInput
+  }
+
+  export type PlanoContasUncheckedCreateWithoutMovimentacoesInput = {
+    id?: string
+    codigo_contabil: string
+    nome_conta: string
+    tipo_dre: $Enums.TipoContaPlano
+    despesas?: despesasUncheckedCreateNestedManyWithoutCategoria_planoInput
+    lancamentos_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutPlano_contasInput
+    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutPlano_contasInput
+  }
+
+  export type PlanoContasCreateOrConnectWithoutMovimentacoesInput = {
+    where: PlanoContasWhereUniqueInput
+    create: XOR<PlanoContasCreateWithoutMovimentacoesInput, PlanoContasUncheckedCreateWithoutMovimentacoesInput>
+  }
+
+  export type pedidos_vendasCreateWithoutMovimentacoesInput = {
+    id?: string
+    data_venda?: Date | string
+    valor_total?: Decimal | DecimalJsLike | number | string
+    metodo_pagamento?: $Enums.metodo_pagamento
+    status_pedido?: $Enums.status_pedido
+    observacoes_recibo?: string | null
+    itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
+    cliente_comprador: clientesCreateNestedOneWithoutPedidos_vendaInput
+    responsavel_venda: usuariosCreateNestedOneWithoutPedidos_vendasInput
+    documento_fiscal?: documento_fiscalCreateNestedOneWithoutPedido_vendaInput
+    lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutPedido_vendaInput
+    osServicosItens?: os_servicos_itensCreateNestedOneWithoutPedidosInput
+    plano_contas?: PlanoContasCreateNestedOneWithoutPedidos_vendasInput
+  }
+
+  export type pedidos_vendasUncheckedCreateWithoutMovimentacoesInput = {
+    id?: string
+    data_venda?: Date | string
+    valor_total?: Decimal | DecimalJsLike | number | string
+    metodo_pagamento?: $Enums.metodo_pagamento
+    status_pedido?: $Enums.status_pedido
+    observacoes_recibo?: string | null
+    cliente_comprador_id: string
+    responsavel_venda_id: string
+    os_servicos_itensId?: string | null
+    plano_contas_id?: string | null
+    itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
+    documento_fiscal?: documento_fiscalUncheckedCreateNestedOneWithoutPedido_vendaInput
+    lancamentos_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutPedido_vendaInput
+  }
+
+  export type pedidos_vendasCreateOrConnectWithoutMovimentacoesInput = {
+    where: pedidos_vendasWhereUniqueInput
+    create: XOR<pedidos_vendasCreateWithoutMovimentacoesInput, pedidos_vendasUncheckedCreateWithoutMovimentacoesInput>
+  }
+
+  export type despesasCreateWithoutMovimentacoesInput = {
+    id?: string
+    descricao_despesa?: string | null
+    tipo_despesa?: $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: $Enums.tipo_despesa_variavel | null
+    valor_despesa: Decimal | DecimalJsLike | number | string
+    data_despesa?: Date | string
+    usuarios: usuariosCreateNestedOneWithoutDespesasInput
+    categoria_plano: PlanoContasCreateNestedOneWithoutDespesasInput
+    fluxo_caixa?: fluxo_caixaCreateNestedManyWithoutDespesaInput
+  }
+
+  export type despesasUncheckedCreateWithoutMovimentacoesInput = {
+    id?: string
+    descricao_despesa?: string | null
+    tipo_despesa?: $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: $Enums.tipo_despesa_variavel | null
+    valor_despesa: Decimal | DecimalJsLike | number | string
+    data_despesa?: Date | string
+    responsavel_compra_id: string
+    plano_contas_id: string
+    fluxo_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutDespesaInput
+  }
+
+  export type despesasCreateOrConnectWithoutMovimentacoesInput = {
+    where: despesasWhereUniqueInput
+    create: XOR<despesasCreateWithoutMovimentacoesInput, despesasUncheckedCreateWithoutMovimentacoesInput>
+  }
+
+  export type PlanoContasUpsertWithoutMovimentacoesInput = {
+    update: XOR<PlanoContasUpdateWithoutMovimentacoesInput, PlanoContasUncheckedUpdateWithoutMovimentacoesInput>
+    create: XOR<PlanoContasCreateWithoutMovimentacoesInput, PlanoContasUncheckedCreateWithoutMovimentacoesInput>
+    where?: PlanoContasWhereInput
+  }
+
+  export type PlanoContasUpdateToOneWithWhereWithoutMovimentacoesInput = {
+    where?: PlanoContasWhereInput
+    data: XOR<PlanoContasUpdateWithoutMovimentacoesInput, PlanoContasUncheckedUpdateWithoutMovimentacoesInput>
+  }
+
+  export type PlanoContasUpdateWithoutMovimentacoesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigo_contabil?: StringFieldUpdateOperationsInput | string
+    nome_conta?: StringFieldUpdateOperationsInput | string
+    tipo_dre?: EnumTipoContaPlanoFieldUpdateOperationsInput | $Enums.TipoContaPlano
+    despesas?: despesasUpdateManyWithoutCategoria_planoNestedInput
+    lancamentos_caixa?: fluxo_caixaUpdateManyWithoutPlano_contasNestedInput
+    pedidos_vendas?: pedidos_vendasUpdateManyWithoutPlano_contasNestedInput
+  }
+
+  export type PlanoContasUncheckedUpdateWithoutMovimentacoesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigo_contabil?: StringFieldUpdateOperationsInput | string
+    nome_conta?: StringFieldUpdateOperationsInput | string
+    tipo_dre?: EnumTipoContaPlanoFieldUpdateOperationsInput | $Enums.TipoContaPlano
+    despesas?: despesasUncheckedUpdateManyWithoutCategoria_planoNestedInput
+    lancamentos_caixa?: fluxo_caixaUncheckedUpdateManyWithoutPlano_contasNestedInput
+    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutPlano_contasNestedInput
+  }
+
+  export type pedidos_vendasUpsertWithoutMovimentacoesInput = {
+    update: XOR<pedidos_vendasUpdateWithoutMovimentacoesInput, pedidos_vendasUncheckedUpdateWithoutMovimentacoesInput>
+    create: XOR<pedidos_vendasCreateWithoutMovimentacoesInput, pedidos_vendasUncheckedCreateWithoutMovimentacoesInput>
+    where?: pedidos_vendasWhereInput
+  }
+
+  export type pedidos_vendasUpdateToOneWithWhereWithoutMovimentacoesInput = {
+    where?: pedidos_vendasWhereInput
+    data: XOR<pedidos_vendasUpdateWithoutMovimentacoesInput, pedidos_vendasUncheckedUpdateWithoutMovimentacoesInput>
+  }
+
+  export type pedidos_vendasUpdateWithoutMovimentacoesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    data_venda?: DateTimeFieldUpdateOperationsInput | Date | string
+    valor_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
+    status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
+    observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
+    itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
+    cliente_comprador?: clientesUpdateOneRequiredWithoutPedidos_vendaNestedInput
+    responsavel_venda?: usuariosUpdateOneRequiredWithoutPedidos_vendasNestedInput
+    documento_fiscal?: documento_fiscalUpdateOneWithoutPedido_vendaNestedInput
+    lancamentos_caixa?: fluxo_caixaUpdateManyWithoutPedido_vendaNestedInput
+    osServicosItens?: os_servicos_itensUpdateOneWithoutPedidosNestedInput
+    plano_contas?: PlanoContasUpdateOneWithoutPedidos_vendasNestedInput
+  }
+
+  export type pedidos_vendasUncheckedUpdateWithoutMovimentacoesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    data_venda?: DateTimeFieldUpdateOperationsInput | Date | string
+    valor_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
+    status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
+    observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_comprador_id?: StringFieldUpdateOperationsInput | string
+    responsavel_venda_id?: StringFieldUpdateOperationsInput | string
+    os_servicos_itensId?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: NullableStringFieldUpdateOperationsInput | string | null
+    itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
+    documento_fiscal?: documento_fiscalUncheckedUpdateOneWithoutPedido_vendaNestedInput
+    lancamentos_caixa?: fluxo_caixaUncheckedUpdateManyWithoutPedido_vendaNestedInput
+  }
+
+  export type despesasUpsertWithoutMovimentacoesInput = {
+    update: XOR<despesasUpdateWithoutMovimentacoesInput, despesasUncheckedUpdateWithoutMovimentacoesInput>
+    create: XOR<despesasCreateWithoutMovimentacoesInput, despesasUncheckedCreateWithoutMovimentacoesInput>
+    where?: despesasWhereInput
+  }
+
+  export type despesasUpdateToOneWithWhereWithoutMovimentacoesInput = {
+    where?: despesasWhereInput
+    data: XOR<despesasUpdateWithoutMovimentacoesInput, despesasUncheckedUpdateWithoutMovimentacoesInput>
+  }
+
+  export type despesasUpdateWithoutMovimentacoesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao_despesa?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_despesa?: NullableEnumtipo_despesaFieldUpdateOperationsInput | $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: NullableEnumtipo_despesa_fixaFieldUpdateOperationsInput | $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: NullableEnumtipo_despesa_variavelFieldUpdateOperationsInput | $Enums.tipo_despesa_variavel | null
+    valor_despesa?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_despesa?: DateTimeFieldUpdateOperationsInput | Date | string
+    usuarios?: usuariosUpdateOneRequiredWithoutDespesasNestedInput
+    categoria_plano?: PlanoContasUpdateOneRequiredWithoutDespesasNestedInput
+    fluxo_caixa?: fluxo_caixaUpdateManyWithoutDespesaNestedInput
+  }
+
+  export type despesasUncheckedUpdateWithoutMovimentacoesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao_despesa?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_despesa?: NullableEnumtipo_despesaFieldUpdateOperationsInput | $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: NullableEnumtipo_despesa_fixaFieldUpdateOperationsInput | $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: NullableEnumtipo_despesa_variavelFieldUpdateOperationsInput | $Enums.tipo_despesa_variavel | null
+    valor_despesa?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_despesa?: DateTimeFieldUpdateOperationsInput | Date | string
+    responsavel_compra_id?: StringFieldUpdateOperationsInput | string
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
+    fluxo_caixa?: fluxo_caixaUncheckedUpdateManyWithoutDespesaNestedInput
   }
 
   export type usuariosCreateWithoutDespesasInput = {
@@ -46208,20 +52531,107 @@ export namespace Prisma {
     create: XOR<usuariosCreateWithoutDespesasInput, usuariosUncheckedCreateWithoutDespesasInput>
   }
 
-  export type fluxo_caixaUpsertWithWhereUniqueWithoutDespesaInput = {
+  export type PlanoContasCreateWithoutDespesasInput = {
+    id?: string
+    codigo_contabil: string
+    nome_conta: string
+    tipo_dre: $Enums.TipoContaPlano
+    lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutPlano_contasInput
+    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutPlano_contasInput
+    movimentacoes?: MovimentacaoCreateNestedManyWithoutPlano_contasInput
+  }
+
+  export type PlanoContasUncheckedCreateWithoutDespesasInput = {
+    id?: string
+    codigo_contabil: string
+    nome_conta: string
+    tipo_dre: $Enums.TipoContaPlano
+    lancamentos_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutPlano_contasInput
+    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutPlano_contasInput
+    movimentacoes?: MovimentacaoUncheckedCreateNestedManyWithoutPlano_contasInput
+  }
+
+  export type PlanoContasCreateOrConnectWithoutDespesasInput = {
+    where: PlanoContasWhereUniqueInput
+    create: XOR<PlanoContasCreateWithoutDespesasInput, PlanoContasUncheckedCreateWithoutDespesasInput>
+  }
+
+  export type MovimentacaoCreateWithoutDespesaInput = {
+    id?: string
+    valor: Decimal | DecimalJsLike | number | string
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
+    data_vencimento: Date | string
+    data_pagamento?: Date | string | null
+    plano_contas: PlanoContasCreateNestedOneWithoutMovimentacoesInput
+    pedido_venda?: pedidos_vendasCreateNestedOneWithoutMovimentacoesInput
+  }
+
+  export type MovimentacaoUncheckedCreateWithoutDespesaInput = {
+    id?: string
+    valor: Decimal | DecimalJsLike | number | string
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
+    data_vencimento: Date | string
+    data_pagamento?: Date | string | null
+    plano_contas_id: string
+    pedido_venda_id?: string | null
+  }
+
+  export type MovimentacaoCreateOrConnectWithoutDespesaInput = {
+    where: MovimentacaoWhereUniqueInput
+    create: XOR<MovimentacaoCreateWithoutDespesaInput, MovimentacaoUncheckedCreateWithoutDespesaInput>
+  }
+
+  export type MovimentacaoCreateManyDespesaInputEnvelope = {
+    data: MovimentacaoCreateManyDespesaInput | MovimentacaoCreateManyDespesaInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type fluxo_caixaCreateWithoutDespesaInput = {
+    id?: string
+    descricao: string
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
+    valor: Decimal | DecimalJsLike | number | string
+    metodo_pagamento: $Enums.metodo_pagamento
+    data_movimentacao?: Date | string
+    pedido_venda?: pedidos_vendasCreateNestedOneWithoutLancamentos_caixaInput
+    ordem_servico?: ordem_servicoCreateNestedOneWithoutLancamentos_caixaInput
+    sucata_compra?: sucata_comprasCreateNestedOneWithoutLancamentos_caixaInput
+    sucata_venda?: sucata_estoqueCreateNestedOneWithoutLancamentos_caixaInput
+    usuario_caixa: usuariosCreateNestedOneWithoutMovimentacoes_caixaInput
+    estoque_objetos_duraveis?: estoque_objetos_duraveisCreateNestedOneWithoutLancamentos_caixaInput
+    estoque_objetos_genericos?: estoque_objetos_genericosCreateNestedOneWithoutLancamentos_caixaInput
+    plano_contas: PlanoContasCreateNestedOneWithoutLancamentos_caixaInput
+  }
+
+  export type fluxo_caixaUncheckedCreateWithoutDespesaInput = {
+    id?: string
+    descricao: string
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
+    valor: Decimal | DecimalJsLike | number | string
+    metodo_pagamento: $Enums.metodo_pagamento
+    data_movimentacao?: Date | string
+    pedido_venda_id?: string | null
+    ordem_servico_id?: string | null
+    sucata_compra_id?: string | null
+    sucata_venda_id?: string | null
+    objeto_duravel_id?: string | null
+    objeto_generico_id?: string | null
+    plano_contas_id: string
+    usuario_caixa_id: string
+  }
+
+  export type fluxo_caixaCreateOrConnectWithoutDespesaInput = {
     where: fluxo_caixaWhereUniqueInput
-    update: XOR<fluxo_caixaUpdateWithoutDespesaInput, fluxo_caixaUncheckedUpdateWithoutDespesaInput>
     create: XOR<fluxo_caixaCreateWithoutDespesaInput, fluxo_caixaUncheckedCreateWithoutDespesaInput>
   }
 
-  export type fluxo_caixaUpdateWithWhereUniqueWithoutDespesaInput = {
-    where: fluxo_caixaWhereUniqueInput
-    data: XOR<fluxo_caixaUpdateWithoutDespesaInput, fluxo_caixaUncheckedUpdateWithoutDespesaInput>
-  }
-
-  export type fluxo_caixaUpdateManyWithWhereWithoutDespesaInput = {
-    where: fluxo_caixaScalarWhereInput
-    data: XOR<fluxo_caixaUpdateManyMutationInput, fluxo_caixaUncheckedUpdateManyWithoutDespesaInput>
+  export type fluxo_caixaCreateManyDespesaInputEnvelope = {
+    data: fluxo_caixaCreateManyDespesaInput | fluxo_caixaCreateManyDespesaInput[]
+    skipDuplicates?: boolean
   }
 
   export type usuariosUpsertWithoutDespesasInput = {
@@ -46279,6 +52689,69 @@ export namespace Prisma {
     movimentacoes_caixa?: fluxo_caixaUncheckedUpdateManyWithoutUsuario_caixaNestedInput
   }
 
+  export type PlanoContasUpsertWithoutDespesasInput = {
+    update: XOR<PlanoContasUpdateWithoutDespesasInput, PlanoContasUncheckedUpdateWithoutDespesasInput>
+    create: XOR<PlanoContasCreateWithoutDespesasInput, PlanoContasUncheckedCreateWithoutDespesasInput>
+    where?: PlanoContasWhereInput
+  }
+
+  export type PlanoContasUpdateToOneWithWhereWithoutDespesasInput = {
+    where?: PlanoContasWhereInput
+    data: XOR<PlanoContasUpdateWithoutDespesasInput, PlanoContasUncheckedUpdateWithoutDespesasInput>
+  }
+
+  export type PlanoContasUpdateWithoutDespesasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigo_contabil?: StringFieldUpdateOperationsInput | string
+    nome_conta?: StringFieldUpdateOperationsInput | string
+    tipo_dre?: EnumTipoContaPlanoFieldUpdateOperationsInput | $Enums.TipoContaPlano
+    lancamentos_caixa?: fluxo_caixaUpdateManyWithoutPlano_contasNestedInput
+    pedidos_vendas?: pedidos_vendasUpdateManyWithoutPlano_contasNestedInput
+    movimentacoes?: MovimentacaoUpdateManyWithoutPlano_contasNestedInput
+  }
+
+  export type PlanoContasUncheckedUpdateWithoutDespesasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigo_contabil?: StringFieldUpdateOperationsInput | string
+    nome_conta?: StringFieldUpdateOperationsInput | string
+    tipo_dre?: EnumTipoContaPlanoFieldUpdateOperationsInput | $Enums.TipoContaPlano
+    lancamentos_caixa?: fluxo_caixaUncheckedUpdateManyWithoutPlano_contasNestedInput
+    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutPlano_contasNestedInput
+    movimentacoes?: MovimentacaoUncheckedUpdateManyWithoutPlano_contasNestedInput
+  }
+
+  export type MovimentacaoUpsertWithWhereUniqueWithoutDespesaInput = {
+    where: MovimentacaoWhereUniqueInput
+    update: XOR<MovimentacaoUpdateWithoutDespesaInput, MovimentacaoUncheckedUpdateWithoutDespesaInput>
+    create: XOR<MovimentacaoCreateWithoutDespesaInput, MovimentacaoUncheckedCreateWithoutDespesaInput>
+  }
+
+  export type MovimentacaoUpdateWithWhereUniqueWithoutDespesaInput = {
+    where: MovimentacaoWhereUniqueInput
+    data: XOR<MovimentacaoUpdateWithoutDespesaInput, MovimentacaoUncheckedUpdateWithoutDespesaInput>
+  }
+
+  export type MovimentacaoUpdateManyWithWhereWithoutDespesaInput = {
+    where: MovimentacaoScalarWhereInput
+    data: XOR<MovimentacaoUpdateManyMutationInput, MovimentacaoUncheckedUpdateManyWithoutDespesaInput>
+  }
+
+  export type fluxo_caixaUpsertWithWhereUniqueWithoutDespesaInput = {
+    where: fluxo_caixaWhereUniqueInput
+    update: XOR<fluxo_caixaUpdateWithoutDespesaInput, fluxo_caixaUncheckedUpdateWithoutDespesaInput>
+    create: XOR<fluxo_caixaCreateWithoutDespesaInput, fluxo_caixaUncheckedCreateWithoutDespesaInput>
+  }
+
+  export type fluxo_caixaUpdateWithWhereUniqueWithoutDespesaInput = {
+    where: fluxo_caixaWhereUniqueInput
+    data: XOR<fluxo_caixaUpdateWithoutDespesaInput, fluxo_caixaUncheckedUpdateWithoutDespesaInput>
+  }
+
+  export type fluxo_caixaUpdateManyWithWhereWithoutDespesaInput = {
+    where: fluxo_caixaScalarWhereInput
+    data: XOR<fluxo_caixaUpdateManyMutationInput, fluxo_caixaUncheckedUpdateManyWithoutDespesaInput>
+  }
+
   export type pedidos_vendasCreateWithoutDocumento_fiscalInput = {
     id?: string
     data_venda?: Date | string
@@ -46287,9 +52760,12 @@ export namespace Prisma {
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
     itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
-    cliente_comprador: clientesCreateNestedOneWithoutPedidos_vendasInput
+    cliente_comprador: clientesCreateNestedOneWithoutPedidos_vendaInput
     responsavel_venda: usuariosCreateNestedOneWithoutPedidos_vendasInput
     lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutPedido_vendaInput
+    osServicosItens?: os_servicos_itensCreateNestedOneWithoutPedidosInput
+    plano_contas?: PlanoContasCreateNestedOneWithoutPedidos_vendasInput
+    movimentacoes?: MovimentacaoCreateNestedManyWithoutPedido_vendaInput
   }
 
   export type pedidos_vendasUncheckedCreateWithoutDocumento_fiscalInput = {
@@ -46301,8 +52777,11 @@ export namespace Prisma {
     observacoes_recibo?: string | null
     cliente_comprador_id: string
     responsavel_venda_id: string
+    os_servicos_itensId?: string | null
+    plano_contas_id?: string | null
     itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
     lancamentos_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutPedido_vendaInput
+    movimentacoes?: MovimentacaoUncheckedCreateNestedManyWithoutPedido_vendaInput
   }
 
   export type pedidos_vendasCreateOrConnectWithoutDocumento_fiscalInput = {
@@ -46417,9 +52896,12 @@ export namespace Prisma {
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
     itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
-    cliente_comprador?: clientesUpdateOneRequiredWithoutPedidos_vendasNestedInput
+    cliente_comprador?: clientesUpdateOneRequiredWithoutPedidos_vendaNestedInput
     responsavel_venda?: usuariosUpdateOneRequiredWithoutPedidos_vendasNestedInput
     lancamentos_caixa?: fluxo_caixaUpdateManyWithoutPedido_vendaNestedInput
+    osServicosItens?: os_servicos_itensUpdateOneWithoutPedidosNestedInput
+    plano_contas?: PlanoContasUpdateOneWithoutPedidos_vendasNestedInput
+    movimentacoes?: MovimentacaoUpdateManyWithoutPedido_vendaNestedInput
   }
 
   export type pedidos_vendasUncheckedUpdateWithoutDocumento_fiscalInput = {
@@ -46431,8 +52913,11 @@ export namespace Prisma {
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
     cliente_comprador_id?: StringFieldUpdateOperationsInput | string
     responsavel_venda_id?: StringFieldUpdateOperationsInput | string
+    os_servicos_itensId?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: NullableStringFieldUpdateOperationsInput | string | null
     itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
     lancamentos_caixa?: fluxo_caixaUncheckedUpdateManyWithoutPedido_vendaNestedInput
+    movimentacoes?: MovimentacaoUncheckedUpdateManyWithoutPedido_vendaNestedInput
   }
 
   export type ordem_servicoUpsertWithoutDocumento_fiscalInput = {
@@ -46543,9 +53028,12 @@ export namespace Prisma {
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
     itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
-    cliente_comprador: clientesCreateNestedOneWithoutPedidos_vendasInput
+    cliente_comprador: clientesCreateNestedOneWithoutPedidos_vendaInput
     responsavel_venda: usuariosCreateNestedOneWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalCreateNestedOneWithoutPedido_vendaInput
+    osServicosItens?: os_servicos_itensCreateNestedOneWithoutPedidosInput
+    plano_contas?: PlanoContasCreateNestedOneWithoutPedidos_vendasInput
+    movimentacoes?: MovimentacaoCreateNestedManyWithoutPedido_vendaInput
   }
 
   export type pedidos_vendasUncheckedCreateWithoutLancamentos_caixaInput = {
@@ -46557,8 +53045,11 @@ export namespace Prisma {
     observacoes_recibo?: string | null
     cliente_comprador_id: string
     responsavel_venda_id: string
+    os_servicos_itensId?: string | null
+    plano_contas_id?: string | null
     itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalUncheckedCreateNestedOneWithoutPedido_vendaInput
+    movimentacoes?: MovimentacaoUncheckedCreateNestedManyWithoutPedido_vendaInput
   }
 
   export type pedidos_vendasCreateOrConnectWithoutLancamentos_caixaInput = {
@@ -46613,26 +53104,28 @@ export namespace Prisma {
 
   export type despesasCreateWithoutFluxo_caixaInput = {
     id?: string
-    descricao_despesa: string
-    tipo_despesa: $Enums.tipo_despesa
-    tipo_despesa_fixa: $Enums.tipo_despesa_fixa
-    tipo_despesa_variavel: $Enums.tipo_despesa_variavel
+    descricao_despesa?: string | null
+    tipo_despesa?: $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: $Enums.tipo_despesa_variavel | null
     valor_despesa: Decimal | DecimalJsLike | number | string
     data_despesa?: Date | string
-    categoria_despesa: string
     usuarios: usuariosCreateNestedOneWithoutDespesasInput
+    categoria_plano: PlanoContasCreateNestedOneWithoutDespesasInput
+    movimentacoes?: MovimentacaoCreateNestedManyWithoutDespesaInput
   }
 
   export type despesasUncheckedCreateWithoutFluxo_caixaInput = {
     id?: string
-    descricao_despesa: string
-    tipo_despesa: $Enums.tipo_despesa
-    tipo_despesa_fixa: $Enums.tipo_despesa_fixa
-    tipo_despesa_variavel: $Enums.tipo_despesa_variavel
+    descricao_despesa?: string | null
+    tipo_despesa?: $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: $Enums.tipo_despesa_variavel | null
     valor_despesa: Decimal | DecimalJsLike | number | string
     data_despesa?: Date | string
     responsavel_compra_id: string
-    categoria_despesa: string
+    plano_contas_id: string
+    movimentacoes?: MovimentacaoUncheckedCreateNestedManyWithoutDespesaInput
   }
 
   export type despesasCreateOrConnectWithoutFluxo_caixaInput = {
@@ -46645,7 +53138,7 @@ export namespace Prisma {
     data_compra?: Date | string | null
     valor_compra: Decimal | DecimalJsLike | number | string
     quantidade?: number
-    clientes: clientesCreateNestedOneWithoutSucata_comprasInput
+    clientes: clientesCreateNestedOneWithoutSucata_compraInput
     usuarios: usuariosCreateNestedOneWithoutSucata_comprasInput
   }
 
@@ -46803,6 +53296,31 @@ export namespace Prisma {
     create: XOR<estoque_objetos_genericosCreateWithoutLancamentos_caixaInput, estoque_objetos_genericosUncheckedCreateWithoutLancamentos_caixaInput>
   }
 
+  export type PlanoContasCreateWithoutLancamentos_caixaInput = {
+    id?: string
+    codigo_contabil: string
+    nome_conta: string
+    tipo_dre: $Enums.TipoContaPlano
+    despesas?: despesasCreateNestedManyWithoutCategoria_planoInput
+    pedidos_vendas?: pedidos_vendasCreateNestedManyWithoutPlano_contasInput
+    movimentacoes?: MovimentacaoCreateNestedManyWithoutPlano_contasInput
+  }
+
+  export type PlanoContasUncheckedCreateWithoutLancamentos_caixaInput = {
+    id?: string
+    codigo_contabil: string
+    nome_conta: string
+    tipo_dre: $Enums.TipoContaPlano
+    despesas?: despesasUncheckedCreateNestedManyWithoutCategoria_planoInput
+    pedidos_vendas?: pedidos_vendasUncheckedCreateNestedManyWithoutPlano_contasInput
+    movimentacoes?: MovimentacaoUncheckedCreateNestedManyWithoutPlano_contasInput
+  }
+
+  export type PlanoContasCreateOrConnectWithoutLancamentos_caixaInput = {
+    where: PlanoContasWhereUniqueInput
+    create: XOR<PlanoContasCreateWithoutLancamentos_caixaInput, PlanoContasUncheckedCreateWithoutLancamentos_caixaInput>
+  }
+
   export type pedidos_vendasUpsertWithoutLancamentos_caixaInput = {
     update: XOR<pedidos_vendasUpdateWithoutLancamentos_caixaInput, pedidos_vendasUncheckedUpdateWithoutLancamentos_caixaInput>
     create: XOR<pedidos_vendasCreateWithoutLancamentos_caixaInput, pedidos_vendasUncheckedCreateWithoutLancamentos_caixaInput>
@@ -46822,9 +53340,12 @@ export namespace Prisma {
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
     itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
-    cliente_comprador?: clientesUpdateOneRequiredWithoutPedidos_vendasNestedInput
+    cliente_comprador?: clientesUpdateOneRequiredWithoutPedidos_vendaNestedInput
     responsavel_venda?: usuariosUpdateOneRequiredWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUpdateOneWithoutPedido_vendaNestedInput
+    osServicosItens?: os_servicos_itensUpdateOneWithoutPedidosNestedInput
+    plano_contas?: PlanoContasUpdateOneWithoutPedidos_vendasNestedInput
+    movimentacoes?: MovimentacaoUpdateManyWithoutPedido_vendaNestedInput
   }
 
   export type pedidos_vendasUncheckedUpdateWithoutLancamentos_caixaInput = {
@@ -46836,8 +53357,11 @@ export namespace Prisma {
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
     cliente_comprador_id?: StringFieldUpdateOperationsInput | string
     responsavel_venda_id?: StringFieldUpdateOperationsInput | string
+    os_servicos_itensId?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: NullableStringFieldUpdateOperationsInput | string | null
     itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUncheckedUpdateOneWithoutPedido_vendaNestedInput
+    movimentacoes?: MovimentacaoUncheckedUpdateManyWithoutPedido_vendaNestedInput
   }
 
   export type ordem_servicoUpsertWithoutLancamentos_caixaInput = {
@@ -46904,26 +53428,28 @@ export namespace Prisma {
 
   export type despesasUpdateWithoutFluxo_caixaInput = {
     id?: StringFieldUpdateOperationsInput | string
-    descricao_despesa?: StringFieldUpdateOperationsInput | string
-    tipo_despesa?: Enumtipo_despesaFieldUpdateOperationsInput | $Enums.tipo_despesa
-    tipo_despesa_fixa?: Enumtipo_despesa_fixaFieldUpdateOperationsInput | $Enums.tipo_despesa_fixa
-    tipo_despesa_variavel?: Enumtipo_despesa_variavelFieldUpdateOperationsInput | $Enums.tipo_despesa_variavel
+    descricao_despesa?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_despesa?: NullableEnumtipo_despesaFieldUpdateOperationsInput | $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: NullableEnumtipo_despesa_fixaFieldUpdateOperationsInput | $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: NullableEnumtipo_despesa_variavelFieldUpdateOperationsInput | $Enums.tipo_despesa_variavel | null
     valor_despesa?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     data_despesa?: DateTimeFieldUpdateOperationsInput | Date | string
-    categoria_despesa?: StringFieldUpdateOperationsInput | string
     usuarios?: usuariosUpdateOneRequiredWithoutDespesasNestedInput
+    categoria_plano?: PlanoContasUpdateOneRequiredWithoutDespesasNestedInput
+    movimentacoes?: MovimentacaoUpdateManyWithoutDespesaNestedInput
   }
 
   export type despesasUncheckedUpdateWithoutFluxo_caixaInput = {
     id?: StringFieldUpdateOperationsInput | string
-    descricao_despesa?: StringFieldUpdateOperationsInput | string
-    tipo_despesa?: Enumtipo_despesaFieldUpdateOperationsInput | $Enums.tipo_despesa
-    tipo_despesa_fixa?: Enumtipo_despesa_fixaFieldUpdateOperationsInput | $Enums.tipo_despesa_fixa
-    tipo_despesa_variavel?: Enumtipo_despesa_variavelFieldUpdateOperationsInput | $Enums.tipo_despesa_variavel
+    descricao_despesa?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_despesa?: NullableEnumtipo_despesaFieldUpdateOperationsInput | $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: NullableEnumtipo_despesa_fixaFieldUpdateOperationsInput | $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: NullableEnumtipo_despesa_variavelFieldUpdateOperationsInput | $Enums.tipo_despesa_variavel | null
     valor_despesa?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     data_despesa?: DateTimeFieldUpdateOperationsInput | Date | string
     responsavel_compra_id?: StringFieldUpdateOperationsInput | string
-    categoria_despesa?: StringFieldUpdateOperationsInput | string
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
+    movimentacoes?: MovimentacaoUncheckedUpdateManyWithoutDespesaNestedInput
   }
 
   export type sucata_comprasUpsertWithoutLancamentos_caixaInput = {
@@ -46942,7 +53468,7 @@ export namespace Prisma {
     data_compra?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     valor_compra?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantidade?: IntFieldUpdateOperationsInput | number
-    clientes?: clientesUpdateOneRequiredWithoutSucata_comprasNestedInput
+    clientes?: clientesUpdateOneRequiredWithoutSucata_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutSucata_comprasNestedInput
   }
 
@@ -47119,6 +53645,37 @@ export namespace Prisma {
     responsavel_compra_id?: StringFieldUpdateOperationsInput | string
   }
 
+  export type PlanoContasUpsertWithoutLancamentos_caixaInput = {
+    update: XOR<PlanoContasUpdateWithoutLancamentos_caixaInput, PlanoContasUncheckedUpdateWithoutLancamentos_caixaInput>
+    create: XOR<PlanoContasCreateWithoutLancamentos_caixaInput, PlanoContasUncheckedCreateWithoutLancamentos_caixaInput>
+    where?: PlanoContasWhereInput
+  }
+
+  export type PlanoContasUpdateToOneWithWhereWithoutLancamentos_caixaInput = {
+    where?: PlanoContasWhereInput
+    data: XOR<PlanoContasUpdateWithoutLancamentos_caixaInput, PlanoContasUncheckedUpdateWithoutLancamentos_caixaInput>
+  }
+
+  export type PlanoContasUpdateWithoutLancamentos_caixaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigo_contabil?: StringFieldUpdateOperationsInput | string
+    nome_conta?: StringFieldUpdateOperationsInput | string
+    tipo_dre?: EnumTipoContaPlanoFieldUpdateOperationsInput | $Enums.TipoContaPlano
+    despesas?: despesasUpdateManyWithoutCategoria_planoNestedInput
+    pedidos_vendas?: pedidos_vendasUpdateManyWithoutPlano_contasNestedInput
+    movimentacoes?: MovimentacaoUpdateManyWithoutPlano_contasNestedInput
+  }
+
+  export type PlanoContasUncheckedUpdateWithoutLancamentos_caixaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codigo_contabil?: StringFieldUpdateOperationsInput | string
+    nome_conta?: StringFieldUpdateOperationsInput | string
+    tipo_dre?: EnumTipoContaPlanoFieldUpdateOperationsInput | $Enums.TipoContaPlano
+    despesas?: despesasUncheckedUpdateManyWithoutCategoria_planoNestedInput
+    pedidos_vendas?: pedidos_vendasUncheckedUpdateManyWithoutPlano_contasNestedInput
+    movimentacoes?: MovimentacaoUncheckedUpdateManyWithoutPlano_contasNestedInput
+  }
+
   export type pedidos_vendasCreateManyCliente_compradorInput = {
     id?: string
     data_venda?: Date | string
@@ -47127,6 +53684,8 @@ export namespace Prisma {
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
     responsavel_venda_id: string
+    os_servicos_itensId?: string | null
+    plano_contas_id?: string | null
   }
 
   export type sucata_comprasCreateManyClientesInput = {
@@ -47144,6 +53703,7 @@ export namespace Prisma {
     chassi?: string | null
     cor?: string | null
     ano_fabricacao?: number | null
+    os_servicos_itensId?: string | null
   }
 
   export type ordem_servicoCreateManyClientesInput = {
@@ -47189,6 +53749,9 @@ export namespace Prisma {
     responsavel_venda?: usuariosUpdateOneRequiredWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUpdateOneWithoutPedido_vendaNestedInput
     lancamentos_caixa?: fluxo_caixaUpdateManyWithoutPedido_vendaNestedInput
+    osServicosItens?: os_servicos_itensUpdateOneWithoutPedidosNestedInput
+    plano_contas?: PlanoContasUpdateOneWithoutPedidos_vendasNestedInput
+    movimentacoes?: MovimentacaoUpdateManyWithoutPedido_vendaNestedInput
   }
 
   export type pedidos_vendasUncheckedUpdateWithoutCliente_compradorInput = {
@@ -47199,9 +53762,12 @@ export namespace Prisma {
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
     responsavel_venda_id?: StringFieldUpdateOperationsInput | string
+    os_servicos_itensId?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: NullableStringFieldUpdateOperationsInput | string | null
     itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUncheckedUpdateOneWithoutPedido_vendaNestedInput
     lancamentos_caixa?: fluxo_caixaUncheckedUpdateManyWithoutPedido_vendaNestedInput
+    movimentacoes?: MovimentacaoUncheckedUpdateManyWithoutPedido_vendaNestedInput
   }
 
   export type pedidos_vendasUncheckedUpdateManyWithoutCliente_compradorInput = {
@@ -47212,6 +53778,8 @@ export namespace Prisma {
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
     responsavel_venda_id?: StringFieldUpdateOperationsInput | string
+    os_servicos_itensId?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type sucata_comprasUpdateWithoutClientesInput = {
@@ -47248,6 +53816,7 @@ export namespace Prisma {
     ano_fabricacao?: NullableIntFieldUpdateOperationsInput | number | null
     ordem_servico?: ordem_servicoUpdateManyWithoutVeiculoNestedInput
     modelos?: modelosUpdateOneRequiredWithoutVeiculos_cliente_manutencaoNestedInput
+    osServicosItens?: os_servicos_itensUpdateOneWithoutVeiculosNestedInput
   }
 
   export type veiculos_cliente_manutencaoUncheckedUpdateWithoutClientesInput = {
@@ -47257,6 +53826,7 @@ export namespace Prisma {
     chassi?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: NullableStringFieldUpdateOperationsInput | string | null
     ano_fabricacao?: NullableIntFieldUpdateOperationsInput | number | null
+    os_servicos_itensId?: NullableStringFieldUpdateOperationsInput | string | null
     ordem_servico?: ordem_servicoUncheckedUpdateManyWithoutVeiculoNestedInput
   }
 
@@ -47267,6 +53837,7 @@ export namespace Prisma {
     chassi?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: NullableStringFieldUpdateOperationsInput | string | null
     ano_fabricacao?: NullableIntFieldUpdateOperationsInput | number | null
+    os_servicos_itensId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ordem_servicoUpdateWithoutClientesInput = {
@@ -47382,7 +53953,8 @@ export namespace Prisma {
   export type fluxo_caixaCreateManyEstoque_objetos_duraveisInput = {
     id?: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal | DecimalJsLike | number | string
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao?: Date | string
@@ -47392,13 +53964,15 @@ export namespace Prisma {
     sucata_compra_id?: string | null
     sucata_venda_id?: string | null
     objeto_generico_id?: string | null
+    plano_contas_id: string
     usuario_caixa_id: string
   }
 
   export type fluxo_caixaUpdateWithoutEstoque_objetos_duraveisInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -47409,12 +53983,14 @@ export namespace Prisma {
     sucata_venda?: sucata_estoqueUpdateOneWithoutLancamentos_caixaNestedInput
     usuario_caixa?: usuariosUpdateOneRequiredWithoutMovimentacoes_caixaNestedInput
     estoque_objetos_genericos?: estoque_objetos_genericosUpdateOneWithoutLancamentos_caixaNestedInput
+    plano_contas?: PlanoContasUpdateOneRequiredWithoutLancamentos_caixaNestedInput
   }
 
   export type fluxo_caixaUncheckedUpdateWithoutEstoque_objetos_duraveisInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -47424,13 +54000,15 @@ export namespace Prisma {
     sucata_compra_id?: NullableStringFieldUpdateOperationsInput | string | null
     sucata_venda_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_generico_id?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
     usuario_caixa_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type fluxo_caixaUncheckedUpdateManyWithoutEstoque_objetos_duraveisInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -47440,13 +54018,15 @@ export namespace Prisma {
     sucata_compra_id?: NullableStringFieldUpdateOperationsInput | string | null
     sucata_venda_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_generico_id?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
     usuario_caixa_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type fluxo_caixaCreateManyEstoque_objetos_genericosInput = {
     id?: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal | DecimalJsLike | number | string
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao?: Date | string
@@ -47456,13 +54036,15 @@ export namespace Prisma {
     sucata_compra_id?: string | null
     sucata_venda_id?: string | null
     objeto_duravel_id?: string | null
+    plano_contas_id: string
     usuario_caixa_id: string
   }
 
   export type fluxo_caixaUpdateWithoutEstoque_objetos_genericosInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -47473,12 +54055,14 @@ export namespace Prisma {
     sucata_venda?: sucata_estoqueUpdateOneWithoutLancamentos_caixaNestedInput
     usuario_caixa?: usuariosUpdateOneRequiredWithoutMovimentacoes_caixaNestedInput
     estoque_objetos_duraveis?: estoque_objetos_duraveisUpdateOneWithoutLancamentos_caixaNestedInput
+    plano_contas?: PlanoContasUpdateOneRequiredWithoutLancamentos_caixaNestedInput
   }
 
   export type fluxo_caixaUncheckedUpdateWithoutEstoque_objetos_genericosInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -47488,13 +54072,15 @@ export namespace Prisma {
     sucata_compra_id?: NullableStringFieldUpdateOperationsInput | string | null
     sucata_venda_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_duravel_id?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
     usuario_caixa_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type fluxo_caixaUncheckedUpdateManyWithoutEstoque_objetos_genericosInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -47504,6 +54090,7 @@ export namespace Prisma {
     sucata_compra_id?: NullableStringFieldUpdateOperationsInput | string | null
     sucata_venda_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_duravel_id?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
     usuario_caixa_id?: StringFieldUpdateOperationsInput | string
   }
 
@@ -47577,6 +54164,7 @@ export namespace Prisma {
     chassi?: string | null
     cor?: string | null
     ano_fabricacao?: number | null
+    os_servicos_itensId?: string | null
   }
 
   export type compatibilidade_pecasUpdateWithoutModelosInput = {
@@ -47710,7 +54298,8 @@ export namespace Prisma {
     cor?: NullableStringFieldUpdateOperationsInput | string | null
     ano_fabricacao?: NullableIntFieldUpdateOperationsInput | number | null
     ordem_servico?: ordem_servicoUpdateManyWithoutVeiculoNestedInput
-    clientes?: clientesUpdateOneRequiredWithoutVeiculos_cliente_manutencaoNestedInput
+    clientes?: clientesUpdateOneRequiredWithoutVeiculos_clienteNestedInput
+    osServicosItens?: os_servicos_itensUpdateOneWithoutVeiculosNestedInput
   }
 
   export type veiculos_cliente_manutencaoUncheckedUpdateWithoutModelosInput = {
@@ -47720,6 +54309,7 @@ export namespace Prisma {
     chassi?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: NullableStringFieldUpdateOperationsInput | string | null
     ano_fabricacao?: NullableIntFieldUpdateOperationsInput | number | null
+    os_servicos_itensId?: NullableStringFieldUpdateOperationsInput | string | null
     ordem_servico?: ordem_servicoUncheckedUpdateManyWithoutVeiculoNestedInput
   }
 
@@ -47730,6 +54320,7 @@ export namespace Prisma {
     chassi?: NullableStringFieldUpdateOperationsInput | string | null
     cor?: NullableStringFieldUpdateOperationsInput | string | null
     ano_fabricacao?: NullableIntFieldUpdateOperationsInput | number | null
+    os_servicos_itensId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type itens_pedido_vendasCreateManyPeca_estoqueInput = {
@@ -47880,7 +54471,8 @@ export namespace Prisma {
   export type fluxo_caixaCreateManyPedido_vendaInput = {
     id?: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal | DecimalJsLike | number | string
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao?: Date | string
@@ -47890,7 +54482,19 @@ export namespace Prisma {
     sucata_venda_id?: string | null
     objeto_duravel_id?: string | null
     objeto_generico_id?: string | null
+    plano_contas_id: string
     usuario_caixa_id: string
+  }
+
+  export type MovimentacaoCreateManyPedido_vendaInput = {
+    id?: string
+    valor: Decimal | DecimalJsLike | number | string
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
+    data_vencimento: Date | string
+    data_pagamento?: Date | string | null
+    plano_contas_id: string
+    despesa_id?: string | null
   }
 
   export type itens_pedido_vendasUpdateWithoutPedidos_vendasInput = {
@@ -47935,7 +54539,8 @@ export namespace Prisma {
   export type fluxo_caixaUpdateWithoutPedido_vendaInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -47946,12 +54551,14 @@ export namespace Prisma {
     usuario_caixa?: usuariosUpdateOneRequiredWithoutMovimentacoes_caixaNestedInput
     estoque_objetos_duraveis?: estoque_objetos_duraveisUpdateOneWithoutLancamentos_caixaNestedInput
     estoque_objetos_genericos?: estoque_objetos_genericosUpdateOneWithoutLancamentos_caixaNestedInput
+    plano_contas?: PlanoContasUpdateOneRequiredWithoutLancamentos_caixaNestedInput
   }
 
   export type fluxo_caixaUncheckedUpdateWithoutPedido_vendaInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -47961,13 +54568,15 @@ export namespace Prisma {
     sucata_venda_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_duravel_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_generico_id?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
     usuario_caixa_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type fluxo_caixaUncheckedUpdateManyWithoutPedido_vendaInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -47977,7 +54586,41 @@ export namespace Prisma {
     sucata_venda_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_duravel_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_generico_id?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
     usuario_caixa_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MovimentacaoUpdateWithoutPedido_vendaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
+    data_vencimento?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_pagamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    plano_contas?: PlanoContasUpdateOneRequiredWithoutMovimentacoesNestedInput
+    despesa?: despesasUpdateOneWithoutMovimentacoesNestedInput
+  }
+
+  export type MovimentacaoUncheckedUpdateWithoutPedido_vendaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
+    data_vencimento?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_pagamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
+    despesa_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MovimentacaoUncheckedUpdateManyWithoutPedido_vendaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
+    data_vencimento?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_pagamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
+    despesa_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type os_servicos_itensCreateManyOrdem_servicoInput = {
@@ -47998,7 +54641,8 @@ export namespace Prisma {
   export type fluxo_caixaCreateManyOrdem_servicoInput = {
     id?: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal | DecimalJsLike | number | string
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao?: Date | string
@@ -48008,6 +54652,7 @@ export namespace Prisma {
     sucata_venda_id?: string | null
     objeto_duravel_id?: string | null
     objeto_generico_id?: string | null
+    plano_contas_id: string
     usuario_caixa_id: string
   }
 
@@ -48018,6 +54663,8 @@ export namespace Prisma {
     preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     tipo_servico?: tipo_servicoUpdateOneRequiredWithoutOs_servicos_itensNestedInput
     mecanico?: usuariosUpdateOneRequiredWithoutServicos_executadosNestedInput
+    veiculos?: veiculos_cliente_manutencaoUpdateManyWithoutOsServicosItensNestedInput
+    pedidos?: pedidos_vendasUpdateManyWithoutOsServicosItensNestedInput
   }
 
   export type os_servicos_itensUncheckedUpdateWithoutOrdem_servicoInput = {
@@ -48027,6 +54674,8 @@ export namespace Prisma {
     quantidade?: IntFieldUpdateOperationsInput | number
     preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    veiculos?: veiculos_cliente_manutencaoUncheckedUpdateManyWithoutOsServicosItensNestedInput
+    pedidos?: pedidos_vendasUncheckedUpdateManyWithoutOsServicosItensNestedInput
   }
 
   export type os_servicos_itensUncheckedUpdateManyWithoutOrdem_servicoInput = {
@@ -48059,7 +54708,8 @@ export namespace Prisma {
   export type fluxo_caixaUpdateWithoutOrdem_servicoInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -48070,12 +54720,14 @@ export namespace Prisma {
     usuario_caixa?: usuariosUpdateOneRequiredWithoutMovimentacoes_caixaNestedInput
     estoque_objetos_duraveis?: estoque_objetos_duraveisUpdateOneWithoutLancamentos_caixaNestedInput
     estoque_objetos_genericos?: estoque_objetos_genericosUpdateOneWithoutLancamentos_caixaNestedInput
+    plano_contas?: PlanoContasUpdateOneRequiredWithoutLancamentos_caixaNestedInput
   }
 
   export type fluxo_caixaUncheckedUpdateWithoutOrdem_servicoInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -48085,13 +54737,15 @@ export namespace Prisma {
     sucata_venda_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_duravel_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_generico_id?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
     usuario_caixa_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type fluxo_caixaUncheckedUpdateManyWithoutOrdem_servicoInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -48101,13 +54755,113 @@ export namespace Prisma {
     sucata_venda_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_duravel_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_generico_id?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
     usuario_caixa_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type veiculos_cliente_manutencaoCreateManyOsServicosItensInput = {
+    id?: string
+    modelo_id: number
+    cliente_id: string
+    placa: string
+    chassi?: string | null
+    cor?: string | null
+    ano_fabricacao?: number | null
+  }
+
+  export type pedidos_vendasCreateManyOsServicosItensInput = {
+    id?: string
+    data_venda?: Date | string
+    valor_total?: Decimal | DecimalJsLike | number | string
+    metodo_pagamento?: $Enums.metodo_pagamento
+    status_pedido?: $Enums.status_pedido
+    observacoes_recibo?: string | null
+    cliente_comprador_id: string
+    responsavel_venda_id: string
+    plano_contas_id?: string | null
+  }
+
+  export type veiculos_cliente_manutencaoUpdateWithoutOsServicosItensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    placa?: StringFieldUpdateOperationsInput | string
+    chassi?: NullableStringFieldUpdateOperationsInput | string | null
+    cor?: NullableStringFieldUpdateOperationsInput | string | null
+    ano_fabricacao?: NullableIntFieldUpdateOperationsInput | number | null
+    ordem_servico?: ordem_servicoUpdateManyWithoutVeiculoNestedInput
+    clientes?: clientesUpdateOneRequiredWithoutVeiculos_clienteNestedInput
+    modelos?: modelosUpdateOneRequiredWithoutVeiculos_cliente_manutencaoNestedInput
+  }
+
+  export type veiculos_cliente_manutencaoUncheckedUpdateWithoutOsServicosItensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    modelo_id?: IntFieldUpdateOperationsInput | number
+    cliente_id?: StringFieldUpdateOperationsInput | string
+    placa?: StringFieldUpdateOperationsInput | string
+    chassi?: NullableStringFieldUpdateOperationsInput | string | null
+    cor?: NullableStringFieldUpdateOperationsInput | string | null
+    ano_fabricacao?: NullableIntFieldUpdateOperationsInput | number | null
+    ordem_servico?: ordem_servicoUncheckedUpdateManyWithoutVeiculoNestedInput
+  }
+
+  export type veiculos_cliente_manutencaoUncheckedUpdateManyWithoutOsServicosItensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    modelo_id?: IntFieldUpdateOperationsInput | number
+    cliente_id?: StringFieldUpdateOperationsInput | string
+    placa?: StringFieldUpdateOperationsInput | string
+    chassi?: NullableStringFieldUpdateOperationsInput | string | null
+    cor?: NullableStringFieldUpdateOperationsInput | string | null
+    ano_fabricacao?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type pedidos_vendasUpdateWithoutOsServicosItensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    data_venda?: DateTimeFieldUpdateOperationsInput | Date | string
+    valor_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
+    status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
+    observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
+    itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
+    cliente_comprador?: clientesUpdateOneRequiredWithoutPedidos_vendaNestedInput
+    responsavel_venda?: usuariosUpdateOneRequiredWithoutPedidos_vendasNestedInput
+    documento_fiscal?: documento_fiscalUpdateOneWithoutPedido_vendaNestedInput
+    lancamentos_caixa?: fluxo_caixaUpdateManyWithoutPedido_vendaNestedInput
+    plano_contas?: PlanoContasUpdateOneWithoutPedidos_vendasNestedInput
+    movimentacoes?: MovimentacaoUpdateManyWithoutPedido_vendaNestedInput
+  }
+
+  export type pedidos_vendasUncheckedUpdateWithoutOsServicosItensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    data_venda?: DateTimeFieldUpdateOperationsInput | Date | string
+    valor_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
+    status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
+    observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_comprador_id?: StringFieldUpdateOperationsInput | string
+    responsavel_venda_id?: StringFieldUpdateOperationsInput | string
+    plano_contas_id?: NullableStringFieldUpdateOperationsInput | string | null
+    itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
+    documento_fiscal?: documento_fiscalUncheckedUpdateOneWithoutPedido_vendaNestedInput
+    lancamentos_caixa?: fluxo_caixaUncheckedUpdateManyWithoutPedido_vendaNestedInput
+    movimentacoes?: MovimentacaoUncheckedUpdateManyWithoutPedido_vendaNestedInput
+  }
+
+  export type pedidos_vendasUncheckedUpdateManyWithoutOsServicosItensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    data_venda?: DateTimeFieldUpdateOperationsInput | Date | string
+    valor_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
+    status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
+    observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_comprador_id?: StringFieldUpdateOperationsInput | string
+    responsavel_venda_id?: StringFieldUpdateOperationsInput | string
+    plano_contas_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type fluxo_caixaCreateManySucata_compraInput = {
     id?: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal | DecimalJsLike | number | string
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao?: Date | string
@@ -48117,13 +54871,15 @@ export namespace Prisma {
     sucata_venda_id?: string | null
     objeto_duravel_id?: string | null
     objeto_generico_id?: string | null
+    plano_contas_id: string
     usuario_caixa_id: string
   }
 
   export type fluxo_caixaUpdateWithoutSucata_compraInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -48134,12 +54890,14 @@ export namespace Prisma {
     usuario_caixa?: usuariosUpdateOneRequiredWithoutMovimentacoes_caixaNestedInput
     estoque_objetos_duraveis?: estoque_objetos_duraveisUpdateOneWithoutLancamentos_caixaNestedInput
     estoque_objetos_genericos?: estoque_objetos_genericosUpdateOneWithoutLancamentos_caixaNestedInput
+    plano_contas?: PlanoContasUpdateOneRequiredWithoutLancamentos_caixaNestedInput
   }
 
   export type fluxo_caixaUncheckedUpdateWithoutSucata_compraInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -48149,13 +54907,15 @@ export namespace Prisma {
     sucata_venda_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_duravel_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_generico_id?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
     usuario_caixa_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type fluxo_caixaUncheckedUpdateManyWithoutSucata_compraInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -48165,7 +54925,48 @@ export namespace Prisma {
     sucata_venda_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_duravel_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_generico_id?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
     usuario_caixa_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type dados_fiscais_pecaCreateManyCfopInput = {
+    id?: string
+    peca_id: string
+    ncm: string
+    cest?: string | null
+    cst_icms?: string
+    cst_ibs_cbs?: string | null
+    cClassTrib?: string | null
+  }
+
+  export type dados_fiscais_pecaUpdateWithoutCfopInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ncm?: StringFieldUpdateOperationsInput | string
+    cest?: NullableStringFieldUpdateOperationsInput | string | null
+    cst_icms?: StringFieldUpdateOperationsInput | string
+    cst_ibs_cbs?: NullableStringFieldUpdateOperationsInput | string | null
+    cClassTrib?: NullableStringFieldUpdateOperationsInput | string | null
+    peca_estoque?: peca_estoqueUpdateOneRequiredWithoutDados_fiscaisNestedInput
+  }
+
+  export type dados_fiscais_pecaUncheckedUpdateWithoutCfopInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    peca_id?: StringFieldUpdateOperationsInput | string
+    ncm?: StringFieldUpdateOperationsInput | string
+    cest?: NullableStringFieldUpdateOperationsInput | string | null
+    cst_icms?: StringFieldUpdateOperationsInput | string
+    cst_ibs_cbs?: NullableStringFieldUpdateOperationsInput | string | null
+    cClassTrib?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type dados_fiscais_pecaUncheckedUpdateManyWithoutCfopInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    peca_id?: StringFieldUpdateOperationsInput | string
+    ncm?: StringFieldUpdateOperationsInput | string
+    cest?: NullableStringFieldUpdateOperationsInput | string | null
+    cst_icms?: StringFieldUpdateOperationsInput | string
+    cst_ibs_cbs?: NullableStringFieldUpdateOperationsInput | string | null
+    cClassTrib?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type peca_estoqueCreateManySucata_estoqueInput = {
@@ -48184,7 +54985,8 @@ export namespace Prisma {
   export type fluxo_caixaCreateManySucata_vendaInput = {
     id?: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal | DecimalJsLike | number | string
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao?: Date | string
@@ -48194,6 +54996,7 @@ export namespace Prisma {
     sucata_compra_id?: string | null
     objeto_duravel_id?: string | null
     objeto_generico_id?: string | null
+    plano_contas_id: string
     usuario_caixa_id: string
   }
 
@@ -48249,7 +55052,8 @@ export namespace Prisma {
   export type fluxo_caixaUpdateWithoutSucata_vendaInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -48260,12 +55064,14 @@ export namespace Prisma {
     usuario_caixa?: usuariosUpdateOneRequiredWithoutMovimentacoes_caixaNestedInput
     estoque_objetos_duraveis?: estoque_objetos_duraveisUpdateOneWithoutLancamentos_caixaNestedInput
     estoque_objetos_genericos?: estoque_objetos_genericosUpdateOneWithoutLancamentos_caixaNestedInput
+    plano_contas?: PlanoContasUpdateOneRequiredWithoutLancamentos_caixaNestedInput
   }
 
   export type fluxo_caixaUncheckedUpdateWithoutSucata_vendaInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -48275,13 +55081,15 @@ export namespace Prisma {
     sucata_compra_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_duravel_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_generico_id?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
     usuario_caixa_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type fluxo_caixaUncheckedUpdateManyWithoutSucata_vendaInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -48291,6 +55099,7 @@ export namespace Prisma {
     sucata_compra_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_duravel_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_generico_id?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
     usuario_caixa_id?: StringFieldUpdateOperationsInput | string
   }
 
@@ -48310,6 +55119,8 @@ export namespace Prisma {
     preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     ordem_servico?: ordem_servicoUpdateOneRequiredWithoutServicos_itensNestedInput
     mecanico?: usuariosUpdateOneRequiredWithoutServicos_executadosNestedInput
+    veiculos?: veiculos_cliente_manutencaoUpdateManyWithoutOsServicosItensNestedInput
+    pedidos?: pedidos_vendasUpdateManyWithoutOsServicosItensNestedInput
   }
 
   export type os_servicos_itensUncheckedUpdateWithoutTipo_servicoInput = {
@@ -48319,6 +55130,8 @@ export namespace Prisma {
     quantidade?: IntFieldUpdateOperationsInput | number
     preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    veiculos?: veiculos_cliente_manutencaoUncheckedUpdateManyWithoutOsServicosItensNestedInput
+    pedidos?: pedidos_vendasUncheckedUpdateManyWithoutOsServicosItensNestedInput
   }
 
   export type os_servicos_itensUncheckedUpdateManyWithoutTipo_servicoInput = {
@@ -48332,13 +55145,13 @@ export namespace Prisma {
 
   export type despesasCreateManyUsuariosInput = {
     id?: string
-    descricao_despesa: string
-    tipo_despesa: $Enums.tipo_despesa
-    tipo_despesa_fixa: $Enums.tipo_despesa_fixa
-    tipo_despesa_variavel: $Enums.tipo_despesa_variavel
+    descricao_despesa?: string | null
+    tipo_despesa?: $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: $Enums.tipo_despesa_variavel | null
     valor_despesa: Decimal | DecimalJsLike | number | string
     data_despesa?: Date | string
-    categoria_despesa: string
+    plano_contas_id: string
   }
 
   export type estoque_objetos_duraveisCreateManyUsuariosInput = {
@@ -48379,6 +55192,8 @@ export namespace Prisma {
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
     cliente_comprador_id: string
+    os_servicos_itensId?: string | null
+    plano_contas_id?: string | null
   }
 
   export type sucata_comprasCreateManyUsuariosInput = {
@@ -48433,7 +55248,8 @@ export namespace Prisma {
   export type fluxo_caixaCreateManyUsuario_caixaInput = {
     id?: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal | DecimalJsLike | number | string
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao?: Date | string
@@ -48444,41 +55260,44 @@ export namespace Prisma {
     sucata_venda_id?: string | null
     objeto_duravel_id?: string | null
     objeto_generico_id?: string | null
+    plano_contas_id: string
   }
 
   export type despesasUpdateWithoutUsuariosInput = {
     id?: StringFieldUpdateOperationsInput | string
-    descricao_despesa?: StringFieldUpdateOperationsInput | string
-    tipo_despesa?: Enumtipo_despesaFieldUpdateOperationsInput | $Enums.tipo_despesa
-    tipo_despesa_fixa?: Enumtipo_despesa_fixaFieldUpdateOperationsInput | $Enums.tipo_despesa_fixa
-    tipo_despesa_variavel?: Enumtipo_despesa_variavelFieldUpdateOperationsInput | $Enums.tipo_despesa_variavel
+    descricao_despesa?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_despesa?: NullableEnumtipo_despesaFieldUpdateOperationsInput | $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: NullableEnumtipo_despesa_fixaFieldUpdateOperationsInput | $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: NullableEnumtipo_despesa_variavelFieldUpdateOperationsInput | $Enums.tipo_despesa_variavel | null
     valor_despesa?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     data_despesa?: DateTimeFieldUpdateOperationsInput | Date | string
-    categoria_despesa?: StringFieldUpdateOperationsInput | string
+    categoria_plano?: PlanoContasUpdateOneRequiredWithoutDespesasNestedInput
+    movimentacoes?: MovimentacaoUpdateManyWithoutDespesaNestedInput
     fluxo_caixa?: fluxo_caixaUpdateManyWithoutDespesaNestedInput
   }
 
   export type despesasUncheckedUpdateWithoutUsuariosInput = {
     id?: StringFieldUpdateOperationsInput | string
-    descricao_despesa?: StringFieldUpdateOperationsInput | string
-    tipo_despesa?: Enumtipo_despesaFieldUpdateOperationsInput | $Enums.tipo_despesa
-    tipo_despesa_fixa?: Enumtipo_despesa_fixaFieldUpdateOperationsInput | $Enums.tipo_despesa_fixa
-    tipo_despesa_variavel?: Enumtipo_despesa_variavelFieldUpdateOperationsInput | $Enums.tipo_despesa_variavel
+    descricao_despesa?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_despesa?: NullableEnumtipo_despesaFieldUpdateOperationsInput | $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: NullableEnumtipo_despesa_fixaFieldUpdateOperationsInput | $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: NullableEnumtipo_despesa_variavelFieldUpdateOperationsInput | $Enums.tipo_despesa_variavel | null
     valor_despesa?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     data_despesa?: DateTimeFieldUpdateOperationsInput | Date | string
-    categoria_despesa?: StringFieldUpdateOperationsInput | string
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
+    movimentacoes?: MovimentacaoUncheckedUpdateManyWithoutDespesaNestedInput
     fluxo_caixa?: fluxo_caixaUncheckedUpdateManyWithoutDespesaNestedInput
   }
 
   export type despesasUncheckedUpdateManyWithoutUsuariosInput = {
     id?: StringFieldUpdateOperationsInput | string
-    descricao_despesa?: StringFieldUpdateOperationsInput | string
-    tipo_despesa?: Enumtipo_despesaFieldUpdateOperationsInput | $Enums.tipo_despesa
-    tipo_despesa_fixa?: Enumtipo_despesa_fixaFieldUpdateOperationsInput | $Enums.tipo_despesa_fixa
-    tipo_despesa_variavel?: Enumtipo_despesa_variavelFieldUpdateOperationsInput | $Enums.tipo_despesa_variavel
+    descricao_despesa?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_despesa?: NullableEnumtipo_despesaFieldUpdateOperationsInput | $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: NullableEnumtipo_despesa_fixaFieldUpdateOperationsInput | $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: NullableEnumtipo_despesa_variavelFieldUpdateOperationsInput | $Enums.tipo_despesa_variavel | null
     valor_despesa?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     data_despesa?: DateTimeFieldUpdateOperationsInput | Date | string
-    categoria_despesa?: StringFieldUpdateOperationsInput | string
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type estoque_objetos_duraveisUpdateWithoutUsuariosInput = {
@@ -48593,9 +55412,12 @@ export namespace Prisma {
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
     itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
-    cliente_comprador?: clientesUpdateOneRequiredWithoutPedidos_vendasNestedInput
+    cliente_comprador?: clientesUpdateOneRequiredWithoutPedidos_vendaNestedInput
     documento_fiscal?: documento_fiscalUpdateOneWithoutPedido_vendaNestedInput
     lancamentos_caixa?: fluxo_caixaUpdateManyWithoutPedido_vendaNestedInput
+    osServicosItens?: os_servicos_itensUpdateOneWithoutPedidosNestedInput
+    plano_contas?: PlanoContasUpdateOneWithoutPedidos_vendasNestedInput
+    movimentacoes?: MovimentacaoUpdateManyWithoutPedido_vendaNestedInput
   }
 
   export type pedidos_vendasUncheckedUpdateWithoutResponsavel_vendaInput = {
@@ -48606,9 +55428,12 @@ export namespace Prisma {
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
     cliente_comprador_id?: StringFieldUpdateOperationsInput | string
+    os_servicos_itensId?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: NullableStringFieldUpdateOperationsInput | string | null
     itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUncheckedUpdateOneWithoutPedido_vendaNestedInput
     lancamentos_caixa?: fluxo_caixaUncheckedUpdateManyWithoutPedido_vendaNestedInput
+    movimentacoes?: MovimentacaoUncheckedUpdateManyWithoutPedido_vendaNestedInput
   }
 
   export type pedidos_vendasUncheckedUpdateManyWithoutResponsavel_vendaInput = {
@@ -48619,6 +55444,8 @@ export namespace Prisma {
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
     cliente_comprador_id?: StringFieldUpdateOperationsInput | string
+    os_servicos_itensId?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type sucata_comprasUpdateWithoutUsuariosInput = {
@@ -48626,7 +55453,7 @@ export namespace Prisma {
     data_compra?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     valor_compra?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantidade?: IntFieldUpdateOperationsInput | number
-    clientes?: clientesUpdateOneRequiredWithoutSucata_comprasNestedInput
+    clientes?: clientesUpdateOneRequiredWithoutSucata_compraNestedInput
     lancamentos_caixa?: fluxo_caixaUpdateManyWithoutSucata_compraNestedInput
   }
 
@@ -48764,6 +55591,8 @@ export namespace Prisma {
     preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     ordem_servico?: ordem_servicoUpdateOneRequiredWithoutServicos_itensNestedInput
     tipo_servico?: tipo_servicoUpdateOneRequiredWithoutOs_servicos_itensNestedInput
+    veiculos?: veiculos_cliente_manutencaoUpdateManyWithoutOsServicosItensNestedInput
+    pedidos?: pedidos_vendasUpdateManyWithoutOsServicosItensNestedInput
   }
 
   export type os_servicos_itensUncheckedUpdateWithoutMecanicoInput = {
@@ -48773,6 +55602,8 @@ export namespace Prisma {
     quantidade?: IntFieldUpdateOperationsInput | number
     preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    veiculos?: veiculos_cliente_manutencaoUncheckedUpdateManyWithoutOsServicosItensNestedInput
+    pedidos?: pedidos_vendasUncheckedUpdateManyWithoutOsServicosItensNestedInput
   }
 
   export type os_servicos_itensUncheckedUpdateManyWithoutMecanicoInput = {
@@ -48787,7 +55618,8 @@ export namespace Prisma {
   export type fluxo_caixaUpdateWithoutUsuario_caixaInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -48798,12 +55630,14 @@ export namespace Prisma {
     sucata_venda?: sucata_estoqueUpdateOneWithoutLancamentos_caixaNestedInput
     estoque_objetos_duraveis?: estoque_objetos_duraveisUpdateOneWithoutLancamentos_caixaNestedInput
     estoque_objetos_genericos?: estoque_objetos_genericosUpdateOneWithoutLancamentos_caixaNestedInput
+    plano_contas?: PlanoContasUpdateOneRequiredWithoutLancamentos_caixaNestedInput
   }
 
   export type fluxo_caixaUncheckedUpdateWithoutUsuario_caixaInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -48814,12 +55648,14 @@ export namespace Prisma {
     sucata_venda_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_duravel_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_generico_id?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type fluxo_caixaUncheckedUpdateManyWithoutUsuario_caixaInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -48830,6 +55666,7 @@ export namespace Prisma {
     sucata_venda_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_duravel_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_generico_id?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type ordem_servicoCreateManyVeiculoInput = {
@@ -48904,10 +55741,242 @@ export namespace Prisma {
     valor_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
+  export type despesasCreateManyCategoria_planoInput = {
+    id?: string
+    descricao_despesa?: string | null
+    tipo_despesa?: $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: $Enums.tipo_despesa_variavel | null
+    valor_despesa: Decimal | DecimalJsLike | number | string
+    data_despesa?: Date | string
+    responsavel_compra_id: string
+  }
+
+  export type fluxo_caixaCreateManyPlano_contasInput = {
+    id?: string
+    descricao: string
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
+    valor: Decimal | DecimalJsLike | number | string
+    metodo_pagamento: $Enums.metodo_pagamento
+    data_movimentacao?: Date | string
+    pedido_venda_id?: string | null
+    ordem_servico_id?: string | null
+    despesa_id?: string | null
+    sucata_compra_id?: string | null
+    sucata_venda_id?: string | null
+    objeto_duravel_id?: string | null
+    objeto_generico_id?: string | null
+    usuario_caixa_id: string
+  }
+
+  export type pedidos_vendasCreateManyPlano_contasInput = {
+    id?: string
+    data_venda?: Date | string
+    valor_total?: Decimal | DecimalJsLike | number | string
+    metodo_pagamento?: $Enums.metodo_pagamento
+    status_pedido?: $Enums.status_pedido
+    observacoes_recibo?: string | null
+    cliente_comprador_id: string
+    responsavel_venda_id: string
+    os_servicos_itensId?: string | null
+  }
+
+  export type MovimentacaoCreateManyPlano_contasInput = {
+    id?: string
+    valor: Decimal | DecimalJsLike | number | string
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
+    data_vencimento: Date | string
+    data_pagamento?: Date | string | null
+    pedido_venda_id?: string | null
+    despesa_id?: string | null
+  }
+
+  export type despesasUpdateWithoutCategoria_planoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao_despesa?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_despesa?: NullableEnumtipo_despesaFieldUpdateOperationsInput | $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: NullableEnumtipo_despesa_fixaFieldUpdateOperationsInput | $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: NullableEnumtipo_despesa_variavelFieldUpdateOperationsInput | $Enums.tipo_despesa_variavel | null
+    valor_despesa?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_despesa?: DateTimeFieldUpdateOperationsInput | Date | string
+    usuarios?: usuariosUpdateOneRequiredWithoutDespesasNestedInput
+    movimentacoes?: MovimentacaoUpdateManyWithoutDespesaNestedInput
+    fluxo_caixa?: fluxo_caixaUpdateManyWithoutDespesaNestedInput
+  }
+
+  export type despesasUncheckedUpdateWithoutCategoria_planoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao_despesa?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_despesa?: NullableEnumtipo_despesaFieldUpdateOperationsInput | $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: NullableEnumtipo_despesa_fixaFieldUpdateOperationsInput | $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: NullableEnumtipo_despesa_variavelFieldUpdateOperationsInput | $Enums.tipo_despesa_variavel | null
+    valor_despesa?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_despesa?: DateTimeFieldUpdateOperationsInput | Date | string
+    responsavel_compra_id?: StringFieldUpdateOperationsInput | string
+    movimentacoes?: MovimentacaoUncheckedUpdateManyWithoutDespesaNestedInput
+    fluxo_caixa?: fluxo_caixaUncheckedUpdateManyWithoutDespesaNestedInput
+  }
+
+  export type despesasUncheckedUpdateManyWithoutCategoria_planoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao_despesa?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_despesa?: NullableEnumtipo_despesaFieldUpdateOperationsInput | $Enums.tipo_despesa | null
+    tipo_despesa_fixa?: NullableEnumtipo_despesa_fixaFieldUpdateOperationsInput | $Enums.tipo_despesa_fixa | null
+    tipo_despesa_variavel?: NullableEnumtipo_despesa_variavelFieldUpdateOperationsInput | $Enums.tipo_despesa_variavel | null
+    valor_despesa?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_despesa?: DateTimeFieldUpdateOperationsInput | Date | string
+    responsavel_compra_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type fluxo_caixaUpdateWithoutPlano_contasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
+    valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
+    data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    pedido_venda?: pedidos_vendasUpdateOneWithoutLancamentos_caixaNestedInput
+    ordem_servico?: ordem_servicoUpdateOneWithoutLancamentos_caixaNestedInput
+    despesa?: despesasUpdateOneWithoutFluxo_caixaNestedInput
+    sucata_compra?: sucata_comprasUpdateOneWithoutLancamentos_caixaNestedInput
+    sucata_venda?: sucata_estoqueUpdateOneWithoutLancamentos_caixaNestedInput
+    usuario_caixa?: usuariosUpdateOneRequiredWithoutMovimentacoes_caixaNestedInput
+    estoque_objetos_duraveis?: estoque_objetos_duraveisUpdateOneWithoutLancamentos_caixaNestedInput
+    estoque_objetos_genericos?: estoque_objetos_genericosUpdateOneWithoutLancamentos_caixaNestedInput
+  }
+
+  export type fluxo_caixaUncheckedUpdateWithoutPlano_contasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
+    valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
+    data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    pedido_venda_id?: NullableStringFieldUpdateOperationsInput | string | null
+    ordem_servico_id?: NullableStringFieldUpdateOperationsInput | string | null
+    despesa_id?: NullableStringFieldUpdateOperationsInput | string | null
+    sucata_compra_id?: NullableStringFieldUpdateOperationsInput | string | null
+    sucata_venda_id?: NullableStringFieldUpdateOperationsInput | string | null
+    objeto_duravel_id?: NullableStringFieldUpdateOperationsInput | string | null
+    objeto_generico_id?: NullableStringFieldUpdateOperationsInput | string | null
+    usuario_caixa_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type fluxo_caixaUncheckedUpdateManyWithoutPlano_contasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
+    valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
+    data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    pedido_venda_id?: NullableStringFieldUpdateOperationsInput | string | null
+    ordem_servico_id?: NullableStringFieldUpdateOperationsInput | string | null
+    despesa_id?: NullableStringFieldUpdateOperationsInput | string | null
+    sucata_compra_id?: NullableStringFieldUpdateOperationsInput | string | null
+    sucata_venda_id?: NullableStringFieldUpdateOperationsInput | string | null
+    objeto_duravel_id?: NullableStringFieldUpdateOperationsInput | string | null
+    objeto_generico_id?: NullableStringFieldUpdateOperationsInput | string | null
+    usuario_caixa_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type pedidos_vendasUpdateWithoutPlano_contasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    data_venda?: DateTimeFieldUpdateOperationsInput | Date | string
+    valor_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
+    status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
+    observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
+    itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
+    cliente_comprador?: clientesUpdateOneRequiredWithoutPedidos_vendaNestedInput
+    responsavel_venda?: usuariosUpdateOneRequiredWithoutPedidos_vendasNestedInput
+    documento_fiscal?: documento_fiscalUpdateOneWithoutPedido_vendaNestedInput
+    lancamentos_caixa?: fluxo_caixaUpdateManyWithoutPedido_vendaNestedInput
+    osServicosItens?: os_servicos_itensUpdateOneWithoutPedidosNestedInput
+    movimentacoes?: MovimentacaoUpdateManyWithoutPedido_vendaNestedInput
+  }
+
+  export type pedidos_vendasUncheckedUpdateWithoutPlano_contasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    data_venda?: DateTimeFieldUpdateOperationsInput | Date | string
+    valor_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
+    status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
+    observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_comprador_id?: StringFieldUpdateOperationsInput | string
+    responsavel_venda_id?: StringFieldUpdateOperationsInput | string
+    os_servicos_itensId?: NullableStringFieldUpdateOperationsInput | string | null
+    itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
+    documento_fiscal?: documento_fiscalUncheckedUpdateOneWithoutPedido_vendaNestedInput
+    lancamentos_caixa?: fluxo_caixaUncheckedUpdateManyWithoutPedido_vendaNestedInput
+    movimentacoes?: MovimentacaoUncheckedUpdateManyWithoutPedido_vendaNestedInput
+  }
+
+  export type pedidos_vendasUncheckedUpdateManyWithoutPlano_contasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    data_venda?: DateTimeFieldUpdateOperationsInput | Date | string
+    valor_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
+    status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
+    observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_comprador_id?: StringFieldUpdateOperationsInput | string
+    responsavel_venda_id?: StringFieldUpdateOperationsInput | string
+    os_servicos_itensId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MovimentacaoUpdateWithoutPlano_contasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
+    data_vencimento?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_pagamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pedido_venda?: pedidos_vendasUpdateOneWithoutMovimentacoesNestedInput
+    despesa?: despesasUpdateOneWithoutMovimentacoesNestedInput
+  }
+
+  export type MovimentacaoUncheckedUpdateWithoutPlano_contasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
+    data_vencimento?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_pagamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pedido_venda_id?: NullableStringFieldUpdateOperationsInput | string | null
+    despesa_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MovimentacaoUncheckedUpdateManyWithoutPlano_contasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
+    data_vencimento?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_pagamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pedido_venda_id?: NullableStringFieldUpdateOperationsInput | string | null
+    despesa_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MovimentacaoCreateManyDespesaInput = {
+    id?: string
+    valor: Decimal | DecimalJsLike | number | string
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
+    data_vencimento: Date | string
+    data_pagamento?: Date | string | null
+    plano_contas_id: string
+    pedido_venda_id?: string | null
+  }
+
   export type fluxo_caixaCreateManyDespesaInput = {
     id?: string
     descricao: string
-    tipo: $Enums.tipo_movimentacao_caixa
+    tipo: $Enums.TipoMovimentacaoCaixa
+    status: $Enums.StatusMovimentacao
     valor: Decimal | DecimalJsLike | number | string
     metodo_pagamento: $Enums.metodo_pagamento
     data_movimentacao?: Date | string
@@ -48917,13 +55986,48 @@ export namespace Prisma {
     sucata_venda_id?: string | null
     objeto_duravel_id?: string | null
     objeto_generico_id?: string | null
+    plano_contas_id: string
     usuario_caixa_id: string
+  }
+
+  export type MovimentacaoUpdateWithoutDespesaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
+    data_vencimento?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_pagamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    plano_contas?: PlanoContasUpdateOneRequiredWithoutMovimentacoesNestedInput
+    pedido_venda?: pedidos_vendasUpdateOneWithoutMovimentacoesNestedInput
+  }
+
+  export type MovimentacaoUncheckedUpdateWithoutDespesaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
+    data_vencimento?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_pagamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
+    pedido_venda_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MovimentacaoUncheckedUpdateManyWithoutDespesaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
+    data_vencimento?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_pagamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
+    pedido_venda_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type fluxo_caixaUpdateWithoutDespesaInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -48934,12 +56038,14 @@ export namespace Prisma {
     usuario_caixa?: usuariosUpdateOneRequiredWithoutMovimentacoes_caixaNestedInput
     estoque_objetos_duraveis?: estoque_objetos_duraveisUpdateOneWithoutLancamentos_caixaNestedInput
     estoque_objetos_genericos?: estoque_objetos_genericosUpdateOneWithoutLancamentos_caixaNestedInput
+    plano_contas?: PlanoContasUpdateOneRequiredWithoutLancamentos_caixaNestedInput
   }
 
   export type fluxo_caixaUncheckedUpdateWithoutDespesaInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -48949,13 +56055,15 @@ export namespace Prisma {
     sucata_venda_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_duravel_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_generico_id?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
     usuario_caixa_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type fluxo_caixaUncheckedUpdateManyWithoutDespesaInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    tipo?: Enumtipo_movimentacao_caixaFieldUpdateOperationsInput | $Enums.tipo_movimentacao_caixa
+    tipo?: EnumTipoMovimentacaoCaixaFieldUpdateOperationsInput | $Enums.TipoMovimentacaoCaixa
+    status?: EnumStatusMovimentacaoFieldUpdateOperationsInput | $Enums.StatusMovimentacao
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     data_movimentacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -48965,6 +56073,7 @@ export namespace Prisma {
     sucata_venda_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_duravel_id?: NullableStringFieldUpdateOperationsInput | string | null
     objeto_generico_id?: NullableStringFieldUpdateOperationsInput | string | null
+    plano_contas_id?: StringFieldUpdateOperationsInput | string
     usuario_caixa_id?: StringFieldUpdateOperationsInput | string
   }
 

@@ -191,3 +191,5 @@ DEMONSTRATIVO: PONTO_EQUILIBRIO/TICKET_MEDIO/TAXA_CONVERSÃO_VENDAS/FATURAMENTO/
 -----CONFIGURACOES(SISTEMA)
 CADASTRAR/CONSULTAR/ALTERAR/DELETAR/
 USUARIOS&&PERMISSOES
+
+--ERP para emprese que presta serviço de mecânica, compra e vende sucatas de veículos e compra e vende peças. As sucatas são para aproveitar as peças, não para reciclagem

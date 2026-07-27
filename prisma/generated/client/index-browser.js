@@ -130,7 +130,7 @@ exports.Prisma.ClientesScalarFieldEnum = {
   cep_cliente: 'cep_cliente',
   cidade_cliente: 'cidade_cliente',
   uf_cliente: 'uf_cliente',
-  codigo_ibge: 'codigo_ibge',
+  codigo_IBGE: 'codigo_IBGE',
   pais_cliente: 'pais_cliente',
   telefone_cliente: 'telefone_cliente',
   data_nascimento: 'data_nascimento',
@@ -195,7 +195,7 @@ exports.Prisma.Dados_fiscais_pecaScalarFieldEnum = {
   peca_id: 'peca_id',
   ncm: 'ncm',
   cest: 'cest',
-  cfop_padrao: 'cfop_padrao',
+  cfop_id: 'cfop_id',
   cst_icms: 'cst_icms',
   cst_ibs_cbs: 'cst_ibs_cbs',
   cClassTrib: 'cClassTrib'
@@ -231,7 +231,9 @@ exports.Prisma.Pedidos_vendasScalarFieldEnum = {
   status_pedido: 'status_pedido',
   observacoes_recibo: 'observacoes_recibo',
   cliente_comprador_id: 'cliente_comprador_id',
-  responsavel_venda_id: 'responsavel_venda_id'
+  responsavel_venda_id: 'responsavel_venda_id',
+  os_servicos_itensId: 'os_servicos_itensId',
+  plano_contas_id: 'plano_contas_id'
 };
 
 exports.Prisma.Ordem_servicoScalarFieldEnum = {
@@ -277,6 +279,13 @@ exports.Prisma.Sucata_comprasScalarFieldEnum = {
   cliente_vendedor_id: 'cliente_vendedor_id'
 };
 
+exports.Prisma.CfopsScalarFieldEnum = {
+  id: 'id',
+  codigo: 'codigo',
+  descricao: 'descricao',
+  tipo: 'tipo'
+};
+
 exports.Prisma.Sucata_estoqueScalarFieldEnum = {
   id: 'id',
   modelo_id: 'modelo_id',
@@ -320,7 +329,8 @@ exports.Prisma.Veiculos_cliente_manutencaoScalarFieldEnum = {
   placa: 'placa',
   chassi: 'chassi',
   cor: 'cor',
-  ano_fabricacao: 'ano_fabricacao'
+  ano_fabricacao: 'ano_fabricacao',
+  os_servicos_itensId: 'os_servicos_itensId'
 };
 
 exports.Prisma.Configuracao_impostoScalarFieldEnum = {
@@ -337,6 +347,25 @@ exports.Prisma.Configuracao_impostoScalarFieldEnum = {
   data_atualizacao: 'data_atualizacao'
 };
 
+exports.Prisma.PlanoContasScalarFieldEnum = {
+  id: 'id',
+  codigo_contabil: 'codigo_contabil',
+  nome_conta: 'nome_conta',
+  tipo_dre: 'tipo_dre'
+};
+
+exports.Prisma.MovimentacaoScalarFieldEnum = {
+  id: 'id',
+  valor: 'valor',
+  tipo: 'tipo',
+  status: 'status',
+  data_vencimento: 'data_vencimento',
+  data_pagamento: 'data_pagamento',
+  plano_contas_id: 'plano_contas_id',
+  pedido_venda_id: 'pedido_venda_id',
+  despesa_id: 'despesa_id'
+};
+
 exports.Prisma.DespesasScalarFieldEnum = {
   id: 'id',
   descricao_despesa: 'descricao_despesa',
@@ -346,7 +375,7 @@ exports.Prisma.DespesasScalarFieldEnum = {
   valor_despesa: 'valor_despesa',
   data_despesa: 'data_despesa',
   responsavel_compra_id: 'responsavel_compra_id',
-  categoria_despesa: 'categoria_despesa'
+  plano_contas_id: 'plano_contas_id'
 };
 
 exports.Prisma.Documento_fiscalScalarFieldEnum = {
@@ -374,6 +403,7 @@ exports.Prisma.Fluxo_caixaScalarFieldEnum = {
   id: 'id',
   descricao: 'descricao',
   tipo: 'tipo',
+  status: 'status',
   valor: 'valor',
   metodo_pagamento: 'metodo_pagamento',
   data_movimentacao: 'data_movimentacao',
@@ -384,6 +414,7 @@ exports.Prisma.Fluxo_caixaScalarFieldEnum = {
   sucata_venda_id: 'sucata_venda_id',
   objeto_duravel_id: 'objeto_duravel_id',
   objeto_generico_id: 'objeto_generico_id',
+  plano_contas_id: 'plano_contas_id',
   usuario_caixa_id: 'usuario_caixa_id'
 };
 
@@ -569,6 +600,24 @@ exports.tipo_objeto_receita = exports.$Enums.tipo_objeto_receita = {
   RECEITA_EXTRA: 'RECEITA_EXTRA'
 };
 
+exports.TipoContaPlano = exports.$Enums.TipoContaPlano = {
+  RECEITA_BRUTA: 'RECEITA_BRUTA',
+  DEDUCAO_RECEITA: 'DEDUCAO_RECEITA',
+  CUSTO_VARIAVEL: 'CUSTO_VARIAVEL',
+  DESPESA_FIXA: 'DESPESA_FIXA',
+  INVESTIMENTO: 'INVESTIMENTO'
+};
+
+exports.TipoMovimentacaoCaixa = exports.$Enums.TipoMovimentacaoCaixa = {
+  ENTRADA: 'ENTRADA',
+  SAIDA: 'SAIDA'
+};
+
+exports.StatusMovimentacao = exports.$Enums.StatusMovimentacao = {
+  PENDENTE: 'PENDENTE',
+  PAGO: 'PAGO'
+};
+
 exports.tipo_despesa = exports.$Enums.tipo_despesa = {
   FIXA: 'FIXA',
   VARIAVEL: 'VARIAVEL'
@@ -615,11 +664,6 @@ exports.status_fiscal = exports.$Enums.status_fiscal = {
   CONTINGENCIA: 'CONTINGENCIA'
 };
 
-exports.tipo_movimentacao_caixa = exports.$Enums.tipo_movimentacao_caixa = {
-  ENTRADA: 'ENTRADA',
-  SAIDA: 'SAIDA'
-};
-
 exports.Prisma.ModelName = {
   clientes: 'clientes',
   compatibilidade_pecas: 'compatibilidade_pecas',
@@ -636,11 +680,14 @@ exports.Prisma.ModelName = {
   os_servicos_itens: 'os_servicos_itens',
   os_pecas_itens: 'os_pecas_itens',
   sucata_compras: 'sucata_compras',
+  cfops: 'cfops',
   sucata_estoque: 'sucata_estoque',
   tipo_servico: 'tipo_servico',
   usuarios: 'usuarios',
   veiculos_cliente_manutencao: 'veiculos_cliente_manutencao',
   configuracao_imposto: 'configuracao_imposto',
+  PlanoContas: 'PlanoContas',
+  Movimentacao: 'Movimentacao',
   despesas: 'despesas',
   documento_fiscal: 'documento_fiscal',
   fluxo_caixa: 'fluxo_caixa'

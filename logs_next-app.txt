@@ -1,0 +1,473 @@
+estoque_vendas_caixa_mvc_app  | $ pnpm prisma:generate && next dev -H 0.0.0.0 -p 3100
+estoque_vendas_caixa_mvc_app  | $ pnpm prisma generate
+estoque_vendas_caixa_mvc_app  | ◇ injected env (8) from .env // tip: ⌘ enable debugging { debug: true }
+estoque_vendas_caixa_mvc_app  | Loaded Prisma config from prisma.config.ts.
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Prisma schema loaded from prisma/schema.prisma.
+estoque_vendas_caixa_mvc_app  | Error: Prisma schema validation - (get-dmmf wasm)
+estoque_vendas_caixa_mvc_app  | Error code: P1012
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `plano_contas` in model `pedidos_vendas`: The relation field `plano_contas` on model `pedidos_vendas` is missing an opposite relation field on the model `PlanoContas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:200[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m199 | [0m  plano_contas_id       String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m200 | [0m  [1;91mplano_contas          PlanoContas?         @relation(fields: [plano_contas_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m201 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `plano_contas` in model `Movimentacao`: The relation field `plano_contas` on model `Movimentacao` is missing an opposite relation field on the model `PlanoContas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:507[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m506 | [0m  plano_contas_id  String               @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m507 | [0m  [1;91mplano_contas     PlanoContas          @relation(fields: [plano_contas_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m508 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `pedido_venda` in model `Movimentacao`: The relation field `pedido_venda` on model `Movimentacao` is missing an opposite relation field on the model `pedidos_vendas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:511[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m510 | [0m  pedido_venda_id  String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m511 | [0m  [1;91mpedido_venda     pedidos_vendas?      @relation(fields: [pedido_venda_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m512 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `despesa` in model `Movimentacao`: The relation field `despesa` on model `Movimentacao` is missing an opposite relation field on the model `despesas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:514[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m513 | [0m  despesa_id       String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m514 | [0m  [1;91mdespesa          despesas?            @relation(fields: [despesa_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m515 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Validation Error Count: 4
+estoque_vendas_caixa_mvc_app  | [Context: getDmmf]
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Prisma CLI Version : 7.9.0
+estoque_vendas_caixa_mvc_app  |  ELIFECYCLE  Command failed with exit code 1.
+estoque_vendas_caixa_mvc_app  |  ELIFECYCLE  Command failed with exit code 1.
+estoque_vendas_caixa_mvc_app  | $ pnpm prisma:generate && next dev -H 0.0.0.0 -p 3100
+estoque_vendas_caixa_mvc_app  | $ pnpm prisma generate
+estoque_vendas_caixa_mvc_app  | ◇ injected env (8) from .env // tip: ◈ encrypted .env [www.dotenvx.com]
+estoque_vendas_caixa_mvc_app  | Loaded Prisma config from prisma.config.ts.
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Prisma schema loaded from prisma/schema.prisma.
+estoque_vendas_caixa_mvc_app  | Error: Prisma schema validation - (get-dmmf wasm)
+estoque_vendas_caixa_mvc_app  | Error code: P1012
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `plano_contas` in model `pedidos_vendas`: The relation field `plano_contas` on model `pedidos_vendas` is missing an opposite relation field on the model `PlanoContas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:200[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m199 | [0m  plano_contas_id       String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m200 | [0m  [1;91mplano_contas          PlanoContas?         @relation(fields: [plano_contas_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m201 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `plano_contas` in model `Movimentacao`: The relation field `plano_contas` on model `Movimentacao` is missing an opposite relation field on the model `PlanoContas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:507[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m506 | [0m  plano_contas_id  String               @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m507 | [0m  [1;91mplano_contas     PlanoContas          @relation(fields: [plano_contas_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m508 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `pedido_venda` in model `Movimentacao`: The relation field `pedido_venda` on model `Movimentacao` is missing an opposite relation field on the model `pedidos_vendas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:511[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m510 | [0m  pedido_venda_id  String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m511 | [0m  [1;91mpedido_venda     pedidos_vendas?      @relation(fields: [pedido_venda_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m512 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `despesa` in model `Movimentacao`: The relation field `despesa` on model `Movimentacao` is missing an opposite relation field on the model `despesas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:514[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m513 | [0m  despesa_id       String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m514 | [0m  [1;91mdespesa          despesas?            @relation(fields: [despesa_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m515 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Validation Error Count: 4
+estoque_vendas_caixa_mvc_app  | [Context: getDmmf]
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Prisma CLI Version : 7.9.0
+estoque_vendas_caixa_mvc_app  |  ELIFECYCLE  Command failed with exit code 1.
+estoque_vendas_caixa_mvc_app  |  ELIFECYCLE  Command failed with exit code 1.
+estoque_vendas_caixa_mvc_app  | $ pnpm prisma:generate && next dev -H 0.0.0.0 -p 3100
+estoque_vendas_caixa_mvc_app  | $ pnpm prisma generate
+estoque_vendas_caixa_mvc_app  | ◇ injected env (8) from .env // tip: ◈ encrypted .env [www.dotenvx.com]
+estoque_vendas_caixa_mvc_app  | Loaded Prisma config from prisma.config.ts.
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Prisma schema loaded from prisma/schema.prisma.
+estoque_vendas_caixa_mvc_app  | Error: Prisma schema validation - (get-dmmf wasm)
+estoque_vendas_caixa_mvc_app  | Error code: P1012
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `plano_contas` in model `pedidos_vendas`: The relation field `plano_contas` on model `pedidos_vendas` is missing an opposite relation field on the model `PlanoContas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:200[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m199 | [0m  plano_contas_id       String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m200 | [0m  [1;91mplano_contas          PlanoContas?         @relation(fields: [plano_contas_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m201 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `plano_contas` in model `Movimentacao`: The relation field `plano_contas` on model `Movimentacao` is missing an opposite relation field on the model `PlanoContas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:507[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m506 | [0m  plano_contas_id  String               @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m507 | [0m  [1;91mplano_contas     PlanoContas          @relation(fields: [plano_contas_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m508 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `pedido_venda` in model `Movimentacao`: The relation field `pedido_venda` on model `Movimentacao` is missing an opposite relation field on the model `pedidos_vendas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:511[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m510 | [0m  pedido_venda_id  String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m511 | [0m  [1;91mpedido_venda     pedidos_vendas?      @relation(fields: [pedido_venda_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m512 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `despesa` in model `Movimentacao`: The relation field `despesa` on model `Movimentacao` is missing an opposite relation field on the model `despesas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:514[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m513 | [0m  despesa_id       String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m514 | [0m  [1;91mdespesa          despesas?            @relation(fields: [despesa_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m515 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Validation Error Count: 4
+estoque_vendas_caixa_mvc_app  | [Context: getDmmf]
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Prisma CLI Version : 7.9.0
+estoque_vendas_caixa_mvc_app  |  ELIFECYCLE  Command failed with exit code 1.
+estoque_vendas_caixa_mvc_app  |  ELIFECYCLE  Command failed with exit code 1.
+estoque_vendas_caixa_mvc_app  | $ pnpm prisma:generate && next dev -H 0.0.0.0 -p 3100
+estoque_vendas_caixa_mvc_app  | $ pnpm prisma generate
+estoque_vendas_caixa_mvc_app  | ◇ injected env (8) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+estoque_vendas_caixa_mvc_app  | Loaded Prisma config from prisma.config.ts.
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Prisma schema loaded from prisma/schema.prisma.
+estoque_vendas_caixa_mvc_app  | Error: Prisma schema validation - (get-dmmf wasm)
+estoque_vendas_caixa_mvc_app  | Error code: P1012
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `plano_contas` in model `pedidos_vendas`: The relation field `plano_contas` on model `pedidos_vendas` is missing an opposite relation field on the model `PlanoContas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:200[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m199 | [0m  plano_contas_id       String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m200 | [0m  [1;91mplano_contas          PlanoContas?         @relation(fields: [plano_contas_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m201 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `plano_contas` in model `Movimentacao`: The relation field `plano_contas` on model `Movimentacao` is missing an opposite relation field on the model `PlanoContas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:507[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m506 | [0m  plano_contas_id  String               @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m507 | [0m  [1;91mplano_contas     PlanoContas          @relation(fields: [plano_contas_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m508 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `pedido_venda` in model `Movimentacao`: The relation field `pedido_venda` on model `Movimentacao` is missing an opposite relation field on the model `pedidos_vendas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:511[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m510 | [0m  pedido_venda_id  String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m511 | [0m  [1;91mpedido_venda     pedidos_vendas?      @relation(fields: [pedido_venda_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m512 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `despesa` in model `Movimentacao`: The relation field `despesa` on model `Movimentacao` is missing an opposite relation field on the model `despesas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:514[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m513 | [0m  despesa_id       String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m514 | [0m  [1;91mdespesa          despesas?            @relation(fields: [despesa_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m515 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Validation Error Count: 4
+estoque_vendas_caixa_mvc_app  | [Context: getDmmf]
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Prisma CLI Version : 7.9.0
+estoque_vendas_caixa_mvc_app  |  ELIFECYCLE  Command failed with exit code 1.
+estoque_vendas_caixa_mvc_app  |  ELIFECYCLE  Command failed with exit code 1.
+estoque_vendas_caixa_mvc_app  | $ pnpm prisma:generate && next dev -H 0.0.0.0 -p 3100
+estoque_vendas_caixa_mvc_app  | $ pnpm prisma generate
+estoque_vendas_caixa_mvc_app  | ◇ injected env (8) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+estoque_vendas_caixa_mvc_app  | Loaded Prisma config from prisma.config.ts.
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Prisma schema loaded from prisma/schema.prisma.
+estoque_vendas_caixa_mvc_app  | Error: Prisma schema validation - (get-dmmf wasm)
+estoque_vendas_caixa_mvc_app  | Error code: P1012
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `plano_contas` in model `pedidos_vendas`: The relation field `plano_contas` on model `pedidos_vendas` is missing an opposite relation field on the model `PlanoContas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:200[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m199 | [0m  plano_contas_id       String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m200 | [0m  [1;91mplano_contas          PlanoContas?         @relation(fields: [plano_contas_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m201 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `plano_contas` in model `Movimentacao`: The relation field `plano_contas` on model `Movimentacao` is missing an opposite relation field on the model `PlanoContas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:507[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m506 | [0m  plano_contas_id  String               @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m507 | [0m  [1;91mplano_contas     PlanoContas          @relation(fields: [plano_contas_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m508 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `pedido_venda` in model `Movimentacao`: The relation field `pedido_venda` on model `Movimentacao` is missing an opposite relation field on the model `pedidos_vendas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:511[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m510 | [0m  pedido_venda_id  String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m511 | [0m  [1;91mpedido_venda     pedidos_vendas?      @relation(fields: [pedido_venda_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m512 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `despesa` in model `Movimentacao`: The relation field `despesa` on model `Movimentacao` is missing an opposite relation field on the model `despesas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:514[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m513 | [0m  despesa_id       String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m514 | [0m  [1;91mdespesa          despesas?            @relation(fields: [despesa_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m515 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Validation Error Count: 4
+estoque_vendas_caixa_mvc_app  | [Context: getDmmf]
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Prisma CLI Version : 7.9.0
+estoque_vendas_caixa_mvc_app  |  ELIFECYCLE  Command failed with exit code 1.
+estoque_vendas_caixa_mvc_app  |  ELIFECYCLE  Command failed with exit code 1.
+estoque_vendas_caixa_mvc_app  | $ pnpm prisma:generate && next dev -H 0.0.0.0 -p 3100
+estoque_vendas_caixa_mvc_app  | $ pnpm prisma generate
+estoque_vendas_caixa_mvc_app  | ◇ injected env (8) from .env // tip: ⌘ enable debugging { debug: true }
+estoque_vendas_caixa_mvc_app  | Loaded Prisma config from prisma.config.ts.
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Prisma schema loaded from prisma/schema.prisma.
+estoque_vendas_caixa_mvc_app  | Error: Prisma schema validation - (get-dmmf wasm)
+estoque_vendas_caixa_mvc_app  | Error code: P1012
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `plano_contas` in model `pedidos_vendas`: The relation field `plano_contas` on model `pedidos_vendas` is missing an opposite relation field on the model `PlanoContas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:200[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m199 | [0m  plano_contas_id       String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m200 | [0m  [1;91mplano_contas          PlanoContas?         @relation(fields: [plano_contas_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m201 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `plano_contas` in model `Movimentacao`: The relation field `plano_contas` on model `Movimentacao` is missing an opposite relation field on the model `PlanoContas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:507[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m506 | [0m  plano_contas_id  String               @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m507 | [0m  [1;91mplano_contas     PlanoContas          @relation(fields: [plano_contas_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m508 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `pedido_venda` in model `Movimentacao`: The relation field `pedido_venda` on model `Movimentacao` is missing an opposite relation field on the model `pedidos_vendas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:511[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m510 | [0m  pedido_venda_id  String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m511 | [0m  [1;91mpedido_venda     pedidos_vendas?      @relation(fields: [pedido_venda_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m512 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `despesa` in model `Movimentacao`: The relation field `despesa` on model `Movimentacao` is missing an opposite relation field on the model `despesas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:514[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m513 | [0m  despesa_id       String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m514 | [0m  [1;91mdespesa          despesas?            @relation(fields: [despesa_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m515 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Validation Error Count: 4
+estoque_vendas_caixa_mvc_app  | [Context: getDmmf]
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Prisma CLI Version : 7.9.0
+estoque_vendas_caixa_mvc_app  |  ELIFECYCLE  Command failed with exit code 1.
+estoque_vendas_caixa_mvc_app  |  ELIFECYCLE  Command failed with exit code 1.
+estoque_vendas_caixa_mvc_app  | $ pnpm prisma:generate && next dev -H 0.0.0.0 -p 3100
+estoque_vendas_caixa_mvc_app  | $ pnpm prisma generate
+estoque_vendas_caixa_mvc_app  | ◇ injected env (8) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+estoque_vendas_caixa_mvc_app  | Loaded Prisma config from prisma.config.ts.
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Prisma schema loaded from prisma/schema.prisma.
+estoque_vendas_caixa_mvc_app  | Error: Prisma schema validation - (get-dmmf wasm)
+estoque_vendas_caixa_mvc_app  | Error code: P1012
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `plano_contas` in model `pedidos_vendas`: The relation field `plano_contas` on model `pedidos_vendas` is missing an opposite relation field on the model `PlanoContas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:200[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m199 | [0m  plano_contas_id       String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m200 | [0m  [1;91mplano_contas          PlanoContas?         @relation(fields: [plano_contas_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m201 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `plano_contas` in model `Movimentacao`: The relation field `plano_contas` on model `Movimentacao` is missing an opposite relation field on the model `PlanoContas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:507[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m506 | [0m  plano_contas_id  String               @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m507 | [0m  [1;91mplano_contas     PlanoContas          @relation(fields: [plano_contas_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m508 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `pedido_venda` in model `Movimentacao`: The relation field `pedido_venda` on model `Movimentacao` is missing an opposite relation field on the model `pedidos_vendas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:511[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m510 | [0m  pedido_venda_id  String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m511 | [0m  [1;91mpedido_venda     pedidos_vendas?      @relation(fields: [pedido_venda_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m512 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `despesa` in model `Movimentacao`: The relation field `despesa` on model `Movimentacao` is missing an opposite relation field on the model `despesas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:514[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m513 | [0m  despesa_id       String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m514 | [0m  [1;91mdespesa          despesas?            @relation(fields: [despesa_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m515 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Validation Error Count: 4
+estoque_vendas_caixa_mvc_app  | [Context: getDmmf]
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Prisma CLI Version : 7.9.0
+estoque_vendas_caixa_mvc_app  |  ELIFECYCLE  Command failed with exit code 1.
+estoque_vendas_caixa_mvc_app  |  ELIFECYCLE  Command failed with exit code 1.
+estoque_vendas_caixa_mvc_app  | $ pnpm prisma:generate && next dev -H 0.0.0.0 -p 3100
+estoque_vendas_caixa_mvc_app  | $ pnpm prisma generate
+estoque_vendas_caixa_mvc_app  | ◇ injected env (8) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+estoque_vendas_caixa_mvc_app  | Loaded Prisma config from prisma.config.ts.
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Prisma schema loaded from prisma/schema.prisma.
+estoque_vendas_caixa_mvc_app  | Error: Prisma schema validation - (get-dmmf wasm)
+estoque_vendas_caixa_mvc_app  | Error code: P1012
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `plano_contas` in model `pedidos_vendas`: The relation field `plano_contas` on model `pedidos_vendas` is missing an opposite relation field on the model `PlanoContas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:200[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m199 | [0m  plano_contas_id       String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m200 | [0m  [1;91mplano_contas          PlanoContas?         @relation(fields: [plano_contas_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m201 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `plano_contas` in model `Movimentacao`: The relation field `plano_contas` on model `Movimentacao` is missing an opposite relation field on the model `PlanoContas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:507[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m506 | [0m  plano_contas_id  String               @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m507 | [0m  [1;91mplano_contas     PlanoContas          @relation(fields: [plano_contas_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m508 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `pedido_venda` in model `Movimentacao`: The relation field `pedido_venda` on model `Movimentacao` is missing an opposite relation field on the model `pedidos_vendas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:511[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m510 | [0m  pedido_venda_id  String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m511 | [0m  [1;91mpedido_venda     pedidos_vendas?      @relation(fields: [pedido_venda_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m512 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `despesa` in model `Movimentacao`: The relation field `despesa` on model `Movimentacao` is missing an opposite relation field on the model `despesas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:514[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m513 | [0m  despesa_id       String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m514 | [0m  [1;91mdespesa          despesas?            @relation(fields: [despesa_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m515 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Validation Error Count: 4
+estoque_vendas_caixa_mvc_app  | [Context: getDmmf]
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Prisma CLI Version : 7.9.0
+estoque_vendas_caixa_mvc_app  |  ELIFECYCLE  Command failed with exit code 1.
+estoque_vendas_caixa_mvc_app  |  ELIFECYCLE  Command failed with exit code 1.
+estoque_vendas_caixa_mvc_app  | $ pnpm prisma:generate && next dev -H 0.0.0.0 -p 3100
+estoque_vendas_caixa_mvc_app  | $ pnpm prisma generate
+estoque_vendas_caixa_mvc_app  | ◇ injected env (8) from .env // tip: ◈ encrypted .env [www.dotenvx.com]
+estoque_vendas_caixa_mvc_app  | Loaded Prisma config from prisma.config.ts.
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Prisma schema loaded from prisma/schema.prisma.
+estoque_vendas_caixa_mvc_app  | Error: Prisma schema validation - (get-dmmf wasm)
+estoque_vendas_caixa_mvc_app  | Error code: P1012
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `plano_contas` in model `pedidos_vendas`: The relation field `plano_contas` on model `pedidos_vendas` is missing an opposite relation field on the model `PlanoContas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:200[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m199 | [0m  plano_contas_id       String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m200 | [0m  [1;91mplano_contas          PlanoContas?         @relation(fields: [plano_contas_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m201 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `plano_contas` in model `Movimentacao`: The relation field `plano_contas` on model `Movimentacao` is missing an opposite relation field on the model `PlanoContas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:507[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m506 | [0m  plano_contas_id  String               @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m507 | [0m  [1;91mplano_contas     PlanoContas          @relation(fields: [plano_contas_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m508 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `pedido_venda` in model `Movimentacao`: The relation field `pedido_venda` on model `Movimentacao` is missing an opposite relation field on the model `pedidos_vendas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:511[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m510 | [0m  pedido_venda_id  String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m511 | [0m  [1;91mpedido_venda     pedidos_vendas?      @relation(fields: [pedido_venda_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m512 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `despesa` in model `Movimentacao`: The relation field `despesa` on model `Movimentacao` is missing an opposite relation field on the model `despesas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:514[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m513 | [0m  despesa_id       String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m514 | [0m  [1;91mdespesa          despesas?            @relation(fields: [despesa_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m515 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Validation Error Count: 4
+estoque_vendas_caixa_mvc_app  | [Context: getDmmf]
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Prisma CLI Version : 7.9.0
+estoque_vendas_caixa_mvc_app  |  ELIFECYCLE  Command failed with exit code 1.
+estoque_vendas_caixa_mvc_app  |  ELIFECYCLE  Command failed with exit code 1.
+estoque_vendas_caixa_mvc_app  | $ pnpm prisma:generate && next dev -H 0.0.0.0 -p 3100
+estoque_vendas_caixa_mvc_app  | $ pnpm prisma generate
+estoque_vendas_caixa_mvc_app  | ◇ injected env (8) from .env // tip: ⌘ suppress logs { quiet: true }
+estoque_vendas_caixa_mvc_app  | Loaded Prisma config from prisma.config.ts.
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Prisma schema loaded from prisma/schema.prisma.
+estoque_vendas_caixa_mvc_app  | Error: Prisma schema validation - (get-dmmf wasm)
+estoque_vendas_caixa_mvc_app  | Error code: P1012
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `plano_contas` in model `pedidos_vendas`: The relation field `plano_contas` on model `pedidos_vendas` is missing an opposite relation field on the model `PlanoContas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:200[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m199 | [0m  plano_contas_id       String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m200 | [0m  [1;91mplano_contas          PlanoContas?         @relation(fields: [plano_contas_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m201 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `plano_contas` in model `Movimentacao`: The relation field `plano_contas` on model `Movimentacao` is missing an opposite relation field on the model `PlanoContas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:507[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m506 | [0m  plano_contas_id  String               @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m507 | [0m  [1;91mplano_contas     PlanoContas          @relation(fields: [plano_contas_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m508 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `pedido_venda` in model `Movimentacao`: The relation field `pedido_venda` on model `Movimentacao` is missing an opposite relation field on the model `pedidos_vendas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:511[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m510 | [0m  pedido_venda_id  String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m511 | [0m  [1;91mpedido_venda     pedidos_vendas?      @relation(fields: [pedido_venda_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m512 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `despesa` in model `Movimentacao`: The relation field `despesa` on model `Movimentacao` is missing an opposite relation field on the model `despesas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:514[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m513 | [0m  despesa_id       String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m514 | [0m  [1;91mdespesa          despesas?            @relation(fields: [despesa_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m515 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Validation Error Count: 4
+estoque_vendas_caixa_mvc_app  | [Context: getDmmf]
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Prisma CLI Version : 7.9.0
+estoque_vendas_caixa_mvc_app  |  ELIFECYCLE  Command failed with exit code 1.
+estoque_vendas_caixa_mvc_app  |  ELIFECYCLE  Command failed with exit code 1.
+estoque_vendas_caixa_mvc_app  | $ pnpm prisma:generate && next dev -H 0.0.0.0 -p 3100
+estoque_vendas_caixa_mvc_app  | $ pnpm prisma generate
+estoque_vendas_caixa_mvc_app  | ◇ injected env (8) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+estoque_vendas_caixa_mvc_app  | Loaded Prisma config from prisma.config.ts.
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Prisma schema loaded from prisma/schema.prisma.
+estoque_vendas_caixa_mvc_app  | Error: Prisma schema validation - (get-dmmf wasm)
+estoque_vendas_caixa_mvc_app  | Error code: P1012
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `plano_contas` in model `pedidos_vendas`: The relation field `plano_contas` on model `pedidos_vendas` is missing an opposite relation field on the model `PlanoContas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:200[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m199 | [0m  plano_contas_id       String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m200 | [0m  [1;91mplano_contas          PlanoContas?         @relation(fields: [plano_contas_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m201 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `plano_contas` in model `Movimentacao`: The relation field `plano_contas` on model `Movimentacao` is missing an opposite relation field on the model `PlanoContas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:507[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m506 | [0m  plano_contas_id  String               @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m507 | [0m  [1;91mplano_contas     PlanoContas          @relation(fields: [plano_contas_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m508 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `pedido_venda` in model `Movimentacao`: The relation field `pedido_venda` on model `Movimentacao` is missing an opposite relation field on the model `pedidos_vendas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:511[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m510 | [0m  pedido_venda_id  String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m511 | [0m  [1;91mpedido_venda     pedidos_vendas?      @relation(fields: [pedido_venda_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m512 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;91merror[0m: [1mError validating field `despesa` in model `Movimentacao`: The relation field `despesa` on model `Movimentacao` is missing an opposite relation field on the model `despesas`. Either run `prisma format` or add it manually.[0m
+estoque_vendas_caixa_mvc_app  |   [1;94m-->[0m  [4mprisma/schema.prisma:514[0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m513 | [0m  despesa_id       String?              @db.Uuid
+estoque_vendas_caixa_mvc_app  | [1;94m514 | [0m  [1;91mdespesa          despesas?            @relation(fields: [despesa_id], references: [id])[0m
+estoque_vendas_caixa_mvc_app  | [1;94m515 | [0m
+estoque_vendas_caixa_mvc_app  | [1;94m   | [0m
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Validation Error Count: 4
+estoque_vendas_caixa_mvc_app  | [Context: getDmmf]
+estoque_vendas_caixa_mvc_app  | 
+estoque_vendas_caixa_mvc_app  | Prisma CLI Version : 7.9.0
+estoque_vendas_caixa_mvc_app  |  ELIFECYCLE  Command failed with exit code 1.
+estoque_vendas_caixa_mvc_app  |  ELIFECYCLE  Command failed with exit code 1.

@@ -19,7 +19,7 @@ model clientes {
   cep_cliente      String  @default("69.300-000") @db.VarChar(9)
   cidade_cliente   String? @default("Boa Vista") @db.VarChar(100)
   uf_cliente       String  @default("RR") @db.VarChar(2) // Obrigatório para validação fiscal
-  codigo_ibge      String  @default("1400100") @db.VarChar(7) // Código IBGE (Boa Vista = 1400100)
+  codigo_IBGE      String  @default("1400100") @db.VarChar(7) // Código IBGE (Boa Vista = 1400100)
   pais_cliente     String? @default("Brasil") @db.VarChar(50)
 
   telefone_cliente String?   @db.VarChar(20)
@@ -28,9 +28,9 @@ model clientes {
   data_cadastro    DateTime? @default(now()) @db.Timestamp(6)
 
   // Relacionamentos Antigos Mapeados
-  pedidos_vendas              pedidos_vendas[]
-  sucata_compras              sucata_compras[]
-  veiculos_cliente_manutencao veiculos_cliente_manutencao[]
+  pedidos_venda    pedidos_vendas[]
+  sucata_compra    sucata_compras[]
+  veiculos_cliente veiculos_cliente_manutencao[]
 
   // --- NOVOS RELACIONAMENTOS DO SISTEMA REESTRUTURADO ---
   ordens_servico             ordem_servico[] // Vinculo com o novo módulo de O.S.
@@ -127,18 +127,19 @@ model peca_estoque {
 
 // tabela obrigatoria para faturamento automático SEFAZ/RR e regras de 2026
 model dados_fiscais_peca {
-  id          String  @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
-  peca_id     String  @unique @db.Uuid
-  ncm         String  @db.VarChar(8) // Obrigatório nacional (Ex: Peças = 8708.xx.xx)
-  cest        String? @db.VarChar(7) // Código Especificador da Substituição Tributária (se aplicável em RR)
-  cfop_padrao String  @default("5102") @db.VarChar(4) // 5102 Venda de mercadoria adquirida de terceiros
-  cst_icms    String  @default("000") @db.VarChar(3) // Regime Normal ou CSOSN para Simples Nacional
+  id       String  @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
+  peca_id  String  @unique @db.Uuid
+  ncm      String  @db.VarChar(8) // Obrigatório nacional (Ex: Peças = 8708.xx.xx)
+  cest     String? @db.VarChar(7) // Código Especificador da Substituição Tributária (se aplicável em RR)
+  cfop_id  String  @default("01900000-0000-7000-8000-000000005102") @db.Uuid
+  cst_icms String  @default("000") @db.VarChar(3) // Regime Normal ou CSOSN para Simples Nacional
 
   // Adaptação Obrigatória Reforma Tributária 2026 (Nota Técnica Padrão RTC)
   cst_ibs_cbs String? @db.VarChar(3) // Código de Situação Tributária unificado da Reforma
-  cClassTrib  String? @db.VarChar(5) // Código de classificação tributária do produto
+  cClassTrib  String? @db.VarChar(5) // Código de classificação tribpedidos_vendasutária do produto
 
   peca_estoque peca_estoque @relation(fields: [peca_id], references: [id], onDelete: Cascade)
+  cfop         cfops        @relation(fields: [cfop_id], references: [id], onUpdate: Restrict)
 
   @@map("dados_fiscais_peca")
 }
@@ -170,18 +171,15 @@ model itens_pedido_vendas {
 }
 
 model pedidos_vendas {
-  id                 String           @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
-  data_venda         DateTime         @default(now()) @db.Timestamp(6)
-  valor_total        Decimal          @default(0.00) @db.Decimal(10, 2)
-  metodo_pagamento   metodo_pagamento @default(Pix)
-  status_pedido      status_pedido    @default(Autorizado)
-  observacoes_recibo String?          @db.VarChar(500)
-
-  // =========================================================================
-  // CAMPOS ESCALARES (Campos físicos que guardam as chaves estrangeiras no banco)
-  // =========================================================================
-  cliente_comprador_id String @db.Uuid
-  responsavel_venda_id String @db.Uuid
+  id                   String           @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
+  data_venda           DateTime         @default(now()) @db.Timestamp(6)
+  valor_total          Decimal          @default(0.00) @db.Decimal(10, 2)
+  metodo_pagamento     metodo_pagamento @default(Pix)
+  status_pedido        status_pedido    @default(Autorizado)
+  observacoes_recibo   String?          @db.VarChar(500)
+  //campos escalares 
+  cliente_comprador_id String           @db.Uuid
+  responsavel_venda_id String           @db.Uuid
 
   //Relacionamento
   itens_pedido_vendas itens_pedido_vendas[]
@@ -189,8 +187,16 @@ model pedidos_vendas {
   responsavel_venda   usuarios              @relation(fields: [responsavel_venda_id], references: [id], onUpdate: Restrict, map: "fk_responsavel_venda")
 
   // --- NOVOS RELACIONAMENTOS PARA EMISSÃO FISCAL E FLUXO DE CAIXA ---
-  documento_fiscal  documento_fiscal? // Vinculo com NF-e / NFC-e gerada para esta venda
-  lancamentos_caixa fluxo_caixa[] // Vinculo com o registro de entrada financeira do caixa
+  documento_fiscal    documento_fiscal? // Vinculo com NF-e / NFC-e gerada para esta venda
+  lancamentos_caixa   fluxo_caixa[] // Vinculo com o registro de entrada financeira do caixa
+  osServicosItens     os_servicos_itens? @relation(fields: [os_servicos_itensId], references: [id])
+  os_servicos_itensId String?            @db.Uuid
+
+  // ADICIONADO APENAS PARA A DRE: Para saber em qual conta de receita esse pedido entra
+  plano_contas_id String?        @db.Uuid
+  plano_contas    PlanoContas?   @relation(fields: [plano_contas_id], references: [id])
+  // RELAÇÃO REVERSA OBRIGATÓRIA
+  movimentacoes   Movimentacao[]
 
   @@map("pedidos_vendas")
 }
@@ -250,8 +256,8 @@ model os_servicos_itens {
   tipo_servico  tipo_servico  @relation(fields: [tipo_servico_id], references: [id], onUpdate: NoAction)
   mecanico      usuarios      @relation(fields: [mecanico_id], references: [id], onUpdate: Restrict)
 
-  //veiculos        veiculos_cliente_manutencao[]
-  //pedidos         pedidos_vendas[]
+  veiculos veiculos_cliente_manutencao[]
+  pedidos  pedidos_vendas[]
 
   @@map("os_servicos_itens")
 }
@@ -288,6 +294,16 @@ model sucata_compras {
   lancamentos_caixa fluxo_caixa[] // Permite ao financeiro rastrear essa saída de dinheiro
 
   @@map("sucata_compras")
+}
+
+model cfops {
+  id                String               @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
+  codigo            String               @unique @db.VarChar(4) // Ex: "5102", "1102"
+  descricao         String               @db.VarChar(255) // Descrição simplificada para o seu negócio
+  tipo              String               @db.VarChar(7) // "ENTRADA" ou "SAIDA"
+  dadosFiscaisPecas dados_fiscais_peca[]
+
+  @@map("cfops")
 }
 
 model sucata_estoque {
@@ -363,10 +379,12 @@ model veiculos_cliente_manutencao {
   ano_fabricacao Int?
 
   //lista reversa
-  ordem_servico ordem_servico[]
+  ordem_servico       ordem_servico[]
   //campos reversos
-  clientes      clientes        @relation(fields: [cliente_id], references: [id], onUpdate: Restrict, map: "fk_cliente_veiculo_manutencao")
-  modelos       modelos         @relation(fields: [modelo_id], references: [id], onUpdate: Restrict, map: "fk_modelo_veiculo_manutencao")
+  clientes            clientes           @relation(fields: [cliente_id], references: [id], onUpdate: Restrict, map: "fk_cliente_veiculo_manutencao")
+  modelos             modelos            @relation(fields: [modelo_id], references: [id], onUpdate: Restrict, map: "fk_modelo_veiculo_manutencao")
+  osServicosItens     os_servicos_itens? @relation(fields: [os_servicos_itensId], references: [id])
+  os_servicos_itensId String?            @db.Uuid
 }
 
 // ==========================================
@@ -441,23 +459,82 @@ enum tipo_despesa_variavel {
   @@map("tipo_despesa_variavel")
 }
 
+// --- ENUMS PARA ESTRUTURAÇÃO DO DRE ---
+enum TipoContaPlano {
+  RECEITA_BRUTA
+  DEDUCAO_RECEITA
+  CUSTO_VARIAVEL
+  DESPESA_FIXA
+  INVESTIMENTO
+}
+
+enum TipoMovimentacaoCaixa {
+  ENTRADA
+  SAIDA
+}
+
+enum StatusMovimentacao {
+  PENDENTE // para compras e vendas parceladas, quando o pagamento ainda não foi realizado, ou quando a nota fiscal ainda não foi emitida, ou quando o pagamento ainda não foi confirmado, ou quando ainda faltam parcelas a serem pagas.
+  PAGO
+}
+
+// --- CENTRALIZADOR DO DRE (PLANO DE CONTAS) ---
+model PlanoContas {
+  id              String         @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
+  codigo_contabil String         @unique // Ex: "1.01", "1.02", "2.01" para ordenar o relatório
+  nome_conta      String         @db.VarChar(100) // Ex: "Faturamento de Produtos", "Matéria Prima"
+  tipo_dre        TipoContaPlano // Classificação rígida exigida pela estrutura da DRE
+
+  // Relacionamentos reversos
+  despesas          despesas[]
+  lancamentos_caixa fluxo_caixa[] // Toda a inteligência da DRE e Caixa passará por aqui
+  // RELAÇÕES REVERSAS OBRIGATÓRIAS
+  pedidos_vendas    pedidos_vendas[]
+  movimentacoes     Movimentacao[]
+
+  @@map("plano_contas")
+}
+
+// --- O ELO FINANCEIRO (MOVIMENTAÇÃO DE CAIXA / PARCELAS) ---
+model Movimentacao {
+  id              String                @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
+  valor           Decimal               @db.Decimal(10, 2)
+  tipo            TipoMovimentacaoCaixa // ENTRADA ou SAIDA
+  status          StatusMovimentacao // PENDENTE ou PAGO
+  data_vencimento DateTime
+  data_pagamento  DateTime?
+
+  // Chave estrangeira para o Plano de Contas (Inteligência do DRE)
+  plano_contas_id String      @db.Uuid
+  plano_contas    PlanoContas @relation(fields: [plano_contas_id], references: [id])
+
+  // Chaves estrangeiras opcionais para rastreabilidade (Origem do dinheiro)
+  pedido_venda_id String?         @db.Uuid
+  pedido_venda    pedidos_vendas? @relation(fields: [pedido_venda_id], references: [id])
+
+  despesa_id String?   @db.Uuid
+  despesa    despesas? @relation(fields: [despesa_id], references: [id])
+
+  @@map("movimentacoes")
+}
+
 model despesas {
-  id                    String                @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
-  descricao_despesa     String                @db.VarChar(255)
-  tipo_despesa          tipo_despesa
-  tipo_despesa_fixa     tipo_despesa_fixa
-  tipo_despesa_variavel tipo_despesa_variavel
-  valor_despesa         Decimal               @db.Decimal(10, 2)
-  data_despesa          DateTime              @default(now()) @db.Timestamp(6)
-
-  // lista reversa
-  fluxo_caixa fluxo_caixa[]
-
+  id                    String                 @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
+  descricao_despesa     String?                @db.VarChar(255)
+  tipo_despesa          tipo_despesa? //despesa fixa OU despesa variavel para futuramente carcular custo fixo, custo variavel e custo marginal.
+  tipo_despesa_fixa     tipo_despesa_fixa?
+  tipo_despesa_variavel tipo_despesa_variavel?
+  valor_despesa         Decimal                @db.Decimal(10, 2)
+  data_despesa          DateTime               @default(now()) @db.Timestamp(6)
   // Relacionamentos existentes no seu modelo
-  responsavel_compra_id String   @db.Uuid
-  usuarios              usuarios @relation(fields: [responsavel_compra_id], references: [id], onDelete: Restrict)
-
-  categoria_despesa String @db.VarChar(100) // Ex: "Infraestrutura", "Pessoal", "Operacional"
+  responsavel_compra_id String                 @db.Uuid
+  usuarios              usuarios               @relation(fields: [responsavel_compra_id], references: [id], onDelete: Restrict)
+  // RELAÇÃO DINÂMICA: Substitui o enum antigo. Aponta para o Plano de Contas global
+  plano_contas_id       String                 @db.Uuid
+  categoria_plano       PlanoContas            @relation(fields: [plano_contas_id], references: [id], onDelete: Restrict)
+  // lista reversa
+  movimentacoes         Movimentacao[]
+  fluxo_caixa           fluxo_caixa[]
 
   @@map("despesas")
 }
@@ -513,18 +590,14 @@ model documento_fiscal {
   @@map("documento_fiscal")
 }
 
-enum tipo_movimentacao_caixa {
-  ENTRADA
-  SAIDA
-}
-
 model fluxo_caixa {
-  id                String                  @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
-  descricao         String                  @db.VarChar(255) // Ex: "Recebimento Pedido #X" ou "Pagamento Aluguel"
-  tipo              tipo_movimentacao_caixa
-  valor             Decimal                 @db.Decimal(10, 2)
+  id                String                @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
+  descricao         String                @db.VarChar(255) // Ex: "Recebimento Pedido #X" ou "Pagamento Aluguel"
+  tipo              TipoMovimentacaoCaixa // ENTRADA ou SAIDA
+  status            StatusMovimentacao // PENDENTE ou PAGO
+  valor             Decimal               @db.Decimal(10, 2)
   metodo_pagamento  metodo_pagamento // Pix, Credito, Dinheiro, etc.
-  data_movimentacao DateTime                @default(now()) @db.Timestamp(6)
+  data_movimentacao DateTime              @default(now()) @db.Timestamp(6)
 
   // Rastreadores de Origem para Conciliação Perfeita (Todas Opcionais)
   pedido_venda_id    String? @db.Uuid // Se veio de uma venda de balcão
@@ -535,6 +608,8 @@ model fluxo_caixa {
   // CHAVES ESTRANGEIRAS
   objeto_duravel_id  String? @db.Uuid
   objeto_generico_id String? @db.Uuid
+  // 1. ADICIONE O CAMPO DA CHAVE ESTRANGEIRA (Obrigatório para classificar na DRE)
+  plano_contas_id    String  @db.Uuid
 
   // Auditoria
   usuario_caixa_id String @db.Uuid // Quem estava logado e operando o terminal na hora
@@ -548,6 +623,8 @@ model fluxo_caixa {
   usuario_caixa             usuarios                   @relation(fields: [usuario_caixa_id], references: [id])
   estoque_objetos_duraveis  estoque_objetos_duraveis?  @relation(fields: [objeto_duravel_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
   estoque_objetos_genericos estoque_objetos_genericos? @relation(fields: [objeto_generico_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  // 2. ADICIONE O RELACIONAMENTO DE INTEGRIDADE
+  plano_contas              PlanoContas                @relation(fields: [plano_contas_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
 
   @@map("fluxo_caixa")
 }
@@ -568,18 +645,6 @@ enum cargo_usuario {
   outros                  @map("outros")
 
   @@map("cargo_usuario")
-}
-
-enum categoria_despesas {
-  Despesas_operacionais    @map("Despesas operacionais")
-  Despesas_administrativas @map("Despesas administrativas")
-  Despesas_de_marketing    @map("Despesas de marketing")
-  Despesas_de_pessoal      @map("Despesas de pessoal")
-  Despesas_financeiras     @map("Despesas financeiras")
-  Despesas_de_manutencao   @map("Despesas de manutenção")
-  Despesas_de_estoque      @map("Despesas de estoque")
-  Despesas_medicas         @map("Despesas médicas")
-  Outras_despesas          @map("Outras despesas")
 }
 
 enum categoria_peca {

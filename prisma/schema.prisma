@@ -136,7 +136,7 @@ model dados_fiscais_peca {
 
   // Adaptação Obrigatória Reforma Tributária 2026 (Nota Técnica Padrão RTC)
   cst_ibs_cbs String? @db.VarChar(3) // Código de Situação Tributária unificado da Reforma
-  cClassTrib  String? @db.VarChar(5) // Código de classificação tributária do produto
+  cClassTrib  String? @db.VarChar(5) // Código de classificação tribpedidos_vendasutária do produto
 
   peca_estoque peca_estoque @relation(fields: [peca_id], references: [id], onDelete: Cascade)
   cfop         cfops        @relation(fields: [cfop_id], references: [id], onUpdate: Restrict)
@@ -177,10 +177,7 @@ model pedidos_vendas {
   metodo_pagamento   metodo_pagamento @default(Pix)
   status_pedido      status_pedido    @default(Autorizado)
   observacoes_recibo String?          @db.VarChar(500)
-
-  // =========================================================================
-  // CAMPOS ESCALARES (Campos físicos que guardam as chaves estrangeiras no banco)
-  // =========================================================================
+  //campos escalares 
   cliente_comprador_id String @db.Uuid
   responsavel_venda_id String @db.Uuid
 
@@ -194,6 +191,12 @@ model pedidos_vendas {
   lancamentos_caixa   fluxo_caixa[] // Vinculo com o registro de entrada financeira do caixa
   osServicosItens     os_servicos_itens? @relation(fields: [os_servicos_itensId], references: [id])
   os_servicos_itensId String?            @db.Uuid
+
+  // ADICIONADO APENAS PARA A DRE: Para saber em qual conta de receita esse pedido entra
+  plano_contas_id       String?              @db.Uuid
+  plano_contas          PlanoContas?         @relation(fields: [plano_contas_id], references: [id])
+  // RELAÇÃO REVERSA OBRIGATÓRIA
+  movimentacoes         Movimentacao[]
 
   @@map("pedidos_vendas")
 }
@@ -456,23 +459,82 @@ enum tipo_despesa_variavel {
   @@map("tipo_despesa_variavel")
 }
 
+// --- ENUMS PARA ESTRUTURAÇÃO DO DRE ---
+enum TipoContaPlano {
+  RECEITA_BRUTA
+  DEDUCAO_RECEITA
+  CUSTO_VARIAVEL
+  DESPESA_FIXA
+  INVESTIMENTO
+}
+
+enum TipoMovimentacaoCaixa {
+  ENTRADA
+  SAIDA
+}
+
+enum StatusMovimentacao {
+  PENDENTE    // para compras e vendas parceladas, quando o pagamento ainda não foi realizado, ou quando a nota fiscal ainda não foi emitida, ou quando o pagamento ainda não foi confirmado, ou quando ainda faltam parcelas a serem pagas.
+  PAGO
+}
+
+// --- CENTRALIZADOR DO DRE (PLANO DE CONTAS) ---
+model PlanoContas {
+  id              String         @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
+  codigo_contabil String         @unique // Ex: "1.01", "1.02", "2.01" para ordenar o relatório
+  nome_conta      String         @db.VarChar(100) // Ex: "Faturamento de Produtos", "Matéria Prima"
+  tipo_dre        TipoContaPlano // Classificação rígida exigida pela estrutura da DRE
+
+  // Relacionamentos reversos
+  despesas        despesas[]
+  lancamentos_caixa fluxo_caixa[]   // Toda a inteligência da DRE e Caixa passará por aqui
+  // RELAÇÕES REVERSAS OBRIGATÓRIAS
+  pedidos_vendas  pedidos_vendas[]
+  movimentacoes   Movimentacao[]
+  
+  @@map("plano_contas")
+}
+
+// --- O ELO FINANCEIRO (MOVIMENTAÇÃO DE CAIXA / PARCELAS) ---
+model Movimentacao {
+  id               String               @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
+  valor            Decimal              @db.Decimal(10, 2)
+  tipo             TipoMovimentacaoCaixa // ENTRADA ou SAIDA
+  status           StatusMovimentacao    // PENDENTE ou PAGO
+  data_vencimento  DateTime
+  data_pagamento   DateTime?
+
+  // Chave estrangeira para o Plano de Contas (Inteligência do DRE)
+  plano_contas_id  String               @db.Uuid
+  plano_contas     PlanoContas          @relation(fields: [plano_contas_id], references: [id])
+
+  // Chaves estrangeiras opcionais para rastreabilidade (Origem do dinheiro)
+  pedido_venda_id  String?              @db.Uuid
+  pedido_venda     pedidos_vendas?      @relation(fields: [pedido_venda_id], references: [id])
+
+  despesa_id       String?              @db.Uuid
+  despesa          despesas?            @relation(fields: [despesa_id], references: [id])
+
+  @@map("movimentacoes")
+}
+
 model despesas {
   id                    String                @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
-  descricao_despesa     String                @db.VarChar(255)
-  tipo_despesa          tipo_despesa
-  tipo_despesa_fixa     tipo_despesa_fixa
-  tipo_despesa_variavel tipo_despesa_variavel
+  descricao_despesa     String?                @db.VarChar(255)
+  tipo_despesa          tipo_despesa?   //despesa fixa OU despesa variavel para futuramente carcular custo fixo, custo variavel e custo marginal.
+  tipo_despesa_fixa     tipo_despesa_fixa?
+  tipo_despesa_variavel tipo_despesa_variavel?
   valor_despesa         Decimal               @db.Decimal(10, 2)
   data_despesa          DateTime              @default(now()) @db.Timestamp(6)
-
-  // lista reversa
-  fluxo_caixa fluxo_caixa[]
-
   // Relacionamentos existentes no seu modelo
   responsavel_compra_id String   @db.Uuid
   usuarios              usuarios @relation(fields: [responsavel_compra_id], references: [id], onDelete: Restrict)
-
-  categoria_despesa String @db.VarChar(100) // Ex: "Infraestrutura", "Pessoal", "Operacional"
+   // RELAÇÃO DINÂMICA: Substitui o enum antigo. Aponta para o Plano de Contas global
+  plano_contas_id        String                 @db.Uuid
+  categoria_plano        PlanoContas            @relation(fields: [plano_contas_id], references: [id], onDelete: Restrict)
+  // lista reversa
+  movimentacoes   Movimentacao[]
+  fluxo_caixa fluxo_caixa[]
 
   @@map("despesas")
 }
@@ -528,15 +590,11 @@ model documento_fiscal {
   @@map("documento_fiscal")
 }
 
-enum tipo_movimentacao_caixa {
-  ENTRADA
-  SAIDA
-}
-
 model fluxo_caixa {
   id                String                  @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
   descricao         String                  @db.VarChar(255) // Ex: "Recebimento Pedido #X" ou "Pagamento Aluguel"
-  tipo              tipo_movimentacao_caixa
+  tipo              TipoMovimentacaoCaixa   // ENTRADA ou SAIDA
+  status            StatusMovimentacao      // PENDENTE ou PAGO
   valor             Decimal                 @db.Decimal(10, 2)
   metodo_pagamento  metodo_pagamento // Pix, Credito, Dinheiro, etc.
   data_movimentacao DateTime                @default(now()) @db.Timestamp(6)
@@ -550,6 +608,8 @@ model fluxo_caixa {
   // CHAVES ESTRANGEIRAS
   objeto_duravel_id  String? @db.Uuid
   objeto_generico_id String? @db.Uuid
+  // 1. ADICIONE O CAMPO DA CHAVE ESTRANGEIRA (Obrigatório para classificar na DRE)
+  plano_contas_id     String @db.Uuid
 
   // Auditoria
   usuario_caixa_id String @db.Uuid // Quem estava logado e operando o terminal na hora
@@ -563,6 +623,9 @@ model fluxo_caixa {
   usuario_caixa             usuarios                   @relation(fields: [usuario_caixa_id], references: [id])
   estoque_objetos_duraveis  estoque_objetos_duraveis?  @relation(fields: [objeto_duravel_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
   estoque_objetos_genericos estoque_objetos_genericos? @relation(fields: [objeto_generico_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  // 2. ADICIONE O RELACIONAMENTO DE INTEGRIDADE
+  plano_contas        PlanoContas               @relation(fields: [plano_contas_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
 
   @@map("fluxo_caixa")
 }
@@ -583,18 +646,6 @@ enum cargo_usuario {
   outros                  @map("outros")
 
   @@map("cargo_usuario")
-}
-
-enum categoria_despesas {
-  Despesas_operacionais    @map("Despesas operacionais")
-  Despesas_administrativas @map("Despesas administrativas")
-  Despesas_de_marketing    @map("Despesas de marketing")
-  Despesas_de_pessoal      @map("Despesas de pessoal")
-  Despesas_financeiras     @map("Despesas financeiras")
-  Despesas_de_manutencao   @map("Despesas de manutenção")
-  Despesas_de_estoque      @map("Despesas de estoque")
-  Despesas_medicas         @map("Despesas médicas")
-  Outras_despesas          @map("Outras despesas")
 }
 
 enum categoria_peca {
@@ -749,6 +800,7 @@ enum status_venda {
   Nao_autorizada @map("Nao autorizada")
   cancelada
   Nao_disponivel @map("Nao disponivel")
+
 }
 
 //docker compose exec -it next-app pnpm prisma migrate dev --name adicionar_check_valor_compra

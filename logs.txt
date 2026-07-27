@@ -1,2 +1,0 @@
-◇ injected env (11) from .env // tip: ◈ encrypted .env [www.dotenvx.com]
-Datasource "db": PostgreSQL database "estoque_vendas_caixa_mvc", schema "public" at "localhost:5432"
