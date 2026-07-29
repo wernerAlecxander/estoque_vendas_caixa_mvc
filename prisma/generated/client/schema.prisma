@@ -8,19 +8,21 @@ datasource db {
 }
 
 model clientes {
+  // campos obrigatórios para validação fiscal e emissão de NF-e/NFC-e
   id           String  @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
   nome_cliente String  @unique @db.VarChar(100)
   cpf_cliente  String  @unique @db.VarChar(14) // Suporta CPF ou CNPJ formatados
   IE_cliente   String? @db.VarChar(14) // Inscrição Estadual (Obrigatório para PJ contribuinte)
 
   // Endereço estruturado para SEFAZ
-  endereco_cliente String? @db.VarChar(200) // Logradouro + Número + Complemento
-  bairro_cliente   String? @db.VarChar(100)
-  cep_cliente      String  @default("69.300-000") @db.VarChar(9)
-  cidade_cliente   String? @default("Boa Vista") @db.VarChar(100)
-  uf_cliente       String  @default("RR") @db.VarChar(2) // Obrigatório para validação fiscal
-  codigo_IBGE      String  @default("1400100") @db.VarChar(7) // Código IBGE (Boa Vista = 1400100)
-  pais_cliente     String? @default("Brasil") @db.VarChar(50)
+  logradouro_cliente String? @db.VarChar(150) // endereço cliente
+  numero_endereco    String? @db.VarChar(10) // Número do endereço
+  bairro_cliente     String? @db.VarChar(100)
+  cep_cliente        String  @default("69.300-000") @db.VarChar(9)
+  cidade_cliente     String? @default("Boa Vista") @db.VarChar(100)
+  uf_cliente         String  @default("RR") @db.VarChar(2) // Obrigatório para validação fiscal
+  codigo_IBGE        String  @default("1400100") @db.VarChar(7) // Código IBGE (Boa Vista = 1400100). Código para cada cidade do Brasil. Obrigatório para emissão de NF-e/NFC-e.
+  pais_cliente       String? @default("Brasil") @db.VarChar(50)
 
   telefone_cliente String?   @db.VarChar(20)
   data_nascimento  DateTime? @db.Date
@@ -171,32 +173,31 @@ model itens_pedido_vendas {
 }
 
 model pedidos_vendas {
-  id                   String           @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
-  data_venda           DateTime         @default(now()) @db.Timestamp(6)
-  valor_total          Decimal          @default(0.00) @db.Decimal(10, 2)
-  metodo_pagamento     metodo_pagamento @default(Pix)
-  status_pedido        status_pedido    @default(Autorizado)
-  observacoes_recibo   String?          @db.VarChar(500)
-  //campos escalares 
-  cliente_comprador_id String           @db.Uuid
-  responsavel_venda_id String           @db.Uuid
-
-  //Relacionamento
-  itens_pedido_vendas itens_pedido_vendas[]
-  cliente_comprador   clientes              @relation(fields: [cliente_comprador_id], references: [id], onUpdate: Restrict, map: "fk_cliente_comprador_id")
-  responsavel_venda   usuarios              @relation(fields: [responsavel_venda_id], references: [id], onUpdate: Restrict, map: "fk_responsavel_venda")
-
+  // campos obrigatórios para emissão fiscal e fluxo de caixa
+  id                   String             @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
+  data_venda           DateTime           @default(now()) @db.Timestamp(6)
+  valor_total          Decimal            @default(0.00) @db.Decimal(10, 2)
+  metodo_pagamento     metodo_pagamento   @default(Pix)
+  status_pedido        status_pedido      @default(Autorizado)
+  observacoes_recibo   String?            @db.VarChar(500)
+  //campos escalares
+  cliente_comprador_id String             @db.Uuid
+  responsavel_venda_id String             @db.Uuid
+  //Relacionamento de campos escalares
+  cliente_comprador    clientes           @relation(fields: [cliente_comprador_id], references: [id], onUpdate: Restrict, map: "fk_cliente_comprador_id")
+  responsavel_venda    usuarios           @relation(fields: [responsavel_venda_id], references: [id], onUpdate: Restrict, map: "fk_responsavel_venda")
   // --- NOVOS RELACIONAMENTOS PARA EMISSÃO FISCAL E FLUXO DE CAIXA ---
-  documento_fiscal    documento_fiscal? // Vinculo com NF-e / NFC-e gerada para esta venda
-  lancamentos_caixa   fluxo_caixa[] // Vinculo com o registro de entrada financeira do caixa
-  osServicosItens     os_servicos_itens? @relation(fields: [os_servicos_itensId], references: [id])
-  os_servicos_itensId String?            @db.Uuid
+  documento_fiscal     documento_fiscal? // Vinculo com NF-e / NFC-e gerada para esta venda
+  lancamentos_caixa    fluxo_caixa[] // Vinculo com o registro de entrada financeira do caixa
+  osServicosItens      os_servicos_itens? @relation(fields: [os_servicos_itensId], references: [id])
+  os_servicos_itensId  String?            @db.Uuid
 
   // ADICIONADO APENAS PARA A DRE: Para saber em qual conta de receita esse pedido entra
-  plano_contas_id String?        @db.Uuid
-  plano_contas    PlanoContas?   @relation(fields: [plano_contas_id], references: [id])
+  plano_contas_id     String?               @db.Uuid
+  plano_contas        PlanoContas?          @relation(fields: [plano_contas_id], references: [id])
   // RELAÇÃO REVERSA OBRIGATÓRIA
-  movimentacoes   Movimentacao[]
+  movimentacoes       Movimentacao[]
+  itens_pedido_vendas itens_pedido_vendas[]
 
   @@map("pedidos_vendas")
 }

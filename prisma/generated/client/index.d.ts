@@ -3852,15 +3852,15 @@ export namespace Prisma {
    */
 
   export type Pedidos_vendasCountOutputType = {
-    itens_pedido_vendas: number
     lancamentos_caixa: number
     movimentacoes: number
+    itens_pedido_vendas: number
   }
 
   export type Pedidos_vendasCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    itens_pedido_vendas?: boolean | Pedidos_vendasCountOutputTypeCountItens_pedido_vendasArgs
     lancamentos_caixa?: boolean | Pedidos_vendasCountOutputTypeCountLancamentos_caixaArgs
     movimentacoes?: boolean | Pedidos_vendasCountOutputTypeCountMovimentacoesArgs
+    itens_pedido_vendas?: boolean | Pedidos_vendasCountOutputTypeCountItens_pedido_vendasArgs
   }
 
   // Custom InputTypes
@@ -3877,13 +3877,6 @@ export namespace Prisma {
   /**
    * Pedidos_vendasCountOutputType without action
    */
-  export type Pedidos_vendasCountOutputTypeCountItens_pedido_vendasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: itens_pedido_vendasWhereInput
-  }
-
-  /**
-   * Pedidos_vendasCountOutputType without action
-   */
   export type Pedidos_vendasCountOutputTypeCountLancamentos_caixaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: fluxo_caixaWhereInput
   }
@@ -3893,6 +3886,13 @@ export namespace Prisma {
    */
   export type Pedidos_vendasCountOutputTypeCountMovimentacoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MovimentacaoWhereInput
+  }
+
+  /**
+   * Pedidos_vendasCountOutputType without action
+   */
+  export type Pedidos_vendasCountOutputTypeCountItens_pedido_vendasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: itens_pedido_vendasWhereInput
   }
 
 
@@ -4378,7 +4378,8 @@ export namespace Prisma {
     nome_cliente: string | null
     cpf_cliente: string | null
     IE_cliente: string | null
-    endereco_cliente: string | null
+    logradouro_cliente: string | null
+    numero_endereco: string | null
     bairro_cliente: string | null
     cep_cliente: string | null
     cidade_cliente: string | null
@@ -4396,7 +4397,8 @@ export namespace Prisma {
     nome_cliente: string | null
     cpf_cliente: string | null
     IE_cliente: string | null
-    endereco_cliente: string | null
+    logradouro_cliente: string | null
+    numero_endereco: string | null
     bairro_cliente: string | null
     cep_cliente: string | null
     cidade_cliente: string | null
@@ -4414,7 +4416,8 @@ export namespace Prisma {
     nome_cliente: number
     cpf_cliente: number
     IE_cliente: number
-    endereco_cliente: number
+    logradouro_cliente: number
+    numero_endereco: number
     bairro_cliente: number
     cep_cliente: number
     cidade_cliente: number
@@ -4434,7 +4437,8 @@ export namespace Prisma {
     nome_cliente?: true
     cpf_cliente?: true
     IE_cliente?: true
-    endereco_cliente?: true
+    logradouro_cliente?: true
+    numero_endereco?: true
     bairro_cliente?: true
     cep_cliente?: true
     cidade_cliente?: true
@@ -4452,7 +4456,8 @@ export namespace Prisma {
     nome_cliente?: true
     cpf_cliente?: true
     IE_cliente?: true
-    endereco_cliente?: true
+    logradouro_cliente?: true
+    numero_endereco?: true
     bairro_cliente?: true
     cep_cliente?: true
     cidade_cliente?: true
@@ -4470,7 +4475,8 @@ export namespace Prisma {
     nome_cliente?: true
     cpf_cliente?: true
     IE_cliente?: true
-    endereco_cliente?: true
+    logradouro_cliente?: true
+    numero_endereco?: true
     bairro_cliente?: true
     cep_cliente?: true
     cidade_cliente?: true
@@ -4561,7 +4567,8 @@ export namespace Prisma {
     nome_cliente: string
     cpf_cliente: string
     IE_cliente: string | null
-    endereco_cliente: string | null
+    logradouro_cliente: string | null
+    numero_endereco: string | null
     bairro_cliente: string | null
     cep_cliente: string
     cidade_cliente: string | null
@@ -4596,7 +4603,8 @@ export namespace Prisma {
     nome_cliente?: boolean
     cpf_cliente?: boolean
     IE_cliente?: boolean
-    endereco_cliente?: boolean
+    logradouro_cliente?: boolean
+    numero_endereco?: boolean
     bairro_cliente?: boolean
     cep_cliente?: boolean
     cidade_cliente?: boolean
@@ -4620,7 +4628,8 @@ export namespace Prisma {
     nome_cliente?: boolean
     cpf_cliente?: boolean
     IE_cliente?: boolean
-    endereco_cliente?: boolean
+    logradouro_cliente?: boolean
+    numero_endereco?: boolean
     bairro_cliente?: boolean
     cep_cliente?: boolean
     cidade_cliente?: boolean
@@ -4638,7 +4647,8 @@ export namespace Prisma {
     nome_cliente?: boolean
     cpf_cliente?: boolean
     IE_cliente?: boolean
-    endereco_cliente?: boolean
+    logradouro_cliente?: boolean
+    numero_endereco?: boolean
     bairro_cliente?: boolean
     cep_cliente?: boolean
     cidade_cliente?: boolean
@@ -4656,7 +4666,8 @@ export namespace Prisma {
     nome_cliente?: boolean
     cpf_cliente?: boolean
     IE_cliente?: boolean
-    endereco_cliente?: boolean
+    logradouro_cliente?: boolean
+    numero_endereco?: boolean
     bairro_cliente?: boolean
     cep_cliente?: boolean
     cidade_cliente?: boolean
@@ -4669,7 +4680,7 @@ export namespace Prisma {
     data_cadastro?: boolean
   }
 
-  export type clientesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome_cliente" | "cpf_cliente" | "IE_cliente" | "endereco_cliente" | "bairro_cliente" | "cep_cliente" | "cidade_cliente" | "uf_cliente" | "codigo_IBGE" | "pais_cliente" | "telefone_cliente" | "data_nascimento" | "email_cliente" | "data_cadastro", ExtArgs["result"]["clientes"]>
+  export type clientesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome_cliente" | "cpf_cliente" | "IE_cliente" | "logradouro_cliente" | "numero_endereco" | "bairro_cliente" | "cep_cliente" | "cidade_cliente" | "uf_cliente" | "codigo_IBGE" | "pais_cliente" | "telefone_cliente" | "data_nascimento" | "email_cliente" | "data_cadastro", ExtArgs["result"]["clientes"]>
   export type clientesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     pedidos_venda?: boolean | clientes$pedidos_vendaArgs<ExtArgs>
     sucata_compra?: boolean | clientes$sucata_compraArgs<ExtArgs>
@@ -4695,7 +4706,8 @@ export namespace Prisma {
       nome_cliente: string
       cpf_cliente: string
       IE_cliente: string | null
-      endereco_cliente: string | null
+      logradouro_cliente: string | null
+      numero_endereco: string | null
       bairro_cliente: string | null
       cep_cliente: string
       cidade_cliente: string | null
@@ -5138,7 +5150,8 @@ export namespace Prisma {
     readonly nome_cliente: FieldRef<"clientes", 'String'>
     readonly cpf_cliente: FieldRef<"clientes", 'String'>
     readonly IE_cliente: FieldRef<"clientes", 'String'>
-    readonly endereco_cliente: FieldRef<"clientes", 'String'>
+    readonly logradouro_cliente: FieldRef<"clientes", 'String'>
+    readonly numero_endereco: FieldRef<"clientes", 'String'>
     readonly bairro_cliente: FieldRef<"clientes", 'String'>
     readonly cep_cliente: FieldRef<"clientes", 'String'>
     readonly cidade_cliente: FieldRef<"clientes", 'String'>
@@ -16287,7 +16300,6 @@ export namespace Prisma {
     responsavel_venda_id?: boolean
     os_servicos_itensId?: boolean
     plano_contas_id?: boolean
-    itens_pedido_vendas?: boolean | pedidos_vendas$itens_pedido_vendasArgs<ExtArgs>
     cliente_comprador?: boolean | clientesDefaultArgs<ExtArgs>
     responsavel_venda?: boolean | usuariosDefaultArgs<ExtArgs>
     documento_fiscal?: boolean | pedidos_vendas$documento_fiscalArgs<ExtArgs>
@@ -16295,6 +16307,7 @@ export namespace Prisma {
     osServicosItens?: boolean | pedidos_vendas$osServicosItensArgs<ExtArgs>
     plano_contas?: boolean | pedidos_vendas$plano_contasArgs<ExtArgs>
     movimentacoes?: boolean | pedidos_vendas$movimentacoesArgs<ExtArgs>
+    itens_pedido_vendas?: boolean | pedidos_vendas$itens_pedido_vendasArgs<ExtArgs>
     _count?: boolean | Pedidos_vendasCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pedidos_vendas"]>
 
@@ -16347,7 +16360,6 @@ export namespace Prisma {
 
   export type pedidos_vendasOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "data_venda" | "valor_total" | "metodo_pagamento" | "status_pedido" | "observacoes_recibo" | "cliente_comprador_id" | "responsavel_venda_id" | "os_servicos_itensId" | "plano_contas_id", ExtArgs["result"]["pedidos_vendas"]>
   export type pedidos_vendasInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    itens_pedido_vendas?: boolean | pedidos_vendas$itens_pedido_vendasArgs<ExtArgs>
     cliente_comprador?: boolean | clientesDefaultArgs<ExtArgs>
     responsavel_venda?: boolean | usuariosDefaultArgs<ExtArgs>
     documento_fiscal?: boolean | pedidos_vendas$documento_fiscalArgs<ExtArgs>
@@ -16355,6 +16367,7 @@ export namespace Prisma {
     osServicosItens?: boolean | pedidos_vendas$osServicosItensArgs<ExtArgs>
     plano_contas?: boolean | pedidos_vendas$plano_contasArgs<ExtArgs>
     movimentacoes?: boolean | pedidos_vendas$movimentacoesArgs<ExtArgs>
+    itens_pedido_vendas?: boolean | pedidos_vendas$itens_pedido_vendasArgs<ExtArgs>
     _count?: boolean | Pedidos_vendasCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type pedidos_vendasIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -16373,7 +16386,6 @@ export namespace Prisma {
   export type $pedidos_vendasPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "pedidos_vendas"
     objects: {
-      itens_pedido_vendas: Prisma.$itens_pedido_vendasPayload<ExtArgs>[]
       cliente_comprador: Prisma.$clientesPayload<ExtArgs>
       responsavel_venda: Prisma.$usuariosPayload<ExtArgs>
       documento_fiscal: Prisma.$documento_fiscalPayload<ExtArgs> | null
@@ -16381,6 +16393,7 @@ export namespace Prisma {
       osServicosItens: Prisma.$os_servicos_itensPayload<ExtArgs> | null
       plano_contas: Prisma.$PlanoContasPayload<ExtArgs> | null
       movimentacoes: Prisma.$MovimentacaoPayload<ExtArgs>[]
+      itens_pedido_vendas: Prisma.$itens_pedido_vendasPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -16787,7 +16800,6 @@ export namespace Prisma {
    */
   export interface Prisma__pedidos_vendasClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    itens_pedido_vendas<T extends pedidos_vendas$itens_pedido_vendasArgs<ExtArgs> = {}>(args?: Subset<T, pedidos_vendas$itens_pedido_vendasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$itens_pedido_vendasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     cliente_comprador<T extends clientesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, clientesDefaultArgs<ExtArgs>>): Prisma__clientesClient<$Result.GetResult<Prisma.$clientesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     responsavel_venda<T extends usuariosDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usuariosDefaultArgs<ExtArgs>>): Prisma__usuariosClient<$Result.GetResult<Prisma.$usuariosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     documento_fiscal<T extends pedidos_vendas$documento_fiscalArgs<ExtArgs> = {}>(args?: Subset<T, pedidos_vendas$documento_fiscalArgs<ExtArgs>>): Prisma__documento_fiscalClient<$Result.GetResult<Prisma.$documento_fiscalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -16795,6 +16807,7 @@ export namespace Prisma {
     osServicosItens<T extends pedidos_vendas$osServicosItensArgs<ExtArgs> = {}>(args?: Subset<T, pedidos_vendas$osServicosItensArgs<ExtArgs>>): Prisma__os_servicos_itensClient<$Result.GetResult<Prisma.$os_servicos_itensPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     plano_contas<T extends pedidos_vendas$plano_contasArgs<ExtArgs> = {}>(args?: Subset<T, pedidos_vendas$plano_contasArgs<ExtArgs>>): Prisma__PlanoContasClient<$Result.GetResult<Prisma.$PlanoContasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     movimentacoes<T extends pedidos_vendas$movimentacoesArgs<ExtArgs> = {}>(args?: Subset<T, pedidos_vendas$movimentacoesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MovimentacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    itens_pedido_vendas<T extends pedidos_vendas$itens_pedido_vendasArgs<ExtArgs> = {}>(args?: Subset<T, pedidos_vendas$itens_pedido_vendasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$itens_pedido_vendasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -17235,30 +17248,6 @@ export namespace Prisma {
   }
 
   /**
-   * pedidos_vendas.itens_pedido_vendas
-   */
-  export type pedidos_vendas$itens_pedido_vendasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the itens_pedido_vendas
-     */
-    select?: itens_pedido_vendasSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the itens_pedido_vendas
-     */
-    omit?: itens_pedido_vendasOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: itens_pedido_vendasInclude<ExtArgs> | null
-    where?: itens_pedido_vendasWhereInput
-    orderBy?: itens_pedido_vendasOrderByWithRelationInput | itens_pedido_vendasOrderByWithRelationInput[]
-    cursor?: itens_pedido_vendasWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Itens_pedido_vendasScalarFieldEnum | Itens_pedido_vendasScalarFieldEnum[]
-  }
-
-  /**
    * pedidos_vendas.documento_fiscal
    */
   export type pedidos_vendas$documento_fiscalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -17361,6 +17350,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MovimentacaoScalarFieldEnum | MovimentacaoScalarFieldEnum[]
+  }
+
+  /**
+   * pedidos_vendas.itens_pedido_vendas
+   */
+  export type pedidos_vendas$itens_pedido_vendasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the itens_pedido_vendas
+     */
+    select?: itens_pedido_vendasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the itens_pedido_vendas
+     */
+    omit?: itens_pedido_vendasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: itens_pedido_vendasInclude<ExtArgs> | null
+    where?: itens_pedido_vendasWhereInput
+    orderBy?: itens_pedido_vendasOrderByWithRelationInput | itens_pedido_vendasOrderByWithRelationInput[]
+    cursor?: itens_pedido_vendasWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Itens_pedido_vendasScalarFieldEnum | Itens_pedido_vendasScalarFieldEnum[]
   }
 
   /**
@@ -35743,7 +35756,8 @@ export namespace Prisma {
     nome_cliente: 'nome_cliente',
     cpf_cliente: 'cpf_cliente',
     IE_cliente: 'IE_cliente',
-    endereco_cliente: 'endereco_cliente',
+    logradouro_cliente: 'logradouro_cliente',
+    numero_endereco: 'numero_endereco',
     bairro_cliente: 'bairro_cliente',
     cep_cliente: 'cep_cliente',
     cidade_cliente: 'cidade_cliente',
@@ -36539,7 +36553,8 @@ export namespace Prisma {
     nome_cliente?: StringFilter<"clientes"> | string
     cpf_cliente?: StringFilter<"clientes"> | string
     IE_cliente?: StringNullableFilter<"clientes"> | string | null
-    endereco_cliente?: StringNullableFilter<"clientes"> | string | null
+    logradouro_cliente?: StringNullableFilter<"clientes"> | string | null
+    numero_endereco?: StringNullableFilter<"clientes"> | string | null
     bairro_cliente?: StringNullableFilter<"clientes"> | string | null
     cep_cliente?: StringFilter<"clientes"> | string
     cidade_cliente?: StringNullableFilter<"clientes"> | string | null
@@ -36562,7 +36577,8 @@ export namespace Prisma {
     nome_cliente?: SortOrder
     cpf_cliente?: SortOrder
     IE_cliente?: SortOrderInput | SortOrder
-    endereco_cliente?: SortOrderInput | SortOrder
+    logradouro_cliente?: SortOrderInput | SortOrder
+    numero_endereco?: SortOrderInput | SortOrder
     bairro_cliente?: SortOrderInput | SortOrder
     cep_cliente?: SortOrder
     cidade_cliente?: SortOrderInput | SortOrder
@@ -36589,7 +36605,8 @@ export namespace Prisma {
     OR?: clientesWhereInput[]
     NOT?: clientesWhereInput | clientesWhereInput[]
     IE_cliente?: StringNullableFilter<"clientes"> | string | null
-    endereco_cliente?: StringNullableFilter<"clientes"> | string | null
+    logradouro_cliente?: StringNullableFilter<"clientes"> | string | null
+    numero_endereco?: StringNullableFilter<"clientes"> | string | null
     bairro_cliente?: StringNullableFilter<"clientes"> | string | null
     cep_cliente?: StringFilter<"clientes"> | string
     cidade_cliente?: StringNullableFilter<"clientes"> | string | null
@@ -36611,7 +36628,8 @@ export namespace Prisma {
     nome_cliente?: SortOrder
     cpf_cliente?: SortOrder
     IE_cliente?: SortOrderInput | SortOrder
-    endereco_cliente?: SortOrderInput | SortOrder
+    logradouro_cliente?: SortOrderInput | SortOrder
+    numero_endereco?: SortOrderInput | SortOrder
     bairro_cliente?: SortOrderInput | SortOrder
     cep_cliente?: SortOrder
     cidade_cliente?: SortOrderInput | SortOrder
@@ -36635,7 +36653,8 @@ export namespace Prisma {
     nome_cliente?: StringWithAggregatesFilter<"clientes"> | string
     cpf_cliente?: StringWithAggregatesFilter<"clientes"> | string
     IE_cliente?: StringNullableWithAggregatesFilter<"clientes"> | string | null
-    endereco_cliente?: StringNullableWithAggregatesFilter<"clientes"> | string | null
+    logradouro_cliente?: StringNullableWithAggregatesFilter<"clientes"> | string | null
+    numero_endereco?: StringNullableWithAggregatesFilter<"clientes"> | string | null
     bairro_cliente?: StringNullableWithAggregatesFilter<"clientes"> | string | null
     cep_cliente?: StringWithAggregatesFilter<"clientes"> | string
     cidade_cliente?: StringNullableWithAggregatesFilter<"clientes"> | string | null
@@ -37287,7 +37306,6 @@ export namespace Prisma {
     responsavel_venda_id?: UuidFilter<"pedidos_vendas"> | string
     os_servicos_itensId?: UuidNullableFilter<"pedidos_vendas"> | string | null
     plano_contas_id?: UuidNullableFilter<"pedidos_vendas"> | string | null
-    itens_pedido_vendas?: Itens_pedido_vendasListRelationFilter
     cliente_comprador?: XOR<ClientesScalarRelationFilter, clientesWhereInput>
     responsavel_venda?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
     documento_fiscal?: XOR<Documento_fiscalNullableScalarRelationFilter, documento_fiscalWhereInput> | null
@@ -37295,6 +37313,7 @@ export namespace Prisma {
     osServicosItens?: XOR<Os_servicos_itensNullableScalarRelationFilter, os_servicos_itensWhereInput> | null
     plano_contas?: XOR<PlanoContasNullableScalarRelationFilter, PlanoContasWhereInput> | null
     movimentacoes?: MovimentacaoListRelationFilter
+    itens_pedido_vendas?: Itens_pedido_vendasListRelationFilter
   }
 
   export type pedidos_vendasOrderByWithRelationInput = {
@@ -37308,7 +37327,6 @@ export namespace Prisma {
     responsavel_venda_id?: SortOrder
     os_servicos_itensId?: SortOrderInput | SortOrder
     plano_contas_id?: SortOrderInput | SortOrder
-    itens_pedido_vendas?: itens_pedido_vendasOrderByRelationAggregateInput
     cliente_comprador?: clientesOrderByWithRelationInput
     responsavel_venda?: usuariosOrderByWithRelationInput
     documento_fiscal?: documento_fiscalOrderByWithRelationInput
@@ -37316,6 +37334,7 @@ export namespace Prisma {
     osServicosItens?: os_servicos_itensOrderByWithRelationInput
     plano_contas?: PlanoContasOrderByWithRelationInput
     movimentacoes?: MovimentacaoOrderByRelationAggregateInput
+    itens_pedido_vendas?: itens_pedido_vendasOrderByRelationAggregateInput
   }
 
   export type pedidos_vendasWhereUniqueInput = Prisma.AtLeast<{
@@ -37332,7 +37351,6 @@ export namespace Prisma {
     responsavel_venda_id?: UuidFilter<"pedidos_vendas"> | string
     os_servicos_itensId?: UuidNullableFilter<"pedidos_vendas"> | string | null
     plano_contas_id?: UuidNullableFilter<"pedidos_vendas"> | string | null
-    itens_pedido_vendas?: Itens_pedido_vendasListRelationFilter
     cliente_comprador?: XOR<ClientesScalarRelationFilter, clientesWhereInput>
     responsavel_venda?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
     documento_fiscal?: XOR<Documento_fiscalNullableScalarRelationFilter, documento_fiscalWhereInput> | null
@@ -37340,6 +37358,7 @@ export namespace Prisma {
     osServicosItens?: XOR<Os_servicos_itensNullableScalarRelationFilter, os_servicos_itensWhereInput> | null
     plano_contas?: XOR<PlanoContasNullableScalarRelationFilter, PlanoContasWhereInput> | null
     movimentacoes?: MovimentacaoListRelationFilter
+    itens_pedido_vendas?: Itens_pedido_vendasListRelationFilter
   }, "id">
 
   export type pedidos_vendasOrderByWithAggregationInput = {
@@ -38679,7 +38698,8 @@ export namespace Prisma {
     nome_cliente: string
     cpf_cliente: string
     IE_cliente?: string | null
-    endereco_cliente?: string | null
+    logradouro_cliente?: string | null
+    numero_endereco?: string | null
     bairro_cliente?: string | null
     cep_cliente?: string
     cidade_cliente?: string | null
@@ -38702,7 +38722,8 @@ export namespace Prisma {
     nome_cliente: string
     cpf_cliente: string
     IE_cliente?: string | null
-    endereco_cliente?: string | null
+    logradouro_cliente?: string | null
+    numero_endereco?: string | null
     bairro_cliente?: string | null
     cep_cliente?: string
     cidade_cliente?: string | null
@@ -38725,7 +38746,8 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
@@ -38748,7 +38770,8 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
@@ -38771,7 +38794,8 @@ export namespace Prisma {
     nome_cliente: string
     cpf_cliente: string
     IE_cliente?: string | null
-    endereco_cliente?: string | null
+    logradouro_cliente?: string | null
+    numero_endereco?: string | null
     bairro_cliente?: string | null
     cep_cliente?: string
     cidade_cliente?: string | null
@@ -38789,7 +38813,8 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
@@ -38807,7 +38832,8 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
@@ -39451,7 +39477,6 @@ export namespace Prisma {
     metodo_pagamento?: $Enums.metodo_pagamento
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
-    itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
     cliente_comprador: clientesCreateNestedOneWithoutPedidos_vendaInput
     responsavel_venda: usuariosCreateNestedOneWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalCreateNestedOneWithoutPedido_vendaInput
@@ -39459,6 +39484,7 @@ export namespace Prisma {
     osServicosItens?: os_servicos_itensCreateNestedOneWithoutPedidosInput
     plano_contas?: PlanoContasCreateNestedOneWithoutPedidos_vendasInput
     movimentacoes?: MovimentacaoCreateNestedManyWithoutPedido_vendaInput
+    itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
   }
 
   export type pedidos_vendasUncheckedCreateInput = {
@@ -39472,10 +39498,10 @@ export namespace Prisma {
     responsavel_venda_id: string
     os_servicos_itensId?: string | null
     plano_contas_id?: string | null
-    itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalUncheckedCreateNestedOneWithoutPedido_vendaInput
     lancamentos_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutPedido_vendaInput
     movimentacoes?: MovimentacaoUncheckedCreateNestedManyWithoutPedido_vendaInput
+    itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
   }
 
   export type pedidos_vendasUpdateInput = {
@@ -39485,7 +39511,6 @@ export namespace Prisma {
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
-    itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
     cliente_comprador?: clientesUpdateOneRequiredWithoutPedidos_vendaNestedInput
     responsavel_venda?: usuariosUpdateOneRequiredWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUpdateOneWithoutPedido_vendaNestedInput
@@ -39493,6 +39518,7 @@ export namespace Prisma {
     osServicosItens?: os_servicos_itensUpdateOneWithoutPedidosNestedInput
     plano_contas?: PlanoContasUpdateOneWithoutPedidos_vendasNestedInput
     movimentacoes?: MovimentacaoUpdateManyWithoutPedido_vendaNestedInput
+    itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
   }
 
   export type pedidos_vendasUncheckedUpdateInput = {
@@ -39506,10 +39532,10 @@ export namespace Prisma {
     responsavel_venda_id?: StringFieldUpdateOperationsInput | string
     os_servicos_itensId?: NullableStringFieldUpdateOperationsInput | string | null
     plano_contas_id?: NullableStringFieldUpdateOperationsInput | string | null
-    itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUncheckedUpdateOneWithoutPedido_vendaNestedInput
     lancamentos_caixa?: fluxo_caixaUncheckedUpdateManyWithoutPedido_vendaNestedInput
     movimentacoes?: MovimentacaoUncheckedUpdateManyWithoutPedido_vendaNestedInput
+    itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
   }
 
   export type pedidos_vendasCreateManyInput = {
@@ -41017,7 +41043,8 @@ export namespace Prisma {
     nome_cliente?: SortOrder
     cpf_cliente?: SortOrder
     IE_cliente?: SortOrder
-    endereco_cliente?: SortOrder
+    logradouro_cliente?: SortOrder
+    numero_endereco?: SortOrder
     bairro_cliente?: SortOrder
     cep_cliente?: SortOrder
     cidade_cliente?: SortOrder
@@ -41035,7 +41062,8 @@ export namespace Prisma {
     nome_cliente?: SortOrder
     cpf_cliente?: SortOrder
     IE_cliente?: SortOrder
-    endereco_cliente?: SortOrder
+    logradouro_cliente?: SortOrder
+    numero_endereco?: SortOrder
     bairro_cliente?: SortOrder
     cep_cliente?: SortOrder
     cidade_cliente?: SortOrder
@@ -41053,7 +41081,8 @@ export namespace Prisma {
     nome_cliente?: SortOrder
     cpf_cliente?: SortOrder
     IE_cliente?: SortOrder
-    endereco_cliente?: SortOrder
+    logradouro_cliente?: SortOrder
+    numero_endereco?: SortOrder
     bairro_cliente?: SortOrder
     cep_cliente?: SortOrder
     cidade_cliente?: SortOrder
@@ -43939,13 +43968,6 @@ export namespace Prisma {
     update?: XOR<XOR<pedidos_vendasUpdateToOneWithWhereWithoutItens_pedido_vendasInput, pedidos_vendasUpdateWithoutItens_pedido_vendasInput>, pedidos_vendasUncheckedUpdateWithoutItens_pedido_vendasInput>
   }
 
-  export type itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput = {
-    create?: XOR<itens_pedido_vendasCreateWithoutPedidos_vendasInput, itens_pedido_vendasUncheckedCreateWithoutPedidos_vendasInput> | itens_pedido_vendasCreateWithoutPedidos_vendasInput[] | itens_pedido_vendasUncheckedCreateWithoutPedidos_vendasInput[]
-    connectOrCreate?: itens_pedido_vendasCreateOrConnectWithoutPedidos_vendasInput | itens_pedido_vendasCreateOrConnectWithoutPedidos_vendasInput[]
-    createMany?: itens_pedido_vendasCreateManyPedidos_vendasInputEnvelope
-    connect?: itens_pedido_vendasWhereUniqueInput | itens_pedido_vendasWhereUniqueInput[]
-  }
-
   export type clientesCreateNestedOneWithoutPedidos_vendaInput = {
     create?: XOR<clientesCreateWithoutPedidos_vendaInput, clientesUncheckedCreateWithoutPedidos_vendaInput>
     connectOrCreate?: clientesCreateOrConnectWithoutPedidos_vendaInput
@@ -43990,7 +44012,7 @@ export namespace Prisma {
     connect?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
   }
 
-  export type itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput = {
+  export type itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput = {
     create?: XOR<itens_pedido_vendasCreateWithoutPedidos_vendasInput, itens_pedido_vendasUncheckedCreateWithoutPedidos_vendasInput> | itens_pedido_vendasCreateWithoutPedidos_vendasInput[] | itens_pedido_vendasUncheckedCreateWithoutPedidos_vendasInput[]
     connectOrCreate?: itens_pedido_vendasCreateOrConnectWithoutPedidos_vendasInput | itens_pedido_vendasCreateOrConnectWithoutPedidos_vendasInput[]
     createMany?: itens_pedido_vendasCreateManyPedidos_vendasInputEnvelope
@@ -44017,26 +44039,19 @@ export namespace Prisma {
     connect?: MovimentacaoWhereUniqueInput | MovimentacaoWhereUniqueInput[]
   }
 
+  export type itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput = {
+    create?: XOR<itens_pedido_vendasCreateWithoutPedidos_vendasInput, itens_pedido_vendasUncheckedCreateWithoutPedidos_vendasInput> | itens_pedido_vendasCreateWithoutPedidos_vendasInput[] | itens_pedido_vendasUncheckedCreateWithoutPedidos_vendasInput[]
+    connectOrCreate?: itens_pedido_vendasCreateOrConnectWithoutPedidos_vendasInput | itens_pedido_vendasCreateOrConnectWithoutPedidos_vendasInput[]
+    createMany?: itens_pedido_vendasCreateManyPedidos_vendasInputEnvelope
+    connect?: itens_pedido_vendasWhereUniqueInput | itens_pedido_vendasWhereUniqueInput[]
+  }
+
   export type Enummetodo_pagamentoFieldUpdateOperationsInput = {
     set?: $Enums.metodo_pagamento
   }
 
   export type Enumstatus_pedidoFieldUpdateOperationsInput = {
     set?: $Enums.status_pedido
-  }
-
-  export type itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput = {
-    create?: XOR<itens_pedido_vendasCreateWithoutPedidos_vendasInput, itens_pedido_vendasUncheckedCreateWithoutPedidos_vendasInput> | itens_pedido_vendasCreateWithoutPedidos_vendasInput[] | itens_pedido_vendasUncheckedCreateWithoutPedidos_vendasInput[]
-    connectOrCreate?: itens_pedido_vendasCreateOrConnectWithoutPedidos_vendasInput | itens_pedido_vendasCreateOrConnectWithoutPedidos_vendasInput[]
-    upsert?: itens_pedido_vendasUpsertWithWhereUniqueWithoutPedidos_vendasInput | itens_pedido_vendasUpsertWithWhereUniqueWithoutPedidos_vendasInput[]
-    createMany?: itens_pedido_vendasCreateManyPedidos_vendasInputEnvelope
-    set?: itens_pedido_vendasWhereUniqueInput | itens_pedido_vendasWhereUniqueInput[]
-    disconnect?: itens_pedido_vendasWhereUniqueInput | itens_pedido_vendasWhereUniqueInput[]
-    delete?: itens_pedido_vendasWhereUniqueInput | itens_pedido_vendasWhereUniqueInput[]
-    connect?: itens_pedido_vendasWhereUniqueInput | itens_pedido_vendasWhereUniqueInput[]
-    update?: itens_pedido_vendasUpdateWithWhereUniqueWithoutPedidos_vendasInput | itens_pedido_vendasUpdateWithWhereUniqueWithoutPedidos_vendasInput[]
-    updateMany?: itens_pedido_vendasUpdateManyWithWhereWithoutPedidos_vendasInput | itens_pedido_vendasUpdateManyWithWhereWithoutPedidos_vendasInput[]
-    deleteMany?: itens_pedido_vendasScalarWhereInput | itens_pedido_vendasScalarWhereInput[]
   }
 
   export type clientesUpdateOneRequiredWithoutPedidos_vendaNestedInput = {
@@ -44113,7 +44128,7 @@ export namespace Prisma {
     deleteMany?: MovimentacaoScalarWhereInput | MovimentacaoScalarWhereInput[]
   }
 
-  export type itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput = {
+  export type itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput = {
     create?: XOR<itens_pedido_vendasCreateWithoutPedidos_vendasInput, itens_pedido_vendasUncheckedCreateWithoutPedidos_vendasInput> | itens_pedido_vendasCreateWithoutPedidos_vendasInput[] | itens_pedido_vendasUncheckedCreateWithoutPedidos_vendasInput[]
     connectOrCreate?: itens_pedido_vendasCreateOrConnectWithoutPedidos_vendasInput | itens_pedido_vendasCreateOrConnectWithoutPedidos_vendasInput[]
     upsert?: itens_pedido_vendasUpsertWithWhereUniqueWithoutPedidos_vendasInput | itens_pedido_vendasUpsertWithWhereUniqueWithoutPedidos_vendasInput[]
@@ -44163,6 +44178,20 @@ export namespace Prisma {
     update?: MovimentacaoUpdateWithWhereUniqueWithoutPedido_vendaInput | MovimentacaoUpdateWithWhereUniqueWithoutPedido_vendaInput[]
     updateMany?: MovimentacaoUpdateManyWithWhereWithoutPedido_vendaInput | MovimentacaoUpdateManyWithWhereWithoutPedido_vendaInput[]
     deleteMany?: MovimentacaoScalarWhereInput | MovimentacaoScalarWhereInput[]
+  }
+
+  export type itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput = {
+    create?: XOR<itens_pedido_vendasCreateWithoutPedidos_vendasInput, itens_pedido_vendasUncheckedCreateWithoutPedidos_vendasInput> | itens_pedido_vendasCreateWithoutPedidos_vendasInput[] | itens_pedido_vendasUncheckedCreateWithoutPedidos_vendasInput[]
+    connectOrCreate?: itens_pedido_vendasCreateOrConnectWithoutPedidos_vendasInput | itens_pedido_vendasCreateOrConnectWithoutPedidos_vendasInput[]
+    upsert?: itens_pedido_vendasUpsertWithWhereUniqueWithoutPedidos_vendasInput | itens_pedido_vendasUpsertWithWhereUniqueWithoutPedidos_vendasInput[]
+    createMany?: itens_pedido_vendasCreateManyPedidos_vendasInputEnvelope
+    set?: itens_pedido_vendasWhereUniqueInput | itens_pedido_vendasWhereUniqueInput[]
+    disconnect?: itens_pedido_vendasWhereUniqueInput | itens_pedido_vendasWhereUniqueInput[]
+    delete?: itens_pedido_vendasWhereUniqueInput | itens_pedido_vendasWhereUniqueInput[]
+    connect?: itens_pedido_vendasWhereUniqueInput | itens_pedido_vendasWhereUniqueInput[]
+    update?: itens_pedido_vendasUpdateWithWhereUniqueWithoutPedidos_vendasInput | itens_pedido_vendasUpdateWithWhereUniqueWithoutPedidos_vendasInput[]
+    updateMany?: itens_pedido_vendasUpdateManyWithWhereWithoutPedidos_vendasInput | itens_pedido_vendasUpdateManyWithWhereWithoutPedidos_vendasInput[]
+    deleteMany?: itens_pedido_vendasScalarWhereInput | itens_pedido_vendasScalarWhereInput[]
   }
 
   export type clientesCreateNestedOneWithoutOrdens_servicoInput = {
@@ -46611,13 +46640,13 @@ export namespace Prisma {
     metodo_pagamento?: $Enums.metodo_pagamento
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
-    itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
     responsavel_venda: usuariosCreateNestedOneWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalCreateNestedOneWithoutPedido_vendaInput
     lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutPedido_vendaInput
     osServicosItens?: os_servicos_itensCreateNestedOneWithoutPedidosInput
     plano_contas?: PlanoContasCreateNestedOneWithoutPedidos_vendasInput
     movimentacoes?: MovimentacaoCreateNestedManyWithoutPedido_vendaInput
+    itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
   }
 
   export type pedidos_vendasUncheckedCreateWithoutCliente_compradorInput = {
@@ -46630,10 +46659,10 @@ export namespace Prisma {
     responsavel_venda_id: string
     os_servicos_itensId?: string | null
     plano_contas_id?: string | null
-    itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalUncheckedCreateNestedOneWithoutPedido_vendaInput
     lancamentos_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutPedido_vendaInput
     movimentacoes?: MovimentacaoUncheckedCreateNestedManyWithoutPedido_vendaInput
+    itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
   }
 
   export type pedidos_vendasCreateOrConnectWithoutCliente_compradorInput = {
@@ -48684,48 +48713,13 @@ export namespace Prisma {
     movimentacoes?: MovimentacaoUncheckedUpdateManyWithoutPedido_vendaNestedInput
   }
 
-  export type itens_pedido_vendasCreateWithoutPedidos_vendasInput = {
-    id?: string
-    quantidade_peca?: number
-    preco_unitario: Decimal | DecimalJsLike | number | string
-    preco_total: Decimal | DecimalJsLike | number | string
-    valor_desconto?: Decimal | DecimalJsLike | number | string
-    data_fim_garantia: Date | string
-    status_item?: $Enums.status_item
-    data_devolucao?: Date | string | null
-    motivo_devolucao?: string | null
-    peca_estoque: peca_estoqueCreateNestedOneWithoutItens_pedido_vendasInput
-  }
-
-  export type itens_pedido_vendasUncheckedCreateWithoutPedidos_vendasInput = {
-    id?: string
-    peca_estoque_id: string
-    quantidade_peca?: number
-    preco_unitario: Decimal | DecimalJsLike | number | string
-    preco_total: Decimal | DecimalJsLike | number | string
-    valor_desconto?: Decimal | DecimalJsLike | number | string
-    data_fim_garantia: Date | string
-    status_item?: $Enums.status_item
-    data_devolucao?: Date | string | null
-    motivo_devolucao?: string | null
-  }
-
-  export type itens_pedido_vendasCreateOrConnectWithoutPedidos_vendasInput = {
-    where: itens_pedido_vendasWhereUniqueInput
-    create: XOR<itens_pedido_vendasCreateWithoutPedidos_vendasInput, itens_pedido_vendasUncheckedCreateWithoutPedidos_vendasInput>
-  }
-
-  export type itens_pedido_vendasCreateManyPedidos_vendasInputEnvelope = {
-    data: itens_pedido_vendasCreateManyPedidos_vendasInput | itens_pedido_vendasCreateManyPedidos_vendasInput[]
-    skipDuplicates?: boolean
-  }
-
   export type clientesCreateWithoutPedidos_vendaInput = {
     id?: string
     nome_cliente: string
     cpf_cliente: string
     IE_cliente?: string | null
-    endereco_cliente?: string | null
+    logradouro_cliente?: string | null
+    numero_endereco?: string | null
     bairro_cliente?: string | null
     cep_cliente?: string
     cidade_cliente?: string | null
@@ -48747,7 +48741,8 @@ export namespace Prisma {
     nome_cliente: string
     cpf_cliente: string
     IE_cliente?: string | null
-    endereco_cliente?: string | null
+    logradouro_cliente?: string | null
+    numero_endereco?: string | null
     bairro_cliente?: string | null
     cep_cliente?: string
     cidade_cliente?: string | null
@@ -48993,20 +48988,40 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type itens_pedido_vendasUpsertWithWhereUniqueWithoutPedidos_vendasInput = {
+  export type itens_pedido_vendasCreateWithoutPedidos_vendasInput = {
+    id?: string
+    quantidade_peca?: number
+    preco_unitario: Decimal | DecimalJsLike | number | string
+    preco_total: Decimal | DecimalJsLike | number | string
+    valor_desconto?: Decimal | DecimalJsLike | number | string
+    data_fim_garantia: Date | string
+    status_item?: $Enums.status_item
+    data_devolucao?: Date | string | null
+    motivo_devolucao?: string | null
+    peca_estoque: peca_estoqueCreateNestedOneWithoutItens_pedido_vendasInput
+  }
+
+  export type itens_pedido_vendasUncheckedCreateWithoutPedidos_vendasInput = {
+    id?: string
+    peca_estoque_id: string
+    quantidade_peca?: number
+    preco_unitario: Decimal | DecimalJsLike | number | string
+    preco_total: Decimal | DecimalJsLike | number | string
+    valor_desconto?: Decimal | DecimalJsLike | number | string
+    data_fim_garantia: Date | string
+    status_item?: $Enums.status_item
+    data_devolucao?: Date | string | null
+    motivo_devolucao?: string | null
+  }
+
+  export type itens_pedido_vendasCreateOrConnectWithoutPedidos_vendasInput = {
     where: itens_pedido_vendasWhereUniqueInput
-    update: XOR<itens_pedido_vendasUpdateWithoutPedidos_vendasInput, itens_pedido_vendasUncheckedUpdateWithoutPedidos_vendasInput>
     create: XOR<itens_pedido_vendasCreateWithoutPedidos_vendasInput, itens_pedido_vendasUncheckedCreateWithoutPedidos_vendasInput>
   }
 
-  export type itens_pedido_vendasUpdateWithWhereUniqueWithoutPedidos_vendasInput = {
-    where: itens_pedido_vendasWhereUniqueInput
-    data: XOR<itens_pedido_vendasUpdateWithoutPedidos_vendasInput, itens_pedido_vendasUncheckedUpdateWithoutPedidos_vendasInput>
-  }
-
-  export type itens_pedido_vendasUpdateManyWithWhereWithoutPedidos_vendasInput = {
-    where: itens_pedido_vendasScalarWhereInput
-    data: XOR<itens_pedido_vendasUpdateManyMutationInput, itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasInput>
+  export type itens_pedido_vendasCreateManyPedidos_vendasInputEnvelope = {
+    data: itens_pedido_vendasCreateManyPedidos_vendasInput | itens_pedido_vendasCreateManyPedidos_vendasInput[]
+    skipDuplicates?: boolean
   }
 
   export type clientesUpsertWithoutPedidos_vendaInput = {
@@ -49025,7 +49040,8 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49047,7 +49063,8 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49281,12 +49298,29 @@ export namespace Prisma {
     despesa_id?: UuidNullableFilter<"Movimentacao"> | string | null
   }
 
+  export type itens_pedido_vendasUpsertWithWhereUniqueWithoutPedidos_vendasInput = {
+    where: itens_pedido_vendasWhereUniqueInput
+    update: XOR<itens_pedido_vendasUpdateWithoutPedidos_vendasInput, itens_pedido_vendasUncheckedUpdateWithoutPedidos_vendasInput>
+    create: XOR<itens_pedido_vendasCreateWithoutPedidos_vendasInput, itens_pedido_vendasUncheckedCreateWithoutPedidos_vendasInput>
+  }
+
+  export type itens_pedido_vendasUpdateWithWhereUniqueWithoutPedidos_vendasInput = {
+    where: itens_pedido_vendasWhereUniqueInput
+    data: XOR<itens_pedido_vendasUpdateWithoutPedidos_vendasInput, itens_pedido_vendasUncheckedUpdateWithoutPedidos_vendasInput>
+  }
+
+  export type itens_pedido_vendasUpdateManyWithWhereWithoutPedidos_vendasInput = {
+    where: itens_pedido_vendasScalarWhereInput
+    data: XOR<itens_pedido_vendasUpdateManyMutationInput, itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasInput>
+  }
+
   export type clientesCreateWithoutOrdens_servicoInput = {
     id?: string
     nome_cliente: string
     cpf_cliente: string
     IE_cliente?: string | null
-    endereco_cliente?: string | null
+    logradouro_cliente?: string | null
+    numero_endereco?: string | null
     bairro_cliente?: string | null
     cep_cliente?: string
     cidade_cliente?: string | null
@@ -49308,7 +49342,8 @@ export namespace Prisma {
     nome_cliente: string
     cpf_cliente: string
     IE_cliente?: string | null
-    endereco_cliente?: string | null
+    logradouro_cliente?: string | null
+    numero_endereco?: string | null
     bairro_cliente?: string | null
     cep_cliente?: string
     cidade_cliente?: string | null
@@ -49567,7 +49602,8 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49589,7 +49625,8 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49956,13 +49993,13 @@ export namespace Prisma {
     metodo_pagamento?: $Enums.metodo_pagamento
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
-    itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
     cliente_comprador: clientesCreateNestedOneWithoutPedidos_vendaInput
     responsavel_venda: usuariosCreateNestedOneWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalCreateNestedOneWithoutPedido_vendaInput
     lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutPedido_vendaInput
     plano_contas?: PlanoContasCreateNestedOneWithoutPedidos_vendasInput
     movimentacoes?: MovimentacaoCreateNestedManyWithoutPedido_vendaInput
+    itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
   }
 
   export type pedidos_vendasUncheckedCreateWithoutOsServicosItensInput = {
@@ -49975,10 +50012,10 @@ export namespace Prisma {
     cliente_comprador_id: string
     responsavel_venda_id: string
     plano_contas_id?: string | null
-    itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalUncheckedCreateNestedOneWithoutPedido_vendaInput
     lancamentos_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutPedido_vendaInput
     movimentacoes?: MovimentacaoUncheckedCreateNestedManyWithoutPedido_vendaInput
+    itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
   }
 
   export type pedidos_vendasCreateOrConnectWithoutOsServicosItensInput = {
@@ -50341,7 +50378,8 @@ export namespace Prisma {
     nome_cliente: string
     cpf_cliente: string
     IE_cliente?: string | null
-    endereco_cliente?: string | null
+    logradouro_cliente?: string | null
+    numero_endereco?: string | null
     bairro_cliente?: string | null
     cep_cliente?: string
     cidade_cliente?: string | null
@@ -50363,7 +50401,8 @@ export namespace Prisma {
     nome_cliente: string
     cpf_cliente: string
     IE_cliente?: string | null
-    endereco_cliente?: string | null
+    logradouro_cliente?: string | null
+    numero_endereco?: string | null
     bairro_cliente?: string | null
     cep_cliente?: string
     cidade_cliente?: string | null
@@ -50496,7 +50535,8 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50518,7 +50558,8 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50788,7 +50829,8 @@ export namespace Prisma {
     nome_cliente: string
     cpf_cliente: string
     IE_cliente?: string | null
-    endereco_cliente?: string | null
+    logradouro_cliente?: string | null
+    numero_endereco?: string | null
     bairro_cliente?: string | null
     cep_cliente?: string
     cidade_cliente?: string | null
@@ -50810,7 +50852,8 @@ export namespace Prisma {
     nome_cliente: string
     cpf_cliente: string
     IE_cliente?: string | null
-    endereco_cliente?: string | null
+    logradouro_cliente?: string | null
+    numero_endereco?: string | null
     bairro_cliente?: string | null
     cep_cliente?: string
     cidade_cliente?: string | null
@@ -51038,7 +51081,8 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51060,7 +51104,8 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51339,13 +51384,13 @@ export namespace Prisma {
     metodo_pagamento?: $Enums.metodo_pagamento
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
-    itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
     cliente_comprador: clientesCreateNestedOneWithoutPedidos_vendaInput
     documento_fiscal?: documento_fiscalCreateNestedOneWithoutPedido_vendaInput
     lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutPedido_vendaInput
     osServicosItens?: os_servicos_itensCreateNestedOneWithoutPedidosInput
     plano_contas?: PlanoContasCreateNestedOneWithoutPedidos_vendasInput
     movimentacoes?: MovimentacaoCreateNestedManyWithoutPedido_vendaInput
+    itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
   }
 
   export type pedidos_vendasUncheckedCreateWithoutResponsavel_vendaInput = {
@@ -51358,10 +51403,10 @@ export namespace Prisma {
     cliente_comprador_id: string
     os_servicos_itensId?: string | null
     plano_contas_id?: string | null
-    itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalUncheckedCreateNestedOneWithoutPedido_vendaInput
     lancamentos_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutPedido_vendaInput
     movimentacoes?: MovimentacaoUncheckedCreateNestedManyWithoutPedido_vendaInput
+    itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
   }
 
   export type pedidos_vendasCreateOrConnectWithoutResponsavel_vendaInput = {
@@ -51833,7 +51878,8 @@ export namespace Prisma {
     nome_cliente: string
     cpf_cliente: string
     IE_cliente?: string | null
-    endereco_cliente?: string | null
+    logradouro_cliente?: string | null
+    numero_endereco?: string | null
     bairro_cliente?: string | null
     cep_cliente?: string
     cidade_cliente?: string | null
@@ -51855,7 +51901,8 @@ export namespace Prisma {
     nome_cliente: string
     cpf_cliente: string
     IE_cliente?: string | null
-    endereco_cliente?: string | null
+    logradouro_cliente?: string | null
+    numero_endereco?: string | null
     bairro_cliente?: string | null
     cep_cliente?: string
     cidade_cliente?: string | null
@@ -51958,7 +52005,8 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51980,7 +52028,8 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    endereco_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
     bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cep_cliente?: StringFieldUpdateOperationsInput | string
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52147,13 +52196,13 @@ export namespace Prisma {
     metodo_pagamento?: $Enums.metodo_pagamento
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
-    itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
     cliente_comprador: clientesCreateNestedOneWithoutPedidos_vendaInput
     responsavel_venda: usuariosCreateNestedOneWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalCreateNestedOneWithoutPedido_vendaInput
     lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutPedido_vendaInput
     osServicosItens?: os_servicos_itensCreateNestedOneWithoutPedidosInput
     movimentacoes?: MovimentacaoCreateNestedManyWithoutPedido_vendaInput
+    itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
   }
 
   export type pedidos_vendasUncheckedCreateWithoutPlano_contasInput = {
@@ -52166,10 +52215,10 @@ export namespace Prisma {
     cliente_comprador_id: string
     responsavel_venda_id: string
     os_servicos_itensId?: string | null
-    itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalUncheckedCreateNestedOneWithoutPedido_vendaInput
     lancamentos_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutPedido_vendaInput
     movimentacoes?: MovimentacaoUncheckedCreateNestedManyWithoutPedido_vendaInput
+    itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
   }
 
   export type pedidos_vendasCreateOrConnectWithoutPlano_contasInput = {
@@ -52310,13 +52359,13 @@ export namespace Prisma {
     metodo_pagamento?: $Enums.metodo_pagamento
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
-    itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
     cliente_comprador: clientesCreateNestedOneWithoutPedidos_vendaInput
     responsavel_venda: usuariosCreateNestedOneWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalCreateNestedOneWithoutPedido_vendaInput
     lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutPedido_vendaInput
     osServicosItens?: os_servicos_itensCreateNestedOneWithoutPedidosInput
     plano_contas?: PlanoContasCreateNestedOneWithoutPedidos_vendasInput
+    itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
   }
 
   export type pedidos_vendasUncheckedCreateWithoutMovimentacoesInput = {
@@ -52330,9 +52379,9 @@ export namespace Prisma {
     responsavel_venda_id: string
     os_servicos_itensId?: string | null
     plano_contas_id?: string | null
-    itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalUncheckedCreateNestedOneWithoutPedido_vendaInput
     lancamentos_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutPedido_vendaInput
+    itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
   }
 
   export type pedidos_vendasCreateOrConnectWithoutMovimentacoesInput = {
@@ -52420,13 +52469,13 @@ export namespace Prisma {
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
-    itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
     cliente_comprador?: clientesUpdateOneRequiredWithoutPedidos_vendaNestedInput
     responsavel_venda?: usuariosUpdateOneRequiredWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUpdateOneWithoutPedido_vendaNestedInput
     lancamentos_caixa?: fluxo_caixaUpdateManyWithoutPedido_vendaNestedInput
     osServicosItens?: os_servicos_itensUpdateOneWithoutPedidosNestedInput
     plano_contas?: PlanoContasUpdateOneWithoutPedidos_vendasNestedInput
+    itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
   }
 
   export type pedidos_vendasUncheckedUpdateWithoutMovimentacoesInput = {
@@ -52440,9 +52489,9 @@ export namespace Prisma {
     responsavel_venda_id?: StringFieldUpdateOperationsInput | string
     os_servicos_itensId?: NullableStringFieldUpdateOperationsInput | string | null
     plano_contas_id?: NullableStringFieldUpdateOperationsInput | string | null
-    itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUncheckedUpdateOneWithoutPedido_vendaNestedInput
     lancamentos_caixa?: fluxo_caixaUncheckedUpdateManyWithoutPedido_vendaNestedInput
+    itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
   }
 
   export type despesasUpsertWithoutMovimentacoesInput = {
@@ -52759,13 +52808,13 @@ export namespace Prisma {
     metodo_pagamento?: $Enums.metodo_pagamento
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
-    itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
     cliente_comprador: clientesCreateNestedOneWithoutPedidos_vendaInput
     responsavel_venda: usuariosCreateNestedOneWithoutPedidos_vendasInput
     lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutPedido_vendaInput
     osServicosItens?: os_servicos_itensCreateNestedOneWithoutPedidosInput
     plano_contas?: PlanoContasCreateNestedOneWithoutPedidos_vendasInput
     movimentacoes?: MovimentacaoCreateNestedManyWithoutPedido_vendaInput
+    itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
   }
 
   export type pedidos_vendasUncheckedCreateWithoutDocumento_fiscalInput = {
@@ -52779,9 +52828,9 @@ export namespace Prisma {
     responsavel_venda_id: string
     os_servicos_itensId?: string | null
     plano_contas_id?: string | null
-    itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
     lancamentos_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutPedido_vendaInput
     movimentacoes?: MovimentacaoUncheckedCreateNestedManyWithoutPedido_vendaInput
+    itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
   }
 
   export type pedidos_vendasCreateOrConnectWithoutDocumento_fiscalInput = {
@@ -52895,13 +52944,13 @@ export namespace Prisma {
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
-    itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
     cliente_comprador?: clientesUpdateOneRequiredWithoutPedidos_vendaNestedInput
     responsavel_venda?: usuariosUpdateOneRequiredWithoutPedidos_vendasNestedInput
     lancamentos_caixa?: fluxo_caixaUpdateManyWithoutPedido_vendaNestedInput
     osServicosItens?: os_servicos_itensUpdateOneWithoutPedidosNestedInput
     plano_contas?: PlanoContasUpdateOneWithoutPedidos_vendasNestedInput
     movimentacoes?: MovimentacaoUpdateManyWithoutPedido_vendaNestedInput
+    itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
   }
 
   export type pedidos_vendasUncheckedUpdateWithoutDocumento_fiscalInput = {
@@ -52915,9 +52964,9 @@ export namespace Prisma {
     responsavel_venda_id?: StringFieldUpdateOperationsInput | string
     os_servicos_itensId?: NullableStringFieldUpdateOperationsInput | string | null
     plano_contas_id?: NullableStringFieldUpdateOperationsInput | string | null
-    itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
     lancamentos_caixa?: fluxo_caixaUncheckedUpdateManyWithoutPedido_vendaNestedInput
     movimentacoes?: MovimentacaoUncheckedUpdateManyWithoutPedido_vendaNestedInput
+    itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
   }
 
   export type ordem_servicoUpsertWithoutDocumento_fiscalInput = {
@@ -53027,13 +53076,13 @@ export namespace Prisma {
     metodo_pagamento?: $Enums.metodo_pagamento
     status_pedido?: $Enums.status_pedido
     observacoes_recibo?: string | null
-    itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
     cliente_comprador: clientesCreateNestedOneWithoutPedidos_vendaInput
     responsavel_venda: usuariosCreateNestedOneWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalCreateNestedOneWithoutPedido_vendaInput
     osServicosItens?: os_servicos_itensCreateNestedOneWithoutPedidosInput
     plano_contas?: PlanoContasCreateNestedOneWithoutPedidos_vendasInput
     movimentacoes?: MovimentacaoCreateNestedManyWithoutPedido_vendaInput
+    itens_pedido_vendas?: itens_pedido_vendasCreateNestedManyWithoutPedidos_vendasInput
   }
 
   export type pedidos_vendasUncheckedCreateWithoutLancamentos_caixaInput = {
@@ -53047,9 +53096,9 @@ export namespace Prisma {
     responsavel_venda_id: string
     os_servicos_itensId?: string | null
     plano_contas_id?: string | null
-    itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
     documento_fiscal?: documento_fiscalUncheckedCreateNestedOneWithoutPedido_vendaInput
     movimentacoes?: MovimentacaoUncheckedCreateNestedManyWithoutPedido_vendaInput
+    itens_pedido_vendas?: itens_pedido_vendasUncheckedCreateNestedManyWithoutPedidos_vendasInput
   }
 
   export type pedidos_vendasCreateOrConnectWithoutLancamentos_caixaInput = {
@@ -53339,13 +53388,13 @@ export namespace Prisma {
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
-    itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
     cliente_comprador?: clientesUpdateOneRequiredWithoutPedidos_vendaNestedInput
     responsavel_venda?: usuariosUpdateOneRequiredWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUpdateOneWithoutPedido_vendaNestedInput
     osServicosItens?: os_servicos_itensUpdateOneWithoutPedidosNestedInput
     plano_contas?: PlanoContasUpdateOneWithoutPedidos_vendasNestedInput
     movimentacoes?: MovimentacaoUpdateManyWithoutPedido_vendaNestedInput
+    itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
   }
 
   export type pedidos_vendasUncheckedUpdateWithoutLancamentos_caixaInput = {
@@ -53359,9 +53408,9 @@ export namespace Prisma {
     responsavel_venda_id?: StringFieldUpdateOperationsInput | string
     os_servicos_itensId?: NullableStringFieldUpdateOperationsInput | string | null
     plano_contas_id?: NullableStringFieldUpdateOperationsInput | string | null
-    itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUncheckedUpdateOneWithoutPedido_vendaNestedInput
     movimentacoes?: MovimentacaoUncheckedUpdateManyWithoutPedido_vendaNestedInput
+    itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
   }
 
   export type ordem_servicoUpsertWithoutLancamentos_caixaInput = {
@@ -53745,13 +53794,13 @@ export namespace Prisma {
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
-    itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
     responsavel_venda?: usuariosUpdateOneRequiredWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUpdateOneWithoutPedido_vendaNestedInput
     lancamentos_caixa?: fluxo_caixaUpdateManyWithoutPedido_vendaNestedInput
     osServicosItens?: os_servicos_itensUpdateOneWithoutPedidosNestedInput
     plano_contas?: PlanoContasUpdateOneWithoutPedidos_vendasNestedInput
     movimentacoes?: MovimentacaoUpdateManyWithoutPedido_vendaNestedInput
+    itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
   }
 
   export type pedidos_vendasUncheckedUpdateWithoutCliente_compradorInput = {
@@ -53764,10 +53813,10 @@ export namespace Prisma {
     responsavel_venda_id?: StringFieldUpdateOperationsInput | string
     os_servicos_itensId?: NullableStringFieldUpdateOperationsInput | string | null
     plano_contas_id?: NullableStringFieldUpdateOperationsInput | string | null
-    itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUncheckedUpdateOneWithoutPedido_vendaNestedInput
     lancamentos_caixa?: fluxo_caixaUncheckedUpdateManyWithoutPedido_vendaNestedInput
     movimentacoes?: MovimentacaoUncheckedUpdateManyWithoutPedido_vendaNestedInput
+    itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
   }
 
   export type pedidos_vendasUncheckedUpdateManyWithoutCliente_compradorInput = {
@@ -54455,19 +54504,6 @@ export namespace Prisma {
     data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type itens_pedido_vendasCreateManyPedidos_vendasInput = {
-    id?: string
-    peca_estoque_id: string
-    quantidade_peca?: number
-    preco_unitario: Decimal | DecimalJsLike | number | string
-    preco_total: Decimal | DecimalJsLike | number | string
-    valor_desconto?: Decimal | DecimalJsLike | number | string
-    data_fim_garantia: Date | string
-    status_item?: $Enums.status_item
-    data_devolucao?: Date | string | null
-    motivo_devolucao?: string | null
-  }
-
   export type fluxo_caixaCreateManyPedido_vendaInput = {
     id?: string
     descricao: string
@@ -54497,43 +54533,17 @@ export namespace Prisma {
     despesa_id?: string | null
   }
 
-  export type itens_pedido_vendasUpdateWithoutPedidos_vendasInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    quantidade_peca?: IntFieldUpdateOperationsInput | number
-    preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    valor_desconto?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    data_fim_garantia?: DateTimeFieldUpdateOperationsInput | Date | string
-    status_item?: Enumstatus_itemFieldUpdateOperationsInput | $Enums.status_item
-    data_devolucao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    motivo_devolucao?: NullableStringFieldUpdateOperationsInput | string | null
-    peca_estoque?: peca_estoqueUpdateOneRequiredWithoutItens_pedido_vendasNestedInput
-  }
-
-  export type itens_pedido_vendasUncheckedUpdateWithoutPedidos_vendasInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    peca_estoque_id?: StringFieldUpdateOperationsInput | string
-    quantidade_peca?: IntFieldUpdateOperationsInput | number
-    preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    valor_desconto?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    data_fim_garantia?: DateTimeFieldUpdateOperationsInput | Date | string
-    status_item?: Enumstatus_itemFieldUpdateOperationsInput | $Enums.status_item
-    data_devolucao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    motivo_devolucao?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    peca_estoque_id?: StringFieldUpdateOperationsInput | string
-    quantidade_peca?: IntFieldUpdateOperationsInput | number
-    preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    valor_desconto?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    data_fim_garantia?: DateTimeFieldUpdateOperationsInput | Date | string
-    status_item?: Enumstatus_itemFieldUpdateOperationsInput | $Enums.status_item
-    data_devolucao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    motivo_devolucao?: NullableStringFieldUpdateOperationsInput | string | null
+  export type itens_pedido_vendasCreateManyPedidos_vendasInput = {
+    id?: string
+    peca_estoque_id: string
+    quantidade_peca?: number
+    preco_unitario: Decimal | DecimalJsLike | number | string
+    preco_total: Decimal | DecimalJsLike | number | string
+    valor_desconto?: Decimal | DecimalJsLike | number | string
+    data_fim_garantia: Date | string
+    status_item?: $Enums.status_item
+    data_devolucao?: Date | string | null
+    motivo_devolucao?: string | null
   }
 
   export type fluxo_caixaUpdateWithoutPedido_vendaInput = {
@@ -54621,6 +54631,45 @@ export namespace Prisma {
     data_pagamento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     plano_contas_id?: StringFieldUpdateOperationsInput | string
     despesa_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type itens_pedido_vendasUpdateWithoutPedidos_vendasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantidade_peca?: IntFieldUpdateOperationsInput | number
+    preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valor_desconto?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_fim_garantia?: DateTimeFieldUpdateOperationsInput | Date | string
+    status_item?: Enumstatus_itemFieldUpdateOperationsInput | $Enums.status_item
+    data_devolucao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    motivo_devolucao?: NullableStringFieldUpdateOperationsInput | string | null
+    peca_estoque?: peca_estoqueUpdateOneRequiredWithoutItens_pedido_vendasNestedInput
+  }
+
+  export type itens_pedido_vendasUncheckedUpdateWithoutPedidos_vendasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    peca_estoque_id?: StringFieldUpdateOperationsInput | string
+    quantidade_peca?: IntFieldUpdateOperationsInput | number
+    preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valor_desconto?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_fim_garantia?: DateTimeFieldUpdateOperationsInput | Date | string
+    status_item?: Enumstatus_itemFieldUpdateOperationsInput | $Enums.status_item
+    data_devolucao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    motivo_devolucao?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    peca_estoque_id?: StringFieldUpdateOperationsInput | string
+    quantidade_peca?: IntFieldUpdateOperationsInput | number
+    preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valor_desconto?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_fim_garantia?: DateTimeFieldUpdateOperationsInput | Date | string
+    status_item?: Enumstatus_itemFieldUpdateOperationsInput | $Enums.status_item
+    data_devolucao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    motivo_devolucao?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type os_servicos_itensCreateManyOrdem_servicoInput = {
@@ -54820,13 +54869,13 @@ export namespace Prisma {
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
-    itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
     cliente_comprador?: clientesUpdateOneRequiredWithoutPedidos_vendaNestedInput
     responsavel_venda?: usuariosUpdateOneRequiredWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUpdateOneWithoutPedido_vendaNestedInput
     lancamentos_caixa?: fluxo_caixaUpdateManyWithoutPedido_vendaNestedInput
     plano_contas?: PlanoContasUpdateOneWithoutPedidos_vendasNestedInput
     movimentacoes?: MovimentacaoUpdateManyWithoutPedido_vendaNestedInput
+    itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
   }
 
   export type pedidos_vendasUncheckedUpdateWithoutOsServicosItensInput = {
@@ -54839,10 +54888,10 @@ export namespace Prisma {
     cliente_comprador_id?: StringFieldUpdateOperationsInput | string
     responsavel_venda_id?: StringFieldUpdateOperationsInput | string
     plano_contas_id?: NullableStringFieldUpdateOperationsInput | string | null
-    itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUncheckedUpdateOneWithoutPedido_vendaNestedInput
     lancamentos_caixa?: fluxo_caixaUncheckedUpdateManyWithoutPedido_vendaNestedInput
     movimentacoes?: MovimentacaoUncheckedUpdateManyWithoutPedido_vendaNestedInput
+    itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
   }
 
   export type pedidos_vendasUncheckedUpdateManyWithoutOsServicosItensInput = {
@@ -55411,13 +55460,13 @@ export namespace Prisma {
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
-    itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
     cliente_comprador?: clientesUpdateOneRequiredWithoutPedidos_vendaNestedInput
     documento_fiscal?: documento_fiscalUpdateOneWithoutPedido_vendaNestedInput
     lancamentos_caixa?: fluxo_caixaUpdateManyWithoutPedido_vendaNestedInput
     osServicosItens?: os_servicos_itensUpdateOneWithoutPedidosNestedInput
     plano_contas?: PlanoContasUpdateOneWithoutPedidos_vendasNestedInput
     movimentacoes?: MovimentacaoUpdateManyWithoutPedido_vendaNestedInput
+    itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
   }
 
   export type pedidos_vendasUncheckedUpdateWithoutResponsavel_vendaInput = {
@@ -55430,10 +55479,10 @@ export namespace Prisma {
     cliente_comprador_id?: StringFieldUpdateOperationsInput | string
     os_servicos_itensId?: NullableStringFieldUpdateOperationsInput | string | null
     plano_contas_id?: NullableStringFieldUpdateOperationsInput | string | null
-    itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUncheckedUpdateOneWithoutPedido_vendaNestedInput
     lancamentos_caixa?: fluxo_caixaUncheckedUpdateManyWithoutPedido_vendaNestedInput
     movimentacoes?: MovimentacaoUncheckedUpdateManyWithoutPedido_vendaNestedInput
+    itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
   }
 
   export type pedidos_vendasUncheckedUpdateManyWithoutResponsavel_vendaInput = {
@@ -55891,13 +55940,13 @@ export namespace Prisma {
     metodo_pagamento?: Enummetodo_pagamentoFieldUpdateOperationsInput | $Enums.metodo_pagamento
     status_pedido?: Enumstatus_pedidoFieldUpdateOperationsInput | $Enums.status_pedido
     observacoes_recibo?: NullableStringFieldUpdateOperationsInput | string | null
-    itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
     cliente_comprador?: clientesUpdateOneRequiredWithoutPedidos_vendaNestedInput
     responsavel_venda?: usuariosUpdateOneRequiredWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUpdateOneWithoutPedido_vendaNestedInput
     lancamentos_caixa?: fluxo_caixaUpdateManyWithoutPedido_vendaNestedInput
     osServicosItens?: os_servicos_itensUpdateOneWithoutPedidosNestedInput
     movimentacoes?: MovimentacaoUpdateManyWithoutPedido_vendaNestedInput
+    itens_pedido_vendas?: itens_pedido_vendasUpdateManyWithoutPedidos_vendasNestedInput
   }
 
   export type pedidos_vendasUncheckedUpdateWithoutPlano_contasInput = {
@@ -55910,10 +55959,10 @@ export namespace Prisma {
     cliente_comprador_id?: StringFieldUpdateOperationsInput | string
     responsavel_venda_id?: StringFieldUpdateOperationsInput | string
     os_servicos_itensId?: NullableStringFieldUpdateOperationsInput | string | null
-    itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
     documento_fiscal?: documento_fiscalUncheckedUpdateOneWithoutPedido_vendaNestedInput
     lancamentos_caixa?: fluxo_caixaUncheckedUpdateManyWithoutPedido_vendaNestedInput
     movimentacoes?: MovimentacaoUncheckedUpdateManyWithoutPedido_vendaNestedInput
+    itens_pedido_vendas?: itens_pedido_vendasUncheckedUpdateManyWithoutPedidos_vendasNestedInput
   }
 
   export type pedidos_vendasUncheckedUpdateManyWithoutPlano_contasInput = {
