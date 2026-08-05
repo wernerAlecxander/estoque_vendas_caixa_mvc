@@ -4567,18 +4567,18 @@ export namespace Prisma {
     nome_cliente: string
     cpf_cliente: string
     IE_cliente: string | null
-    logradouro_cliente: string | null
+    logradouro_cliente: string
     numero_endereco: string | null
-    bairro_cliente: string | null
-    cep_cliente: string
+    bairro_cliente: string
+    cep_cliente: string | null
     cidade_cliente: string | null
-    uf_cliente: string
+    uf_cliente: string | null
     codigo_IBGE: string
     pais_cliente: string | null
-    telefone_cliente: string | null
+    telefone_cliente: string
     data_nascimento: Date | null
-    email_cliente: string
-    data_cadastro: Date | null
+    email_cliente: string | null
+    data_cadastro: Date
     _count: ClientesCountAggregateOutputType | null
     _min: ClientesMinAggregateOutputType | null
     _max: ClientesMaxAggregateOutputType | null
@@ -4706,18 +4706,18 @@ export namespace Prisma {
       nome_cliente: string
       cpf_cliente: string
       IE_cliente: string | null
-      logradouro_cliente: string | null
+      logradouro_cliente: string
       numero_endereco: string | null
-      bairro_cliente: string | null
-      cep_cliente: string
+      bairro_cliente: string
+      cep_cliente: string | null
       cidade_cliente: string | null
-      uf_cliente: string
+      uf_cliente: string | null
       codigo_IBGE: string
       pais_cliente: string | null
-      telefone_cliente: string | null
+      telefone_cliente: string
       data_nascimento: Date | null
-      email_cliente: string
-      data_cadastro: Date | null
+      email_cliente: string | null
+      data_cadastro: Date
     }, ExtArgs["result"]["clientes"]>
     composites: {}
   }
@@ -21253,7 +21253,7 @@ export namespace Prisma {
     quantidade?: boolean
     responsavel_compra_id?: boolean
     cliente_vendedor_id?: boolean
-    clientes?: boolean | clientesDefaultArgs<ExtArgs>
+    clientes_vendedor?: boolean | clientesDefaultArgs<ExtArgs>
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
     lancamentos_caixa?: boolean | sucata_compras$lancamentos_caixaArgs<ExtArgs>
     _count?: boolean | Sucata_comprasCountOutputTypeDefaultArgs<ExtArgs>
@@ -21266,7 +21266,7 @@ export namespace Prisma {
     quantidade?: boolean
     responsavel_compra_id?: boolean
     cliente_vendedor_id?: boolean
-    clientes?: boolean | clientesDefaultArgs<ExtArgs>
+    clientes_vendedor?: boolean | clientesDefaultArgs<ExtArgs>
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sucata_compras"]>
 
@@ -21277,7 +21277,7 @@ export namespace Prisma {
     quantidade?: boolean
     responsavel_compra_id?: boolean
     cliente_vendedor_id?: boolean
-    clientes?: boolean | clientesDefaultArgs<ExtArgs>
+    clientes_vendedor?: boolean | clientesDefaultArgs<ExtArgs>
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sucata_compras"]>
 
@@ -21292,24 +21292,24 @@ export namespace Prisma {
 
   export type sucata_comprasOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "data_compra" | "valor_compra" | "quantidade" | "responsavel_compra_id" | "cliente_vendedor_id", ExtArgs["result"]["sucata_compras"]>
   export type sucata_comprasInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    clientes?: boolean | clientesDefaultArgs<ExtArgs>
+    clientes_vendedor?: boolean | clientesDefaultArgs<ExtArgs>
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
     lancamentos_caixa?: boolean | sucata_compras$lancamentos_caixaArgs<ExtArgs>
     _count?: boolean | Sucata_comprasCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type sucata_comprasIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    clientes?: boolean | clientesDefaultArgs<ExtArgs>
+    clientes_vendedor?: boolean | clientesDefaultArgs<ExtArgs>
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
   }
   export type sucata_comprasIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    clientes?: boolean | clientesDefaultArgs<ExtArgs>
+    clientes_vendedor?: boolean | clientesDefaultArgs<ExtArgs>
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
   }
 
   export type $sucata_comprasPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "sucata_compras"
     objects: {
-      clientes: Prisma.$clientesPayload<ExtArgs>
+      clientes_vendedor: Prisma.$clientesPayload<ExtArgs>
       usuarios: Prisma.$usuariosPayload<ExtArgs>
       lancamentos_caixa: Prisma.$fluxo_caixaPayload<ExtArgs>[]
     }
@@ -21714,7 +21714,7 @@ export namespace Prisma {
    */
   export interface Prisma__sucata_comprasClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    clientes<T extends clientesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, clientesDefaultArgs<ExtArgs>>): Prisma__clientesClient<$Result.GetResult<Prisma.$clientesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    clientes_vendedor<T extends clientesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, clientesDefaultArgs<ExtArgs>>): Prisma__clientesClient<$Result.GetResult<Prisma.$clientesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     usuarios<T extends usuariosDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usuariosDefaultArgs<ExtArgs>>): Prisma__usuariosClient<$Result.GetResult<Prisma.$usuariosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     lancamentos_caixa<T extends sucata_compras$lancamentos_caixaArgs<ExtArgs> = {}>(args?: Subset<T, sucata_compras$lancamentos_caixaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$fluxo_caixaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -36553,18 +36553,18 @@ export namespace Prisma {
     nome_cliente?: StringFilter<"clientes"> | string
     cpf_cliente?: StringFilter<"clientes"> | string
     IE_cliente?: StringNullableFilter<"clientes"> | string | null
-    logradouro_cliente?: StringNullableFilter<"clientes"> | string | null
+    logradouro_cliente?: StringFilter<"clientes"> | string
     numero_endereco?: StringNullableFilter<"clientes"> | string | null
-    bairro_cliente?: StringNullableFilter<"clientes"> | string | null
-    cep_cliente?: StringFilter<"clientes"> | string
+    bairro_cliente?: StringFilter<"clientes"> | string
+    cep_cliente?: StringNullableFilter<"clientes"> | string | null
     cidade_cliente?: StringNullableFilter<"clientes"> | string | null
-    uf_cliente?: StringFilter<"clientes"> | string
+    uf_cliente?: StringNullableFilter<"clientes"> | string | null
     codigo_IBGE?: StringFilter<"clientes"> | string
     pais_cliente?: StringNullableFilter<"clientes"> | string | null
-    telefone_cliente?: StringNullableFilter<"clientes"> | string | null
+    telefone_cliente?: StringFilter<"clientes"> | string
     data_nascimento?: DateTimeNullableFilter<"clientes"> | Date | string | null
-    email_cliente?: StringFilter<"clientes"> | string
-    data_cadastro?: DateTimeNullableFilter<"clientes"> | Date | string | null
+    email_cliente?: StringNullableFilter<"clientes"> | string | null
+    data_cadastro?: DateTimeFilter<"clientes"> | Date | string
     pedidos_venda?: Pedidos_vendasListRelationFilter
     sucata_compra?: Sucata_comprasListRelationFilter
     veiculos_cliente?: Veiculos_cliente_manutencaoListRelationFilter
@@ -36577,18 +36577,18 @@ export namespace Prisma {
     nome_cliente?: SortOrder
     cpf_cliente?: SortOrder
     IE_cliente?: SortOrderInput | SortOrder
-    logradouro_cliente?: SortOrderInput | SortOrder
+    logradouro_cliente?: SortOrder
     numero_endereco?: SortOrderInput | SortOrder
-    bairro_cliente?: SortOrderInput | SortOrder
-    cep_cliente?: SortOrder
+    bairro_cliente?: SortOrder
+    cep_cliente?: SortOrderInput | SortOrder
     cidade_cliente?: SortOrderInput | SortOrder
-    uf_cliente?: SortOrder
+    uf_cliente?: SortOrderInput | SortOrder
     codigo_IBGE?: SortOrder
     pais_cliente?: SortOrderInput | SortOrder
-    telefone_cliente?: SortOrderInput | SortOrder
+    telefone_cliente?: SortOrder
     data_nascimento?: SortOrderInput | SortOrder
-    email_cliente?: SortOrder
-    data_cadastro?: SortOrderInput | SortOrder
+    email_cliente?: SortOrderInput | SortOrder
+    data_cadastro?: SortOrder
     pedidos_venda?: pedidos_vendasOrderByRelationAggregateInput
     sucata_compra?: sucata_comprasOrderByRelationAggregateInput
     veiculos_cliente?: veiculos_cliente_manutencaoOrderByRelationAggregateInput
@@ -36605,17 +36605,17 @@ export namespace Prisma {
     OR?: clientesWhereInput[]
     NOT?: clientesWhereInput | clientesWhereInput[]
     IE_cliente?: StringNullableFilter<"clientes"> | string | null
-    logradouro_cliente?: StringNullableFilter<"clientes"> | string | null
+    logradouro_cliente?: StringFilter<"clientes"> | string
     numero_endereco?: StringNullableFilter<"clientes"> | string | null
-    bairro_cliente?: StringNullableFilter<"clientes"> | string | null
-    cep_cliente?: StringFilter<"clientes"> | string
+    bairro_cliente?: StringFilter<"clientes"> | string
+    cep_cliente?: StringNullableFilter<"clientes"> | string | null
     cidade_cliente?: StringNullableFilter<"clientes"> | string | null
-    uf_cliente?: StringFilter<"clientes"> | string
+    uf_cliente?: StringNullableFilter<"clientes"> | string | null
     codigo_IBGE?: StringFilter<"clientes"> | string
     pais_cliente?: StringNullableFilter<"clientes"> | string | null
-    telefone_cliente?: StringNullableFilter<"clientes"> | string | null
+    telefone_cliente?: StringFilter<"clientes"> | string
     data_nascimento?: DateTimeNullableFilter<"clientes"> | Date | string | null
-    data_cadastro?: DateTimeNullableFilter<"clientes"> | Date | string | null
+    data_cadastro?: DateTimeFilter<"clientes"> | Date | string
     pedidos_venda?: Pedidos_vendasListRelationFilter
     sucata_compra?: Sucata_comprasListRelationFilter
     veiculos_cliente?: Veiculos_cliente_manutencaoListRelationFilter
@@ -36628,18 +36628,18 @@ export namespace Prisma {
     nome_cliente?: SortOrder
     cpf_cliente?: SortOrder
     IE_cliente?: SortOrderInput | SortOrder
-    logradouro_cliente?: SortOrderInput | SortOrder
+    logradouro_cliente?: SortOrder
     numero_endereco?: SortOrderInput | SortOrder
-    bairro_cliente?: SortOrderInput | SortOrder
-    cep_cliente?: SortOrder
+    bairro_cliente?: SortOrder
+    cep_cliente?: SortOrderInput | SortOrder
     cidade_cliente?: SortOrderInput | SortOrder
-    uf_cliente?: SortOrder
+    uf_cliente?: SortOrderInput | SortOrder
     codigo_IBGE?: SortOrder
     pais_cliente?: SortOrderInput | SortOrder
-    telefone_cliente?: SortOrderInput | SortOrder
+    telefone_cliente?: SortOrder
     data_nascimento?: SortOrderInput | SortOrder
-    email_cliente?: SortOrder
-    data_cadastro?: SortOrderInput | SortOrder
+    email_cliente?: SortOrderInput | SortOrder
+    data_cadastro?: SortOrder
     _count?: clientesCountOrderByAggregateInput
     _max?: clientesMaxOrderByAggregateInput
     _min?: clientesMinOrderByAggregateInput
@@ -36653,18 +36653,18 @@ export namespace Prisma {
     nome_cliente?: StringWithAggregatesFilter<"clientes"> | string
     cpf_cliente?: StringWithAggregatesFilter<"clientes"> | string
     IE_cliente?: StringNullableWithAggregatesFilter<"clientes"> | string | null
-    logradouro_cliente?: StringNullableWithAggregatesFilter<"clientes"> | string | null
+    logradouro_cliente?: StringWithAggregatesFilter<"clientes"> | string
     numero_endereco?: StringNullableWithAggregatesFilter<"clientes"> | string | null
-    bairro_cliente?: StringNullableWithAggregatesFilter<"clientes"> | string | null
-    cep_cliente?: StringWithAggregatesFilter<"clientes"> | string
+    bairro_cliente?: StringWithAggregatesFilter<"clientes"> | string
+    cep_cliente?: StringNullableWithAggregatesFilter<"clientes"> | string | null
     cidade_cliente?: StringNullableWithAggregatesFilter<"clientes"> | string | null
-    uf_cliente?: StringWithAggregatesFilter<"clientes"> | string
+    uf_cliente?: StringNullableWithAggregatesFilter<"clientes"> | string | null
     codigo_IBGE?: StringWithAggregatesFilter<"clientes"> | string
     pais_cliente?: StringNullableWithAggregatesFilter<"clientes"> | string | null
-    telefone_cliente?: StringNullableWithAggregatesFilter<"clientes"> | string | null
+    telefone_cliente?: StringWithAggregatesFilter<"clientes"> | string
     data_nascimento?: DateTimeNullableWithAggregatesFilter<"clientes"> | Date | string | null
-    email_cliente?: StringWithAggregatesFilter<"clientes"> | string
-    data_cadastro?: DateTimeNullableWithAggregatesFilter<"clientes"> | Date | string | null
+    email_cliente?: StringNullableWithAggregatesFilter<"clientes"> | string | null
+    data_cadastro?: DateTimeWithAggregatesFilter<"clientes"> | Date | string
   }
 
   export type compatibilidade_pecasWhereInput = {
@@ -37659,7 +37659,7 @@ export namespace Prisma {
     quantidade?: IntFilter<"sucata_compras"> | number
     responsavel_compra_id?: UuidFilter<"sucata_compras"> | string
     cliente_vendedor_id?: UuidFilter<"sucata_compras"> | string
-    clientes?: XOR<ClientesScalarRelationFilter, clientesWhereInput>
+    clientes_vendedor?: XOR<ClientesScalarRelationFilter, clientesWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
     lancamentos_caixa?: Fluxo_caixaListRelationFilter
   }
@@ -37671,7 +37671,7 @@ export namespace Prisma {
     quantidade?: SortOrder
     responsavel_compra_id?: SortOrder
     cliente_vendedor_id?: SortOrder
-    clientes?: clientesOrderByWithRelationInput
+    clientes_vendedor?: clientesOrderByWithRelationInput
     usuarios?: usuariosOrderByWithRelationInput
     lancamentos_caixa?: fluxo_caixaOrderByRelationAggregateInput
   }
@@ -37686,7 +37686,7 @@ export namespace Prisma {
     quantidade?: IntFilter<"sucata_compras"> | number
     responsavel_compra_id?: UuidFilter<"sucata_compras"> | string
     cliente_vendedor_id?: UuidFilter<"sucata_compras"> | string
-    clientes?: XOR<ClientesScalarRelationFilter, clientesWhereInput>
+    clientes_vendedor?: XOR<ClientesScalarRelationFilter, clientesWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
     lancamentos_caixa?: Fluxo_caixaListRelationFilter
   }, "id">
@@ -38698,20 +38698,20 @@ export namespace Prisma {
     nome_cliente: string
     cpf_cliente: string
     IE_cliente?: string | null
-    logradouro_cliente?: string | null
+    logradouro_cliente: string
     numero_endereco?: string | null
-    bairro_cliente?: string | null
-    cep_cliente?: string
+    bairro_cliente: string
+    cep_cliente?: string | null
     cidade_cliente?: string | null
-    uf_cliente?: string
+    uf_cliente?: string | null
     codigo_IBGE?: string
     pais_cliente?: string | null
-    telefone_cliente?: string | null
+    telefone_cliente: string
     data_nascimento?: Date | string | null
-    email_cliente: string
-    data_cadastro?: Date | string | null
+    email_cliente?: string | null
+    data_cadastro?: Date | string
     pedidos_venda?: pedidos_vendasCreateNestedManyWithoutCliente_compradorInput
-    sucata_compra?: sucata_comprasCreateNestedManyWithoutClientesInput
+    sucata_compra?: sucata_comprasCreateNestedManyWithoutClientes_vendedorInput
     veiculos_cliente?: veiculos_cliente_manutencaoCreateNestedManyWithoutClientesInput
     ordens_servico?: ordem_servicoCreateNestedManyWithoutClientesInput
     sucatas_compradas_inteiras?: sucata_estoqueCreateNestedManyWithoutCliente_compradorInput
@@ -38722,20 +38722,20 @@ export namespace Prisma {
     nome_cliente: string
     cpf_cliente: string
     IE_cliente?: string | null
-    logradouro_cliente?: string | null
+    logradouro_cliente: string
     numero_endereco?: string | null
-    bairro_cliente?: string | null
-    cep_cliente?: string
+    bairro_cliente: string
+    cep_cliente?: string | null
     cidade_cliente?: string | null
-    uf_cliente?: string
+    uf_cliente?: string | null
     codigo_IBGE?: string
     pais_cliente?: string | null
-    telefone_cliente?: string | null
+    telefone_cliente: string
     data_nascimento?: Date | string | null
-    email_cliente: string
-    data_cadastro?: Date | string | null
+    email_cliente?: string | null
+    data_cadastro?: Date | string
     pedidos_venda?: pedidos_vendasUncheckedCreateNestedManyWithoutCliente_compradorInput
-    sucata_compra?: sucata_comprasUncheckedCreateNestedManyWithoutClientesInput
+    sucata_compra?: sucata_comprasUncheckedCreateNestedManyWithoutClientes_vendedorInput
     veiculos_cliente?: veiculos_cliente_manutencaoUncheckedCreateNestedManyWithoutClientesInput
     ordens_servico?: ordem_servicoUncheckedCreateNestedManyWithoutClientesInput
     sucatas_compradas_inteiras?: sucata_estoqueUncheckedCreateNestedManyWithoutCliente_compradorInput
@@ -38746,20 +38746,20 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: StringFieldUpdateOperationsInput | string
     numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
-    bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    cep_cliente?: StringFieldUpdateOperationsInput | string
+    bairro_cliente?: StringFieldUpdateOperationsInput | string
+    cep_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    uf_cliente?: StringFieldUpdateOperationsInput | string
+    uf_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    telefone_cliente?: StringFieldUpdateOperationsInput | string
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    email_cliente?: StringFieldUpdateOperationsInput | string
-    data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    data_cadastro?: DateTimeFieldUpdateOperationsInput | Date | string
     pedidos_venda?: pedidos_vendasUpdateManyWithoutCliente_compradorNestedInput
-    sucata_compra?: sucata_comprasUpdateManyWithoutClientesNestedInput
+    sucata_compra?: sucata_comprasUpdateManyWithoutClientes_vendedorNestedInput
     veiculos_cliente?: veiculos_cliente_manutencaoUpdateManyWithoutClientesNestedInput
     ordens_servico?: ordem_servicoUpdateManyWithoutClientesNestedInput
     sucatas_compradas_inteiras?: sucata_estoqueUpdateManyWithoutCliente_compradorNestedInput
@@ -38770,20 +38770,20 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: StringFieldUpdateOperationsInput | string
     numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
-    bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    cep_cliente?: StringFieldUpdateOperationsInput | string
+    bairro_cliente?: StringFieldUpdateOperationsInput | string
+    cep_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    uf_cliente?: StringFieldUpdateOperationsInput | string
+    uf_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    telefone_cliente?: StringFieldUpdateOperationsInput | string
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    email_cliente?: StringFieldUpdateOperationsInput | string
-    data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    data_cadastro?: DateTimeFieldUpdateOperationsInput | Date | string
     pedidos_venda?: pedidos_vendasUncheckedUpdateManyWithoutCliente_compradorNestedInput
-    sucata_compra?: sucata_comprasUncheckedUpdateManyWithoutClientesNestedInput
+    sucata_compra?: sucata_comprasUncheckedUpdateManyWithoutClientes_vendedorNestedInput
     veiculos_cliente?: veiculos_cliente_manutencaoUncheckedUpdateManyWithoutClientesNestedInput
     ordens_servico?: ordem_servicoUncheckedUpdateManyWithoutClientesNestedInput
     sucatas_compradas_inteiras?: sucata_estoqueUncheckedUpdateManyWithoutCliente_compradorNestedInput
@@ -38794,18 +38794,18 @@ export namespace Prisma {
     nome_cliente: string
     cpf_cliente: string
     IE_cliente?: string | null
-    logradouro_cliente?: string | null
+    logradouro_cliente: string
     numero_endereco?: string | null
-    bairro_cliente?: string | null
-    cep_cliente?: string
+    bairro_cliente: string
+    cep_cliente?: string | null
     cidade_cliente?: string | null
-    uf_cliente?: string
+    uf_cliente?: string | null
     codigo_IBGE?: string
     pais_cliente?: string | null
-    telefone_cliente?: string | null
+    telefone_cliente: string
     data_nascimento?: Date | string | null
-    email_cliente: string
-    data_cadastro?: Date | string | null
+    email_cliente?: string | null
+    data_cadastro?: Date | string
   }
 
   export type clientesUpdateManyMutationInput = {
@@ -38813,18 +38813,18 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: StringFieldUpdateOperationsInput | string
     numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
-    bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    cep_cliente?: StringFieldUpdateOperationsInput | string
+    bairro_cliente?: StringFieldUpdateOperationsInput | string
+    cep_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    uf_cliente?: StringFieldUpdateOperationsInput | string
+    uf_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    telefone_cliente?: StringFieldUpdateOperationsInput | string
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    email_cliente?: StringFieldUpdateOperationsInput | string
-    data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    data_cadastro?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type clientesUncheckedUpdateManyInput = {
@@ -38832,18 +38832,18 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: StringFieldUpdateOperationsInput | string
     numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
-    bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    cep_cliente?: StringFieldUpdateOperationsInput | string
+    bairro_cliente?: StringFieldUpdateOperationsInput | string
+    cep_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    uf_cliente?: StringFieldUpdateOperationsInput | string
+    uf_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    telefone_cliente?: StringFieldUpdateOperationsInput | string
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    email_cliente?: StringFieldUpdateOperationsInput | string
-    data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    data_cadastro?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type compatibilidade_pecasCreateInput = {
@@ -39832,7 +39832,7 @@ export namespace Prisma {
     data_compra?: Date | string | null
     valor_compra: Decimal | DecimalJsLike | number | string
     quantidade?: number
-    clientes: clientesCreateNestedOneWithoutSucata_compraInput
+    clientes_vendedor: clientesCreateNestedOneWithoutSucata_compraInput
     usuarios: usuariosCreateNestedOneWithoutSucata_comprasInput
     lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutSucata_compraInput
   }
@@ -39852,7 +39852,7 @@ export namespace Prisma {
     data_compra?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     valor_compra?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantidade?: IntFieldUpdateOperationsInput | number
-    clientes?: clientesUpdateOneRequiredWithoutSucata_compraNestedInput
+    clientes_vendedor?: clientesUpdateOneRequiredWithoutSucata_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutSucata_comprasNestedInput
     lancamentos_caixa?: fluxo_caixaUpdateManyWithoutSucata_compraNestedInput
   }
@@ -40983,6 +40983,17 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type Pedidos_vendasListRelationFilter = {
     every?: pedidos_vendasWhereInput
     some?: pedidos_vendasWhereInput
@@ -41158,6 +41169,20 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -41715,17 +41740,6 @@ export namespace Prisma {
     _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
   export type Pedidos_vendasScalarRelationFilter = {
     is?: pedidos_vendasWhereInput
     isNot?: pedidos_vendasWhereInput
@@ -41785,20 +41799,6 @@ export namespace Prisma {
     preco_unitario?: SortOrder
     preco_total?: SortOrder
     valor_desconto?: SortOrder
-  }
-
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type Enummetodo_pagamentoFilter<$PrismaModel = never> = {
@@ -43029,10 +43029,10 @@ export namespace Prisma {
     connect?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
   }
 
-  export type sucata_comprasCreateNestedManyWithoutClientesInput = {
-    create?: XOR<sucata_comprasCreateWithoutClientesInput, sucata_comprasUncheckedCreateWithoutClientesInput> | sucata_comprasCreateWithoutClientesInput[] | sucata_comprasUncheckedCreateWithoutClientesInput[]
-    connectOrCreate?: sucata_comprasCreateOrConnectWithoutClientesInput | sucata_comprasCreateOrConnectWithoutClientesInput[]
-    createMany?: sucata_comprasCreateManyClientesInputEnvelope
+  export type sucata_comprasCreateNestedManyWithoutClientes_vendedorInput = {
+    create?: XOR<sucata_comprasCreateWithoutClientes_vendedorInput, sucata_comprasUncheckedCreateWithoutClientes_vendedorInput> | sucata_comprasCreateWithoutClientes_vendedorInput[] | sucata_comprasUncheckedCreateWithoutClientes_vendedorInput[]
+    connectOrCreate?: sucata_comprasCreateOrConnectWithoutClientes_vendedorInput | sucata_comprasCreateOrConnectWithoutClientes_vendedorInput[]
+    createMany?: sucata_comprasCreateManyClientes_vendedorInputEnvelope
     connect?: sucata_comprasWhereUniqueInput | sucata_comprasWhereUniqueInput[]
   }
 
@@ -43064,10 +43064,10 @@ export namespace Prisma {
     connect?: pedidos_vendasWhereUniqueInput | pedidos_vendasWhereUniqueInput[]
   }
 
-  export type sucata_comprasUncheckedCreateNestedManyWithoutClientesInput = {
-    create?: XOR<sucata_comprasCreateWithoutClientesInput, sucata_comprasUncheckedCreateWithoutClientesInput> | sucata_comprasCreateWithoutClientesInput[] | sucata_comprasUncheckedCreateWithoutClientesInput[]
-    connectOrCreate?: sucata_comprasCreateOrConnectWithoutClientesInput | sucata_comprasCreateOrConnectWithoutClientesInput[]
-    createMany?: sucata_comprasCreateManyClientesInputEnvelope
+  export type sucata_comprasUncheckedCreateNestedManyWithoutClientes_vendedorInput = {
+    create?: XOR<sucata_comprasCreateWithoutClientes_vendedorInput, sucata_comprasUncheckedCreateWithoutClientes_vendedorInput> | sucata_comprasCreateWithoutClientes_vendedorInput[] | sucata_comprasUncheckedCreateWithoutClientes_vendedorInput[]
+    connectOrCreate?: sucata_comprasCreateOrConnectWithoutClientes_vendedorInput | sucata_comprasCreateOrConnectWithoutClientes_vendedorInput[]
+    createMany?: sucata_comprasCreateManyClientes_vendedorInputEnvelope
     connect?: sucata_comprasWhereUniqueInput | sucata_comprasWhereUniqueInput[]
   }
 
@@ -43104,6 +43104,10 @@ export namespace Prisma {
     set?: Date | string | null
   }
 
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
   export type pedidos_vendasUpdateManyWithoutCliente_compradorNestedInput = {
     create?: XOR<pedidos_vendasCreateWithoutCliente_compradorInput, pedidos_vendasUncheckedCreateWithoutCliente_compradorInput> | pedidos_vendasCreateWithoutCliente_compradorInput[] | pedidos_vendasUncheckedCreateWithoutCliente_compradorInput[]
     connectOrCreate?: pedidos_vendasCreateOrConnectWithoutCliente_compradorInput | pedidos_vendasCreateOrConnectWithoutCliente_compradorInput[]
@@ -43118,17 +43122,17 @@ export namespace Prisma {
     deleteMany?: pedidos_vendasScalarWhereInput | pedidos_vendasScalarWhereInput[]
   }
 
-  export type sucata_comprasUpdateManyWithoutClientesNestedInput = {
-    create?: XOR<sucata_comprasCreateWithoutClientesInput, sucata_comprasUncheckedCreateWithoutClientesInput> | sucata_comprasCreateWithoutClientesInput[] | sucata_comprasUncheckedCreateWithoutClientesInput[]
-    connectOrCreate?: sucata_comprasCreateOrConnectWithoutClientesInput | sucata_comprasCreateOrConnectWithoutClientesInput[]
-    upsert?: sucata_comprasUpsertWithWhereUniqueWithoutClientesInput | sucata_comprasUpsertWithWhereUniqueWithoutClientesInput[]
-    createMany?: sucata_comprasCreateManyClientesInputEnvelope
+  export type sucata_comprasUpdateManyWithoutClientes_vendedorNestedInput = {
+    create?: XOR<sucata_comprasCreateWithoutClientes_vendedorInput, sucata_comprasUncheckedCreateWithoutClientes_vendedorInput> | sucata_comprasCreateWithoutClientes_vendedorInput[] | sucata_comprasUncheckedCreateWithoutClientes_vendedorInput[]
+    connectOrCreate?: sucata_comprasCreateOrConnectWithoutClientes_vendedorInput | sucata_comprasCreateOrConnectWithoutClientes_vendedorInput[]
+    upsert?: sucata_comprasUpsertWithWhereUniqueWithoutClientes_vendedorInput | sucata_comprasUpsertWithWhereUniqueWithoutClientes_vendedorInput[]
+    createMany?: sucata_comprasCreateManyClientes_vendedorInputEnvelope
     set?: sucata_comprasWhereUniqueInput | sucata_comprasWhereUniqueInput[]
     disconnect?: sucata_comprasWhereUniqueInput | sucata_comprasWhereUniqueInput[]
     delete?: sucata_comprasWhereUniqueInput | sucata_comprasWhereUniqueInput[]
     connect?: sucata_comprasWhereUniqueInput | sucata_comprasWhereUniqueInput[]
-    update?: sucata_comprasUpdateWithWhereUniqueWithoutClientesInput | sucata_comprasUpdateWithWhereUniqueWithoutClientesInput[]
-    updateMany?: sucata_comprasUpdateManyWithWhereWithoutClientesInput | sucata_comprasUpdateManyWithWhereWithoutClientesInput[]
+    update?: sucata_comprasUpdateWithWhereUniqueWithoutClientes_vendedorInput | sucata_comprasUpdateWithWhereUniqueWithoutClientes_vendedorInput[]
+    updateMany?: sucata_comprasUpdateManyWithWhereWithoutClientes_vendedorInput | sucata_comprasUpdateManyWithWhereWithoutClientes_vendedorInput[]
     deleteMany?: sucata_comprasScalarWhereInput | sucata_comprasScalarWhereInput[]
   }
 
@@ -43188,17 +43192,17 @@ export namespace Prisma {
     deleteMany?: pedidos_vendasScalarWhereInput | pedidos_vendasScalarWhereInput[]
   }
 
-  export type sucata_comprasUncheckedUpdateManyWithoutClientesNestedInput = {
-    create?: XOR<sucata_comprasCreateWithoutClientesInput, sucata_comprasUncheckedCreateWithoutClientesInput> | sucata_comprasCreateWithoutClientesInput[] | sucata_comprasUncheckedCreateWithoutClientesInput[]
-    connectOrCreate?: sucata_comprasCreateOrConnectWithoutClientesInput | sucata_comprasCreateOrConnectWithoutClientesInput[]
-    upsert?: sucata_comprasUpsertWithWhereUniqueWithoutClientesInput | sucata_comprasUpsertWithWhereUniqueWithoutClientesInput[]
-    createMany?: sucata_comprasCreateManyClientesInputEnvelope
+  export type sucata_comprasUncheckedUpdateManyWithoutClientes_vendedorNestedInput = {
+    create?: XOR<sucata_comprasCreateWithoutClientes_vendedorInput, sucata_comprasUncheckedCreateWithoutClientes_vendedorInput> | sucata_comprasCreateWithoutClientes_vendedorInput[] | sucata_comprasUncheckedCreateWithoutClientes_vendedorInput[]
+    connectOrCreate?: sucata_comprasCreateOrConnectWithoutClientes_vendedorInput | sucata_comprasCreateOrConnectWithoutClientes_vendedorInput[]
+    upsert?: sucata_comprasUpsertWithWhereUniqueWithoutClientes_vendedorInput | sucata_comprasUpsertWithWhereUniqueWithoutClientes_vendedorInput[]
+    createMany?: sucata_comprasCreateManyClientes_vendedorInputEnvelope
     set?: sucata_comprasWhereUniqueInput | sucata_comprasWhereUniqueInput[]
     disconnect?: sucata_comprasWhereUniqueInput | sucata_comprasWhereUniqueInput[]
     delete?: sucata_comprasWhereUniqueInput | sucata_comprasWhereUniqueInput[]
     connect?: sucata_comprasWhereUniqueInput | sucata_comprasWhereUniqueInput[]
-    update?: sucata_comprasUpdateWithWhereUniqueWithoutClientesInput | sucata_comprasUpdateWithWhereUniqueWithoutClientesInput[]
-    updateMany?: sucata_comprasUpdateManyWithWhereWithoutClientesInput | sucata_comprasUpdateManyWithWhereWithoutClientesInput[]
+    update?: sucata_comprasUpdateWithWhereUniqueWithoutClientes_vendedorInput | sucata_comprasUpdateWithWhereUniqueWithoutClientes_vendedorInput[]
+    updateMany?: sucata_comprasUpdateManyWithWhereWithoutClientes_vendedorInput | sucata_comprasUpdateManyWithWhereWithoutClientes_vendedorInput[]
     deleteMany?: sucata_comprasScalarWhereInput | sucata_comprasScalarWhereInput[]
   }
 
@@ -43946,10 +43950,6 @@ export namespace Prisma {
     create?: XOR<pedidos_vendasCreateWithoutItens_pedido_vendasInput, pedidos_vendasUncheckedCreateWithoutItens_pedido_vendasInput>
     connectOrCreate?: pedidos_vendasCreateOrConnectWithoutItens_pedido_vendasInput
     connect?: pedidos_vendasWhereUniqueInput
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
   }
 
   export type peca_estoqueUpdateOneRequiredWithoutItens_pedido_vendasNestedInput = {
@@ -46004,6 +46004,17 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type NestedUuidWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -46086,6 +46097,20 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -46248,31 +46273,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedBoolNullableFilter<$PrismaModel>
     _max?: NestedBoolNullableFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type NestedEnummetodo_pagamentoFilter<$PrismaModel = never> = {
@@ -46675,7 +46675,7 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type sucata_comprasCreateWithoutClientesInput = {
+  export type sucata_comprasCreateWithoutClientes_vendedorInput = {
     id?: string
     data_compra?: Date | string | null
     valor_compra: Decimal | DecimalJsLike | number | string
@@ -46684,7 +46684,7 @@ export namespace Prisma {
     lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutSucata_compraInput
   }
 
-  export type sucata_comprasUncheckedCreateWithoutClientesInput = {
+  export type sucata_comprasUncheckedCreateWithoutClientes_vendedorInput = {
     id?: string
     data_compra?: Date | string | null
     valor_compra: Decimal | DecimalJsLike | number | string
@@ -46693,13 +46693,13 @@ export namespace Prisma {
     lancamentos_caixa?: fluxo_caixaUncheckedCreateNestedManyWithoutSucata_compraInput
   }
 
-  export type sucata_comprasCreateOrConnectWithoutClientesInput = {
+  export type sucata_comprasCreateOrConnectWithoutClientes_vendedorInput = {
     where: sucata_comprasWhereUniqueInput
-    create: XOR<sucata_comprasCreateWithoutClientesInput, sucata_comprasUncheckedCreateWithoutClientesInput>
+    create: XOR<sucata_comprasCreateWithoutClientes_vendedorInput, sucata_comprasUncheckedCreateWithoutClientes_vendedorInput>
   }
 
-  export type sucata_comprasCreateManyClientesInputEnvelope = {
-    data: sucata_comprasCreateManyClientesInput | sucata_comprasCreateManyClientesInput[]
+  export type sucata_comprasCreateManyClientes_vendedorInputEnvelope = {
+    data: sucata_comprasCreateManyClientes_vendedorInput | sucata_comprasCreateManyClientes_vendedorInput[]
     skipDuplicates?: boolean
   }
 
@@ -46865,20 +46865,20 @@ export namespace Prisma {
     plano_contas_id?: UuidNullableFilter<"pedidos_vendas"> | string | null
   }
 
-  export type sucata_comprasUpsertWithWhereUniqueWithoutClientesInput = {
+  export type sucata_comprasUpsertWithWhereUniqueWithoutClientes_vendedorInput = {
     where: sucata_comprasWhereUniqueInput
-    update: XOR<sucata_comprasUpdateWithoutClientesInput, sucata_comprasUncheckedUpdateWithoutClientesInput>
-    create: XOR<sucata_comprasCreateWithoutClientesInput, sucata_comprasUncheckedCreateWithoutClientesInput>
+    update: XOR<sucata_comprasUpdateWithoutClientes_vendedorInput, sucata_comprasUncheckedUpdateWithoutClientes_vendedorInput>
+    create: XOR<sucata_comprasCreateWithoutClientes_vendedorInput, sucata_comprasUncheckedCreateWithoutClientes_vendedorInput>
   }
 
-  export type sucata_comprasUpdateWithWhereUniqueWithoutClientesInput = {
+  export type sucata_comprasUpdateWithWhereUniqueWithoutClientes_vendedorInput = {
     where: sucata_comprasWhereUniqueInput
-    data: XOR<sucata_comprasUpdateWithoutClientesInput, sucata_comprasUncheckedUpdateWithoutClientesInput>
+    data: XOR<sucata_comprasUpdateWithoutClientes_vendedorInput, sucata_comprasUncheckedUpdateWithoutClientes_vendedorInput>
   }
 
-  export type sucata_comprasUpdateManyWithWhereWithoutClientesInput = {
+  export type sucata_comprasUpdateManyWithWhereWithoutClientes_vendedorInput = {
     where: sucata_comprasScalarWhereInput
-    data: XOR<sucata_comprasUpdateManyMutationInput, sucata_comprasUncheckedUpdateManyWithoutClientesInput>
+    data: XOR<sucata_comprasUpdateManyMutationInput, sucata_comprasUncheckedUpdateManyWithoutClientes_vendedorInput>
   }
 
   export type sucata_comprasScalarWhereInput = {
@@ -48718,19 +48718,19 @@ export namespace Prisma {
     nome_cliente: string
     cpf_cliente: string
     IE_cliente?: string | null
-    logradouro_cliente?: string | null
+    logradouro_cliente: string
     numero_endereco?: string | null
-    bairro_cliente?: string | null
-    cep_cliente?: string
+    bairro_cliente: string
+    cep_cliente?: string | null
     cidade_cliente?: string | null
-    uf_cliente?: string
+    uf_cliente?: string | null
     codigo_IBGE?: string
     pais_cliente?: string | null
-    telefone_cliente?: string | null
+    telefone_cliente: string
     data_nascimento?: Date | string | null
-    email_cliente: string
-    data_cadastro?: Date | string | null
-    sucata_compra?: sucata_comprasCreateNestedManyWithoutClientesInput
+    email_cliente?: string | null
+    data_cadastro?: Date | string
+    sucata_compra?: sucata_comprasCreateNestedManyWithoutClientes_vendedorInput
     veiculos_cliente?: veiculos_cliente_manutencaoCreateNestedManyWithoutClientesInput
     ordens_servico?: ordem_servicoCreateNestedManyWithoutClientesInput
     sucatas_compradas_inteiras?: sucata_estoqueCreateNestedManyWithoutCliente_compradorInput
@@ -48741,19 +48741,19 @@ export namespace Prisma {
     nome_cliente: string
     cpf_cliente: string
     IE_cliente?: string | null
-    logradouro_cliente?: string | null
+    logradouro_cliente: string
     numero_endereco?: string | null
-    bairro_cliente?: string | null
-    cep_cliente?: string
+    bairro_cliente: string
+    cep_cliente?: string | null
     cidade_cliente?: string | null
-    uf_cliente?: string
+    uf_cliente?: string | null
     codigo_IBGE?: string
     pais_cliente?: string | null
-    telefone_cliente?: string | null
+    telefone_cliente: string
     data_nascimento?: Date | string | null
-    email_cliente: string
-    data_cadastro?: Date | string | null
-    sucata_compra?: sucata_comprasUncheckedCreateNestedManyWithoutClientesInput
+    email_cliente?: string | null
+    data_cadastro?: Date | string
+    sucata_compra?: sucata_comprasUncheckedCreateNestedManyWithoutClientes_vendedorInput
     veiculos_cliente?: veiculos_cliente_manutencaoUncheckedCreateNestedManyWithoutClientesInput
     ordens_servico?: ordem_servicoUncheckedCreateNestedManyWithoutClientesInput
     sucatas_compradas_inteiras?: sucata_estoqueUncheckedCreateNestedManyWithoutCliente_compradorInput
@@ -49040,19 +49040,19 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: StringFieldUpdateOperationsInput | string
     numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
-    bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    cep_cliente?: StringFieldUpdateOperationsInput | string
+    bairro_cliente?: StringFieldUpdateOperationsInput | string
+    cep_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    uf_cliente?: StringFieldUpdateOperationsInput | string
+    uf_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    telefone_cliente?: StringFieldUpdateOperationsInput | string
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    email_cliente?: StringFieldUpdateOperationsInput | string
-    data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    sucata_compra?: sucata_comprasUpdateManyWithoutClientesNestedInput
+    email_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    data_cadastro?: DateTimeFieldUpdateOperationsInput | Date | string
+    sucata_compra?: sucata_comprasUpdateManyWithoutClientes_vendedorNestedInput
     veiculos_cliente?: veiculos_cliente_manutencaoUpdateManyWithoutClientesNestedInput
     ordens_servico?: ordem_servicoUpdateManyWithoutClientesNestedInput
     sucatas_compradas_inteiras?: sucata_estoqueUpdateManyWithoutCliente_compradorNestedInput
@@ -49063,19 +49063,19 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: StringFieldUpdateOperationsInput | string
     numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
-    bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    cep_cliente?: StringFieldUpdateOperationsInput | string
+    bairro_cliente?: StringFieldUpdateOperationsInput | string
+    cep_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    uf_cliente?: StringFieldUpdateOperationsInput | string
+    uf_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    telefone_cliente?: StringFieldUpdateOperationsInput | string
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    email_cliente?: StringFieldUpdateOperationsInput | string
-    data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    sucata_compra?: sucata_comprasUncheckedUpdateManyWithoutClientesNestedInput
+    email_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    data_cadastro?: DateTimeFieldUpdateOperationsInput | Date | string
+    sucata_compra?: sucata_comprasUncheckedUpdateManyWithoutClientes_vendedorNestedInput
     veiculos_cliente?: veiculos_cliente_manutencaoUncheckedUpdateManyWithoutClientesNestedInput
     ordens_servico?: ordem_servicoUncheckedUpdateManyWithoutClientesNestedInput
     sucatas_compradas_inteiras?: sucata_estoqueUncheckedUpdateManyWithoutCliente_compradorNestedInput
@@ -49319,20 +49319,20 @@ export namespace Prisma {
     nome_cliente: string
     cpf_cliente: string
     IE_cliente?: string | null
-    logradouro_cliente?: string | null
+    logradouro_cliente: string
     numero_endereco?: string | null
-    bairro_cliente?: string | null
-    cep_cliente?: string
+    bairro_cliente: string
+    cep_cliente?: string | null
     cidade_cliente?: string | null
-    uf_cliente?: string
+    uf_cliente?: string | null
     codigo_IBGE?: string
     pais_cliente?: string | null
-    telefone_cliente?: string | null
+    telefone_cliente: string
     data_nascimento?: Date | string | null
-    email_cliente: string
-    data_cadastro?: Date | string | null
+    email_cliente?: string | null
+    data_cadastro?: Date | string
     pedidos_venda?: pedidos_vendasCreateNestedManyWithoutCliente_compradorInput
-    sucata_compra?: sucata_comprasCreateNestedManyWithoutClientesInput
+    sucata_compra?: sucata_comprasCreateNestedManyWithoutClientes_vendedorInput
     veiculos_cliente?: veiculos_cliente_manutencaoCreateNestedManyWithoutClientesInput
     sucatas_compradas_inteiras?: sucata_estoqueCreateNestedManyWithoutCliente_compradorInput
   }
@@ -49342,20 +49342,20 @@ export namespace Prisma {
     nome_cliente: string
     cpf_cliente: string
     IE_cliente?: string | null
-    logradouro_cliente?: string | null
+    logradouro_cliente: string
     numero_endereco?: string | null
-    bairro_cliente?: string | null
-    cep_cliente?: string
+    bairro_cliente: string
+    cep_cliente?: string | null
     cidade_cliente?: string | null
-    uf_cliente?: string
+    uf_cliente?: string | null
     codigo_IBGE?: string
     pais_cliente?: string | null
-    telefone_cliente?: string | null
+    telefone_cliente: string
     data_nascimento?: Date | string | null
-    email_cliente: string
-    data_cadastro?: Date | string | null
+    email_cliente?: string | null
+    data_cadastro?: Date | string
     pedidos_venda?: pedidos_vendasUncheckedCreateNestedManyWithoutCliente_compradorInput
-    sucata_compra?: sucata_comprasUncheckedCreateNestedManyWithoutClientesInput
+    sucata_compra?: sucata_comprasUncheckedCreateNestedManyWithoutClientes_vendedorInput
     veiculos_cliente?: veiculos_cliente_manutencaoUncheckedCreateNestedManyWithoutClientesInput
     sucatas_compradas_inteiras?: sucata_estoqueUncheckedCreateNestedManyWithoutCliente_compradorInput
   }
@@ -49602,20 +49602,20 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: StringFieldUpdateOperationsInput | string
     numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
-    bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    cep_cliente?: StringFieldUpdateOperationsInput | string
+    bairro_cliente?: StringFieldUpdateOperationsInput | string
+    cep_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    uf_cliente?: StringFieldUpdateOperationsInput | string
+    uf_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    telefone_cliente?: StringFieldUpdateOperationsInput | string
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    email_cliente?: StringFieldUpdateOperationsInput | string
-    data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    data_cadastro?: DateTimeFieldUpdateOperationsInput | Date | string
     pedidos_venda?: pedidos_vendasUpdateManyWithoutCliente_compradorNestedInput
-    sucata_compra?: sucata_comprasUpdateManyWithoutClientesNestedInput
+    sucata_compra?: sucata_comprasUpdateManyWithoutClientes_vendedorNestedInput
     veiculos_cliente?: veiculos_cliente_manutencaoUpdateManyWithoutClientesNestedInput
     sucatas_compradas_inteiras?: sucata_estoqueUpdateManyWithoutCliente_compradorNestedInput
   }
@@ -49625,20 +49625,20 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: StringFieldUpdateOperationsInput | string
     numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
-    bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    cep_cliente?: StringFieldUpdateOperationsInput | string
+    bairro_cliente?: StringFieldUpdateOperationsInput | string
+    cep_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    uf_cliente?: StringFieldUpdateOperationsInput | string
+    uf_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    telefone_cliente?: StringFieldUpdateOperationsInput | string
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    email_cliente?: StringFieldUpdateOperationsInput | string
-    data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    data_cadastro?: DateTimeFieldUpdateOperationsInput | Date | string
     pedidos_venda?: pedidos_vendasUncheckedUpdateManyWithoutCliente_compradorNestedInput
-    sucata_compra?: sucata_comprasUncheckedUpdateManyWithoutClientesNestedInput
+    sucata_compra?: sucata_comprasUncheckedUpdateManyWithoutClientes_vendedorNestedInput
     veiculos_cliente?: veiculos_cliente_manutencaoUncheckedUpdateManyWithoutClientesNestedInput
     sucatas_compradas_inteiras?: sucata_estoqueUncheckedUpdateManyWithoutCliente_compradorNestedInput
   }
@@ -50378,18 +50378,18 @@ export namespace Prisma {
     nome_cliente: string
     cpf_cliente: string
     IE_cliente?: string | null
-    logradouro_cliente?: string | null
+    logradouro_cliente: string
     numero_endereco?: string | null
-    bairro_cliente?: string | null
-    cep_cliente?: string
+    bairro_cliente: string
+    cep_cliente?: string | null
     cidade_cliente?: string | null
-    uf_cliente?: string
+    uf_cliente?: string | null
     codigo_IBGE?: string
     pais_cliente?: string | null
-    telefone_cliente?: string | null
+    telefone_cliente: string
     data_nascimento?: Date | string | null
-    email_cliente: string
-    data_cadastro?: Date | string | null
+    email_cliente?: string | null
+    data_cadastro?: Date | string
     pedidos_venda?: pedidos_vendasCreateNestedManyWithoutCliente_compradorInput
     veiculos_cliente?: veiculos_cliente_manutencaoCreateNestedManyWithoutClientesInput
     ordens_servico?: ordem_servicoCreateNestedManyWithoutClientesInput
@@ -50401,18 +50401,18 @@ export namespace Prisma {
     nome_cliente: string
     cpf_cliente: string
     IE_cliente?: string | null
-    logradouro_cliente?: string | null
+    logradouro_cliente: string
     numero_endereco?: string | null
-    bairro_cliente?: string | null
-    cep_cliente?: string
+    bairro_cliente: string
+    cep_cliente?: string | null
     cidade_cliente?: string | null
-    uf_cliente?: string
+    uf_cliente?: string | null
     codigo_IBGE?: string
     pais_cliente?: string | null
-    telefone_cliente?: string | null
+    telefone_cliente: string
     data_nascimento?: Date | string | null
-    email_cliente: string
-    data_cadastro?: Date | string | null
+    email_cliente?: string | null
+    data_cadastro?: Date | string
     pedidos_venda?: pedidos_vendasUncheckedCreateNestedManyWithoutCliente_compradorInput
     veiculos_cliente?: veiculos_cliente_manutencaoUncheckedCreateNestedManyWithoutClientesInput
     ordens_servico?: ordem_servicoUncheckedCreateNestedManyWithoutClientesInput
@@ -50535,18 +50535,18 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: StringFieldUpdateOperationsInput | string
     numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
-    bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    cep_cliente?: StringFieldUpdateOperationsInput | string
+    bairro_cliente?: StringFieldUpdateOperationsInput | string
+    cep_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    uf_cliente?: StringFieldUpdateOperationsInput | string
+    uf_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    telefone_cliente?: StringFieldUpdateOperationsInput | string
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    email_cliente?: StringFieldUpdateOperationsInput | string
-    data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    data_cadastro?: DateTimeFieldUpdateOperationsInput | Date | string
     pedidos_venda?: pedidos_vendasUpdateManyWithoutCliente_compradorNestedInput
     veiculos_cliente?: veiculos_cliente_manutencaoUpdateManyWithoutClientesNestedInput
     ordens_servico?: ordem_servicoUpdateManyWithoutClientesNestedInput
@@ -50558,18 +50558,18 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: StringFieldUpdateOperationsInput | string
     numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
-    bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    cep_cliente?: StringFieldUpdateOperationsInput | string
+    bairro_cliente?: StringFieldUpdateOperationsInput | string
+    cep_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    uf_cliente?: StringFieldUpdateOperationsInput | string
+    uf_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    telefone_cliente?: StringFieldUpdateOperationsInput | string
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    email_cliente?: StringFieldUpdateOperationsInput | string
-    data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    data_cadastro?: DateTimeFieldUpdateOperationsInput | Date | string
     pedidos_venda?: pedidos_vendasUncheckedUpdateManyWithoutCliente_compradorNestedInput
     veiculos_cliente?: veiculos_cliente_manutencaoUncheckedUpdateManyWithoutClientesNestedInput
     ordens_servico?: ordem_servicoUncheckedUpdateManyWithoutClientesNestedInput
@@ -50829,20 +50829,20 @@ export namespace Prisma {
     nome_cliente: string
     cpf_cliente: string
     IE_cliente?: string | null
-    logradouro_cliente?: string | null
+    logradouro_cliente: string
     numero_endereco?: string | null
-    bairro_cliente?: string | null
-    cep_cliente?: string
+    bairro_cliente: string
+    cep_cliente?: string | null
     cidade_cliente?: string | null
-    uf_cliente?: string
+    uf_cliente?: string | null
     codigo_IBGE?: string
     pais_cliente?: string | null
-    telefone_cliente?: string | null
+    telefone_cliente: string
     data_nascimento?: Date | string | null
-    email_cliente: string
-    data_cadastro?: Date | string | null
+    email_cliente?: string | null
+    data_cadastro?: Date | string
     pedidos_venda?: pedidos_vendasCreateNestedManyWithoutCliente_compradorInput
-    sucata_compra?: sucata_comprasCreateNestedManyWithoutClientesInput
+    sucata_compra?: sucata_comprasCreateNestedManyWithoutClientes_vendedorInput
     veiculos_cliente?: veiculos_cliente_manutencaoCreateNestedManyWithoutClientesInput
     ordens_servico?: ordem_servicoCreateNestedManyWithoutClientesInput
   }
@@ -50852,20 +50852,20 @@ export namespace Prisma {
     nome_cliente: string
     cpf_cliente: string
     IE_cliente?: string | null
-    logradouro_cliente?: string | null
+    logradouro_cliente: string
     numero_endereco?: string | null
-    bairro_cliente?: string | null
-    cep_cliente?: string
+    bairro_cliente: string
+    cep_cliente?: string | null
     cidade_cliente?: string | null
-    uf_cliente?: string
+    uf_cliente?: string | null
     codigo_IBGE?: string
     pais_cliente?: string | null
-    telefone_cliente?: string | null
+    telefone_cliente: string
     data_nascimento?: Date | string | null
-    email_cliente: string
-    data_cadastro?: Date | string | null
+    email_cliente?: string | null
+    data_cadastro?: Date | string
     pedidos_venda?: pedidos_vendasUncheckedCreateNestedManyWithoutCliente_compradorInput
-    sucata_compra?: sucata_comprasUncheckedCreateNestedManyWithoutClientesInput
+    sucata_compra?: sucata_comprasUncheckedCreateNestedManyWithoutClientes_vendedorInput
     veiculos_cliente?: veiculos_cliente_manutencaoUncheckedCreateNestedManyWithoutClientesInput
     ordens_servico?: ordem_servicoUncheckedCreateNestedManyWithoutClientesInput
   }
@@ -51081,20 +51081,20 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: StringFieldUpdateOperationsInput | string
     numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
-    bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    cep_cliente?: StringFieldUpdateOperationsInput | string
+    bairro_cliente?: StringFieldUpdateOperationsInput | string
+    cep_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    uf_cliente?: StringFieldUpdateOperationsInput | string
+    uf_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    telefone_cliente?: StringFieldUpdateOperationsInput | string
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    email_cliente?: StringFieldUpdateOperationsInput | string
-    data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    data_cadastro?: DateTimeFieldUpdateOperationsInput | Date | string
     pedidos_venda?: pedidos_vendasUpdateManyWithoutCliente_compradorNestedInput
-    sucata_compra?: sucata_comprasUpdateManyWithoutClientesNestedInput
+    sucata_compra?: sucata_comprasUpdateManyWithoutClientes_vendedorNestedInput
     veiculos_cliente?: veiculos_cliente_manutencaoUpdateManyWithoutClientesNestedInput
     ordens_servico?: ordem_servicoUpdateManyWithoutClientesNestedInput
   }
@@ -51104,20 +51104,20 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: StringFieldUpdateOperationsInput | string
     numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
-    bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    cep_cliente?: StringFieldUpdateOperationsInput | string
+    bairro_cliente?: StringFieldUpdateOperationsInput | string
+    cep_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    uf_cliente?: StringFieldUpdateOperationsInput | string
+    uf_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    telefone_cliente?: StringFieldUpdateOperationsInput | string
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    email_cliente?: StringFieldUpdateOperationsInput | string
-    data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    data_cadastro?: DateTimeFieldUpdateOperationsInput | Date | string
     pedidos_venda?: pedidos_vendasUncheckedUpdateManyWithoutCliente_compradorNestedInput
-    sucata_compra?: sucata_comprasUncheckedUpdateManyWithoutClientesNestedInput
+    sucata_compra?: sucata_comprasUncheckedUpdateManyWithoutClientes_vendedorNestedInput
     veiculos_cliente?: veiculos_cliente_manutencaoUncheckedUpdateManyWithoutClientesNestedInput
     ordens_servico?: ordem_servicoUncheckedUpdateManyWithoutClientesNestedInput
   }
@@ -51424,7 +51424,7 @@ export namespace Prisma {
     data_compra?: Date | string | null
     valor_compra: Decimal | DecimalJsLike | number | string
     quantidade?: number
-    clientes: clientesCreateNestedOneWithoutSucata_compraInput
+    clientes_vendedor: clientesCreateNestedOneWithoutSucata_compraInput
     lancamentos_caixa?: fluxo_caixaCreateNestedManyWithoutSucata_compraInput
   }
 
@@ -51878,20 +51878,20 @@ export namespace Prisma {
     nome_cliente: string
     cpf_cliente: string
     IE_cliente?: string | null
-    logradouro_cliente?: string | null
+    logradouro_cliente: string
     numero_endereco?: string | null
-    bairro_cliente?: string | null
-    cep_cliente?: string
+    bairro_cliente: string
+    cep_cliente?: string | null
     cidade_cliente?: string | null
-    uf_cliente?: string
+    uf_cliente?: string | null
     codigo_IBGE?: string
     pais_cliente?: string | null
-    telefone_cliente?: string | null
+    telefone_cliente: string
     data_nascimento?: Date | string | null
-    email_cliente: string
-    data_cadastro?: Date | string | null
+    email_cliente?: string | null
+    data_cadastro?: Date | string
     pedidos_venda?: pedidos_vendasCreateNestedManyWithoutCliente_compradorInput
-    sucata_compra?: sucata_comprasCreateNestedManyWithoutClientesInput
+    sucata_compra?: sucata_comprasCreateNestedManyWithoutClientes_vendedorInput
     ordens_servico?: ordem_servicoCreateNestedManyWithoutClientesInput
     sucatas_compradas_inteiras?: sucata_estoqueCreateNestedManyWithoutCliente_compradorInput
   }
@@ -51901,20 +51901,20 @@ export namespace Prisma {
     nome_cliente: string
     cpf_cliente: string
     IE_cliente?: string | null
-    logradouro_cliente?: string | null
+    logradouro_cliente: string
     numero_endereco?: string | null
-    bairro_cliente?: string | null
-    cep_cliente?: string
+    bairro_cliente: string
+    cep_cliente?: string | null
     cidade_cliente?: string | null
-    uf_cliente?: string
+    uf_cliente?: string | null
     codigo_IBGE?: string
     pais_cliente?: string | null
-    telefone_cliente?: string | null
+    telefone_cliente: string
     data_nascimento?: Date | string | null
-    email_cliente: string
-    data_cadastro?: Date | string | null
+    email_cliente?: string | null
+    data_cadastro?: Date | string
     pedidos_venda?: pedidos_vendasUncheckedCreateNestedManyWithoutCliente_compradorInput
-    sucata_compra?: sucata_comprasUncheckedCreateNestedManyWithoutClientesInput
+    sucata_compra?: sucata_comprasUncheckedCreateNestedManyWithoutClientes_vendedorInput
     ordens_servico?: ordem_servicoUncheckedCreateNestedManyWithoutClientesInput
     sucatas_compradas_inteiras?: sucata_estoqueUncheckedCreateNestedManyWithoutCliente_compradorInput
   }
@@ -52005,20 +52005,20 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: StringFieldUpdateOperationsInput | string
     numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
-    bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    cep_cliente?: StringFieldUpdateOperationsInput | string
+    bairro_cliente?: StringFieldUpdateOperationsInput | string
+    cep_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    uf_cliente?: StringFieldUpdateOperationsInput | string
+    uf_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    telefone_cliente?: StringFieldUpdateOperationsInput | string
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    email_cliente?: StringFieldUpdateOperationsInput | string
-    data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    data_cadastro?: DateTimeFieldUpdateOperationsInput | Date | string
     pedidos_venda?: pedidos_vendasUpdateManyWithoutCliente_compradorNestedInput
-    sucata_compra?: sucata_comprasUpdateManyWithoutClientesNestedInput
+    sucata_compra?: sucata_comprasUpdateManyWithoutClientes_vendedorNestedInput
     ordens_servico?: ordem_servicoUpdateManyWithoutClientesNestedInput
     sucatas_compradas_inteiras?: sucata_estoqueUpdateManyWithoutCliente_compradorNestedInput
   }
@@ -52028,20 +52028,20 @@ export namespace Prisma {
     nome_cliente?: StringFieldUpdateOperationsInput | string
     cpf_cliente?: StringFieldUpdateOperationsInput | string
     IE_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    logradouro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    logradouro_cliente?: StringFieldUpdateOperationsInput | string
     numero_endereco?: NullableStringFieldUpdateOperationsInput | string | null
-    bairro_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    cep_cliente?: StringFieldUpdateOperationsInput | string
+    bairro_cliente?: StringFieldUpdateOperationsInput | string
+    cep_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     cidade_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    uf_cliente?: StringFieldUpdateOperationsInput | string
+    uf_cliente?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_IBGE?: StringFieldUpdateOperationsInput | string
     pais_cliente?: NullableStringFieldUpdateOperationsInput | string | null
-    telefone_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    telefone_cliente?: StringFieldUpdateOperationsInput | string
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    email_cliente?: StringFieldUpdateOperationsInput | string
-    data_cadastro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email_cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    data_cadastro?: DateTimeFieldUpdateOperationsInput | Date | string
     pedidos_venda?: pedidos_vendasUncheckedUpdateManyWithoutCliente_compradorNestedInput
-    sucata_compra?: sucata_comprasUncheckedUpdateManyWithoutClientesNestedInput
+    sucata_compra?: sucata_comprasUncheckedUpdateManyWithoutClientes_vendedorNestedInput
     ordens_servico?: ordem_servicoUncheckedUpdateManyWithoutClientesNestedInput
     sucatas_compradas_inteiras?: sucata_estoqueUncheckedUpdateManyWithoutCliente_compradorNestedInput
   }
@@ -53187,7 +53187,7 @@ export namespace Prisma {
     data_compra?: Date | string | null
     valor_compra: Decimal | DecimalJsLike | number | string
     quantidade?: number
-    clientes: clientesCreateNestedOneWithoutSucata_compraInput
+    clientes_vendedor: clientesCreateNestedOneWithoutSucata_compraInput
     usuarios: usuariosCreateNestedOneWithoutSucata_comprasInput
   }
 
@@ -53517,7 +53517,7 @@ export namespace Prisma {
     data_compra?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     valor_compra?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantidade?: IntFieldUpdateOperationsInput | number
-    clientes?: clientesUpdateOneRequiredWithoutSucata_compraNestedInput
+    clientes_vendedor?: clientesUpdateOneRequiredWithoutSucata_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutSucata_comprasNestedInput
   }
 
@@ -53737,7 +53737,7 @@ export namespace Prisma {
     plano_contas_id?: string | null
   }
 
-  export type sucata_comprasCreateManyClientesInput = {
+  export type sucata_comprasCreateManyClientes_vendedorInput = {
     id?: string
     data_compra?: Date | string | null
     valor_compra: Decimal | DecimalJsLike | number | string
@@ -53831,7 +53831,7 @@ export namespace Prisma {
     plano_contas_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type sucata_comprasUpdateWithoutClientesInput = {
+  export type sucata_comprasUpdateWithoutClientes_vendedorInput = {
     id?: StringFieldUpdateOperationsInput | string
     data_compra?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     valor_compra?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -53840,7 +53840,7 @@ export namespace Prisma {
     lancamentos_caixa?: fluxo_caixaUpdateManyWithoutSucata_compraNestedInput
   }
 
-  export type sucata_comprasUncheckedUpdateWithoutClientesInput = {
+  export type sucata_comprasUncheckedUpdateWithoutClientes_vendedorInput = {
     id?: StringFieldUpdateOperationsInput | string
     data_compra?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     valor_compra?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -53849,7 +53849,7 @@ export namespace Prisma {
     lancamentos_caixa?: fluxo_caixaUncheckedUpdateManyWithoutSucata_compraNestedInput
   }
 
-  export type sucata_comprasUncheckedUpdateManyWithoutClientesInput = {
+  export type sucata_comprasUncheckedUpdateManyWithoutClientes_vendedorInput = {
     id?: StringFieldUpdateOperationsInput | string
     data_compra?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     valor_compra?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -55502,7 +55502,7 @@ export namespace Prisma {
     data_compra?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     valor_compra?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantidade?: IntFieldUpdateOperationsInput | number
-    clientes?: clientesUpdateOneRequiredWithoutSucata_compraNestedInput
+    clientes_vendedor?: clientesUpdateOneRequiredWithoutSucata_compraNestedInput
     lancamentos_caixa?: fluxo_caixaUpdateManyWithoutSucata_compraNestedInput
   }
 
