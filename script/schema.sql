@@ -41,89 +41,139 @@ $$ LANGUAGE plpgsql VOLATILE;
 
 -- FUNÇÃO PARA CONVERTE UUID PRIMARY KEY DEFAULT gen_random_uuid() (v4) PARA uuidv7 (v7)
 -------X
---------------------------------------------------------------------------------
--- 1. CRIAÇÃO DOS TIPOS (ENUMS)
---------------------------------------------------------------------------------
+
+CREATE TYPE metodo_pagamento AS ENUM ('Pix', 'Debito', 'Credito', 'Dinheiro', 'cheque');
+
+CREATE TYPE TipoMovimentacaoCaixa AS ENUM ('Entrada', 'Saída');
+
+CREATE TYPE StatusMovimentacao AS ENUM ('Pendente', 'Autorizado', 'Cancelado', 'Pago', 'Devolvido');
 
 CREATE TYPE tipo_despesa AS ENUM (
     'FIXA', 
     'VARIAVEL'
 );
 
-CREATE TYPE tipo_despesa_fixa AS ENUM (
-    'aluguel',
-    'pro-labore',
-    'internet',
-    'salário fixo',
-    'água',
-    'energia elétrica',
-    'iptu',
-    'contador',
-    'despesas de informática',
-    'segurança e vigilância',
-    'controle de resíduos e descartes',
-    'outras despesas fixas'
+CREATE TABLE cargo_usuario (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
+    nome_cargo VARCHAR(50) UNIQUE NOT NULL,
+    descricao VARCHAR(255),
+    "cadastradoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
+); 
+
+CREATE TABLE setor_usuario (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
+    setor VARCHAR(50) UNIQUE NOT NULL,
+    descricao VARCHAR(255),
+    "cadastradoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TYPE tipo_despesa_variavel AS ENUM (
-    'matéria-prima',
-    'Peças reposição',
-    'Impostos de vendas',
-    'Logística transporte',
-    'Comissões mão de obra',
-    'Insumos produção',
-    'Taxas cartão',
-    'Outras despesas variáveis'
+CREATE TABLE status_usuario (
+    id SERIAL PRIMARY KEY,
+    status VARCHAR(50) UNIQUE NOT NULL,
+    "cadastradoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TYPE nivel_acesso AS ENUM ('Nivel_1', 'NIvel_2', 'Nivel_3', 'Nivel_4');
+CREATE TABLE status_sucata (
+    id SERIAL PRIMARY KEY,
+    status VARCHAR(50) UNIQUE NOT NULL,
+    "cadastradoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 
-CREATE TYPE cargo_usuario AS ENUM ('administrador', 'vendedor', 'mecanico', 'estoquista', 'gerente', 'desenvolvedor', 'funcionario', 'eletricista', 'desmontador', 'auxiliar de estoque', 'auxiliar administrativo', 'limpador', 'outros');
+CREATE TABLE status_item (
+    id SERIAL PRIMARY KEY,
+    status VARCHAR(50) UNIQUE NOT NULL,
+    "cadastradoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 
-CREATE TYPE cor AS ENUM ('Preto', 'Branco', 'Prata', 'Cinza', 'Vermelho', 'Azul', 'Amarelo', 'Verde', 'Laranja', 'Roxo', 'Marrom', 'Dourado', 'grafite', 'indefinida', 'Outros');
+INSERT INTO status_item (status) VALUES ('Disponivel') ON CONFLICT DO NOTHING;
+INSERT INTO status_item (status) VALUES ('Devolvido') ON CONFLICT DO NOTHING;
 
-CREATE TYPE setor_usuario AS ENUM ('administrativo', 'vendas', 'manutencao', 'estoque', 'desenvolvimento', 'limpeza', 'outros');
+CREATE TABLE status_pedido (
+    id SERIAL PRIMARY KEY,
+    status VARCHAR(50) UNIQUE NOT NULL,
+    "cadastradoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 
-CREATE TYPE status_usuario AS ENUM ('ativo', 'inativo', 'suspenso', 'pendente', 'demitido', 'aposentado');
+INSERT INTO status_pedido (status) VALUES ('Autorizado') ON CONFLICT DO NOTHING;
+INSERT INTO status_pedido (status) VALUES ('Pendente') ON CONFLICT DO NOTHING;
 
---CREATE TYPE marca_veiculo AS ENUM ('Fiat', 'Volkswagen', 'Chevrolet', 'Hyundai', 'Toyota', 'Jeep', 'Renault', 'Honda', 'Nissan', 'BYD', 'GWM', 'Caoa Chery', 'Ford', 'Peugeot', 'Citroën', 'Mitsubishi', 'BMW', 'Mercedes-Benz', 'Audi', 'Volvo', 'Land Rover', 'Porsche', 'Kia', 'Ram');
+CREATE TABLE status_venda (
+    id SERIAL PRIMARY KEY,
+    status VARCHAR(50) UNIQUE NOT NULL,
+    "cadastradoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 
-CREATE TYPE status_sucata AS ENUM ('Em desmonte', 'Em manutenção', 'Concluído', 'Indisponível', 'Disponível', 'Vendido', 'Reservado', 'Aguardando avaliação', 'Em avaliação', 'Rejeitado', 'Aprovado', 'Em estoque', 'Fora de estoque');
+CREATE TABLE tipo_servico (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    nome_servico VARCHAR(150) NOT NULL UNIQUE, 
+    categoria_servico INT NOT NULL -- 1 == 'Pendente'; 2 == 'Em andamento'
+);
 
-CREATE TYPE status_item AS ENUM ('Disponivel', 'Indisponivel', 'Reservado', 'Vendido', 'Em avaliação', 'Rejeitado', 'Aprovado', 'Em estoque', 'Fora de estoque', 'Devolvido');
+--CREATE TYPE categoria_peca AS ENUM ('Motor e componentes', 'Elétrica e componentes', 'Carroceria', 'Sistema de iluminação interior', 'Rodas e Pneus', 'Sistema de arrefecimento', 'Sistema de combustível', 'Sistema de direção', 'Sistema de embreagem', 'Sistema de injeção eletrônica', 'Sistema de transmissão', 'Sistema de suspensão', 'Sistema de freios', 'Sistema elétrico', 'Sistema de vidros e espelhos', 'Sistema de iluminação exterior', 'Sistema de exaustão', 'Ar-condicionado', 'Outros');
 
--- CORRIGIDO: Removida a vírgula sobressalente no final
-CREATE TYPE status_pedido AS ENUM ('Autorizado', 'Em avaliação', 'Rejeitado', 'Nao autorizado', 'cancelado');
+CREATE TABLE categoria_peca (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) UNIQUE NOT NULL,
+    descricao VARCHAR(200),
+    "cadastradoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 
-CREATE TYPE status_venda AS ENUM ('Vendida', 'Reservada', 'Em avaliação', 'Nao autorizada', 'cancelada', 'Nao disponivel');
+CREATE TABLE localizacao_peca (
+    id SERIAL PRIMARY KEY,
+    setor VARCHAR(50) NOT NULL,
+    corredor VARCHAR(50) NOT NULL,
+    armario VARCHAR(50) NOT NULL,
+    prateleira VARCHAR(50),
+    "cadastradoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT uc_endereco_estoque UNIQUE (setor, corredor, armario, prateleira)
+);
 
--- CORRIGIDO: Adicionado o ponto e vírgula no final
-CREATE TYPE metodo_pagamento AS ENUM ('Pix', 'Debito', 'Credito', 'Dinheiro', 'cheque');
+CREATE TABLE status_manutencao (
+    id SERIAL PRIMARY KEY,
+    status VARCHAR(50) UNIQUE NOT NULL,
+    "cadastradoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 
-CREATE TYPE categoria_peca AS ENUM ('Motor e componentes', 'Elétrica e componentes', 'Carroceria', 'Sistema de iluminação interior', 'Rodas e Pneus', 'Sistema de arrefecimento', 'Sistema de combustível', 'Sistema de direção', 'Sistema de embreagem', 'Sistema de injeção eletrônica', 'Sistema de transmissão', 'Sistema de suspensão', 'Sistema de freios', 'Sistema elétrico', 'Sistema de vidros e espelhos', 'Sistema de iluminação exterior', 'Sistema de exaustão', 'Ar-condicionado', 'Outros'); 
-
-CREATE TYPE localizacao_peca AS ENUM ('prateleira 1', 'prateleira 2', 'prateleira 3', 'prateleira 4', 'expositor', 'outro');
-
-CREATE TYPE setor_prateleira AS ENUM ('setor A', 'setor B', 'setor C', 'setor D', 'setor E', 'setor F', 'setor G', 'setor H', 'setor I', 'setor J', 'NÃO ESTÁ NA PRATELEIRA');
-
-CREATE TYPE status_manutencao AS ENUM ('Pendente', 'Em andamento', 'Concluída', 'Cancelada', 'Aguardando peças', 'Aguardando avaliação', 'Rejeitada', 'Aprovada');
-
-CREATE TYPE categoria_despesas AS ENUM ('Despesas operacionais', 'Despesas administrativas', 'Despesas de marketing', 'Despesas de pessoal', 'Despesas financeiras', 'Despesas de manutenção', 'Despesas de estoque', 'Despesas médicas', 'Outras despesas');
+INSERT INTO status_manutencao (status) VALUES ('Pendente') ON CONFLICT DO NOTHING;
+INSERT INTO status_manutencao (status) VALUES ('Em andamento') ON CONFLICT DO NOTHING;
 
 --------------------------------------------------------------------------------
 -- 2. CRIAÇÃO DAS TABELAS BASE (SEM DEPENDÊNCIAS REVERSAS)
 --------------------------------------------------------------------------------
+
+CREATE TABLE nivel_acesso (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
+    nome_nivel VARCHAR(50) UNIQUE NOT NULL,
+    descricao VARCHAR(255),
+    "cadastradoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE usuarios (
     id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
     nome VARCHAR(100) UNIQUE NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     senha_hash TEXT NOT NULL,
-    cargo_usuario cargo_usuario DEFAULT 'funcionario' NOT NULL,
-    setor_usuario setor_usuario DEFAULT 'vendas' NOT NULL,
-    nivel_acesso nivel_acesso DEFAULT 'Nivel_1' NOT NULL,
-    status_usuario status_usuario DEFAULT 'ativo' NOT NULL,
+    cargo_usuario UUID NOT NULL,
+    setor_usuario UUID NOT NULL,
+    nivel_acesso UUID NOT NULL,
+    status_usuario INT NOT NULL,
     data_admissao TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    data_cadastro_sistema TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+    data_cadastro_sistema TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    CONSTRAINT fk_cargo_usuario_id FOREIGN KEY (cargo_usuario) REFERENCES cargo_usuario(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+    CONSTRAINT fk_setor_usuario_id FOREIGN KEY (setor_usuario) REFERENCES setor_usuario(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+    CONSTRAINT fk_nivel_acesso_id FOREIGN KEY (nivel_acesso) REFERENCES nivel_acesso(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+    CONSTRAINT fk_status_usuario_id FOREIGN KEY (status_usuario) REFERENCES status_usuario(id) ON DELETE CASCADE ON UPDATE RESTRICT
 );
 
 CREATE TABLE marcas_veiculo (
@@ -141,7 +191,7 @@ CREATE TABLE modelos (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     marcas_veiculo_id INT NOT NULL,
     nome_modelo VARCHAR(100) NOT NULL,
-    CONSTRAINT fk_marca FOREIGN KEY (marcas_veiculo_id) REFERENCES marcas_veiculo(id) ON DELETE RESTRICT,
+    CONSTRAINT fk_marca FOREIGN KEY (marcas_veiculo_id) REFERENCES marcas_veiculo(id) ON DELETE CASCADE,
     CONSTRAINT uk_marca_modelo UNIQUE (marcas_veiculo_id, nome_modelo)
 );
 
@@ -152,7 +202,7 @@ CREATE TABLE estoque_objetos_duraveis (
     data_descarte timestamp DEFAULT CURRENT_TIMESTAMP,
     responsavel_compra_id UUID NOT NULL,
     valor_compra DECIMAL(10, 2) NOT NULL CHECK (valor_compra >= 0),
-    CONSTRAINT fk_responsavel_compra FOREIGN KEY (responsavel_compra_id) REFERENCES usuarios(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+    CONSTRAINT fk_responsavel_compra FOREIGN KEY (responsavel_compra_id) REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE RESTRICT
 );
 
 CREATE TABLE estoque_objetos_genericos (
@@ -163,39 +213,90 @@ CREATE TABLE estoque_objetos_genericos (
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     data_uso TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     responsavel_compra_id UUID NOT NULL,
-    CONSTRAINT fk_responsavel_compra FOREIGN KEY (responsavel_compra_id) REFERENCES usuarios(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+    CONSTRAINT fk_responsavel_compra FOREIGN KEY (responsavel_compra_id) REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE RESTRICT,
     CONSTRAINT uc_objeto_descartavel UNIQUE (objeto_descartavel_nome)
+);
+
+CREATE TABLE tipo_despesa_fixa (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) UNIQUE NOT NULL,
+    "cadastradoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE tipo_despesa_variavel (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) UNIQUE NOT NULL,
+    "cadastradoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE tipo_conta_plano (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(50) UNIQUE NOT NULL,
+    cadastradoEm TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    atualizadoEm TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE plano_contas (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
+    codigo_contabil VARCHAR(20) UNIQUE NOT NULL,
+    nome_conta VARCHAR(100) NOT NULL,
+    tipo_dre INT NOT NULL,
+    cadastradoEm TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    atualizadoEm TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_tipo_dre_id FOREIGN KEY (tipo_dre) REFERENCES tipo_conta_plano(id) ON DELETE CASCADE ON UPDATE RESTRICT
 );
 
 CREATE TABLE despesas (
     id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
-    descricao_despesa VARCHAR(255) NOT NULL,
-    tipo_despesa tipo_despesa NOT NULL,
-    tipo_despesa_fixa tipo_despesa_fixa NOT NULL,
-    tipo_despesa_variavel tipo_despesa_variavel NOT NULL,
+    descricao_despesa VARCHAR(255), -- Nulo conforme Prisma (String?)
+    tipo_despesa tipo_despesa,      -- Nulo conforme Prisma (tipo_despesa?)
+    tipo_despesa_fixa_id INT,       -- Ajustado para bater com Int? do Prisma
+    tipo_despesa_variavel_id INT,   -- Ajustado para bater com Int? do Prisma
     valor_despesa DECIMAL(10, 2) NOT NULL,
-    data_despesa TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    data_despesa TIMESTAMP(6) NOT NULL,    
+    -- Auditoria
+    cadastradoEm TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    atualizadoEm TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    -- Relacionamentos
     responsavel_compra_id UUID NOT NULL,
-    categoria_despesa categoria_despesas NOT NULL DEFAULT 'Despesas operacionais', 
-    CONSTRAINT fk_responsavel_compra_id FOREIGN KEY (responsavel_compra_id) 
-    REFERENCES usuarios(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+    plano_contas_id UUID NOT NULL,   -- Adicionado conforme relação do Prisma
+    -- Restrições de Chave Estrangeira
+    CONSTRAINT fk_responsavel_compra_id FOREIGN KEY (responsavel_compra_id) REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+    CONSTRAINT fk_tipo_despesa_fixa_id FOREIGN KEY (tipo_despesa_fixa_id) REFERENCES tipo_despesa_fixa(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+    CONSTRAINT fk_tipo_despesa_variavel_id FOREIGN KEY (tipo_despesa_variavel_id) REFERENCES tipo_despesa_variavel(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+    CONSTRAINT fk_plano_contas_id FOREIGN KEY (plano_contas_id) REFERENCES "plano_contas"(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+    -- Restrição de Verificação
+    CONSTRAINT chk_valor_despesa CHECK (valor_despesa >= 0)
 );
 
 --------------------------------------------------------------------------------
 -- 3. CRIAÇÃO DAS TABELAS DE SUCATA E PEÇAS
 --------------------------------------------------------------------------------
+CREATE TABLE cor_veiculo (
+    id SERIAL PRIMARY KEY,
+    cor VARCHAR(50) UNIQUE NOT NULL,
+    "cadastradoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE sucata_estoque (
     id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
     modelo_id INT NOT NULL,
     ano_fabricacao INT NOT NULL,
     ano_modelo INT NOT NULL,
     chassi VARCHAR(100) UNIQUE NOT NULL,
-    cor cor DEFAULT 'Preto',
+    cor INT NOT NULL,
     responsavel_compra_id UUID NOT NULL,
-    status_sucata status_sucata DEFAULT 'Em desmonte',
+    status_sucata INT NOT NULL,
     data_entrada TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_sucata_modelo_marca_id FOREIGN KEY (modelo_id) REFERENCES modelos(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-    CONSTRAINT fk_responsavel_compra_id FOREIGN KEY (responsavel_compra_id) REFERENCES usuarios(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+    CONSTRAINT fk_sucata_modelo_marca_id FOREIGN KEY (modelo_id) REFERENCES modelos(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+    CONSTRAINT fk_responsavel_compra_id FOREIGN KEY (responsavel_compra_id) REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+    CONSTRAINT uc_chassi UNIQUE (chassi),
+    CONSTRAINT uc_modelo_ano_chassi UNIQUE (modelo_id, ano_fabricacao, ano_modelo, chassi),
+    CONSTRAINT fk_cor FOREIGN KEY (cor) REFERENCES cor_veiculo(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+    CONSTRAINT fk__id FOREIGN KEY (status_sucata) REFERENCES status_sucata(id) ON DELETE CASCADE ON UPDATE RESTRICT
 );
 
 CREATE TABLE peca_estoque (
@@ -205,16 +306,17 @@ CREATE TABLE peca_estoque (
     modelo_origem_id INT NOT NULL,
     categoria categoria_peca NOT NULL,
     preco DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
-    status_peca status_item DEFAULT 'Disponivel' NOT NULL,
+    status_peca INT DEFAULT 1 NOT NULL, -- SEED DISPONÍVEL == 1; DEVOLVIDO == 2
     responsavel_compra_id UUID NOT NULL,
-    localizacao_peca localizacao_peca NOT NULL,
-    setor_prateleira setor_prateleira NOT NULL,
+    localizacao_peca INT UNIQUE NOT NULL,
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     -- CORRIGIDO: Referenciando 'sucata_estoque' em vez de 'veiculos_sucata'
     CONSTRAINT fk_veiculo_origem_id_veiculo_sucata FOREIGN KEY (veiculo_origem_id) REFERENCES sucata_estoque(id) ON DELETE CASCADE,
-    CONSTRAINT fk_modelo_origem_id_pecas FOREIGN KEY (modelo_origem_id) REFERENCES modelos(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-    CONSTRAINT fk_responsavel_compra_id FOREIGN KEY (responsavel_compra_id) REFERENCES usuarios(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-    CONSTRAINT uc_peca_modelo_origem UNIQUE (veiculo_origem_id, modelo_origem_id, nome_peca)
+    CONSTRAINT fk_modelo_origem_id_pecas FOREIGN KEY (modelo_origem_id) REFERENCES modelos(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+    CONSTRAINT fk_responsavel_compra_id FOREIGN KEY (responsavel_compra_id) REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+    CONSTRAINT uc_peca_modelo_origem UNIQUE (veiculo_origem_id, modelo_origem_id, nome_peca),
+    CONSTRAINT fk_localizacao_peca FOREIGN KEY (localizacao_peca) REFERENCES localizacao_peca(id) ON DELETE CASCADE,
+    constraint fk_status_peca FOREIGN KEY (status_peca) REFERENCES status_item(id) ON DELETE CASCADE ON UPDATE RESTRICT
 );
 
 CREATE TABLE peca_imagens (
@@ -229,26 +331,26 @@ CREATE TABLE peca_imagens (
 
 
 --------------------------------------------------------------------------------
--- 4. TABELAS BASE REVERSAS (CLIENTES E COMPATIBILIDADE)
+-- 4. TABELAS BASE REVERSAS (PARCEIROS E COMPATIBILIDADE)
 --------------------------------------------------------------------------------
 -- CORRIGIDO: Movido para cima para permitir a criação das FKs de vendas e serviços
-CREATE TABLE clientes (
+CREATE TABLE parceiros (
     id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
-    nome_cliente VARCHAR(100) UNIQUE NOT NULL,
-    CPF_cliente VARCHAR(14) UNIQUE NOT NULL CHECK (CPF_cliente ~ '^\d{3}\.\d{3}\.\d{3}-\d{2}$'),
-    endereco_cliente VARCHAR(200),
-    bairro_cliente VARCHAR(100),
-    CEP_cliente VARCHAR(9) NOT NULL DEFAULT '69.300-000' CHECK (CEP_cliente ~ '^[0-9]{2}\.[0-9]{3}-[0-9]{3}$'),
-    cidade_cliente VARCHAR(100) DEFAULT 'Boa Vista',
-    pais_cliente VARCHAR(50) DEFAULT 'Brasil',
-    telefone_cliente VARCHAR(20) CHECK (
-        telefone_cliente ~ '^\+55\s?\(?\d{2}\)?\s?\d{4,5}-?\d{4}$' OR
-        telefone_cliente ~ '^\+592\s?\d{3}-?\d{4}$'   OR
-        telefone_cliente ~ '^\+58\s?\d{3}-?\d{7}$'    OR
-        telefone_cliente ~ '^\+597\s?\d{3,4}-?\d{3,4}$' OR
-        telefone_cliente ~ '^\+57\s?\d{3}-?\d{7}$'),
+    nome_parceiro VARCHAR(100) UNIQUE NOT NULL,
+    CPF_parceiro VARCHAR(14) UNIQUE NOT NULL CHECK (CPF_parceiro ~ '^\d{3}\.\d{3}\.\d{3}-\d{2}$'),
+    endereco_parceiro VARCHAR(200),
+    bairro_parceiro VARCHAR(100),
+    CEP_parceiro VARCHAR(9) NOT NULL DEFAULT '69.300-000' CHECK (CEP_parceiro ~ '^[0-9]{2}\.[0-9]{3}-[0-9]{3}$'),
+    cidade_parceiro VARCHAR(100) DEFAULT 'Boa Vista',
+    pais_parceiro VARCHAR(50) DEFAULT 'Brasil',
+    telefone_parceiro VARCHAR(20) CHECK (
+        telefone_parceiro ~ '^\+55\s?\(?\d{2}\)?\s?\d{4,5}-?\d{4}$' OR
+        telefone_parceiro ~ '^\+592\s?\d{3}-?\d{4}$'   OR
+        telefone_parceiro ~ '^\+58\s?\d{3}-?\d{7}$'    OR
+        telefone_parceiro ~ '^\+597\s?\d{3,4}-?\d{3,4}$' OR
+        telefone_parceiro ~ '^\+57\s?\d{3}-?\d{7}$'),
     data_nascimento DATE CHECK (data_nascimento <= CURRENT_DATE),
-    email_cliente VARCHAR(100) UNIQUE NOT NULL,
+    email_parceiro VARCHAR(100) UNIQUE NOT NULL,
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -260,7 +362,7 @@ CREATE TABLE compatibilidade_pecas (
     ano_fim INT,
     -- CORRIGIDO: Apontando para 'peca_estoque'
     CONSTRAINT fk_peca_compativel FOREIGN KEY (peca_id) REFERENCES peca_estoque(id) ON DELETE CASCADE,
-    CONSTRAINT fk_compativel_peca_modelo_marca FOREIGN KEY (modelo_origem_id) REFERENCES modelos(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+    CONSTRAINT fk_compativel_peca_modelo_marca FOREIGN KEY (modelo_origem_id) REFERENCES modelos(id) ON DELETE CASCADE ON UPDATE RESTRICT,
     CONSTRAINT uc_peca_modelo UNIQUE (peca_id, ano_inicio, ano_fim)
 );
 
@@ -269,15 +371,17 @@ CREATE TABLE compatibilidade_pecas (
 --------------------------------------------------------------------------------
 CREATE TABLE pedidos_vendas (
     id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
-    cliente_comprador_id UUID NOT NULL,
+    parceiro_comprador_id UUID NOT NULL,
     responsavel_venda_id UUID NOT NULL,
     data_venda TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     valor_total DECIMAL(10, 2) NOT NULL DEFAULT 0.00, CHECK (valor_total >= 0),
     metodo_pagamento metodo_pagamento DEFAULT 'Pix' NOT NULL,
-    status_pedido status_pedido DEFAULT 'Autorizado' NOT NULL,
+    status_pedido INT DEFAULT 1 NOT NULL, -- 1 == 'Autorizado'; 2 == 'Pendente'
     observacoes_recibo varchar(500),
-    CONSTRAINT fk_cliente_comprador_id FOREIGN KEY (cliente_comprador_id) REFERENCES clientes(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-    CONSTRAINT fk_responsavel_venda FOREIGN KEY (responsavel_venda_id) REFERENCES usuarios(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+    CONSTRAINT fk_parceiro_comprador_id FOREIGN KEY (parceiro_comprador_id) REFERENCES parceiros(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+    CONSTRAINT fk_responsavel_venda FOREIGN KEY (responsavel_venda_id) REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+    CONSTRAINT fk_status_pedido FOREIGN KEY (status_pedido) REFERENCES status_pedido(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+    CONSTRAINT uc_parceiro_venda UNIQUE (parceiro_comprador_id, responsavel_venda_id, data_venda)
 );
 
 CREATE TABLE itens_pedido_vendas (
@@ -286,12 +390,14 @@ CREATE TABLE itens_pedido_vendas (
     peca_estoque_id UUID UNIQUE NOT NULL,
     valor_venda DECIMAL(10, 2) NOT NULL, CHECK (valor_venda >= 0),
     data_fim_garantia DATE NOT NULL,
-    status_item status_item DEFAULT 'Disponivel' NOT NULL,
+    status_item INT DEFAULT 1 NOT NULL, -- 1 == 'Disponivel'; 2 == 'Devolvido'
     data_devolucao TIMESTAMP,
     motivo_devolucao varchar(500),
     CONSTRAINT fk_pedido_venda FOREIGN KEY (pedido_venda_id) REFERENCES pedidos_vendas(id) ON DELETE CASCADE,
     -- CORRIGIDO: Apontando para 'peca_estoque'
-    CONSTRAINT fk_peca_venda FOREIGN KEY (peca_estoque_id) REFERENCES peca_estoque(id) ON DELETE CASCADE
+    CONSTRAINT fk_peca_venda FOREIGN KEY (peca_estoque_id) REFERENCES peca_estoque(id) ON DELETE CASCADE,
+    CONSTRAINT uc_peca_venda UNIQUE (pedido_venda_id, peca_estoque_id),
+    CONSTRAINT fk_status_item FOREIGN KEY (status_item) REFERENCES status_item(id) ON DELETE CASCADE ON UPDATE RESTRICT
 );
 
 CREATE TABLE sucata_compras (
@@ -300,26 +406,20 @@ CREATE TABLE sucata_compras (
     valor_compra DECIMAL(10, 2) NOT NULL, CHECK (valor_compra >= 0),
     quantidade INT NOT NULL DEFAULT 1, CHECK (quantidade >= 0),
     responsavel_compra_id UUID NOT NULL,
-    cliente_vendedor_id UUID NOT NULL,  
-    CONSTRAINT fk_responsavel_compra FOREIGN KEY (responsavel_compra_id) REFERENCES usuarios(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-    CONSTRAINT fk_cliente_vendedor_id FOREIGN KEY (cliente_vendedor_id) REFERENCES clientes(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+    parceiro_vendedor_id UUID NOT NULL,  
+    CONSTRAINT fk_responsavel_compra FOREIGN KEY (responsavel_compra_id) REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+    CONSTRAINT fk_parceiro_vendedor_id FOREIGN KEY (parceiro_vendedor_id) REFERENCES parceiros(id) ON DELETE CASCADE ON UPDATE RESTRICT
 );
 
 --------------------------------------------------------------------------------
 -- 6. CRIAÇÃO DAS TABELAS DE MANUTENÇÃO
 --------------------------------------------------------------------------------
-CREATE TABLE veiculos_cliente_manutencao (
+CREATE TABLE veiculo_parceiro_manutencao (
     id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
     modelo_id INT NOT NULL, 
-    cliente_id UUID NOT NULL,
-    CONSTRAINT fk_modelo_veiculo_manutencao FOREIGN KEY (modelo_id) REFERENCES modelos(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-    CONSTRAINT fk_cliente_veiculo_manutencao FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
-
-CREATE TABLE tipo_servico (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    nome_servico VARCHAR(150) NOT NULL UNIQUE, 
-    categoria_servico categoria_peca NOT NULL
+    parceiro_id UUID NOT NULL,
+    CONSTRAINT fk_modelo_veiculo_manutencao FOREIGN KEY (modelo_id) REFERENCES modelos(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+    CONSTRAINT fk_parceiro_veiculo_manutencao FOREIGN KEY (parceiro_id) REFERENCES parceiros(id) ON DELETE CASCADE ON UPDATE RESTRICT
 );
 
 CREATE TABLE servico_manutencao (
@@ -327,18 +427,20 @@ CREATE TABLE servico_manutencao (
     tipo_servico_id UUID NOT NULL, 
     descricao_manutencao TEXT NOT NULL, 
     veiculo_manutencao_id UUID NOT NULL,
-    cliente_id UUID NOT NULL,
+    parceiro_id UUID NOT NULL,
     data_manutencao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     responsavel_id UUID NOT NULL,
-    status_manutencao status_manutencao DEFAULT 'Pendente' NOT NULL,
+    status_manutencao INT DEFAULT 1 NOT NULL, -- 1 == 'Pendente'; 2 == 'Em andamento'
     preco DECIMAL(10, 2) NOT NULL,
-    CONSTRAINT fk_tipo_servico FOREIGN KEY (tipo_servico_id) REFERENCES tipo_servico(id) ON DELETE RESTRICT,
-    CONSTRAINT fk_veiculo_manutencao FOREIGN KEY (veiculo_manutencao_id) REFERENCES veiculos_cliente_manutencao(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-    CONSTRAINT fk_cliente_manutencao FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-    CONSTRAINT fk_responsavel_manutencao FOREIGN KEY (responsavel_id) REFERENCES usuarios(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+    CONSTRAINT fk_tipo_servico FOREIGN KEY (tipo_servico_id) REFERENCES tipo_servico(id) ON DELETE CASCADE,
+    CONSTRAINT fk_veiculo_manutencao FOREIGN KEY (veiculo_manutencao_id) REFERENCES veiculo_parceiro_manutencao(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+    CONSTRAINT fk_parceiro_manutencao FOREIGN KEY (parceiro_id) REFERENCES parceiros(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+    CONSTRAINT fk_responsavel_manutencao FOREIGN KEY (responsavel_id) REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+    CONSTRAINT fk_status_manutencao FOREIGN KEY (status_manutencao) REFERENCES status_manutencao(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+    CONSTRAINT uc_veiculo_parceiro_manutencao UNIQUE (veiculo_manutencao_id, parceiro_id, data_manutencao)
 );
 
--- FUNÇÃO PARA IMPEDIR ALGUÉM DELETAR ID DAS TABELAS USUARIOS, ESTOQUE_OBJETOS_DURAVEIS, ESTOQUE_OBJETOS_GENERICOS, DESPESAS, SUCATA_ESTOQUE, PECA_ESTOQUE, PECA_IMAGENS, COMPATIBILIDADE_PEÇAS, PEDIDOS_VENDAS, ITENS_PEDIDO_VENDAS, SUCATA_COMPRAS, CLIENTES, SERVICO_MANUTENCAO E VEICULOS_CLIENTE_MANUTENCAO
+-- FUNÇÃO PARA IMPEDIR ALGUÉM DELETAR ID DAS TABELAS USUARIOS, ESTOQUE_OBJETOS_DURAVEIS, ESTOQUE_OBJETOS_GENERICOS, DESPESAS, SUCATA_ESTOQUE, PECA_ESTOQUE, PECA_IMAGENS, COMPATIBILIDADE_PEÇAS, PEDIDOS_VENDAS, ITENS_PEDIDO_VENDAS, SUCATA_COMPRAS, parceiros, SERVICO_MANUTENCAO E veiculo_parceiro_MANUTENCAO
 ------------>
 CREATE OR REPLACE FUNCTION impedir_alterar_id_usuario()
 RETURNS TRIGGER AS $$
@@ -353,10 +455,10 @@ $$ LANGUAGE plpgsql;
 DO $$
 DECLARE
     tabelas TEXT[] := ARRAY[
-        'usuarios', 'estoque_objetos_duraveis', 'estoque_objetos_genericos', 
+        'parceiros', 'estoque_objetos_duraveis', 'estoque_objetos_genericos', 
         'despesas', 'sucata_estoque', 'peca_estoque', 'peca_imagens', 
         'compatibilidade_pecas', 'pedidos_vendas', 'itens_pedido_vendas', 
-        'sucata_compras', 'clientes', 'servico_manutencao', 'veiculos_cliente_manutencao'
+        'sucata_compras', 'parceiros', 'servico_manutencao', 'veiculo_parceiro_manutencao'
     ];
     tabela TEXT;
 BEGIN
@@ -412,9 +514,9 @@ BEFORE UPDATE OF nome_modelo ON modelos
 FOR EACH ROW EXECUTE FUNCTION impedir_alterar_nome_modelos();
 -----------------X
 
--- FUNÇÃO PARA IMPEDIR ALGUÉM DELETAR NOME DA TABELA CLIENTES
+-- FUNÇÃO PARA IMPEDIR ALGUÉM DELETAR NOME DA TABELA parceiros
 ------------>
-CREATE OR REPLACE FUNCTION impedir_alterar_nome_clientes()
+CREATE OR REPLACE FUNCTION impedir_alterar_nome_parceiros()
 RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.nome IS DISTINCT FROM OLD.nome THEN
@@ -424,10 +526,10 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- TRIGGER PARA IMPEDIR ALGUÉM DELETAR NOME TABELA clientes
-CREATE TRIGGER trg_impedir_alterar_nome_tabela_clientes
-BEFORE UPDATE OF nome_cliente ON clientes
-FOR EACH ROW EXECUTE FUNCTION impedir_alterar_nome_clientes();
+-- TRIGGER PARA IMPEDIR ALGUÉM DELETAR NOME TABELA parceiros
+CREATE TRIGGER trg_impedir_alterar_nome_tabela_parceiros
+BEFORE UPDATE OF nome_parceiro ON parceiros
+FOR EACH ROW EXECUTE FUNCTION impedir_alterar_nome_parceiros();
 -----------------X
 
 -- FUNÇÃO PARA IMPEDIR ALGUÉM DELETAR NOME DA TABELA peca_estoque
@@ -454,9 +556,9 @@ CREATE OR REPLACE FUNCTION atualizar_estoque_por_devolucao()
 RETURNS TRIGGER AS $$
 BEGIN
     -- Verifica se o status mudou para 'Devolvido'
-    IF NEW.status_item = 'Devolvido' AND OLD.status_item != 'Devolvido' THEN
+    IF NEW.status_item = 2 AND OLD.status_item != 2 THEN
         UPDATE peca_estoque
-        SET status_peca = 'Disponivel' -- Altere aqui caso seu ENUM de status use outro nome
+        SET status_peca = 1 -- 1 == 'DISPONÍVEL'; 2 == 'DEVOLVIDO'
         WHERE id = NEW.peca_estoque_id;
     END IF;
     RETURN NEW;
@@ -509,14 +611,14 @@ BEGIN
     WHERE id = NEW.peca_estoque_id;
 
     -- Se o status não for 'Disponivel', barra a venda imediatamente
-    IF v_status_texto != 'Disponivel' THEN
+    IF v_status_texto != '1' THEN
         RAISE EXCEPTION 'Operação cancelada: A peça ID % não está disponível para venda (Status atual: %).', 
             NEW.peca_estoque_id, v_status_texto;
     END IF;
 
     -- CORRIGIDO: Nome da tabela alterado para 'peca_estoque' e status condizente com ENUM 'status_item'
     UPDATE peca_estoque
-    SET status_peca = 'Vendido'
+    SET status_peca = 2 -- 1 == 'DISPONÍVEL'; 2 == 'VENDIDO'
     WHERE id = NEW.peca_estoque_id;
 
     RETURN NEW;
@@ -729,10 +831,10 @@ VALUES
     ((SELECT id FROM marcas_veiculo WHERE nome = 'Jaguar'), 'E-Pace'),
     ((SELECT id FROM marcas_veiculo WHERE nome = 'Jaguar'), 'I-Pace'),
     ((SELECT id FROM marcas_veiculo WHERE nome = 'Jaguar'), 'XF'),
-    ((SELECT id FROM marcas_veiculo WHERE nome = 'Jaguar'), 'XJ');
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Jaguar'), 'XJ'),
 
     --Porsche
-    (SELECT id FROM marcas_veiculo WHERE nome = 'Porsche'), '911'),
+    ((SELECT id FROM marcas_veiculo WHERE nome = 'Porsche'), '911'),
     ((SELECT id FROM marcas_veiculo WHERE nome = 'Porsche'), 'Macan'),
     ((SELECT id FROM marcas_veiculo WHERE nome = 'Porsche'), 'Cayenne'),
     ((SELECT id FROM marcas_veiculo WHERE nome = 'Porsche'), 'Taycan'),
@@ -765,41 +867,36 @@ VALUES
 --alterar o enum para adicionar um nova opção de marca
 --ALTER TYPE marca_veiculo ADD VALUE 'Outra';
 
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------
 -- 1. CRIAÇÃO DE ÍNDICES PARA OTIMIZAÇÃO (INDEX)
---------------------------------------------------------------------------------
+------------------------------------------------------------------------
+CREATE INDEX idx_sucata_modelo_chassi ON sucata_estoque (modelo_id, chassi);
 
+CREATE INDEX idx_sucata_modelo_data_entrada ON sucata_estoque (modelo_id, data_entrada);
 
-CREATE INDEX idx_sucata_marca_modelo ON sucata_estoque (marcas_veiculo, modelo_id);
-
-CREATE INDEX idx_sucata_modelo_marca ON sucata_estoque (modelo_id, marcas_veiculo);
-
-CREATE INDEX idx_pecas_nome_categoria ON peca_estoque (nomes_peca, categoria);
-
-
---------------------------------------------------------------------------------
+CREATE INDEX idx_pecas_nome_categoria ON peca_estoque (nome_peca, categoria);-------------------------------------------------------------------------
 -- 2. QUERIES DE CONSULTA (VIEWS / TESTES DE RELACIONAMENTO)
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------
 
--- Consulta de Serviços de Manutenção com Clientes e Mecânicos
+-- Consulta de Serviços de Manutenção com parceiros e Mecânicos
 SELECT 
     s.id AS ordem_servico,
-    c.nome_cliente,
+    c.nome_parceiro,
     u.nome AS nome_mecanico,
     s.preco
 FROM servico_manutencao s
-INNER JOIN clientes c ON s.cliente_id = c.id
+INNER JOIN parceiros c ON s.parceiro_id = c.id
 INNER JOIN usuarios u ON s.responsavel_id = u.id;
 
 -- Consulta de Veículos em Manutenção com Modelos e Proprietários
 SELECT 
     v.id AS veiculo_id,
-    m.marcas_veiculo,
+    m.marcas_veiculo_id,
     m.nome_modelo,
-    c.nome_cliente AS proprietario
-FROM veiculos_cliente_manutencao v
+    c.nome_parceiro AS proprietario
+FROM veiculo_parceiro_manutencao v
 JOIN modelos m ON v.modelo_id = m.id
-JOIN clientes c ON v.cliente_id = c.id;
+JOIN parceiros c ON v.parceiro_id = c.id;
 
 -- ============================================================================
 -- 1. AUTOMAÇÃO PARA OS ITENS DO PEDIDO (Calcula preco_total do item)
@@ -862,20 +959,41 @@ AFTER INSERT OR UPDATE OR DELETE ON itens_pedido_vendas
 FOR EACH ROW
 EXECUTE FUNCTION fn_atualizar_valor_total_pedido();
 --------------------X
-
----------> Cria a função que busca o código CFOP com base no ID do CFOP selecionado na tabela de itens da nota fiscal
-CREATE OR REPLACE FUNCTION preencher_cfop_codigo()
+/*
+CREATE OR REPLACE FUNCTION fn_calcular_preco_total_item() 
 RETURNS TRIGGER AS $$
 BEGIN
-    SELECT codigo INTO NEW.cfop_codigo 
-    FROM cfops 
-    WHERE id = NEW.cfop_id;
+    -- Multiplica quantidade_comprada pelo preco_unitario e subtrai o valor_desconto
+    NEW.preco_total_compra := (NEW.quantidade_comprada * NEW.preco_unitario) - COALESCE(NEW.valor_desconto, 0.00);
+
+    -- Garante que o valor total do item nunca seja negativo
+    IF NEW.preco_total_compra < 0 THEN
+        NEW.preco_total_compra := 0.00;
+    END IF;
+
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
--- 2. Cria o gatilho na sua tabela de itens da nota (Ex: item_nota)
-CREATE TRIGGER tgr_preencher_cfop_item_nota
-BEFORE INSERT OR UPDATE ON item_documento_fiscal
-FOR EACH ROW
-EXECUTE FUNCTION preencher_cfop_codigo();
+CREATE OR REPLACE TRIGGER tg_calcular_preco_total_item
+BEFORE INSERT OR UPDATE ON estoque_objetos_genericos
+FOR EACH ROW EXECUTE FUNCTION fn_calcular_preco_total_item();
+*/
+
+/*
+-- 1. Cria a função genérica que atualiza o timestamp (executada apenas uma vez no banco)
+CREATE OR REPLACE FUNCTION atualiza_timestamp_auditoria()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW."atualizadoEm" = CURRENT_TIMESTAMP;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- 2. Cria a Trigger específica para cada tabela (Repita este bloco para cada model que possuir o campo)
+CREATE TRIGGER trigger_atualiza_modelo
+    BEFORE UPDATE ON "SeuModelo"
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+*/
