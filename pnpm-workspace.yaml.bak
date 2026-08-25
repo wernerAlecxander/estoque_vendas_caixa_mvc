@@ -1,0 +1,15 @@
+# pnpm-workspace.yaml
+packages:
+  - "app/*"
+  - "."   # Inclui a própria raiz explicitamente
+
+
+allowBuilds:
+  "@prisma/engines": true
+  "esbuild": true
+  "prisma": true
+  "sharp": true
+  "tree-sitter": true
+  "tree-sitter-javascript": true
+  "tree-sitter-typescript": true
+# Se todo o projeto estiver na raiz, pode deletar o arquivo pnpm-workspace.yaml, pois não precisa de um workspace se tiver apenas um único package.json principal. Mas vou deixar para aprender no futuro, caso queira acrescentar outros packages, como por exemplo, um package.json para o backend e outro para o frontend.

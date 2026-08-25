@@ -120,61 +120,134 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.ClientesScalarFieldEnum = {
+exports.Prisma.ParceirosScalarFieldEnum = {
   id: 'id',
-  nome_cliente: 'nome_cliente',
-  cpf_cliente: 'cpf_cliente',
-  IE_cliente: 'IE_cliente',
-  logradouro_cliente: 'logradouro_cliente',
+  nome_completo_PF: 'nome_completo_PF',
+  razao_social_PJ: 'razao_social_PJ',
+  CPF: 'CPF',
+  CNPJ: 'CNPJ',
+  Inscricao_Estadual: 'Inscricao_Estadual',
+  logradouro: 'logradouro',
   numero_endereco: 'numero_endereco',
-  bairro_cliente: 'bairro_cliente',
-  cep_cliente: 'cep_cliente',
-  cidade_cliente: 'cidade_cliente',
-  uf_cliente: 'uf_cliente',
+  bairro: 'bairro',
+  CEP: 'CEP',
+  cidade: 'cidade',
+  UF: 'UF',
   codigo_IBGE: 'codigo_IBGE',
-  pais_cliente: 'pais_cliente',
-  telefone_cliente: 'telefone_cliente',
-  data_nascimento: 'data_nascimento',
-  email_cliente: 'email_cliente',
-  data_cadastro: 'data_cadastro'
+  pais_country: 'pais_country',
+  telefone: 'telefone',
+  email: 'email',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
 };
 
 exports.Prisma.Compatibilidade_pecasScalarFieldEnum = {
   id: 'id',
-  peca_id: 'peca_id',
+  peca_estoque_id: 'peca_estoque_id',
   modelo_origem_id: 'modelo_origem_id',
   ano_inicio: 'ano_inicio',
-  ano_fim: 'ano_fim'
+  ano_fim: 'ano_fim',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
 };
 
 exports.Prisma.Estoque_objetos_duraveisScalarFieldEnum = {
   id: 'id',
-  objeto_duravel: 'objeto_duravel',
+  nome_objeto_duravel: 'nome_objeto_duravel',
+  categoria_id: 'categoria_id',
   data_compra: 'data_compra',
-  data_descarte: 'data_descarte',
+  status_objeto_duravel: 'status_objeto_duravel',
   responsavel_compra_id: 'responsavel_compra_id',
-  valor_compra: 'valor_compra'
+  data_descarte: 'data_descarte',
+  responsavel_descarte_id: 'responsavel_descarte_id',
+  valor_compra: 'valor_compra',
+  tempo_garantia: 'tempo_garantia',
+  data_limite_garantia: 'data_limite_garantia',
+  data_ativacao_gerencial: 'data_ativacao_gerencial',
+  taxa_depreciacao_interna: 'taxa_depreciacao_interna',
+  data_fim_depreciacao_interna: 'data_fim_depreciacao_interna',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
+};
+
+exports.Prisma.Estoque_objetos_imobilizadosScalarFieldEnum = {
+  id: 'id',
+  codigo_patrimonial: 'codigo_patrimonial',
+  nome_objeto_imoblizado: 'nome_objeto_imoblizado',
+  categoria_id: 'categoria_id',
+  status_objeto_imobilizado: 'status_objeto_imobilizado',
+  data_compra: 'data_compra',
+  data_ativacao: 'data_ativacao',
+  responsavel_cadastro_id: 'responsavel_cadastro_id',
+  valor_aquisicao: 'valor_aquisicao',
+  valor_residual: 'valor_residual',
+  taxa_depreciacao_anual: 'taxa_depreciacao_anual',
+  vida_util_meses: 'vida_util_meses',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
+};
+
+exports.Prisma.Categoria_duraveis_imobilizadosScalarFieldEnum = {
+  id: 'id',
+  nome_categoria: 'nome_categoria',
+  descricao: 'descricao',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
+};
+
+exports.Prisma.Status_ativoScalarFieldEnum = {
+  id: 'id',
+  status_objeto: 'status_objeto',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
 };
 
 exports.Prisma.Estoque_objetos_genericosScalarFieldEnum = {
   id: 'id',
-  objeto_descartavel_nome: 'objeto_descartavel_nome',
-  preco_objeto_descartavel: 'preco_objeto_descartavel',
-  quantidade_objeto_descartavel: 'quantidade_objeto_descartavel',
-  data_cadastro: 'data_cadastro',
-  data_uso: 'data_uso',
-  responsavel_compra_id: 'responsavel_compra_id'
+  nome_objeto_generico: 'nome_objeto_generico',
+  preco_unitario: 'preco_unitario',
+  quantidade_comprada: 'quantidade_comprada',
+  valor_desconto: 'valor_desconto',
+  preco_total_compra: 'preco_total_compra',
+  data_compra: 'data_compra',
+  responsavel_compra_id: 'responsavel_compra_id',
+  data_inicio_uso: 'data_inicio_uso',
+  responsavel_uso_id: 'responsavel_uso_id',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
 };
 
 exports.Prisma.Marcas_veiculoScalarFieldEnum = {
   id: 'id',
-  nome: 'nome'
+  nome: 'nome',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
 };
 
 exports.Prisma.ModelosScalarFieldEnum = {
   id: 'id',
   marcas_veiculo_id: 'marcas_veiculo_id',
-  nome_modelo: 'nome_modelo'
+  nome_modelo: 'nome_modelo',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
+};
+
+exports.Prisma.Categoria_pecaScalarFieldEnum = {
+  id: 'id',
+  nome: 'nome',
+  descricao: 'descricao',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
+};
+
+exports.Prisma.Localizacao_pecaScalarFieldEnum = {
+  id: 'id',
+  setor: 'setor',
+  corredor: 'corredor',
+  armario: 'armario',
+  prateleira: 'prateleira',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
 };
 
 exports.Prisma.Peca_estoqueScalarFieldEnum = {
@@ -182,24 +255,27 @@ exports.Prisma.Peca_estoqueScalarFieldEnum = {
   veiculo_origem_id: 'veiculo_origem_id',
   nome_peca: 'nome_peca',
   modelo_origem_id: 'modelo_origem_id',
-  categoria: 'categoria',
+  categoria_peca_id: 'categoria_peca_id',
   preco: 'preco',
   status_peca: 'status_peca',
   responsavel_compra_id: 'responsavel_compra_id',
-  localizacao_peca: 'localizacao_peca',
-  setor_prateleira: 'setor_prateleira',
-  data_cadastro: 'data_cadastro'
+  localizacao_peca_id: 'localizacao_peca_id',
+  data_cadastro: 'data_cadastro',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
 };
 
 exports.Prisma.Dados_fiscais_pecaScalarFieldEnum = {
   id: 'id',
   peca_id: 'peca_id',
-  ncm: 'ncm',
-  cest: 'cest',
-  cfop_id: 'cfop_id',
-  cst_icms: 'cst_icms',
-  cst_ibs_cbs: 'cst_ibs_cbs',
-  cClassTrib: 'cClassTrib'
+  NMC_Mercosul: 'NMC_Mercosul',
+  CEST_tributario: 'CEST_tributario',
+  CFOP_id: 'CFOP_id',
+  CST_ICMS: 'CST_ICMS',
+  CST_IBS_CBS: 'CST_IBS_CBS',
+  CClassTrib: 'CClassTrib',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
 };
 
 exports.Prisma.Peca_imagensScalarFieldEnum = {
@@ -207,7 +283,9 @@ exports.Prisma.Peca_imagensScalarFieldEnum = {
   peca_id: 'peca_id',
   url_imagem: 'url_imagem',
   principal: 'principal',
-  data_cadastro: 'data_cadastro'
+  data_cadastro: 'data_cadastro',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
 };
 
 exports.Prisma.Itens_pedido_vendasScalarFieldEnum = {
@@ -221,7 +299,9 @@ exports.Prisma.Itens_pedido_vendasScalarFieldEnum = {
   data_fim_garantia: 'data_fim_garantia',
   status_item: 'status_item',
   data_devolucao: 'data_devolucao',
-  motivo_devolucao: 'motivo_devolucao'
+  motivo_devolucao: 'motivo_devolucao',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
 };
 
 exports.Prisma.Pedidos_vendasScalarFieldEnum = {
@@ -231,15 +311,17 @@ exports.Prisma.Pedidos_vendasScalarFieldEnum = {
   metodo_pagamento: 'metodo_pagamento',
   status_pedido: 'status_pedido',
   observacoes_recibo: 'observacoes_recibo',
-  cliente_comprador_id: 'cliente_comprador_id',
+  parceiro_comprador_id: 'parceiro_comprador_id',
   responsavel_venda_id: 'responsavel_venda_id',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm',
   os_servicos_itensId: 'os_servicos_itensId',
   plano_contas_id: 'plano_contas_id'
 };
 
 exports.Prisma.Ordem_servicoScalarFieldEnum = {
   id: 'id',
-  cliente_id: 'cliente_id',
+  parceiro_id: 'parceiro_id',
   veiculo_id: 'veiculo_id',
   responsavel_id: 'responsavel_id',
   data_abertura: 'data_abertura',
@@ -251,7 +333,9 @@ exports.Prisma.Ordem_servicoScalarFieldEnum = {
   valor_servicos: 'valor_servicos',
   valor_pecas: 'valor_pecas',
   valor_desconto: 'valor_desconto',
-  valor_total: 'valor_total'
+  valor_total: 'valor_total',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
 };
 
 exports.Prisma.Os_servicos_itensScalarFieldEnum = {
@@ -261,14 +345,18 @@ exports.Prisma.Os_servicos_itensScalarFieldEnum = {
   mecanico_id: 'mecanico_id',
   quantidade: 'quantidade',
   preco_unitario: 'preco_unitario',
-  preco_total: 'preco_total'
+  preco_total: 'preco_total',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
 };
 
 exports.Prisma.Os_pecas_itensScalarFieldEnum = {
   id: 'id',
   ordem_servico_id: 'ordem_servico_id',
   peca_estoque_id: 'peca_estoque_id',
-  preco_venda: 'preco_venda'
+  preco_venda: 'preco_venda',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
 };
 
 exports.Prisma.Sucata_comprasScalarFieldEnum = {
@@ -277,14 +365,18 @@ exports.Prisma.Sucata_comprasScalarFieldEnum = {
   valor_compra: 'valor_compra',
   quantidade: 'quantidade',
   responsavel_compra_id: 'responsavel_compra_id',
-  cliente_vendedor_id: 'cliente_vendedor_id'
+  parceiro_vendedor_id: 'parceiro_vendedor_id',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
 };
 
-exports.Prisma.CfopsScalarFieldEnum = {
+exports.Prisma.CFOPSScalarFieldEnum = {
   id: 'id',
   codigo: 'codigo',
   descricao: 'descricao',
-  tipo: 'tipo'
+  tipo: 'tipo',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
 };
 
 exports.Prisma.Sucata_estoqueScalarFieldEnum = {
@@ -297,17 +389,22 @@ exports.Prisma.Sucata_estoqueScalarFieldEnum = {
   responsavel_compra_id: 'responsavel_compra_id',
   status_sucata: 'status_sucata',
   data_entrada: 'data_entrada',
+  CFOP_id: 'CFOP_id',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm',
   preco_venda_inteiro: 'preco_venda_inteiro',
   data_venda_inteiro: 'data_venda_inteiro',
-  cliente_comprador_id: 'cliente_comprador_id',
-  ncm_veiculo: 'ncm_veiculo',
-  cfop_venda: 'cfop_venda'
+  parceiro_comprador_id: 'parceiro_comprador_id',
+  NMC_Mercosul_veiculo: 'NMC_Mercosul_veiculo',
+  CFOP_venda: 'CFOP_venda'
 };
 
 exports.Prisma.Tipo_servicoScalarFieldEnum = {
   id: 'id',
   nome_servico: 'nome_servico',
-  categoria_servico: 'categoria_servico'
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm',
+  categoria_servico_id: 'categoria_servico_id'
 };
 
 exports.Prisma.UsuariosScalarFieldEnum = {
@@ -315,28 +412,39 @@ exports.Prisma.UsuariosScalarFieldEnum = {
   nome: 'nome',
   email: 'email',
   senha_hash: 'senha_hash',
-  cargo_usuario: 'cargo_usuario',
+  cargo_usuario_id: 'cargo_usuario_id',
   setor_usuario: 'setor_usuario',
   nivel_acesso: 'nivel_acesso',
-  status_usuario: 'status_usuario',
+  status_atual: 'status_atual',
   data_admissao: 'data_admissao',
-  data_cadastro_sistema: 'data_cadastro_sistema'
+  data_demissao: 'data_demissao',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
 };
 
-exports.Prisma.Veiculos_cliente_manutencaoScalarFieldEnum = {
+exports.Prisma.Veiculos_parceiro_manutencaoScalarFieldEnum = {
   id: 'id',
   modelo_id: 'modelo_id',
-  cliente_id: 'cliente_id',
+  parceiro_id: 'parceiro_id',
   placa: 'placa',
   chassi: 'chassi',
   cor: 'cor',
   ano_fabricacao: 'ano_fabricacao',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm',
   os_servicos_itensId: 'os_servicos_itensId'
+};
+
+exports.Prisma.Tipo_objeto_receitaScalarFieldEnum = {
+  id: 'id',
+  nome_tipo_receita: 'nome_tipo_receita',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
 };
 
 exports.Prisma.Configuracao_impostoScalarFieldEnum = {
   id: 'id',
-  tipo_objeto_receita: 'tipo_objeto_receita',
+  tipo_objeto_receita_id: 'tipo_objeto_receita_id',
   aliquota_iss: 'aliquota_iss',
   aliquota_icms: 'aliquota_icms',
   aliquota_pis: 'aliquota_pis',
@@ -345,14 +453,25 @@ exports.Prisma.Configuracao_impostoScalarFieldEnum = {
   aliquota_cbs: 'aliquota_cbs',
   percentual_reducao_ibs: 'percentual_reducao_ibs',
   percentual_reducao_cbs: 'percentual_reducao_cbs',
-  data_atualizacao: 'data_atualizacao'
+  data_atualizacao: 'data_atualizacao',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
 };
 
-exports.Prisma.PlanoContasScalarFieldEnum = {
+exports.Prisma.Tipo_conta_planoScalarFieldEnum = {
+  id: 'id',
+  nome: 'nome',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
+};
+
+exports.Prisma.Plano_contasScalarFieldEnum = {
   id: 'id',
   codigo_contabil: 'codigo_contabil',
   nome_conta: 'nome_conta',
-  tipo_dre: 'tipo_dre'
+  tipo_dre: 'tipo_dre',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
 };
 
 exports.Prisma.MovimentacaoScalarFieldEnum = {
@@ -362,21 +481,55 @@ exports.Prisma.MovimentacaoScalarFieldEnum = {
   status: 'status',
   data_vencimento: 'data_vencimento',
   data_pagamento: 'data_pagamento',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm',
   plano_contas_id: 'plano_contas_id',
   pedido_venda_id: 'pedido_venda_id',
   despesa_id: 'despesa_id'
+};
+
+exports.Prisma.Tipo_despesa_fixaScalarFieldEnum = {
+  id: 'id',
+  nome: 'nome',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
+};
+
+exports.Prisma.Tipo_despesa_variavelScalarFieldEnum = {
+  id: 'id',
+  nome: 'nome',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
 };
 
 exports.Prisma.DespesasScalarFieldEnum = {
   id: 'id',
   descricao_despesa: 'descricao_despesa',
   tipo_despesa: 'tipo_despesa',
-  tipo_despesa_fixa: 'tipo_despesa_fixa',
-  tipo_despesa_variavel: 'tipo_despesa_variavel',
+  tipo_despesa_fixa_id: 'tipo_despesa_fixa_id',
+  tipo_despesa_variavel_id: 'tipo_despesa_variavel_id',
   valor_despesa: 'valor_despesa',
   data_despesa: 'data_despesa',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm',
   responsavel_compra_id: 'responsavel_compra_id',
   plano_contas_id: 'plano_contas_id'
+};
+
+exports.Prisma.Status_fiscalScalarFieldEnum = {
+  id: 'id',
+  status_fiscal: 'status_fiscal',
+  descricao: 'descricao',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
+};
+
+exports.Prisma.Modelo_documento_fiscalScalarFieldEnum = {
+  id: 'id',
+  numero_NF_e: 'numero_NF_e',
+  nome: 'nome',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
 };
 
 exports.Prisma.Documento_fiscalScalarFieldEnum = {
@@ -384,11 +537,13 @@ exports.Prisma.Documento_fiscalScalarFieldEnum = {
   pedido_venda_id: 'pedido_venda_id',
   ordem_servico_id: 'ordem_servico_id',
   sucata_venda_id: 'sucata_venda_id',
-  modelo: 'modelo',
+  modelo_nota_fiscal_eletronica: 'modelo_nota_fiscal_eletronica',
   serie: 'serie',
   numero: 'numero',
   chave_acesso: 'chave_acesso',
-  status: 'status',
+  status_fiscal_id: 'status_fiscal_id',
+  protocolo_autorizacao_sefaz: 'protocolo_autorizacao_sefaz',
+  justificativa_rejeicao: 'justificativa_rejeicao',
   tipo_emissao: 'tipo_emissao',
   motivo_contingencia: 'motivo_contingencia',
   data_contingencia: 'data_contingencia',
@@ -397,7 +552,9 @@ exports.Prisma.Documento_fiscalScalarFieldEnum = {
   xml_protocolado: 'xml_protocolado',
   url_pdf_danfe: 'url_pdf_danfe',
   data_emissao: 'data_emissao',
-  data_autorizacao: 'data_autorizacao'
+  data_autorizacao: 'data_autorizacao',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
 };
 
 exports.Prisma.Fluxo_caixaScalarFieldEnum = {
@@ -415,8 +572,76 @@ exports.Prisma.Fluxo_caixaScalarFieldEnum = {
   sucata_venda_id: 'sucata_venda_id',
   objeto_duravel_id: 'objeto_duravel_id',
   objeto_generico_id: 'objeto_generico_id',
+  objeto_imobilizado_id: 'objeto_imobilizado_id',
   plano_contas_id: 'plano_contas_id',
-  usuario_caixa_id: 'usuario_caixa_id'
+  usuario_caixa_id: 'usuario_caixa_id',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
+};
+
+exports.Prisma.Cargo_usuarioScalarFieldEnum = {
+  id: 'id',
+  nome_cargo: 'nome_cargo',
+  descricao: 'descricao',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
+};
+
+exports.Prisma.Cor_veiculoScalarFieldEnum = {
+  id: 'id',
+  cor: 'cor',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
+};
+
+exports.Prisma.Nivel_acessoScalarFieldEnum = {
+  id: 'id',
+  nome_nivel: 'nome_nivel',
+  descricao: 'descricao',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
+};
+
+exports.Prisma.Setor_usuarioScalarFieldEnum = {
+  id: 'id',
+  setor: 'setor',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
+};
+
+exports.Prisma.Status_itemScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
+};
+
+exports.Prisma.Status_manutencaoScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
+};
+
+exports.Prisma.Status_pedidoScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
+};
+
+exports.Prisma.Status_sucataScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
+};
+
+exports.Prisma.Status_usuarioScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  cadastradoEm: 'cadastradoEm',
+  atualizadoEm: 'atualizadoEm'
 };
 
 exports.Prisma.SortOrder = {
@@ -433,64 +658,6 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-exports.categoria_peca = exports.$Enums.categoria_peca = {
-  Motor_e_componentes: 'Motor_e_componentes',
-  Eletrica_e_componentes: 'Eletrica_e_componentes',
-  Carroceria: 'Carroceria',
-  Sistema_de_iluminacao_interior: 'Sistema_de_iluminacao_interior',
-  Rodas_e_Pneus: 'Rodas_e_Pneus',
-  Sistema_de_arrefecimento: 'Sistema_de_arrefecimento',
-  Sistema_de_combustivel: 'Sistema_de_combustivel',
-  Sistema_de_direcao: 'Sistema_de_direcao',
-  Sistema_de_embreagem: 'Sistema_de_embreagem',
-  Sistema_de_injecao_eletronica: 'Sistema_de_injecao_eletronica',
-  Sistema_de_transmissao: 'Sistema_de_transmissao',
-  Sistema_de_suspensao: 'Sistema_de_suspensao',
-  Sistema_de_freios: 'Sistema_de_freios',
-  Sistema_eletrico: 'Sistema_eletrico',
-  Sistema_de_vidros_e_espelhos: 'Sistema_de_vidros_e_espelhos',
-  Sistema_de_iluminacao_exterior: 'Sistema_de_iluminacao_exterior',
-  Sistema_de_exaustao: 'Sistema_de_exaustao',
-  Ar_condicionado: 'Ar_condicionado',
-  Outros: 'Outros'
-};
-
-exports.status_item = exports.$Enums.status_item = {
-  Disponivel: 'Disponivel',
-  Indisponivel: 'Indisponivel',
-  Reservado: 'Reservado',
-  Vendido: 'Vendido',
-  Em_avaliacao: 'Em_avaliacao',
-  Rejeitado: 'Rejeitado',
-  Aprovado: 'Aprovado',
-  Em_estoque: 'Em_estoque',
-  Fora_de_estoque: 'Fora_de_estoque',
-  Devolvido: 'Devolvido'
-};
-
-exports.localizacao_peca = exports.$Enums.localizacao_peca = {
-  prateleira_1: 'prateleira_1',
-  prateleira_2: 'prateleira_2',
-  prateleira_3: 'prateleira_3',
-  prateleira_4: 'prateleira_4',
-  expositor: 'expositor',
-  outro: 'outro'
-};
-
-exports.setor_prateleira = exports.$Enums.setor_prateleira = {
-  setor_A: 'setor_A',
-  setor_B: 'setor_B',
-  setor_C: 'setor_C',
-  setor_D: 'setor_D',
-  setor_E: 'setor_E',
-  setor_F: 'setor_F',
-  setor_G: 'setor_G',
-  setor_H: 'setor_H',
-  setor_I: 'setor_I',
-  setor_J: 'setor_J',
-  NAO_ESTA_NA_PRATELEIRA: 'NAO_ESTA_NA_PRATELEIRA'
-};
-
 exports.metodo_pagamento = exports.$Enums.metodo_pagamento = {
   Pix: 'Pix',
   Debito: 'Debito',
@@ -499,117 +666,7 @@ exports.metodo_pagamento = exports.$Enums.metodo_pagamento = {
   cheque: 'cheque'
 };
 
-exports.status_pedido = exports.$Enums.status_pedido = {
-  Autorizado: 'Autorizado',
-  Em_avaliacao: 'Em_avaliacao',
-  Rejeitado: 'Rejeitado',
-  Nao_autorizado: 'Nao_autorizado',
-  cancelado: 'cancelado'
-};
-
-exports.status_manutencao = exports.$Enums.status_manutencao = {
-  Pendente: 'Pendente',
-  Em_andamento: 'Em_andamento',
-  Concluida: 'Concluida',
-  Cancelada: 'Cancelada',
-  Aguardando_pecas: 'Aguardando_pecas',
-  Aguardando_avaliacao: 'Aguardando_avaliacao',
-  Rejeitada: 'Rejeitada',
-  Aprovada: 'Aprovada'
-};
-
-exports.cor = exports.$Enums.cor = {
-  Preto: 'Preto',
-  Branco: 'Branco',
-  Prata: 'Prata',
-  Cinza: 'Cinza',
-  Vermelho: 'Vermelho',
-  Azul: 'Azul',
-  Amarelo: 'Amarelo',
-  Verde: 'Verde',
-  Laranja: 'Laranja',
-  Roxo: 'Roxo',
-  Marrom: 'Marrom',
-  Dourado: 'Dourado',
-  Grafite: 'Grafite',
-  Indefinida: 'Indefinida',
-  Outros: 'Outros'
-};
-
-exports.status_sucata = exports.$Enums.status_sucata = {
-  Em_desmonte: 'Em_desmonte',
-  Em_manutencao: 'Em_manutencao',
-  Concluido: 'Concluido',
-  Indisponivel: 'Indisponivel',
-  Disponivel: 'Disponivel',
-  Vendido: 'Vendido',
-  Reservado: 'Reservado',
-  Aguardando_avaliacao: 'Aguardando_avaliacao',
-  Em_avaliacao: 'Em_avaliacao',
-  Rejeitado: 'Rejeitado',
-  Aprovado: 'Aprovado',
-  Em_estoque: 'Em_estoque',
-  Fora_de_estoque: 'Fora_de_estoque'
-};
-
-exports.cargo_usuario = exports.$Enums.cargo_usuario = {
-  administrador: 'administrador',
-  vendedor: 'vendedor',
-  mecanico: 'mecanico',
-  estoquista: 'estoquista',
-  gerente: 'gerente',
-  desenvolvedor: 'desenvolvedor',
-  funcionario: 'funcionario',
-  eletricista: 'eletricista',
-  desmontador: 'desmontador',
-  auxiliar_de_estoque: 'auxiliar_de_estoque',
-  auxiliar_administrativo: 'auxiliar_administrativo',
-  limpador: 'limpador',
-  outros: 'outros'
-};
-
-exports.setor_usuario = exports.$Enums.setor_usuario = {
-  administrativo: 'administrativo',
-  vendas: 'vendas',
-  manutencao: 'manutencao',
-  estoque: 'estoque',
-  desenvolvimento: 'desenvolvimento',
-  limpeza: 'limpeza',
-  outros: 'outros'
-};
-
-exports.nivel_acesso = exports.$Enums.nivel_acesso = {
-  Nivel_1: 'Nivel_1',
-  Nivel_2: 'Nivel_2',
-  Nivel_3: 'Nivel_3',
-  Nivel_4: 'Nivel_4'
-};
-
-exports.status_usuario = exports.$Enums.status_usuario = {
-  ativo: 'ativo',
-  inativo: 'inativo',
-  suspenso: 'suspenso',
-  pendente: 'pendente',
-  demitido: 'demitido',
-  aposentado: 'aposentado'
-};
-
-exports.tipo_objeto_receita = exports.$Enums.tipo_objeto_receita = {
-  PECA: 'PECA',
-  SUCATA: 'SUCATA',
-  SERVICO: 'SERVICO',
-  RECEITA_EXTRA: 'RECEITA_EXTRA'
-};
-
-exports.TipoContaPlano = exports.$Enums.TipoContaPlano = {
-  RECEITA_BRUTA: 'RECEITA_BRUTA',
-  DEDUCAO_RECEITA: 'DEDUCAO_RECEITA',
-  CUSTO_VARIAVEL: 'CUSTO_VARIAVEL',
-  DESPESA_FIXA: 'DESPESA_FIXA',
-  INVESTIMENTO: 'INVESTIMENTO'
-};
-
-exports.TipoMovimentacaoCaixa = exports.$Enums.TipoMovimentacaoCaixa = {
+exports.TipoMovimentacao = exports.$Enums.TipoMovimentacao = {
   ENTRADA: 'ENTRADA',
   SAIDA: 'SAIDA'
 };
@@ -624,54 +681,18 @@ exports.tipo_despesa = exports.$Enums.tipo_despesa = {
   VARIAVEL: 'VARIAVEL'
 };
 
-exports.tipo_despesa_fixa = exports.$Enums.tipo_despesa_fixa = {
-  aluguel: 'aluguel',
-  pro_labore: 'pro_labore',
-  internet: 'internet',
-  salario_fixo: 'salario_fixo',
-  agua: 'agua',
-  energia_eletrica: 'energia_eletrica',
-  iptu: 'iptu',
-  contador: 'contador',
-  despesas_informatica: 'despesas_informatica',
-  seguranca_vigilancia: 'seguranca_vigilancia',
-  controle_de_residuos_e_descartes: 'controle_de_residuos_e_descartes',
-  OUTRAS_DESPESAS_FIXAS: 'OUTRAS_DESPESAS_FIXAS'
-};
-
-exports.tipo_despesa_variavel = exports.$Enums.tipo_despesa_variavel = {
-  materia_prima: 'materia_prima',
-  pecas_reposicao: 'pecas_reposicao',
-  impostos_vendas: 'impostos_vendas',
-  logistica_transporte: 'logistica_transporte',
-  comissoes_mao_obra: 'comissoes_mao_obra',
-  insumos_producao: 'insumos_producao',
-  taxas_cartao: 'taxas_cartao',
-  OUTRAS_DESPESAS_VARIAVEIS: 'OUTRAS_DESPESAS_VARIAVEIS'
-};
-
-exports.modelo_documento_fiscal = exports.$Enums.modelo_documento_fiscal = {
-  NFE: 'NFE',
-  NFCE: 'NFCE',
-  NFSE: 'NFSE'
-};
-
-exports.status_fiscal = exports.$Enums.status_fiscal = {
-  PENDENTE: 'PENDENTE',
-  PROCESSANDO: 'PROCESSANDO',
-  AUTORIZADA: 'AUTORIZADA',
-  REJEITADA: 'REJEITADA',
-  CANCELADA: 'CANCELADA',
-  CONTINGENCIA: 'CONTINGENCIA'
-};
-
 exports.Prisma.ModelName = {
-  clientes: 'clientes',
+  parceiros: 'parceiros',
   compatibilidade_pecas: 'compatibilidade_pecas',
   estoque_objetos_duraveis: 'estoque_objetos_duraveis',
+  estoque_objetos_imobilizados: 'estoque_objetos_imobilizados',
+  categoria_duraveis_imobilizados: 'categoria_duraveis_imobilizados',
+  status_ativo: 'status_ativo',
   estoque_objetos_genericos: 'estoque_objetos_genericos',
   marcas_veiculo: 'marcas_veiculo',
   modelos: 'modelos',
+  categoria_peca: 'categoria_peca',
+  localizacao_peca: 'localizacao_peca',
   peca_estoque: 'peca_estoque',
   dados_fiscais_peca: 'dados_fiscais_peca',
   peca_imagens: 'peca_imagens',
@@ -681,17 +702,32 @@ exports.Prisma.ModelName = {
   os_servicos_itens: 'os_servicos_itens',
   os_pecas_itens: 'os_pecas_itens',
   sucata_compras: 'sucata_compras',
-  cfops: 'cfops',
+  CFOPS: 'CFOPS',
   sucata_estoque: 'sucata_estoque',
   tipo_servico: 'tipo_servico',
   usuarios: 'usuarios',
-  veiculos_cliente_manutencao: 'veiculos_cliente_manutencao',
+  veiculos_parceiro_manutencao: 'veiculos_parceiro_manutencao',
+  tipo_objeto_receita: 'tipo_objeto_receita',
   configuracao_imposto: 'configuracao_imposto',
-  PlanoContas: 'PlanoContas',
+  tipo_conta_plano: 'tipo_conta_plano',
+  plano_contas: 'plano_contas',
   Movimentacao: 'Movimentacao',
+  tipo_despesa_fixa: 'tipo_despesa_fixa',
+  tipo_despesa_variavel: 'tipo_despesa_variavel',
   despesas: 'despesas',
+  status_fiscal: 'status_fiscal',
+  modelo_documento_fiscal: 'modelo_documento_fiscal',
   documento_fiscal: 'documento_fiscal',
-  fluxo_caixa: 'fluxo_caixa'
+  fluxo_caixa: 'fluxo_caixa',
+  cargo_usuario: 'cargo_usuario',
+  cor_veiculo: 'cor_veiculo',
+  nivel_acesso: 'nivel_acesso',
+  setor_usuario: 'setor_usuario',
+  status_item: 'status_item',
+  status_manutencao: 'status_manutencao',
+  status_pedido: 'status_pedido',
+  status_sucata: 'status_sucata',
+  status_usuario: 'status_usuario'
 };
 
 /**
