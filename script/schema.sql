@@ -12,13 +12,13 @@ DECLARE
     timestamp_ms bigint;
     bytes bytea;
 BEGIN
-    -- 1. Captura o timestamp em milissegundos
+    -- 1. Captura o TIMESTAMP(6) em milissegundos
     timestamp_ms := (EXTRACT(EPOCH FROM clock_timestamp()) * 1000)::bigint;
     
     -- 2. Gera 16 bytes aleatórios iniciais usando pgcrypto
     bytes := gen_random_bytes(16);
     
-    -- 3. Injeta o timestamp nos primeiros 6 bytes (48 bits)
+    -- 3. Injeta o TIMESTAMP(6) nos primeiros 6 bytes (48 bits)
     bytes := set_byte(bytes, 0, ((timestamp_ms >> 40) & 255)::int);
     bytes := set_byte(bytes, 1, ((timestamp_ms >> 32) & 255)::int);
     bytes := set_byte(bytes, 2, ((timestamp_ms >> 24) & 255)::int);
@@ -59,7 +59,32 @@ CREATE TABLE cargo_usuario (
     descricao VARCHAR(255),
     "cadastradoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
-); 
+);
+
+INSERT INTO cargo_usuario (nome_cargo, descricao) VALUES 
+('administrador', NULL),
+('vendedor', NULL),
+('mecanico', NULL),
+('estoquista', NULL),
+('gerente', NULL),
+('desenvolvedor', NULL),
+('funcionario', NULL),
+('eletricista', NULL),
+('desmontador', NULL),
+('auxiliar_de_estoque', NULL),
+('auxiliar_administrativo', NULL),
+('limpador', NULL),
+('outros', NULL) ON CONFLICT DO NOTHING;
+
+CREATE TABLE status_ativo (
+    id SERIAL PRIMARY KEY,
+    status_objeto VARCHAR(50) NOT NULL,
+    "cadastradoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT chk_status_ativo CHECK (status_objeto IN ('ATIVO', 'TOTALMENTE_DEPRECIADO', 'BAIXADO_VENDIDO', 'BAIXADO_SUCATA'))
+);
+
+INSERT INTO status_ativo (status_objeto) VALUES ('ATIVO', 'TOTALMENTE_DEPRECIADO', 'BAIXADO_VENDIDO', 'BAIXADO_SUCATA') ON CONFLICT DO NOTHING;
 
 CREATE TABLE setor_usuario (
     id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
@@ -76,6 +101,8 @@ CREATE TABLE status_usuario (
     "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+INSERT INTO status_usuario (status) VALUES ('ativo', 'inativo', 'suspenso', 'pendente', 'demitido', 'aposentado') ON CONFLICT DO NOTHING;
+
 CREATE TABLE status_sucata (
     id SERIAL PRIMARY KEY,
     status VARCHAR(50) UNIQUE NOT NULL,
@@ -83,12 +110,38 @@ CREATE TABLE status_sucata (
     "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+INSERT INTO status_sucata (status) VALUES ('Em_desmonte',
+  'Em_manutencao',
+  'Concluido',
+  'Indisponivel',
+  'Disponivel',
+  'Vendido',
+  'Reservado',
+  'Aguardando_avaliacao',
+  'Em_avaliacao',
+  'Rejeitado',
+  'Aprovado',
+  'Em_estoque',
+  'Fora_de_estoque');
+
 CREATE TABLE status_item (
     id SERIAL PRIMARY KEY,
     status VARCHAR(50) UNIQUE NOT NULL,
     "cadastradoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+INSERT INTO status_item (status) VALUES ('Disponivel',
+  'Indisponivel',
+  'Reservado',
+  'Vendido',
+  'Em_avaliacao',
+  'Rejeitado',
+  'Aprovado',
+  'Em_estoque',
+  'Fora_de_estoque',
+  'Devolvido')
+  ON CONFLICT DO NOTHING;
 
 INSERT INTO status_item (status) VALUES ('Disponivel') ON CONFLICT DO NOTHING;
 INSERT INTO status_item (status) VALUES ('Devolvido') ON CONFLICT DO NOTHING;
@@ -100,8 +153,7 @@ CREATE TABLE status_pedido (
     "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO status_pedido (status) VALUES ('Autorizado') ON CONFLICT DO NOTHING;
-INSERT INTO status_pedido (status) VALUES ('Pendente') ON CONFLICT DO NOTHING;
+INSERT INTO status_pedido (status) VALUES ('Autorizado', 'Pendente', 'Em_avaliacao', 'Rejeitado', 'Nao_autorizado', 'cancelado') ON CONFLICT DO NOTHING;
 
 CREATE TABLE status_venda (
     id SERIAL PRIMARY KEY,
@@ -144,8 +196,20 @@ CREATE TABLE status_manutencao (
     "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO status_manutencao (status) VALUES ('Pendente') ON CONFLICT DO NOTHING;
-INSERT INTO status_manutencao (status) VALUES ('Em andamento') ON CONFLICT DO NOTHING;
+INSERT INTO status_manutencao (status) VALUES 
+('Concluida'), 
+('Cancelada'), 
+('Aguardando peças'), 
+('Aguardando avaliação'), 
+('Rejeitada'), 
+('Aprovada'), 
+('Pendente'), 
+('Em andamento'),
+('Em avaliação'),
+('Rejeitada'),
+('Não autorizada'),
+('Cancelada')
+ON CONFLICT DO NOTHING;
 
 --------------------------------------------------------------------------------
 -- 2. CRIAÇÃO DAS TABELAS BASE (SEM DEPENDÊNCIAS REVERSAS)
@@ -168,13 +232,13 @@ CREATE TABLE usuarios (
     setor_usuario UUID NOT NULL,
     nivel_acesso UUID NOT NULL,
     status_usuario INT NOT NULL,
-    data_admissao TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    data_cadastro_sistema TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    data_admissao TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    data_cadastro_sistema TIMESTAMP(6)(6) DEFAULT CURRENT_TIMESTAMP NOT NULL,
     CONSTRAINT fk_cargo_usuario_id FOREIGN KEY (cargo_usuario) REFERENCES cargo_usuario(id) ON DELETE CASCADE ON UPDATE RESTRICT,
     CONSTRAINT fk_setor_usuario_id FOREIGN KEY (setor_usuario) REFERENCES setor_usuario(id) ON DELETE CASCADE ON UPDATE RESTRICT,
     CONSTRAINT fk_nivel_acesso_id FOREIGN KEY (nivel_acesso) REFERENCES nivel_acesso(id) ON DELETE CASCADE ON UPDATE RESTRICT,
     CONSTRAINT fk_status_usuario_id FOREIGN KEY (status_usuario) REFERENCES status_usuario(id) ON DELETE CASCADE ON UPDATE RESTRICT
-);
+);TIMESTAMP(6) 
 
 CREATE TABLE marcas_veiculo (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -198,8 +262,8 @@ CREATE TABLE modelos (
 CREATE TABLE estoque_objetos_duraveis (
     id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
     objeto_duravel VARCHAR(100),
-    data_compra timestamp DEFAULT CURRENT_TIMESTAMP,
-    data_descarte timestamp DEFAULT CURRENT_TIMESTAMP,
+    data_compra TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
+    data_descarte TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
     responsavel_compra_id UUID NOT NULL,
     valor_compra DECIMAL(10, 2) NOT NULL CHECK (valor_compra >= 0),
     CONSTRAINT fk_responsavel_compra FOREIGN KEY (responsavel_compra_id) REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE RESTRICT
@@ -210,8 +274,8 @@ CREATE TABLE estoque_objetos_genericos (
     objeto_descartavel_nome VARCHAR(100),
     preco_objeto_descartavel DECIMAL(10, 2) DEFAULT 0.00 NOT NULL,
     quantidade_objeto_descartavel INT NOT NULL DEFAULT 1,
-    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    data_uso TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_cadastro TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
+    data_uso TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
     responsavel_compra_id UUID NOT NULL,
     CONSTRAINT fk_responsavel_compra FOREIGN KEY (responsavel_compra_id) REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE RESTRICT,
     CONSTRAINT uc_objeto_descartavel UNIQUE (objeto_descartavel_nome)
@@ -224,6 +288,21 @@ CREATE TABLE tipo_despesa_fixa (
     "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+INSERT INTO tipo_despesa_fixa (nome) VALUES
+('Aluguel'),
+('Pro-labore'),
+('Internet'),
+('Salario fixo'),
+('Água'),
+('Energia eletrica'),
+('IPTU'),
+('Contador'),
+('Despesas com informática'),
+('Segurança e vigilância'),
+('Controle de resíduos e descartes de materiais'),
+('OUTRAS DESPESAS FIXAS')
+ON CONFLICT DO NOTHING;
+
 CREATE TABLE tipo_despesa_variavel (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) UNIQUE NOT NULL,
@@ -231,12 +310,31 @@ CREATE TABLE tipo_despesa_variavel (
     "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+INSERT INTO tipo_despesa_variavel (nome) VALUES
+('Matéria prima'),
+('Peças de reposição'),
+('Impostos sobre vendas'),
+('Logística e transporte'),
+('Comissões e mão de obra'),
+('Insumos de produção'),
+('Taxas de cartão'),
+('OUTRAS DESPESAS VARIÁVEIS')
+ON CONFLICT DO NOTHING;
+
 CREATE TABLE tipo_conta_plano (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(50) UNIQUE NOT NULL,
     cadastradoEm TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     atualizadoEm TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+INSERT INTO tipo_conta_plano (nome) VALUES
+('RECEITA_BRUTA'),
+('DEDUCAO_RECEITA'),
+('CUSTO_VARIAVEL'),
+('DESPESA_FIXA'),
+('INVESTIMENTO')
+ON CONFLICT DO NOTHING;
 
 CREATE TABLE plano_contas (
     id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
@@ -281,6 +379,22 @@ CREATE TABLE cor_veiculo (
     "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+INSERT INTO cor_veiculo (cor) VALUES ('Preto',
+  'Branco',
+  'Prata',
+  'Cinza',
+  'Vermelho',
+  'Azul',
+  'Amarelo',
+  'Verde',
+  'Laranja',
+  'Roxo',
+  'Marrom',
+  'Dourado',
+  'Grafite',
+  'Indefinida',
+  'Outros');
+
 CREATE TABLE sucata_estoque (
     id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
     modelo_id INT NOT NULL,
@@ -290,7 +404,7 @@ CREATE TABLE sucata_estoque (
     cor INT NOT NULL,
     responsavel_compra_id UUID NOT NULL,
     status_sucata INT NOT NULL,
-    data_entrada TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_entrada TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_sucata_modelo_marca_id FOREIGN KEY (modelo_id) REFERENCES modelos(id) ON DELETE CASCADE ON UPDATE RESTRICT,
     CONSTRAINT fk_responsavel_compra_id FOREIGN KEY (responsavel_compra_id) REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE RESTRICT,
     CONSTRAINT uc_chassi UNIQUE (chassi),
@@ -309,7 +423,7 @@ CREATE TABLE peca_estoque (
     status_peca INT DEFAULT 1 NOT NULL, -- SEED DISPONÍVEL == 1; DEVOLVIDO == 2
     responsavel_compra_id UUID NOT NULL,
     localizacao_peca INT UNIQUE NOT NULL,
-    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_cadastro TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
     -- CORRIGIDO: Referenciando 'sucata_estoque' em vez de 'veiculos_sucata'
     CONSTRAINT fk_veiculo_origem_id_veiculo_sucata FOREIGN KEY (veiculo_origem_id) REFERENCES sucata_estoque(id) ON DELETE CASCADE,
     CONSTRAINT fk_modelo_origem_id_pecas FOREIGN KEY (modelo_origem_id) REFERENCES modelos(id) ON DELETE CASCADE ON UPDATE RESTRICT,
@@ -319,12 +433,34 @@ CREATE TABLE peca_estoque (
     constraint fk_status_peca FOREIGN KEY (status_peca) REFERENCES status_item(id) ON DELETE CASCADE ON UPDATE RESTRICT
 );
 
+INSERT INTO categoria_peca (nome) VALUES
+('Motor e componentes'),
+('Elétrica e componentes'),
+('Carroceria'),
+('Sistema de iluminação interior'),
+('Rodas e Pneus'),
+('Sistema de arrefecimento'),
+('Sistema de combustível'),
+('Sistema de direção'),
+('Sistema de embreagem'),
+('Sistema de injeção eletrônica'),
+('Sistema de transmissão'),
+('Sistema de suspensão'),
+('Sistema de freios'),
+('Sistema elétrico'),
+('Sistema de vidros e espelhos'),
+('Sistema de iluminação exterior'),
+('Sistema de exaustão'),
+('Ar-condicionado'),
+('Outros')
+ON CONFLICT DO NOTHING;
+
 CREATE TABLE peca_imagens (
     id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
     peca_id UUID NOT NULL,
     url_imagem TEXT NOT NULL,
     principal BOOLEAN DEFAULT FALSE,
-    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_cadastro TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
     -- CORRIGIDO: Referenciando 'peca_estoque' em vez de 'pecas'
     CONSTRAINT fk_peca_id FOREIGN KEY (peca_id) REFERENCES peca_estoque(id) ON DELETE CASCADE
 );
@@ -351,7 +487,7 @@ CREATE TABLE parceiros (
         telefone_parceiro ~ '^\+57\s?\d{3}-?\d{7}$'),
     data_nascimento DATE CHECK (data_nascimento <= CURRENT_DATE),
     email_parceiro VARCHAR(100) UNIQUE NOT NULL,
-    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    data_cadastro TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE compatibilidade_pecas (
@@ -373,7 +509,7 @@ CREATE TABLE pedidos_vendas (
     id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
     parceiro_comprador_id UUID NOT NULL,
     responsavel_venda_id UUID NOT NULL,
-    data_venda TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    data_venda TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP NOT NULL,
     valor_total DECIMAL(10, 2) NOT NULL DEFAULT 0.00, CHECK (valor_total >= 0),
     metodo_pagamento metodo_pagamento DEFAULT 'Pix' NOT NULL,
     status_pedido INT DEFAULT 1 NOT NULL, -- 1 == 'Autorizado'; 2 == 'Pendente'
@@ -402,7 +538,7 @@ CREATE TABLE itens_pedido_vendas (
 
 CREATE TABLE sucata_compras (
     id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
-    data_compra TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_compra TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
     valor_compra DECIMAL(10, 2) NOT NULL, CHECK (valor_compra >= 0),
     quantidade INT NOT NULL DEFAULT 1, CHECK (quantidade >= 0),
     responsavel_compra_id UUID NOT NULL,
@@ -428,7 +564,7 @@ CREATE TABLE servico_manutencao (
     descricao_manutencao TEXT NOT NULL, 
     veiculo_manutencao_id UUID NOT NULL,
     parceiro_id UUID NOT NULL,
-    data_manutencao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_manutencao TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
     responsavel_id UUID NOT NULL,
     status_manutencao INT DEFAULT 1 NOT NULL, -- 1 == 'Pendente'; 2 == 'Em andamento'
     preco DECIMAL(10, 2) NOT NULL,
@@ -981,7 +1117,7 @@ FOR EACH ROW EXECUTE FUNCTION fn_calcular_preco_total_item();
 */
 
 /*
--- 1. Cria a função genérica que atualiza o timestamp (executada apenas uma vez no banco)
+-- 1. Cria a função genérica que atualiza o TIMESTAMP(6) (executada apenas uma vez no banco)
 CREATE OR REPLACE FUNCTION atualiza_timestamp_auditoria()
 RETURNS TRIGGER AS $$
 BEGIN

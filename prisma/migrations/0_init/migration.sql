@@ -1,3 +1,41 @@
+-- ATIVA A EXTENSÃO DE CRIPTOGRAFIA (O código para liberar o gen_random_bytes de 16 bytes)
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+-- Configura o formato de data brasileiro diretamente no banco
+ALTER DATABASE estoque_vendas_caixa_mvc SET DateStyle = 'SQL, DMY';
+
+
+-----> ESSA FUNÇÃO É USADA PARA CONVERTE UUID PRIMARY KEY DEFAULT gen_random_uuid() (v4) PARA uuidv7 (v7).
+-- > 2. CRIA A FUNÇÃO COM O NOME gen_random_uuidv7 QUE O PRISMA JÁ ESTÁ ESPERANDO
+CREATE OR REPLACE FUNCTION gen_random_uuidv7() RETURNS uuid AS $$
+DECLARE
+    timestamp_ms bigint;
+    bytes bytea;
+BEGIN
+    -- 1. Captura o TIMESTAMP(6) em milissegundos
+    timestamp_ms := (EXTRACT(EPOCH FROM clock_timestamp()) * 1000)::bigint;
+    
+    -- 2. Gera 16 bytes aleatórios iniciais usando pgcrypto
+    bytes := gen_random_bytes(16);
+    
+    -- 3. Injeta o TIMESTAMP(6) nos primeiros 6 bytes (48 bits)
+    bytes := set_byte(bytes, 0, ((timestamp_ms >> 40) & 255)::int);
+    bytes := set_byte(bytes, 1, ((timestamp_ms >> 32) & 255)::int);
+    bytes := set_byte(bytes, 2, ((timestamp_ms >> 24) & 255)::int);
+    bytes := set_byte(bytes, 3, ((timestamp_ms >> 16) & 255)::int);
+    bytes := set_byte(bytes, 4, ((timestamp_ms >> 8) & 255)::int);
+    bytes := set_byte(bytes, 5, (timestamp_ms & 255)::int);
+    
+    -- 4. Força a versão 7 no byte 6 (bits mais significativos de 0111XXXX)
+    bytes := set_byte(bytes, 6, ((get_byte(bytes, 6) & 15) | 112)::int);
+    
+    -- 5. Força a variante do UUID (10XXXXXX) no byte 8
+    bytes := set_byte(bytes, 8, ((get_byte(bytes, 8) & 63) | 128)::int);
+    
+    -- 6. Converte os bytes tratados diretamente para o formato UUID válido de 32 hex caracteres
+    RETURN encode(bytes, 'hex')::uuid;
+END;
+$$ LANGUAGE plpgsql VOLATILE;
 -- CreateSchema
 CREATE SCHEMA IF NOT EXISTS "public";
 

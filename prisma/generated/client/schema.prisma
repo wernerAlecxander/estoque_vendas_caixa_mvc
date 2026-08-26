@@ -1,10 +1,7 @@
 /**
  * -- revisar as tabelas
- * -- conferir o timestamp correto para cada campo de data
  * -- conferir todos os campos obrigatórios para emissão fiscal e validação SEFAZ
  * -- conferir todos os relacionamentos e chaves estrangeiras
- * -- conferir se todos os campos de data estão usando o tipo DateTime correto
- * -- conferir se todos os campos de valor estão usando decimal correto
  * -- organizar documento_fiscal para emitir nota fiscal.
  * -- semear as tabelas de status, categoria, marcas, modelos, etc.
  * -- preparar o split payment para realizar pagamentos automáticos para o Governo
@@ -102,7 +99,6 @@ model estoque_objetos_duraveis {
 }
 //ok
 
-// SEED
 model estoque_objetos_imobilizados {
   id                              String                          @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
   codigo_patrimonial              String?                         @unique @db.VarChar(50) // Ex: IMOB-2026-001
@@ -144,10 +140,9 @@ model categoria_duraveis_imobilizados {
 }
 //ok
 
-// SEED
 model status_ativo {
   id                           Int                            @id @default(autoincrement())
-  status_objeto                String                         @unique @db.VarChar(25)
+  status_objeto                String                         @unique @db.VarChar(50)
   // auditoria
   cadastradoEm                 DateTime                       @default(now()) @db.Timestamp(6)
   atualizadoEm                 DateTime                       @default(now()) @db.Timestamp(6)
@@ -158,16 +153,6 @@ model status_ativo {
   @@map("status_ativo")
 }
 //ok
-
-/**
- * SEED
- * StatusAtivo {
- * ATIVO
- * TOTALMENTE_DEPRECIADO
- * BAIXADO_VENDIDO
- * BAIXADO_SUCATA
- * }
- */
 
 model estoque_objetos_genericos {
   id                    String        @id @default(dbgenerated("gen_random_uuidv7()")) @db.Uuid
@@ -195,7 +180,6 @@ model estoque_objetos_genericos {
 }
 //ok
 
-// SEED
 model marcas_veiculo {
   id           Int       @id @default(autoincrement())
   nome         String    @unique @db.VarChar(50)
@@ -206,7 +190,6 @@ model marcas_veiculo {
 }
 //ok
 
-// SEED
 model modelos {
   id                           Int                            @id @default(autoincrement())
   marcas_veiculo_id            Int
@@ -226,7 +209,6 @@ model modelos {
 }
 //ok
 
-// SEED
 model categoria_peca {
   id           Int            @id @default(autoincrement())
   nome         String         @unique @db.VarChar(100)
@@ -238,31 +220,6 @@ model categoria_peca {
   tipo_servico tipo_servico[] // categoria_servico
 }
 //ok
-
-/**
- * SEED
- * categoria_peca {
- * Motor_e_componentes            @map("Motor e componentes")
- * Eletrica_e_componentes         @map("Elétrica e componentes") // Corrigido nome interno
- * Carroceria
- * Sistema_de_iluminacao_interior @map("Sistema de iluminação interior") // Corrigido nome interno
- * Rodas_e_Pneus                  @map("Rodas e Pneus")
- * Sistema_de_arrefecimento       @map("Sistema de arrefecimento")
- * Sistema_de_combustivel         @map("Sistema de combustível")
- * Sistema_de_direcao             @map("Sistema de direção")
- * Sistema_de_embreagem           @map("Sistema de embreagem")
- * Sistema_de_injecao_eletronica  @map("Sistema de injeção eletrônica")
- * Sistema_de_transmissao         @map("Sistema de transmissão")
- * Sistema_de_suspensao           @map("Sistema de suspensão")
- * Sistema_de_freios              @map("Sistema de freios")
- * Sistema_eletrico               @map("Sistema elétrico")
- * Sistema_de_vidros_e_espelhos   @map("Sistema de vidros e espelhos")
- * Sistema_de_iluminacao_exterior @map("Sistema de iluminação exterior")
- * Sistema_de_exaustao            @map("Sistema de exaustão")
- * Ar_condicionado                @map("Ar-condicionado")
- * Outros
- * }
- */
 
 model localizacao_peca {
   id           Int            @id @default(autoincrement())
@@ -708,17 +665,6 @@ enum StatusMovimentacao {
   PAGO
 }
 
-/**
- * SEED
- * tipo_conta_plano {
- * RECEITA_BRUTA
- * DEDUCAO_RECEITA
- * CUSTO_VARIAVEL
- * DESPESA_FIXA
- * INVESTIMENTO
- * }
- */
-
 // PARA ESTRUTURAÇÃO DO DRE ---
 model tipo_conta_plano {
   id           Int            @id @default(autoincrement())
@@ -777,24 +723,6 @@ model Movimentacao {
   @@map("movimentacoes")
 }
 
-/**
- * SEED
- * despesa_fixa {
- * aluguel                          @map("Aluguel")
- * pro_labore                       @map("Pro-labore")
- * internet                         @map("Internet")
- * salario_fixo                     @map("Salario fixo")
- * agua                             @map("Água")
- * energia_eletrica                 @map("Energia eletrica")
- * iptu                             @map("IPTU")
- * contador                         @map("Contador")
- * despesas_informatica             @map("Despesas com informática")
- * seguranca_vigilancia             @map("Segurança e vigilância")
- * controle_de_residuos_e_descartes @map("Controle de resíduos e descartes de materiais")
- * OUTRAS_DESPESAS_FIXAS            @map("OUTRAS DESPESAS FIXAS")
- * }
- */
-
 model tipo_despesa_fixa {
   id           Int        @id @default(autoincrement())
   nome         String     @unique @db.VarChar(100)
@@ -803,20 +731,6 @@ model tipo_despesa_fixa {
   atualizadoEm DateTime   @default(now()) @db.Timestamp(6)
   despesas     despesas[]
 }
-
-/**
- * SEED
- * despesa_variavel {
- * materia_prima             @map("Matéria prima")
- * pecas_reposicao           @map("Peças de reposição")
- * impostos_vendas           @map("Impostos sobre vendas")
- * logistica_transporte      @map("Logística e transporte")
- * comissoes_mao_obra        @map("Comissões e mão de obra")
- * insumos_producao          @map("Insumos de produção")
- * taxas_cartao              @map("Taxas de cartão")
- * OUTRAS_DESPESAS_VARIAVEIS @map("OUTRAS DESPESAS VARIÁVEIS")
- * }
- */
 
 model tipo_despesa_variavel {
   id           Int        @id @default(autoincrement())
@@ -987,46 +901,6 @@ model cargo_usuario {
   usuarios     usuarios[]
 }
 
-/**
- * SEED
- * cargo_usuario {
- * administrador           @map("administrador")
- * vendedor                @map("vendedor")
- * mecanico                @map("mecanico")
- * estoquista              @map("estoquista")
- * gerente                 @map("gerente")
- * desenvolvedor           @map("desenvolvedor")
- * funcionario             @map("funcionario")
- * eletricista             @map("eletricista")
- * desmontador             @map("desmontador")
- * auxiliar_de_estoque     @map("auxiliar de estoque")
- * auxiliar_administrativo @map("auxiliar administrativo")
- * limpador                @map("limpador")
- * outros                  @map("outros")
- * }
- */
-
-/**
- * SEED
- * cor {
- * Preto
- * Branco
- * Prata
- * Cinza
- * Vermelho
- * Azul
- * Amarelo
- * Verde
- * Laranja
- * Roxo
- * Marrom
- * Dourado
- * Grafite
- * Indefinida
- * Outros
- * }
- */
-
 model cor_veiculo {
   id                           Int                            @id @default(autoincrement())
   cor                          String                         @unique @db.VarChar(50)
@@ -1055,22 +929,6 @@ model setor_usuario {
   usuarios     usuarios[]
 }
 
-/**
- * SEED
- * status_item {
- * Disponivel
- * Indisponivel
- * Reservado
- * Vendido
- * Em_avaliacao    @map("Em avaliação")
- * Rejeitado
- * Aprovado
- * Em_estoque      @map("Em estoque")
- * Fora_de_estoque @map("Fora de estoque")
- * Devolvido
- * }
- */
-
 model status_item {
   id                  Int                   @id @default(autoincrement())
   status              String                @unique @db.VarChar(50)
@@ -1081,20 +939,6 @@ model status_item {
   itens_pedido_vendas itens_pedido_vendas[] @relation("status_itens_pedido_vendas")
 }
 
-/**
- * SEED
- * status_manutencao {
- * Pendente
- * Em_andamento         @map("Em andamento")
- * Concluida            @map("Concluída")
- * Cancelada
- * Aguardando_pecas     @map("Aguardando peças")
- * Aguardando_avaliacao @map("Aguardando avaliação")
- * Rejeitada
- * Aprovada
- * }
- */
-
 model status_manutencao {
   id            Int             @id @default(autoincrement())
   status        String          @unique @db.VarChar(50)
@@ -1103,17 +947,6 @@ model status_manutencao {
   atualizadoEm  DateTime        @default(now()) @db.Timestamp(6)
   ordem_servico ordem_servico[]
 }
-
-/**
- * SEED
- * status_pedido {
- * Autorizado
- * Em_avaliacao   @map("Em avaliação")
- * Rejeitado
- * Nao_autorizado @map("Nao autorizado")
- * cancelado
- * }
- */
 
 model status_pedido {
   id             Int              @id @default(autoincrement())
@@ -1125,25 +958,6 @@ model status_pedido {
   //itens_pedido_vendas itens_pedido_vendas[] @relation("status_itens_pedido_vendas")
 }
 
-/**
- * SEED
- * status_sucata {
- * Em_desmonte          @map("Em desmonte")
- * Em_manutencao        @map("Em manutenção")
- * Concluido            @map("Concluído")
- * Indisponivel         @map("Indisponível")
- * Disponivel           @map("Disponível")
- * Vendido
- * Reservado
- * Aguardando_avaliacao @map("Aguardando avaliação")
- * Em_avaliacao         @map("Em avaliação")
- * Rejeitado
- * Aprovado
- * Em_estoque           @map("Em estoque")
- * Fora_de_estoque      @map("Fora de estoque")
- * }
- */
-
 model status_sucata {
   id             Int              @id @default(autoincrement())
   status         String           @unique @db.VarChar(50)
@@ -1152,18 +966,6 @@ model status_sucata {
   atualizadoEm   DateTime         @default(now()) @db.Timestamp(6)
   sucata_estoque sucata_estoque[]
 }
-
-/**
- * SEED
- * status_usuario {
- * ativo
- * inativo
- * suspenso
- * pendente
- * demitido
- * aposentado
- * }
- */
 
 model status_usuario {
   id           Int        @id @default(autoincrement())

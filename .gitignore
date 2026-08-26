@@ -70,6 +70,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+logs.txt
+log.txt
 
 # Cobertura de Testes (caso adicione Jest/Vitest)
 coverage/

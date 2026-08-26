@@ -1,6 +1,7 @@
+/*
 // ./prisma/seed.ts
 import bcrypt from 'bcryptjs';
-import { cargo_usuario, setor_usuario, TipoContaPlano } from './generated/client';
+import { cargo_usuario, setor_usuario, tipo_conta_plano } from './generated/client';
 import { prisma } from '../lib/prisma';
 
 async function main() {
@@ -137,3 +138,4 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
+*/

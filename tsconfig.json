@@ -23,8 +23,9 @@
       }
     ],
     "paths": {
+      // Correção: Permite que o alias @/ busque tanto na raiz quanto dentro de src/
       "@/*": [
-        "./src/*"
+        "./*"
       ],
       "@models/*": [
         "./src/models/*"
@@ -40,6 +41,10 @@
       ],
       "@components/*": [
         "./src/components/*"
+      ],
+      // Correção: Aponta os tipos do Prisma para o seu diretório customizado gerado
+      "@prisma/client": [
+        "./prisma/generated/client"
       ]
     },
     "target": "ES2017"
@@ -50,12 +55,14 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
-, "prisma/tsconfig.json"  ],
+  ],
   "exclude": [
     "node_modules",
     "application_stack_help",
     "backup_data_base_structure",
     "documentation_stack_app_info",
-    "prisma.config.ts"
+    "prisma.config.ts",
+    // Correção: Ignora os arquivos de exemplo para não travar o compilador
+    "rotas_e_pages_nextJS_exemplos"
   ]
 }

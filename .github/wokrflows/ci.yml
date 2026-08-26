@@ -14,7 +14,7 @@ jobs:
     # Inicializa um banco PostgreSQL limpo na nuvem para o Prisma testar as tabelas
     services:
       postgres:
-        image: postgres:17-alpine
+        image: postgres:18.4-alpine
         env:
           POSTGRES_USER: admin_system
           POSTGRES_PASSWORD: SenhaSuperSeguraDoBanco123
@@ -31,15 +31,15 @@ jobs:
       - name: 📥 Baixar código do repositório
         uses: actions/checkout@v4
 
-      - name: 🟢 Configurar Node.js v22
+      - name: 🟢 Configurar Node.js v24
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
 
       - name: 📦 Instalar PNPM
         uses: pnpm/action-setup@v4
         with:
-          version: 9.0.0
+          version: 11.0.1
 
       - name: ⚡ Configurar cache do PNPM (Deixa o processo mais rápido)
         uses: actions/cache@v4
