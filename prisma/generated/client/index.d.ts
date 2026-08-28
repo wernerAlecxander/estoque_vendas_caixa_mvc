@@ -66495,7 +66495,7 @@ export namespace Prisma {
     data_descarte?: Date | string | null
     valor_compra: Decimal | DecimalJsLike | number | string
     tempo_garantia?: number | null
-    data_limite_garantia?: Date | string
+    data_limite_garantia: Date | string
     data_ativacao_gerencial?: Date | string | null
     taxa_depreciacao_interna?: Decimal | DecimalJsLike | number | string | null
     data_fim_depreciacao_interna?: Date | string | null
@@ -66519,7 +66519,7 @@ export namespace Prisma {
     responsavel_descarte_id?: string | null
     valor_compra: Decimal | DecimalJsLike | number | string
     tempo_garantia?: number | null
-    data_limite_garantia?: Date | string
+    data_limite_garantia: Date | string
     data_ativacao_gerencial?: Date | string | null
     taxa_depreciacao_interna?: Decimal | DecimalJsLike | number | string | null
     data_fim_depreciacao_interna?: Date | string | null
@@ -66579,7 +66579,7 @@ export namespace Prisma {
     responsavel_descarte_id?: string | null
     valor_compra: Decimal | DecimalJsLike | number | string
     tempo_garantia?: number | null
-    data_limite_garantia?: Date | string
+    data_limite_garantia: Date | string
     data_ativacao_gerencial?: Date | string | null
     taxa_depreciacao_interna?: Decimal | DecimalJsLike | number | string | null
     data_fim_depreciacao_interna?: Date | string | null
@@ -66862,7 +66862,7 @@ export namespace Prisma {
     preco_unitario?: Decimal | DecimalJsLike | number | string
     quantidade_comprada?: number
     valor_desconto?: Decimal | DecimalJsLike | number | string
-    preco_total_compra?: Decimal | DecimalJsLike | number | string
+    preco_total_compra: Decimal | DecimalJsLike | number | string
     data_compra: Date | string
     data_inicio_uso?: Date | string | null
     cadastradoEm?: Date | string
@@ -66878,7 +66878,7 @@ export namespace Prisma {
     preco_unitario?: Decimal | DecimalJsLike | number | string
     quantidade_comprada?: number
     valor_desconto?: Decimal | DecimalJsLike | number | string
-    preco_total_compra?: Decimal | DecimalJsLike | number | string
+    preco_total_compra: Decimal | DecimalJsLike | number | string
     data_compra: Date | string
     responsavel_compra_id: string
     data_inicio_uso?: Date | string | null
@@ -66926,7 +66926,7 @@ export namespace Prisma {
     preco_unitario?: Decimal | DecimalJsLike | number | string
     quantidade_comprada?: number
     valor_desconto?: Decimal | DecimalJsLike | number | string
-    preco_total_compra?: Decimal | DecimalJsLike | number | string
+    preco_total_compra: Decimal | DecimalJsLike | number | string
     data_compra: Date | string
     responsavel_compra_id: string
     data_inicio_uso?: Date | string | null
@@ -79094,7 +79094,7 @@ export namespace Prisma {
     data_descarte?: Date | string | null
     valor_compra: Decimal | DecimalJsLike | number | string
     tempo_garantia?: number | null
-    data_limite_garantia?: Date | string
+    data_limite_garantia: Date | string
     data_ativacao_gerencial?: Date | string | null
     taxa_depreciacao_interna?: Decimal | DecimalJsLike | number | string | null
     data_fim_depreciacao_interna?: Date | string | null
@@ -79116,7 +79116,7 @@ export namespace Prisma {
     responsavel_descarte_id?: string | null
     valor_compra: Decimal | DecimalJsLike | number | string
     tempo_garantia?: number | null
-    data_limite_garantia?: Date | string
+    data_limite_garantia: Date | string
     data_ativacao_gerencial?: Date | string | null
     taxa_depreciacao_interna?: Decimal | DecimalJsLike | number | string | null
     data_fim_depreciacao_interna?: Date | string | null
@@ -79304,7 +79304,7 @@ export namespace Prisma {
     data_descarte?: Date | string | null
     valor_compra: Decimal | DecimalJsLike | number | string
     tempo_garantia?: number | null
-    data_limite_garantia?: Date | string
+    data_limite_garantia: Date | string
     data_ativacao_gerencial?: Date | string | null
     taxa_depreciacao_interna?: Decimal | DecimalJsLike | number | string | null
     data_fim_depreciacao_interna?: Date | string | null
@@ -79326,7 +79326,7 @@ export namespace Prisma {
     responsavel_descarte_id?: string | null
     valor_compra: Decimal | DecimalJsLike | number | string
     tempo_garantia?: number | null
-    data_limite_garantia?: Date | string
+    data_limite_garantia: Date | string
     data_ativacao_gerencial?: Date | string | null
     taxa_depreciacao_interna?: Decimal | DecimalJsLike | number | string | null
     data_fim_depreciacao_interna?: Date | string | null
@@ -84835,7 +84835,7 @@ export namespace Prisma {
     preco_unitario?: Decimal | DecimalJsLike | number | string
     quantidade_comprada?: number
     valor_desconto?: Decimal | DecimalJsLike | number | string
-    preco_total_compra?: Decimal | DecimalJsLike | number | string
+    preco_total_compra: Decimal | DecimalJsLike | number | string
     data_compra: Date | string
     data_inicio_uso?: Date | string | null
     cadastradoEm?: Date | string
@@ -84850,7 +84850,7 @@ export namespace Prisma {
     preco_unitario?: Decimal | DecimalJsLike | number | string
     quantidade_comprada?: number
     valor_desconto?: Decimal | DecimalJsLike | number | string
-    preco_total_compra?: Decimal | DecimalJsLike | number | string
+    preco_total_compra: Decimal | DecimalJsLike | number | string
     data_compra: Date | string
     responsavel_compra_id: string
     data_inicio_uso?: Date | string | null
@@ -84875,7 +84875,7 @@ export namespace Prisma {
     preco_unitario?: Decimal | DecimalJsLike | number | string
     quantidade_comprada?: number
     valor_desconto?: Decimal | DecimalJsLike | number | string
-    preco_total_compra?: Decimal | DecimalJsLike | number | string
+    preco_total_compra: Decimal | DecimalJsLike | number | string
     data_compra: Date | string
     data_inicio_uso?: Date | string | null
     cadastradoEm?: Date | string
@@ -84890,7 +84890,7 @@ export namespace Prisma {
     preco_unitario?: Decimal | DecimalJsLike | number | string
     quantidade_comprada?: number
     valor_desconto?: Decimal | DecimalJsLike | number | string
-    preco_total_compra?: Decimal | DecimalJsLike | number | string
+    preco_total_compra: Decimal | DecimalJsLike | number | string
     data_compra: Date | string
     data_inicio_uso?: Date | string | null
     responsavel_uso_id?: string | null
@@ -85096,7 +85096,7 @@ export namespace Prisma {
     data_descarte?: Date | string | null
     valor_compra: Decimal | DecimalJsLike | number | string
     tempo_garantia?: number | null
-    data_limite_garantia?: Date | string
+    data_limite_garantia: Date | string
     data_ativacao_gerencial?: Date | string | null
     taxa_depreciacao_interna?: Decimal | DecimalJsLike | number | string | null
     data_fim_depreciacao_interna?: Date | string | null
@@ -85118,7 +85118,7 @@ export namespace Prisma {
     responsavel_descarte_id?: string | null
     valor_compra: Decimal | DecimalJsLike | number | string
     tempo_garantia?: number | null
-    data_limite_garantia?: Date | string
+    data_limite_garantia: Date | string
     data_ativacao_gerencial?: Date | string | null
     taxa_depreciacao_interna?: Decimal | DecimalJsLike | number | string | null
     data_fim_depreciacao_interna?: Date | string | null
@@ -85144,7 +85144,7 @@ export namespace Prisma {
     data_descarte?: Date | string | null
     valor_compra: Decimal | DecimalJsLike | number | string
     tempo_garantia?: number | null
-    data_limite_garantia?: Date | string
+    data_limite_garantia: Date | string
     data_ativacao_gerencial?: Date | string | null
     taxa_depreciacao_interna?: Decimal | DecimalJsLike | number | string | null
     data_fim_depreciacao_interna?: Date | string | null
@@ -85166,7 +85166,7 @@ export namespace Prisma {
     data_descarte?: Date | string | null
     valor_compra: Decimal | DecimalJsLike | number | string
     tempo_garantia?: number | null
-    data_limite_garantia?: Date | string
+    data_limite_garantia: Date | string
     data_ativacao_gerencial?: Date | string | null
     taxa_depreciacao_interna?: Decimal | DecimalJsLike | number | string | null
     data_fim_depreciacao_interna?: Date | string | null
@@ -88082,7 +88082,7 @@ export namespace Prisma {
     data_descarte?: Date | string | null
     valor_compra: Decimal | DecimalJsLike | number | string
     tempo_garantia?: number | null
-    data_limite_garantia?: Date | string
+    data_limite_garantia: Date | string
     data_ativacao_gerencial?: Date | string | null
     taxa_depreciacao_interna?: Decimal | DecimalJsLike | number | string | null
     data_fim_depreciacao_interna?: Date | string | null
@@ -88105,7 +88105,7 @@ export namespace Prisma {
     responsavel_descarte_id?: string | null
     valor_compra: Decimal | DecimalJsLike | number | string
     tempo_garantia?: number | null
-    data_limite_garantia?: Date | string
+    data_limite_garantia: Date | string
     data_ativacao_gerencial?: Date | string | null
     taxa_depreciacao_interna?: Decimal | DecimalJsLike | number | string | null
     data_fim_depreciacao_interna?: Date | string | null
@@ -88124,7 +88124,7 @@ export namespace Prisma {
     preco_unitario?: Decimal | DecimalJsLike | number | string
     quantidade_comprada?: number
     valor_desconto?: Decimal | DecimalJsLike | number | string
-    preco_total_compra?: Decimal | DecimalJsLike | number | string
+    preco_total_compra: Decimal | DecimalJsLike | number | string
     data_compra: Date | string
     data_inicio_uso?: Date | string | null
     cadastradoEm?: Date | string
@@ -88139,7 +88139,7 @@ export namespace Prisma {
     preco_unitario?: Decimal | DecimalJsLike | number | string
     quantidade_comprada?: number
     valor_desconto?: Decimal | DecimalJsLike | number | string
-    preco_total_compra?: Decimal | DecimalJsLike | number | string
+    preco_total_compra: Decimal | DecimalJsLike | number | string
     data_compra: Date | string
     responsavel_compra_id: string
     data_inicio_uso?: Date | string | null
@@ -89885,7 +89885,7 @@ export namespace Prisma {
     responsavel_descarte_id?: string | null
     valor_compra: Decimal | DecimalJsLike | number | string
     tempo_garantia?: number | null
-    data_limite_garantia?: Date | string
+    data_limite_garantia: Date | string
     data_ativacao_gerencial?: Date | string | null
     taxa_depreciacao_interna?: Decimal | DecimalJsLike | number | string | null
     data_fim_depreciacao_interna?: Date | string | null
@@ -90041,7 +90041,7 @@ export namespace Prisma {
     responsavel_descarte_id?: string | null
     valor_compra: Decimal | DecimalJsLike | number | string
     tempo_garantia?: number | null
-    data_limite_garantia?: Date | string
+    data_limite_garantia: Date | string
     data_ativacao_gerencial?: Date | string | null
     taxa_depreciacao_interna?: Decimal | DecimalJsLike | number | string | null
     data_fim_depreciacao_interna?: Date | string | null
@@ -91837,7 +91837,7 @@ export namespace Prisma {
     preco_unitario?: Decimal | DecimalJsLike | number | string
     quantidade_comprada?: number
     valor_desconto?: Decimal | DecimalJsLike | number | string
-    preco_total_compra?: Decimal | DecimalJsLike | number | string
+    preco_total_compra: Decimal | DecimalJsLike | number | string
     data_compra: Date | string
     responsavel_compra_id: string
     data_inicio_uso?: Date | string | null
@@ -91851,7 +91851,7 @@ export namespace Prisma {
     preco_unitario?: Decimal | DecimalJsLike | number | string
     quantidade_comprada?: number
     valor_desconto?: Decimal | DecimalJsLike | number | string
-    preco_total_compra?: Decimal | DecimalJsLike | number | string
+    preco_total_compra: Decimal | DecimalJsLike | number | string
     data_compra: Date | string
     data_inicio_uso?: Date | string | null
     responsavel_uso_id?: string | null
@@ -91926,7 +91926,7 @@ export namespace Prisma {
     responsavel_descarte_id?: string | null
     valor_compra: Decimal | DecimalJsLike | number | string
     tempo_garantia?: number | null
-    data_limite_garantia?: Date | string
+    data_limite_garantia: Date | string
     data_ativacao_gerencial?: Date | string | null
     taxa_depreciacao_interna?: Decimal | DecimalJsLike | number | string | null
     data_fim_depreciacao_interna?: Date | string | null
@@ -91944,7 +91944,7 @@ export namespace Prisma {
     data_descarte?: Date | string | null
     valor_compra: Decimal | DecimalJsLike | number | string
     tempo_garantia?: number | null
-    data_limite_garantia?: Date | string
+    data_limite_garantia: Date | string
     data_ativacao_gerencial?: Date | string | null
     taxa_depreciacao_interna?: Decimal | DecimalJsLike | number | string | null
     data_fim_depreciacao_interna?: Date | string | null

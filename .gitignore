@@ -8,6 +8,7 @@ store/
 !pnpm-lock.yaml
 node-compile-cache/
 
+
 # ==============================================================================
 # 🚀 NEXT.JS / PRODUCTION BUILDS
 # ==============================================================================
@@ -77,11 +78,15 @@ log.txt
 coverage/
 
 # ==============================================================================
-# 🖥️ PASTAS LOCAIS DE SUPOSTE & INFORMAÇÃO
+# 🖥️ PASTAS E ARQUIVOS LOCAIS DE SUPOSTE & INFORMAÇÃO
 # ==============================================================================
 application_stack_help/
+linux_stack_help/
 backup_data_base_structure/
 documentation_stack_app_info/
+# Arquivo de teste local que não deve ser commitado
+test.library.ts
+test.prisma.ts
 
 #----------------------------------------
 #-----comandos para rodar esporadicamente

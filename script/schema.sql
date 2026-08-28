@@ -61,33 +61,15 @@ CREATE TABLE cargo_usuario (
     "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO cargo_usuario (nome_cargo, descricao) VALUES 
-('administrador', NULL),
-('vendedor', NULL),
-('mecanico', NULL),
-('estoquista', NULL),
-('gerente', NULL),
-('desenvolvedor', NULL),
-('funcionario', NULL),
-('eletricista', NULL),
-('desmontador', NULL),
-('auxiliar_de_estoque', NULL),
-('auxiliar_administrativo', NULL),
-('limpador', NULL),
-('outros', NULL) ON CONFLICT DO NOTHING;
-
-CREATE TABLE status_ativo (
+CREATE TABLE status_ativo_produto (
     id SERIAL PRIMARY KEY,
     status_objeto VARCHAR(50) NOT NULL,
     "cadastradoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT chk_status_ativo CHECK (status_objeto IN ('ATIVO', 'TOTALMENTE_DEPRECIADO', 'BAIXADO_VENDIDO', 'BAIXADO_SUCATA'))
+    CONSTRAINT chk_status_ativo_produto CHECK (status_objeto IN ('ATIVO', 'TOTALMENTE_DEPRECIADO', 'BAIXADO_VENDIDO', 'BAIXADO_SUCATA'))
 );
 
-INSERT INTO status_ativo (status_objeto) VALUES ('ATIVO', 'TOTALMENTE_DEPRECIADO', 'BAIXADO_VENDIDO', 'BAIXADO_SUCATA') ON CONFLICT DO NOTHING;
-
-CREATE TABLE setor_usuario (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
+CREATE TABLE setor_usuario (id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
     setor VARCHAR(50) UNIQUE NOT NULL,
     descricao VARCHAR(255),
     "cadastradoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -101,28 +83,12 @@ CREATE TABLE status_usuario (
     "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO status_usuario (status) VALUES ('ativo', 'inativo', 'suspenso', 'pendente', 'demitido', 'aposentado') ON CONFLICT DO NOTHING;
-
 CREATE TABLE status_sucata (
     id SERIAL PRIMARY KEY,
     status VARCHAR(50) UNIQUE NOT NULL,
     "cadastradoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
-
-INSERT INTO status_sucata (status) VALUES ('Em_desmonte',
-  'Em_manutencao',
-  'Concluido',
-  'Indisponivel',
-  'Disponivel',
-  'Vendido',
-  'Reservado',
-  'Aguardando_avaliacao',
-  'Em_avaliacao',
-  'Rejeitado',
-  'Aprovado',
-  'Em_estoque',
-  'Fora_de_estoque');
 
 CREATE TABLE status_item (
     id SERIAL PRIMARY KEY,
@@ -131,21 +97,6 @@ CREATE TABLE status_item (
     "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO status_item (status) VALUES ('Disponivel',
-  'Indisponivel',
-  'Reservado',
-  'Vendido',
-  'Em_avaliacao',
-  'Rejeitado',
-  'Aprovado',
-  'Em_estoque',
-  'Fora_de_estoque',
-  'Devolvido')
-  ON CONFLICT DO NOTHING;
-
-INSERT INTO status_item (status) VALUES ('Disponivel') ON CONFLICT DO NOTHING;
-INSERT INTO status_item (status) VALUES ('Devolvido') ON CONFLICT DO NOTHING;
-
 CREATE TABLE status_pedido (
     id SERIAL PRIMARY KEY,
     status VARCHAR(50) UNIQUE NOT NULL,
@@ -153,22 +104,18 @@ CREATE TABLE status_pedido (
     "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO status_pedido (status) VALUES ('Autorizado', 'Pendente', 'Em_avaliacao', 'Rejeitado', 'Nao_autorizado', 'cancelado') ON CONFLICT DO NOTHING;
-
 CREATE TABLE status_venda (
-    id SERIAL PRIMARY KEY,
-    status VARCHAR(50) UNIQUE NOT NULL,
+    "id" SERIAL PRIMARY KEY,
+    "status" VARCHAR(50) UNIQUE NOT NULL,
     "cadastradoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE tipo_servico (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
     nome_servico VARCHAR(150) NOT NULL UNIQUE, 
     categoria_servico INT NOT NULL -- 1 == 'Pendente'; 2 == 'Em andamento'
 );
-
---CREATE TYPE categoria_peca AS ENUM ('Motor e componentes', 'Elétrica e componentes', 'Carroceria', 'Sistema de iluminação interior', 'Rodas e Pneus', 'Sistema de arrefecimento', 'Sistema de combustível', 'Sistema de direção', 'Sistema de embreagem', 'Sistema de injeção eletrônica', 'Sistema de transmissão', 'Sistema de suspensão', 'Sistema de freios', 'Sistema elétrico', 'Sistema de vidros e espelhos', 'Sistema de iluminação exterior', 'Sistema de exaustão', 'Ar-condicionado', 'Outros');
 
 CREATE TABLE categoria_peca (
     id SERIAL PRIMARY KEY,
@@ -195,21 +142,6 @@ CREATE TABLE status_manutencao (
     "cadastradoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
-
-INSERT INTO status_manutencao (status) VALUES 
-('Concluida'), 
-('Cancelada'), 
-('Aguardando peças'), 
-('Aguardando avaliação'), 
-('Rejeitada'), 
-('Aprovada'), 
-('Pendente'), 
-('Em andamento'),
-('Em avaliação'),
-('Rejeitada'),
-('Não autorizada'),
-('Cancelada')
-ON CONFLICT DO NOTHING;
 
 --------------------------------------------------------------------------------
 -- 2. CRIAÇÃO DAS TABELAS BASE (SEM DEPENDÊNCIAS REVERSAS)
@@ -244,12 +176,6 @@ CREATE TABLE marcas_veiculo (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     nome VARCHAR(50) UNIQUE NOT NULL
 );
-
-INSERT INTO marcas_veiculo (nome) VALUES 
-('Fiat'), ('Volkswagen'), ('Chevrolet'), ('Hyundai'), ('Toyota'), ('Jeep'), 
-('Renault'), ('Honda'), ('Nissan'), ('BYD'), ('GWM'), ('Caoa Chery'), 
-('Ford'), ('Peugeot'), ('Citroën'), ('Mitsubishi'), ('BMW'), ('Mercedes-Benz'), 
-('Audi'), ('Volvo'), ('Land Rover'), ('Porsche'), ('Kia'), ('Ram'), ('Jaguar');
 
 CREATE TABLE modelos (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -288,21 +214,6 @@ CREATE TABLE tipo_despesa_fixa (
     "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO tipo_despesa_fixa (nome) VALUES
-('Aluguel'),
-('Pro-labore'),
-('Internet'),
-('Salario fixo'),
-('Água'),
-('Energia eletrica'),
-('IPTU'),
-('Contador'),
-('Despesas com informática'),
-('Segurança e vigilância'),
-('Controle de resíduos e descartes de materiais'),
-('OUTRAS DESPESAS FIXAS')
-ON CONFLICT DO NOTHING;
-
 CREATE TABLE tipo_despesa_variavel (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) UNIQUE NOT NULL,
@@ -310,31 +221,12 @@ CREATE TABLE tipo_despesa_variavel (
     "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO tipo_despesa_variavel (nome) VALUES
-('Matéria prima'),
-('Peças de reposição'),
-('Impostos sobre vendas'),
-('Logística e transporte'),
-('Comissões e mão de obra'),
-('Insumos de produção'),
-('Taxas de cartão'),
-('OUTRAS DESPESAS VARIÁVEIS')
-ON CONFLICT DO NOTHING;
-
 CREATE TABLE tipo_conta_plano (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(50) UNIQUE NOT NULL,
     cadastradoEm TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     atualizadoEm TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
-
-INSERT INTO tipo_conta_plano (nome) VALUES
-('RECEITA_BRUTA'),
-('DEDUCAO_RECEITA'),
-('CUSTO_VARIAVEL'),
-('DESPESA_FIXA'),
-('INVESTIMENTO')
-ON CONFLICT DO NOTHING;
 
 CREATE TABLE plano_contas (
     id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
@@ -379,22 +271,6 @@ CREATE TABLE cor_veiculo (
     "atualizadoEm" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO cor_veiculo (cor) VALUES ('Preto',
-  'Branco',
-  'Prata',
-  'Cinza',
-  'Vermelho',
-  'Azul',
-  'Amarelo',
-  'Verde',
-  'Laranja',
-  'Roxo',
-  'Marrom',
-  'Dourado',
-  'Grafite',
-  'Indefinida',
-  'Outros');
-
 CREATE TABLE sucata_estoque (
     id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
     modelo_id INT NOT NULL,
@@ -432,28 +308,6 @@ CREATE TABLE peca_estoque (
     CONSTRAINT fk_localizacao_peca FOREIGN KEY (localizacao_peca) REFERENCES localizacao_peca(id) ON DELETE CASCADE,
     constraint fk_status_peca FOREIGN KEY (status_peca) REFERENCES status_item(id) ON DELETE CASCADE ON UPDATE RESTRICT
 );
-
-INSERT INTO categoria_peca (nome) VALUES
-('Motor e componentes'),
-('Elétrica e componentes'),
-('Carroceria'),
-('Sistema de iluminação interior'),
-('Rodas e Pneus'),
-('Sistema de arrefecimento'),
-('Sistema de combustível'),
-('Sistema de direção'),
-('Sistema de embreagem'),
-('Sistema de injeção eletrônica'),
-('Sistema de transmissão'),
-('Sistema de suspensão'),
-('Sistema de freios'),
-('Sistema elétrico'),
-('Sistema de vidros e espelhos'),
-('Sistema de iluminação exterior'),
-('Sistema de exaustão'),
-('Ar-condicionado'),
-('Outros')
-ON CONFLICT DO NOTHING;
 
 CREATE TABLE peca_imagens (
     id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
@@ -520,7 +374,7 @@ CREATE TABLE pedidos_vendas (
     CONSTRAINT uc_parceiro_venda UNIQUE (parceiro_comprador_id, responsavel_venda_id, data_venda)
 );
 
-CREATE TABLE itens_pedido_vendas (
+CREATE TABLE itens_pedidos_vendas (
     id UUID PRIMARY KEY DEFAULT gen_random_uuidv7(),
     pedido_venda_id UUID NOT NULL,
     peca_estoque_id UUID UNIQUE NOT NULL,
@@ -576,8 +430,97 @@ CREATE TABLE servico_manutencao (
     CONSTRAINT uc_veiculo_parceiro_manutencao UNIQUE (veiculo_manutencao_id, parceiro_id, data_manutencao)
 );
 
--- FUNÇÃO PARA IMPEDIR ALGUÉM DELETAR ID DAS TABELAS USUARIOS, ESTOQUE_OBJETOS_DURAVEIS, ESTOQUE_OBJETOS_GENERICOS, DESPESAS, SUCATA_ESTOQUE, PECA_ESTOQUE, PECA_IMAGENS, COMPATIBILIDADE_PEÇAS, PEDIDOS_VENDAS, ITENS_PEDIDO_VENDAS, SUCATA_COMPRAS, parceiros, SERVICO_MANUTENCAO E veiculo_parceiro_MANUTENCAO
------------->
+-------------------------------------------------------------------------
+-- 1. CRIAÇÃO DE ÍNDICES PARA OTIMIZAÇÃO (INDEX)
+------------------------------------------------------------------------
+CREATE INDEX idx_sucata_modelo_chassi ON sucata_estoque (modelo_id, chassi);
+
+CREATE INDEX idx_sucata_modelo_data_entrada ON sucata_estoque (modelo_id, data_entrada);
+
+CREATE INDEX idx_pecas_nome_categoria ON peca_estoque (nome_peca, categoria);-------------------------------------------------------------------------
+-- 2. QUERIES DE CONSULTA (VIEWS / TESTES DE RELACIONAMENTO)
+-------------------------------------------------------------------------
+
+-- Consulta de Serviços de Manutenção com parceiros e Mecânicos
+SELECT 
+    s.id AS ordem_servico,
+    c.nome_parceiro,
+    u.nome AS nome_mecanico,
+    s.preco
+FROM servico_manutencao s
+INNER JOIN parceiros c ON s.parceiro_id = c.id
+INNER JOIN usuarios u ON s.responsavel_id = u.id;
+
+-- Consulta de Veículos em Manutenção com Modelos e Proprietários
+SELECT 
+    v.id AS veiculo_id,
+    m.marcas_veiculo_id,
+    m.nome_modelo,
+    c.nome_parceiro AS proprietario
+FROM veiculo_parceiro_manutencao v
+JOIN modelos m ON v.modelo_id = m.id
+JOIN parceiros c ON v.parceiro_id = c.id;
+
+-- ============================================================================
+TRIGGERS
+-- ============================================================================
+
+CREATE OR REPLACE FUNCTION fn_calcular_preco_total_item()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Multiplica quantidade pelo preço unitário e subtrai o desconto
+    NEW.preco_total := (NEW.quantidade * NEW.preco_unitario) - COALESCE(NEW.valor_desconto, 0.00);
+    
+    -- Garante que o valor total do item nunca seja negativo
+    IF NEW.preco_total < 0 THEN
+        NEW.preco_total := 0.00;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Gatilho executado ANTES de salvar a linha no banco
+CREATE OR REPLACE TRIGGER tg_calcular_preco_total_item
+BEFORE INSERT OR UPDATE ON itens_pedidos_vendas
+FOR EACH ROW
+EXECUTE FUNCTION fn_calcular_preco_total_item();
+
+---x
+-- ============================================================================
+------------------>
+CREATE OR REPLACE FUNCTION fn_atualizar_valor_total_pedido()
+RETURNS TRIGGER AS $$
+DECLARE
+    v_pedido_id UUID;
+BEGIN
+    -- Identifica o ID do pedido afetado (funciona em INSERT, UPDATE e DELETE)
+    IF TG_OP = 'DELETE' THEN
+        v_pedido_id := OLD.pedido_venda_id;
+    ELSE
+        v_pedido_id := NEW.pedido_venda_id;
+    END IF;
+
+    -- Atualiza a tabela pai com a soma de todos os itens filhos vigentes
+    UPDATE pedidos_vendas
+    SET valor_total = COALESCE((
+        SELECT SUM(preco_total) 
+        FROM itens_pedidos_vendas 
+        WHERE pedido_venda_id = v_pedido_id
+    ), 0.00)
+    WHERE id = v_pedido_id;
+
+    RETURN NULL; -- Triggers do tipo AFTER EACH ROW podem retornar NULL
+END;
+$$ LANGUAGE plpgsql;
+
+-- Gatilho executado DEPOIS de consolidar as alterações dos itens
+CREATE OR REPLACE TRIGGER tg_atualizar_valor_total_pedido
+AFTER INSERT OR UPDATE OR DELETE ON itens_pedidos_vendas
+FOR EACH ROW
+EXECUTE FUNCTION fn_atualizar_valor_total_pedido();
+--------------------X
+
 CREATE OR REPLACE FUNCTION impedir_alterar_id_usuario()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -593,7 +536,7 @@ DECLARE
     tabelas TEXT[] := ARRAY[
         'parceiros', 'estoque_objetos_duraveis', 'estoque_objetos_genericos', 
         'despesas', 'sucata_estoque', 'peca_estoque', 'peca_imagens', 
-        'compatibilidade_pecas', 'pedidos_vendas', 'itens_pedido_vendas', 
+        'compatibilidade_pecas', 'pedidos_vendas', 'itens_pedidos_vendas', 
         'sucata_compras', 'parceiros', 'servico_manutencao', 'veiculo_parceiro_manutencao'
     ];
     tabela TEXT;
@@ -703,7 +646,7 @@ $$ LANGUAGE plpgsql;
 
 --  Cria o gatilho associado à tabela de itens
 CREATE TRIGGER trg_devolucao_peca
-AFTER UPDATE ON itens_pedido_vendas
+AFTER UPDATE ON itens_pedidos_vendas
 FOR EACH ROW
 EXECUTE FUNCTION atualizar_estoque_por_devolucao();
 ---------------------X
@@ -729,7 +672,7 @@ $$ LANGUAGE plpgsql;
 
 -- 2. Cria o gatilho (roda ANTES de inserir o item no banco)
 CREATE TRIGGER trg_definir_garantia
-BEFORE INSERT ON itens_pedido_vendas
+BEFORE INSERT ON itens_pedidos_vendas
 FOR EACH ROW
 EXECUTE FUNCTION definir_garantia_90_dias();
 --------------------------x
@@ -762,13 +705,351 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER trg_validar_venda_peca
-BEFORE INSERT ON itens_pedido_vendas
+BEFORE INSERT ON itens_pedidos_vendas
 FOR EACH ROW EXECUTE FUNCTION validar_e_baixar_estoque();
 ---------------------------------X
 
--- Inserindo o usuário Administrador (Senha limpa: SenhaSecretaDoFerroVelho123)
---INSERT INTO usuarios (id, nome, email, senha_hash, cargo_usuario, setor_usuario, nivel_acesso, status_usuario, data_admissao, data_cadastro_sistema)
---VALUES ('da009a72-132d-45db-99e2-3ba28fef6f82', 'tizolim', 'admin@ferrovelho.com', '$2b$10$fW3N6D0S8FvX7X5678901eG7KjJ2kL1mN3hJ2kL1mN.eA7bC6dEfG', 'administrador', 'administrativo', '4', 'ativo', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+CREATE OR REPLACE FUNCTION fn_calcular_preco_total_item() 
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Multiplica quantidade_comprada pelo preco_unitario e subtrai o valor_desconto
+    NEW.preco_total_compra := (NEW.quantidade_comprada * NEW.preco_unitario) - COALESCE(NEW.valor_desconto, 0.00);
+
+    -- Garante que o valor total do item nunca seja negativo
+    IF NEW.preco_total_compra < 0 THEN
+        NEW.preco_total_compra := 0.00;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER tg_calcular_preco_total_item
+BEFORE INSERT OR UPDATE ON estoque_objetos_genericos
+FOR EACH ROW EXECUTE FUNCTION fn_calcular_preco_total_item();
+
+
+
+-- 1. Cria a função genérica que atualiza o TIMESTAMP(6) (executada apenas uma vez no banco)
+CREATE OR REPLACE FUNCTION atualiza_timestamp_auditoria()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW."atualizadoEm" = CURRENT_TIMESTAMP;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- 2. Cria a Trigger específica para cada tabela (Repita este bloco para cada model que possuir o campo)
+CREATE TRIGGER trigger_atualizadoEm_cargo_usuario
+    BEFORE UPDATE ON cargo_usuario
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_status_ativo_produto
+    BEFORE UPDATE ON status_ativo_produto
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_setor_usuario
+    BEFORE UPDATE ON setor_usuario
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_status_usuario
+    BEFORE UPDATE ON status_usuario
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_status_sucata
+    BEFORE UPDATE ON status_sucata
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_status_item
+    BEFORE UPDATE ON status_item
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_status_pedido
+    BEFORE UPDATE ON status_pedido
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_status_venda
+    BEFORE UPDATE ON status_venda
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_tipo_servico
+    BEFORE UPDATE ON tipo_servico
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_categoria_peca
+    BEFORE UPDATE ON categoria_peca
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_localizacao_peca
+    BEFORE UPDATE ON localizacao_peca
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_status_manutencao
+    BEFORE UPDATE ON status_manutencao
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_nivel_acesso
+    BEFORE UPDATE ON nivel_acesso
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_usuario
+    BEFORE UPDATE ON usuario
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_marcas_veiculo
+    BEFORE UPDATE ON marcas_veiculo
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_modelo
+    BEFORE UPDATE ON modelo
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_estoque_objetos_duraveis
+    BEFORE UPDATE ON estoque_objetos_duraveis
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_estoque_objetos_genericos
+    BEFORE UPDATE ON estoque_objetos_genericos
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_tipo_despesa_fixa
+    BEFORE UPDATE ON tipo_despesa_fixa
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_tipo_despesa_variavel
+    BEFORE UPDATE ON tipo_despesa_variavel
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_tipo_conta_plano
+    BEFORE UPDATE ON tipo_conta_plano
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_plano_contas
+    BEFORE UPDATE ON plano_contas
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_despesas
+    BEFORE UPDATE ON despesas
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_cor_veiculo
+    BEFORE UPDATE ON cor_veiculo
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_sucata_estoque
+    BEFORE UPDATE ON sucata_estoque
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_peca_estoque
+    BEFORE UPDATE ON peca_estoque
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_peca_imagens
+    BEFORE UPDATE ON peca_imagens
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_parceiros
+    BEFORE UPDATE ON parceiros
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_compatibilidade_pecas
+    BEFORE UPDATE ON compatibilidade_pecas
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_pedidos_vendas
+    BEFORE UPDATE ON pedidos_vendas
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_sucata_compras
+    BEFORE UPDATE ON sucata_compras
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_veiculo_parceiro_manutencao
+    BEFORE UPDATE ON veiculo_parceiro_manutencao
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+CREATE TRIGGER trigger_atualizadoEm_servico_manutencao
+    BEFORE UPDATE ON servico_manutencao
+    FOR EACH ROW
+    EXECUTE FUNCTION atualiza_timestamp_auditoria();
+
+-----x
+
+----> INSERT INTO
+INSERT INTO cargo_usuario (nome_cargo, descricao) VALUES 
+('administrador', NULL),
+('vendedor', NULL),
+('mecanico', NULL),
+('estoquista', NULL),
+('gerente', NULL),
+('desenvolvedor', NULL),
+('funcionario', NULL),
+('eletricista', NULL),
+('desmontador', NULL),
+('auxiliar_de_estoque', NULL),
+('auxiliar_administrativo', NULL),
+('limpador', NULL),
+('outros', NULL) ON CONFLICT DO NOTHING;
+
+INSERT INTO status_ativo_produto (status_objeto) VALUES ('ATIVO', 'TOTALMENTE_DEPRECIADO', 'BAIXADO_VENDIDO', 'BAIXADO_SUCATA') ON CONFLICT DO NOTHING;
+
+INSERT INTO status_usuario (status) VALUES ('ativo', 'inativo', 'suspenso', 'pendente', 'demitido', 'aposentado') ON CONFLICT DO NOTHING;
+
+INSERT INTO status_sucata (status) VALUES ('Em_desmonte',
+  'Em_manutencao',
+  'Concluido',
+  'Indisponivel',
+  'Disponivel',
+  'Vendido',
+  'Reservado',
+  'Aguardando_avaliacao',
+  'Em_avaliacao',
+  'Rejeitado',
+  'Aprovado',
+  'Em_estoque',
+  'Fora_de_estoque') ON CONFLICT DO NOTHING;
+
+INSERT INTO status_item (status) VALUES ('Disponivel',
+  'Indisponivel',
+  'Reservado',
+  'Vendido',
+  'Em_avaliacao',
+  'Rejeitado',
+  'Aprovado',
+  'Em_estoque',
+  'Fora_de_estoque',
+  'Devolvido')
+  ON CONFLICT DO NOTHING;
+
+INSERT INTO status_pedido (status) VALUES ('Autorizado', 'Pendente', 'Em_avaliacao', 'Rejeitado', 'Nao_autorizado', 'cancelado') ON CONFLICT DO NOTHING;
+
+INSERT INTO status_manutencao (status) VALUES 
+('Concluida'), 
+('Cancelada'), 
+('Aguardando peças'), 
+('Aguardando avaliação'), 
+('Rejeitada'), 
+('Aprovada'), 
+('Pendente'), 
+('Em andamento'),
+('Em avaliação'),
+('Rejeitada'),
+('Não autorizada'),
+('Cancelada')
+ON CONFLICT DO NOTHING;
+
+INSERT INTO marcas_veiculo (nome) VALUES 
+('Fiat'), ('Volkswagen'), ('Chevrolet'), ('Hyundai'), ('Toyota'), ('Jeep'), 
+('Renault'), ('Honda'), ('Nissan'), ('BYD'), ('GWM'), ('Caoa Chery'), 
+('Ford'), ('Peugeot'), ('Citroën'), ('Mitsubishi'), ('BMW'), ('Mercedes-Benz'), 
+('Audi'), ('Volvo'), ('Land Rover'), ('Porsche'), ('Kia'), ('Ram'), ('Jaguar')
+ON CONFLICT DO NOTHING;
+
+INSERT INTO tipo_despesa_fixa (nome) VALUES
+('Aluguel'),
+('Pro-labore'),
+('Internet'),
+('Salario fixo'),
+('Água'),
+('Energia eletrica'),
+('IPTU'),
+('Contador'),
+('Despesas com informática'),
+('Segurança e vigilância'),
+('Controle de resíduos e descartes de materiais'),
+('OUTRAS DESPESAS FIXAS')
+ON CONFLICT DO NOTHING;
+
+INSERT INTO tipo_despesa_variavel (nome) VALUES
+('Matéria prima'),
+('Peças de reposição'),
+('Impostos sobre vendas'),
+('Logística e transporte'),
+('Comissões e mão de obra'),
+('Insumos de produção'),
+('Taxas de cartão'),
+('OUTRAS DESPESAS VARIÁVEIS')
+ON CONFLICT DO NOTHING;
+
+INSERT INTO tipo_conta_plano (nome) VALUES
+('RECEITA_BRUTA'),
+('DEDUCAO_RECEITA'),
+('CUSTO_VARIAVEL'),
+('DESPESA_FIXA'),
+('INVESTIMENTO')
+ON CONFLICT DO NOTHING;
+
+INSERT INTO cor_veiculo (cor) VALUES ('Preto',
+  'Branco',
+  'Prata',
+  'Cinza',
+  'Vermelho',
+  'Azul',
+  'Amarelo',
+  'Verde',
+  'Laranja',
+  'Roxo',
+  'Marrom',
+  'Dourado',
+  'Grafite',
+  'Indefinida',
+  'Outros')
+ON CONFLICT DO NOTHING;
+
+INSERT INTO categoria_peca (nome) VALUES
+('Motor e componentes'),
+('Elétrica e componentes'),
+('Carroceria'),
+('Sistema de iluminação interior'),
+('Rodas e Pneus'),
+('Sistema de arrefecimento'),
+('Sistema de combustível'),
+('Sistema de direção'),
+('Sistema de embreagem'),
+('Sistema de injeção eletrônica'),
+('Sistema de transmissão'),
+('Sistema de suspensão'),
+('Sistema de freios'),
+('Sistema elétrico'),
+('Sistema de vidros e espelhos'),
+('Sistema de iluminação exterior'),
+('Sistema de exaustão'),
+('Ar-condicionado'),
+('Outros')
+ON CONFLICT DO NOTHING;
 
 --query para inserir os modelos de veículos na tabela modelos, associando cada modelo à sua respectiva marca utilizando o tipo ENUM criado anteriormente
 INSERT INTO modelos (marcas_veiculo_id, nome_modelo) 
@@ -994,6 +1275,8 @@ VALUES
     ((SELECT id FROM marcas_veiculo WHERE nome = 'Ram'), '3500')
     ON CONFLICT (marcas_veiculo_id, nome_modelo) DO NOTHING;
 
+-- COMANDOS SQLs ÚTEIS 
+
 --visualizar as tabelas criadas
 --SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_type = 'BASE TABLE';
 
@@ -1003,133 +1286,6 @@ VALUES
 --alterar o enum para adicionar um nova opção de marca
 --ALTER TYPE marca_veiculo ADD VALUE 'Outra';
 
--------------------------------------------------------------------------
--- 1. CRIAÇÃO DE ÍNDICES PARA OTIMIZAÇÃO (INDEX)
-------------------------------------------------------------------------
-CREATE INDEX idx_sucata_modelo_chassi ON sucata_estoque (modelo_id, chassi);
-
-CREATE INDEX idx_sucata_modelo_data_entrada ON sucata_estoque (modelo_id, data_entrada);
-
-CREATE INDEX idx_pecas_nome_categoria ON peca_estoque (nome_peca, categoria);-------------------------------------------------------------------------
--- 2. QUERIES DE CONSULTA (VIEWS / TESTES DE RELACIONAMENTO)
--------------------------------------------------------------------------
-
--- Consulta de Serviços de Manutenção com parceiros e Mecânicos
-SELECT 
-    s.id AS ordem_servico,
-    c.nome_parceiro,
-    u.nome AS nome_mecanico,
-    s.preco
-FROM servico_manutencao s
-INNER JOIN parceiros c ON s.parceiro_id = c.id
-INNER JOIN usuarios u ON s.responsavel_id = u.id;
-
--- Consulta de Veículos em Manutenção com Modelos e Proprietários
-SELECT 
-    v.id AS veiculo_id,
-    m.marcas_veiculo_id,
-    m.nome_modelo,
-    c.nome_parceiro AS proprietario
-FROM veiculo_parceiro_manutencao v
-JOIN modelos m ON v.modelo_id = m.id
-JOIN parceiros c ON v.parceiro_id = c.id;
-
--- ============================================================================
--- 1. AUTOMAÇÃO PARA OS ITENS DO PEDIDO (Calcula preco_total do item)
--- ============================================================================
-
-CREATE OR REPLACE FUNCTION fn_calcular_preco_total_item()
-RETURNS TRIGGER AS $$
-BEGIN
-    -- Multiplica quantidade pelo preço unitário e subtrai o desconto
-    NEW.preco_total := (NEW.quantidade * NEW.preco_unitario) - COALESCE(NEW.valor_desconto, 0.00);
-    
-    -- Garante que o valor total do item nunca seja negativo
-    IF NEW.preco_total < 0 THEN
-        NEW.preco_total := 0.00;
-    END IF;
-
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
--- Gatilho executado ANTES de salvar a linha no banco
-CREATE OR REPLACE TRIGGER tg_calcular_preco_total_item
-BEFORE INSERT OR UPDATE ON itens_pedido_vendas
-FOR EACH ROW
-EXECUTE FUNCTION fn_calcular_preco_total_item();
-
-
--- ============================================================================
--- 2. AUTOMAÇÃO PARA O CABEÇALHO DO PEDIDO (Soma os itens no valor_total)
--- ============================================================================
------------------->
-CREATE OR REPLACE FUNCTION fn_atualizar_valor_total_pedido()
-RETURNS TRIGGER AS $$
-DECLARE
-    v_pedido_id UUID;
-BEGIN
-    -- Identifica o ID do pedido afetado (funciona em INSERT, UPDATE e DELETE)
-    IF TG_OP = 'DELETE' THEN
-        v_pedido_id := OLD.pedido_venda_id;
-    ELSE
-        v_pedido_id := NEW.pedido_venda_id;
-    END IF;
-
-    -- Atualiza a tabela pai com a soma de todos os itens filhos vigentes
-    UPDATE pedidos_vendas
-    SET valor_total = COALESCE((
-        SELECT SUM(preco_total) 
-        FROM itens_pedido_vendas 
-        WHERE pedido_venda_id = v_pedido_id
-    ), 0.00)
-    WHERE id = v_pedido_id;
-
-    RETURN NULL; -- Triggers do tipo AFTER EACH ROW podem retornar NULL
-END;
-$$ LANGUAGE plpgsql;
-
--- Gatilho executado DEPOIS de consolidar as alterações dos itens
-CREATE OR REPLACE TRIGGER tg_atualizar_valor_total_pedido
-AFTER INSERT OR UPDATE OR DELETE ON itens_pedido_vendas
-FOR EACH ROW
-EXECUTE FUNCTION fn_atualizar_valor_total_pedido();
---------------------X
-/*
-CREATE OR REPLACE FUNCTION fn_calcular_preco_total_item() 
-RETURNS TRIGGER AS $$
-BEGIN
-    -- Multiplica quantidade_comprada pelo preco_unitario e subtrai o valor_desconto
-    NEW.preco_total_compra := (NEW.quantidade_comprada * NEW.preco_unitario) - COALESCE(NEW.valor_desconto, 0.00);
-
-    -- Garante que o valor total do item nunca seja negativo
-    IF NEW.preco_total_compra < 0 THEN
-        NEW.preco_total_compra := 0.00;
-    END IF;
-
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE OR REPLACE TRIGGER tg_calcular_preco_total_item
-BEFORE INSERT OR UPDATE ON estoque_objetos_genericos
-FOR EACH ROW EXECUTE FUNCTION fn_calcular_preco_total_item();
-*/
-
-/*
--- 1. Cria a função genérica que atualiza o TIMESTAMP(6) (executada apenas uma vez no banco)
-CREATE OR REPLACE FUNCTION atualiza_timestamp_auditoria()
-RETURNS TRIGGER AS $$
-BEGIN
-    NEW."atualizadoEm" = CURRENT_TIMESTAMP;
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
--- 2. Cria a Trigger específica para cada tabela (Repita este bloco para cada model que possuir o campo)
-CREATE TRIGGER trigger_atualiza_modelo
-    BEFORE UPDATE ON "SeuModelo"
-    FOR EACH ROW
-    EXECUTE FUNCTION atualiza_timestamp_auditoria();
-
-*/
+-- Inserindo o usuário Administrador (Senha limpa: SenhaSecretaDoFerroVelho123)
+--INSERT INTO usuarios (id, nome, email, senha_hash, cargo_usuario, setor_usuario, nivel_acesso, status_usuario, data_admissao, data_cadastro_sistema)
+--VALUES ('da009a72-132d-45db-99e2-3ba28fef6f82', 'tizolim', 'admin@ferrovelho.com', '$2b$10$fW3N6D0S8FvX7X5678901eG7KjJ2kL1mN3hJ2kL1mN.eA7bC6dEfG', 'administrador', 'administrativo', '4', 'ativo', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);

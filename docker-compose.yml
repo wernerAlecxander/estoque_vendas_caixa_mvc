@@ -144,7 +144,7 @@ services:
 volumes:
   postgres_data:
     name: postgres_data # dá um  nome ao volume para que ele não seja deletado quando o docker compose for executado.
-    #external: true # impede que o docker compose down delete o volume de dados do banco de dados
+    external: true # impede que o docker compose down delete o volume de dados do banco de dados. "docker volume create postgres_data"
   node_modules_app:
   node_modules_studio:
   node_modules_test:
