@@ -2,6 +2,7 @@
 # 📦 GERENCIADORES DE PACOTES (pnpm)
 # ==============================================================================
 node_modules
+node_modules_prisma-studio
 .pnpm-store/
 .pnpm-debug.log*
 store/
@@ -71,8 +72,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-logs.txt
-log.txt
+logs.*
+log.*
 
 # Cobertura de Testes (caso adicione Jest/Vitest)
 coverage/
@@ -80,6 +81,7 @@ coverage/
 # ==============================================================================
 # 🖥️ PASTAS E ARQUIVOS LOCAIS DE SUPOSTE & INFORMAÇÃO
 # ==============================================================================
+folders_stack_helps
 application_stack_help/
 linux_stack_help/
 backup_data_base_structure/

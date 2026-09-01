@@ -170,7 +170,7 @@ CREATE TABLE usuarios (
     CONSTRAINT fk_setor_usuario_id FOREIGN KEY (setor_usuario) REFERENCES setor_usuario(id) ON DELETE CASCADE ON UPDATE RESTRICT,
     CONSTRAINT fk_nivel_acesso_id FOREIGN KEY (nivel_acesso) REFERENCES nivel_acesso(id) ON DELETE CASCADE ON UPDATE RESTRICT,
     CONSTRAINT fk_status_usuario_id FOREIGN KEY (status_usuario) REFERENCES status_usuario(id) ON DELETE CASCADE ON UPDATE RESTRICT
-);TIMESTAMP(6) 
+); 
 
 CREATE TABLE marcas_veiculo (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,

@@ -1,7 +1,5 @@
-// ./auth.config.ts
-/*
-Este arquivo não deve conter nenhuma dependência de banco de dados ou criptografia Node.js.
-*/
+//Este arquivo não deve conter nenhuma dependência de banco de dados ou criptografia Node.js.
+
 import type { NextAuthConfig } from "next-auth";//
 
 export const authConfig: NextAuthConfig = {
